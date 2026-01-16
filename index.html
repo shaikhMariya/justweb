@@ -1,44 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Adventure</title>
-  <link rel="stylesheet" href="style.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariya | DevOps & Linux Journal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="bg-gray-900 text-gray-100 font-sans">
 
-<header class="navbar">
-  <h1 class="logo">Adventure</h1>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Places</a>
-    <a href="#">Adventure</a>
-    <a href="#" class="btn">Contact</a>
-  </nav>
-</header>
+    <header class="py-10 text-center bg-gradient-to-r from-blue-900 to-black shadow-xl">
+        <h1 class="text-4xl font-extrabold text-blue-400">Mariya's DevOps Journey</h1>
+        <p class="mt-2 text-gray-400 italic">"Learning to automate the world, one command at a time."</p>
+        <div class="mt-6">
+            <a href="https://www.youtube.com/@maze_zone" class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-full font-bold transition">Visit Maze Zone 🎥</a>
+        </div>
+    </header>
 
-<section class="hero">
-  <div class="hero-content">
-    <h2>Wonderful Adventure</h2>
-    <p>Explore the colorful world</p>
-    <button>Explore Now</button>
-  </div>
-</section>
+    <main class="max-w-5xl mx-auto p-6">
+        
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold border-b-2 border-blue-500 pb-2 mb-6 text-blue-300">🐧 Essential Linux Commands</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <code class="text-green-400 font-bold">ls -la</code>
+                    <p class="text-sm text-gray-400 mt-1">Sari files aur hidden files ki list details ke sath dekhne ke liye.</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <code class="text-green-400 font-bold">mkdir -p folder/sub</code>
+                    <p class="text-sm text-gray-400 mt-1">Ek saath pura path (multiple folders) banane ke liye.</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <code class="text-green-400 font-bold">chmod 755 file.sh</code>
+                    <p class="text-sm text-gray-400 mt-1">File ko execute karne ki permission dene ke liye.</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <code class="text-green-400 font-bold">grep "text" file.txt</code>
+                    <p class="text-sm text-gray-400 mt-1">Kisi file ke andar specific text dhoondne ke liye.</p>
+                </div>
+            </div>
+        </section>
 
-<section class="cards">
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" />
-    <h3>Mountain Camp</h3>
-    <p>High altitude adventure experience.</p>
-  </div>
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold border-b-2 border-orange-500 pb-2 mb-6 text-orange-300">🐙 Git & GitHub Workflow</h2>
+            <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="text-orange-400 border-b border-gray-600">
+                            <th class="py-2">Command</th>
+                            <th class="py-2">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-300">
+                        <tr class="border-b border-gray-700">
+                            <td class="py-3 font-mono">git add .</td>
+                            <td class="py-3">Saare badlav (changes) ko line mein lagana.</td>
+                        </tr>
+                        <tr class="border-b border-gray-700">
+                            <td class="py-3 font-mono">git commit -m "msg"</td>
+                            <td class="py-3">Changes ko ek message ke sath save karna.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 font-mono">git push origin main</td>
+                            <td class="py-3">Apne code ko GitHub cloud par bhej dena.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1500534314209-a26db0f5a2a4" />
-    <h3>Glacier Flight</h3>
-    <p>Soar above the frozen peaks.</p>
-  </div>
-</section>
+    </main>
+
+    <footer class="text-center py-10 text-gray-500 text-sm">
+        Built by Mariya with ❤️ and Linux
+    </footer>
 
 </body>
 </html>
