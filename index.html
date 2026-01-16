@@ -3,77 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mariya | DevOps & Linux Journal</title>
+    <title>Mariya | DevOps Lab & Notes</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans">
+<body class="bg-[#0f172a] text-slate-200 font-sans">
 
-    <header class="py-10 text-center bg-gradient-to-r from-blue-900 to-black shadow-xl">
-        <h1 class="text-4xl font-extrabold text-blue-400">Mariya's DevOps Journey</h1>
-        <p class="mt-2 text-gray-400 italic">"Learning to automate the world, one command at a time."</p>
-        <div class="mt-6">
-            <a href="https://www.youtube.com/@maze_zone" class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-full font-bold transition">Visit Maze Zone 🎥</a>
-        </div>
+    <header class="py-12 text-center bg-gradient-to-b from-slate-800 to-slate-900 border-b border-blue-500/30 shadow-2xl">
+        <h1 class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">MARIYA'S COMMAND CENTER</h1>
+        <p class="mt-4 text-slate-400 text-lg">Linux Learner | DevOps Explorer | Maze Zone Creator</p>
     </header>
 
-    <main class="max-w-5xl mx-auto p-6">
+    <main class="max-w-6xl mx-auto p-6">
         
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold border-b-2 border-blue-500 pb-2 mb-6 text-blue-300">🐧 Essential Linux Commands</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                    <code class="text-green-400 font-bold">ls -la</code>
-                    <p class="text-sm text-gray-400 mt-1">Sari files aur hidden files ki list details ke sath dekhne ke liye.</p>
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                <span class="text-yellow-400 text-3xl">📝</span> My Sticky Notes (Saves Automatically)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="md:col-span-1 bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-lg">
+                    <label class="block text-sm font-medium mb-2">Write a New Note:</label>
+                    <textarea id="noteInput" class="w-full h-32 p-3 bg-slate-900 rounded-xl border border-slate-700 focus:border-blue-500 outline-none text-sm" placeholder="Aaj kya naya seekha?"></textarea>
+                    
+                    <div class="flex gap-2 mt-4">
+                        <button onclick="saveNote('bg-yellow-200 text-black')" class="w-8 h-8 rounded-full bg-yellow-200 border-2 border-white"></button>
+                        <button onclick="saveNote('bg-pink-300 text-black')" class="w-8 h-8 rounded-full bg-pink-300 border-2 border-white"></button>
+                        <button onclick="saveNote('bg-blue-300 text-black')" class="w-8 h-8 rounded-full bg-blue-300 border-2 border-white"></button>
+                        <button onclick="saveNote('bg-green-300 text-black')" class="w-8 h-8 rounded-full bg-green-300 border-2 border-white"></button>
+                    </div>
+                    <p class="text-[10px] mt-2 text-slate-500">*Click a color to save the note!</p>
                 </div>
-                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                    <code class="text-green-400 font-bold">mkdir -p folder/sub</code>
-                    <p class="text-sm text-gray-400 mt-1">Ek saath pura path (multiple folders) banane ke liye.</p>
-                </div>
-                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                    <code class="text-green-400 font-bold">chmod 755 file.sh</code>
-                    <p class="text-sm text-gray-400 mt-1">File ko execute karne ki permission dene ke liye.</p>
-                </div>
-                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                    <code class="text-green-400 font-bold">grep "text" file.txt</code>
-                    <p class="text-sm text-gray-400 mt-1">Kisi file ke andar specific text dhoondne ke liye.</p>
-                </div>
+
+                <div id="notesContainer" class="md:col-span-2 flex flex-wrap gap-4 items-start">
+                    </div>
             </div>
         </section>
 
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold border-b-2 border-orange-500 pb-2 mb-6 text-orange-300">🐙 Git & GitHub Workflow</h2>
-            <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 overflow-x-auto">
-                <table class="w-full text-left">
-                    <thead>
-                        <tr class="text-orange-400 border-b border-gray-600">
-                            <th class="py-2">Command</th>
-                            <th class="py-2">Description</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-gray-300">
-                        <tr class="border-b border-gray-700">
-                            <td class="py-3 font-mono">git add .</td>
-                            <td class="py-3">Saare badlav (changes) ko line mein lagana.</td>
-                        </tr>
-                        <tr class="border-b border-gray-700">
-                            <td class="py-3 font-mono">git commit -m "msg"</td>
-                            <td class="py-3">Changes ko ek message ke sath save karna.</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 font-mono">git push origin main</td>
-                            <td class="py-3">Apne code ko GitHub cloud par bhej dena.</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 border-l-4 border-emerald-500 pl-4">🚀 Mastering Linux & Git</h2>
+            <div class="grid grid-cols-1 gap-4">
+                
+                <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-emerald-500 transition-all">
+                    <div class="flex justify-between items-start">
+                        <code class="text-emerald-400 font-bold text-lg">ls -lhS</code>
+                        <span class="bg-emerald-900/50 text-emerald-300 text-[10px] px-2 py-1 rounded uppercase tracking-wider">File System</span>
+                    </div>
+                    <p class="mt-3 text-sm leading-relaxed">
+                        <strong class="text-white">Meaning:</strong> Files ko unki size ke hisab se (bade se chota) human-readable format (KB, MB) mein dikhata hai.
+                    </p>
+                    <div class="mt-4 bg-black/30 p-2 rounded text-xs font-mono text-slate-400 italic">
+                        Example Use: Jab PC ki memory full ho rahi ho toh check karne ke liye.
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-blue-500 transition-all">
+                    <div class="flex justify-between items-start">
+                        <code class="text-blue-400 font-bold text-lg">git commit --amend</code>
+                        <span class="bg-blue-900/50 text-blue-300 text-[10px] px-2 py-1 rounded uppercase tracking-wider">Git Pro</span>
+                    </div>
+                    <p class="mt-3 text-sm leading-relaxed">
+                        <strong class="text-white">Meaning:</strong> Agar pichle commit message mein spelling mistake ho gayi ho, toh use theek karne ke liye.
+                    </p>
+                    <div class="mt-4 bg-black/30 p-2 rounded text-xs font-mono text-slate-400 italic">
+                        Example Use: git commit -m "mian" ko "main" karne ke liye!
+                    </div>
+                </div>
+
             </div>
         </section>
-
     </main>
 
-    <footer class="text-center py-10 text-gray-500 text-sm">
-        Built by Mariya with ❤️ and Linux
-    </footer>
+    <script>
+        function saveNote(colorClass) {
+            const input = document.getElementById('noteInput');
+            if (!input.value) return;
 
+            const note = {
+                text: input.value,
+                color: colorClass,
+                date: new Date().toLocaleDateString()
+            };
+
+            let notes = JSON.parse(localStorage.getItem('mariya_notes') || '[]');
+            notes.push(note);
+            localStorage.setItem('mariya_notes', JSON.stringify(notes));
+            input.value = '';
+            displayNotes();
+        }
+
+        function displayNotes() {
+            const container = document.getElementById('notesContainer');
+            const notes = JSON.parse(localStorage.getItem('mariya_notes') || '[]');
+            container.innerHTML = notes.map((n, index) => `
+                <div class="${n.color} p-4 rounded-lg shadow-xl w-48 min-h-[120px] relative transform rotate-${(index % 2 === 0 ? '1' : '-1')}">
+                    <button onclick="deleteNote(${index})" class="absolute top-1 right-1 text-black/50 hover:text-red-600 font-bold">×</button>
+                    <p class="text-sm font-medium leading-tight">${n.text}</p>
+                    <p class="text-[8px] mt-4 opacity-50">${n.date}</p>
+                </div>
+            `).join('');
+        }
+
+        function deleteNote(index) {
+            let notes = JSON.parse(localStorage.getItem('mariya_notes') || '[]');
+            notes.splice(index, 1);
+            localStorage.setItem('mariya_notes', JSON.stringify(notes));
+            displayNotes();
+        }
+
+        window.onload = displayNotes;
+    </script>
 </body>
 </html>
