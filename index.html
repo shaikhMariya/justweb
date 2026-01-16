@@ -3,84 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mariya | DevOps Lab</title>
+    <title>Mariya's DevOps Command Center</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .handwritten { font-family: 'Kalam', cursive; }
+    </style>
 </head>
-<body class="bg-[#0f172a] text-slate-200 font-sans">
+<body class="bg-[#0f172a] text-slate-200 relative overflow-x-hidden">
 
-    <header class="py-12 text-center bg-gradient-to-b from-slate-800 to-slate-900 border-b border-blue-500/30">
-        <h1 class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">COMMAND CENTER</h1>
-        <p class="mt-2 text-slate-400">Maze Zone Creator | DevOps Learner</p>
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl mix-blend-overlay animate-blob"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl mix-blend-overlay animate-blob animation-delay-2000"></div>
+    </div>
+
+    <header class="relative z-10 py-16 text-center bg-gradient-to-b from-[#0a0e17] to-[#0f172a] border-b border-slate-800/80 shadow-2xl">
+        <h1 class="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-emerald-400 to-violet-400 tracking-tight pb-2">
+            MY DEVOPS HUB
+        </h1>
+        <p class="mt-4 text-slate-400 text-lg md:text-xl font-medium tracking-wide">
+            <span class="text-blue-400">Learn.</span> <span class="text-emerald-400">Automate.</span> <span class="text-violet-400">Deploy.</span>
+        </p>
     </header>
 
-    <main class="max-w-6xl mx-auto p-6">
+    <main class="relative z-10 max-w-7xl mx-auto p-6 space-y-24">
         
-        <section class="mb-16">
-            <h2 class="text-2xl font-bold mb-6 text-yellow-400 flex items-center gap-2">📝 Personal Study Notes</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-xl">
-                    <textarea id="noteInput" class="w-full h-32 p-3 bg-slate-900 rounded-xl border border-slate-700 outline-none focus:border-blue-500 text-sm" placeholder="Write a note here..."></textarea>
-                    <div class="flex gap-2 mt-4">
-                        <button onclick="saveNote('bg-yellow-200 text-black')" class="w-8 h-8 rounded-full bg-yellow-200 border-2 border-white"></button>
-                        <button onclick="saveNote('bg-pink-300 text-black')" class="w-8 h-8 rounded-full bg-pink-300 border-2 border-white"></button>
-                        <button onclick="saveNote('bg-blue-300 text-black')" class="w-8 h-8 rounded-full bg-blue-300 border-2 border-white"></button>
-                        <button onclick="saveNote('bg-green-300 text-black')" class="w-8 h-8 rounded-full bg-green-300 border-2 border-white"></button>
+        <section id="notes-section" class="scroll-mt-8">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="p-3 bg-yellow-400/10 rounded-2xl border border-yellow-400/20">
+                    <span class="text-3xl">📝</span>
+                </div>
+                <h2 class="text-3xl font-bold text-yellow-200 tracking-tight">Personal Study Notes</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-4 bg-slate-800/80 backdrop-blur-xl p-6 rounded-3xl border border-slate-700/80 shadow-xl ring-1 ring-white/5">
+                    <label class="block text-sm font-bold text-slate-300 mb-3 ml-1">What did you learn today?</label>
+                    <textarea id="noteInput" class="w-full h-40 p-4 bg-[#0a0e17]/60 rounded-2xl border border-slate-600/50 outline-none focus:border-yellow-400/50 text-sm resize-none placeholder:text-slate-500 transition-all" placeholder="Type your thought here... e.g., 'Today I fixed a YAML indentation error!'"></textarea>
+                    
+                    <div class="mt-6">
+                        <p class="text-xs font-bold text-slate-400 mb-3 ml-1 uppercase tracking-wider">Pick a Color to Save:</p>
+                        <div class="flex gap-3">
+                            <button onclick="saveNote('bg-[#fff7d1] text-slate-900')" class="w-10 h-10 rounded-xl bg-[#fff7d1] border-2 border-white/50 hover:scale-110 transition shadow-sm hover:shadow-yellow-200/50"></button>
+                            <button onclick="saveNote('bg-[#ffd1dc] text-slate-900')" class="w-10 h-10 rounded-xl bg-[#ffd1dc] border-2 border-white/50 hover:scale-110 transition shadow-sm hover:shadow-pink-200/50"></button>
+                            <button onclick="saveNote('bg-[#d1efff] text-slate-900')" class="w-10 h-10 rounded-xl bg-[#d1efff] border-2 border-white/50 hover:scale-110 transition shadow-sm hover:shadow-blue-200/50"></button>
+                            <button onclick="saveNote('bg-[#d1ffd6] text-slate-900')" class="w-10 h-10 rounded-xl bg-[#d1ffd6] border-2 border-white/50 hover:scale-110 transition shadow-sm hover:shadow-green-200/50"></button>
+                        </div>
                     </div>
                 </div>
-                <div id="notesDisplay" class="md:col-span-2 flex flex-wrap gap-4"></div>
+
+                <div id="notesDisplay" class="lg:col-span-8 flex flex-wrap content-start gap-5 p-4 min-h-[300px] rounded-3xl border-2 border-dashed border-slate-700/50 bg-slate-800/20">
+                    <p class="text-slate-500 italic w-full text-center mt-10 opacity-50">Your notes will stick here...</p>
+                </div>
             </div>
         </section>
 
-        <section>
-            <h2 class="text-2xl font-bold mb-8 border-l-4 border-emerald-500 pl-4">🚀 Linux & Git Knowledge Base</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-emerald-500 transition-all">
-                    <code class="text-emerald-400 font-bold text-lg">ls -la</code>
-                    <p class="mt-3 text-sm text-slate-300"><strong class="text-white">Meaning:</strong> Sari files ki list details (size, permissions) ke saath dikhata hai, hidden files bhi.</p>
-                    <p class="mt-2 text-xs italic text-slate-500">Practice: Terminal mein chalakar dekho kaunsi hidden files (.git) hain.</p>
-                </div>
 
-                <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-blue-500 transition-all">
-                    <code class="text-blue-400 font-bold text-lg">git status</code>
-                    <p class="mt-3 text-sm text-slate-300"><strong class="text-white">Meaning:</strong> Ye batata hai ki kaunsi files change hui hain aur abhi tak save (commit) nahi hui.</p>
-                    <p class="mt-2 text-xs italic text-slate-500">Practice: Jab "Modified" laal dikhe, matlab file save karne ki zaroorat hai.</p>
+        <section id="command-manual">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="p-3 bg-blue-400/10 rounded-2xl border border-blue-400/20">
+                    <span class="text-3xl">🚀</span>
                 </div>
+                <div>
+                    <h2 class="text-3xl font-bold text-blue-200 tracking-tight">The Master Command List</h2>
+                    <p class="text-slate-400 mt-1">Everything we've learned so far, documented.</p>
+                </div>
+            </div>
+            
+            <div class="space-y-16">
+
+            <div class="relative">
+                <h3 class="text-xl font-bold text-emerald-300 mb-6 flex items-center border-b border-slate-800 pb-4">
+                    <span class="bg-emerald-400/10 p-2 rounded-lg mr-3">🐧</span> Linux Fundamentals
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <div class="group bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-emerald-500 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10 hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-4">
+                            <code class="text-emerald-400 font-bold text-xl bg-slate-900/50 px-3 py-1 rounded-lg group-hover:text-white group-hover:bg-emerald-500 transition-colors">ls -la</code>
+                        </div>
+                        <p class="text-sm text-slate-300 leading-relaxed"><strong class="text-white block mb-1">Meaning:</strong> List All. Folder ki saari files dikhata hai, including hidden files (jo dot `.` se shuru hoti hain) aur unki details.</p>
+                        <div class="mt-4 bg-[#0a0e17] p-3 rounded-xl border border-slate-800/50 relative overflow-hidden">
+                             <p class="text-xs font-mono text-slate-400 italic relative z-10"><span class="text-emerald-500/70 not-italic font-bold mr-2">Practice:</span> Check karne ke liye ki kya `.git` folder maujood hai.</p>
+                        </div>
+                    </div>
+                     <div class="group bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-emerald-500 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10 hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-4">
+                            <code class="text-emerald-400 font-bold text-xl bg-slate-900/50 px-3 py-1 rounded-lg group-hover:text-white group-hover:bg-emerald-500 transition-colors">pwd</code>
+                        </div>
+                        <p class="text-sm text-slate-300 leading-relaxed"><strong class="text-white block mb-1">Meaning:</strong> Print Working Directory. Ye batata hai ki tum abhi exactly computer ke kis folder ke andar khade ho.</p>
+                        <div class="mt-4 bg-[#0a0e17] p-3 rounded-xl border border-slate-800/50 relative overflow-hidden">
+                             <p class="text-xs font-mono text-slate-400 italic relative z-10"><span class="text-emerald-500/70 not-italic font-bold mr-2">Practice:</span> Jab kho jao toh rasta pata karne ke liye.</p>
+                        </div>
+                    </div>
+                    <div class="group bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-emerald-500 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10 hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-4">
+                            <code class="text-emerald-400 font-bold text-xl bg-slate-900/50 px-3 py-1 rounded-lg group-hover:text-white group-hover:bg-emerald-500 transition-colors">mkdir -p</code>
+                        </div>
+                        <p class="text-sm text-slate-300 leading-relaxed"><strong class="text-white block mb-1">Meaning:</strong> Make Directory (Parent). Naya folder banane ke liye. `-p` se folder ke andar folder ek saath ban jata hai.</p>
+                        <div class="mt-4 bg-[#0a0e17] p-3 rounded-xl border border-slate-800/50 relative overflow-hidden">
+                             <p class="text-xs font-mono text-slate-400 italic relative z-10"><span class="text-emerald-500/70 not-italic font-bold mr-2">Practice:</span> `mkdir -p projects/website/assets`</p>
+                        </div>
+                    </div>
+                    <div class="group bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-emerald-500 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10 hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-4">
+                            <code class="text-emerald-400 font-bold text-xl bg-slate-900/50 px-3 py-1 rounded-lg group-hover:text-white group-hover:bg-emerald-500 transition-colors">chmod +x</code>
+                        </div>
+                        <p class="text-sm text-slate-300 leading-relaxed"><strong class="text-white block mb-1">Meaning:</strong> Change Mode Executable. Kisi script file ko chalne ki power (permission) dene ke liye.</p>
+                        <div class="mt-4 bg-[#0a0e17] p-3 rounded-xl border border-slate-800/50 relative overflow-hidden">
+                             <p class="text-xs font-mono text-slate-400 italic relative z-10"><span class="text-emerald-500/70 not-italic font-bold mr-2">Practice:</span> Health bot script banane ke baad use kiya tha.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative">
+                <h3 class="text-xl font-bold text-orange-300 mb-6 flex items-center border-b border-slate-800 pb-4">
+                    <span class="bg-orange-400/10 p-2 rounded-lg mr-3">🔍</span> Search & Fix
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <div class="group bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-orange-500 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/10 hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-4">
+                            <code class="text-orange-400 font-bold text-xl bg-slate-900/50 px-3 py-1 rounded-lg group-hover:text-white group-hover:bg-orange-500 transition-colors">grep "txt" file</code>
+                        </div>
+                        <p class="text-sm text-slate-300 leading-relaxed"><strong class="text-white block mb-1">Meaning:</strong> Global Regex Print. Kisi file ke andar koi specific shabd (word) ya line dhoondne ke liye.</p>
+                        <div class="mt-4 bg-[#0a0e17] p-3 rounded-xl border border-slate-800/50 relative overflow-hidden">
+                             <p class="text-xs font-mono text-slate-400 italic relative z-10"><span class="text-orange-500/70 not-italic font-bold mr-2">Practice:</span> Logs mein "error" dhoondne ke liye best hai.</p>
+                        </div>
+                    </div>
+                     <div class="group bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-orange-500 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/10 hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-4">
+                            <code class="text-orange-400 font-bold text-xl bg-slate-900/50 px-3 py-1 rounded-lg group-hover:text-white group-hover:bg-orange-500 transition-colors">cat file.txt</code>
+                        </div>
+                        <p class="text-sm text-slate-300 leading-relaxed"><strong class="text-white block mb-1">Meaning:</strong> Concatenate. Kisi file ko bina khole uska pura content terminal par print karne ke liye.</p>
+                        <div class="mt-4 bg-[#0a0e17] p-3 rounded-xl border border-slate-800/50 relative overflow-hidden">
+                             <p class="text-xs font-mono text-slate-400 italic relative z-10"><span class="text-orange-500/70 not-italic font-bold mr-2">Practice:</span> Chhoti scripts ya config files padhne ke liye.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="relative">
+                 <h3 class="text-xl font-bold text-blue-300 mb-6 flex items-center border-b border-slate-800 pb-4">
+                    <span class="bg-blue-400/10 p-2 rounded-lg mr-3">🐙</span> Git & GitHub Flow
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <div class="group bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-4">
+                            <code class="text-blue-400 font-bold text-xl bg-slate-900/50 px-3 py-1 rounded-lg group-hover:text-white group-hover:bg-blue-500 transition-colors">git status</code>
+                        </div>
+                        <p class="text-sm text-slate-300 leading-relaxed"><strong class="text-white block mb-1">Meaning:</strong> Sabse zaroori command. Ye batata hai ki kya badla hai (Red) aur kya save hone ko taiyar hai (Green).</p>
+                        <div class="mt-4 bg-[#0a0e17] p-3 rounded-xl border border-slate-800/50 relative overflow-hidden">
+                             <p class="text-xs font-mono text-slate-400 italic relative z-10"><span class="text-blue-500/70 not-italic font-bold mr-2">Practice:</span> Har kadam par ise chalao, galti se bachogi.</p>
+                        </div>
+                    </div>
+                     <div class="group bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-4">
+                            <code class="text-blue-400 font-bold text-xl bg-slate-900/50 px-3 py-1 rounded-lg group-hover:text-white group-hover:bg-blue-500 transition-colors">git add .</code>
+                        </div>
+                        <p class="text-sm text-slate-300 leading-relaxed"><strong class="text-white block mb-1">Meaning:</strong> Stage All. Jitni bhi files tumne badli hain, un sabko ek saath "Packing Area" mein daal deta hai.</p>
+                        <div class="mt-4 bg-[#0a0e17] p-3 rounded-xl border border-slate-800/50 relative overflow-hidden">
+                             <p class="text-xs font-mono text-slate-400 italic relative z-10"><span class="text-blue-500/70 not-italic font-bold mr-2">Practice:</span> Dot (.) lagana mat bhoolna, uska matlab hai "sab kuch".</p>
+                        </div>
+                    </div>
+                     <div class="group bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-4">
+                            <code class="text-blue-400 font-bold text-xl bg-slate-900/50 px-3 py-1 rounded-lg group-hover:text-white group-hover:bg-blue-500 transition-colors">git commit -m ""</code>
+                        </div>
+                        <p class="text-sm text-slate-300 leading-relaxed"><strong class="text-white block mb-1">Meaning:</strong> Save Snapshot. Pack kiye hue changes ko ek message ke saath permanent save kar deta hai.</p>
+                        <div class="mt-4 bg-[#0a0e17] p-3 rounded-xl border border-slate-800/50 relative overflow-hidden">
+                             <p class="text-xs font-mono text-slate-400 italic relative z-10"><span class="text-blue-500/70 not-italic font-bold mr-2">Practice:</span> Message hamesha clear likho, jaise "Fixed design error".</p>
+                        </div>
+                    </div>
+                    <div class="group bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-4">
+                            <code class="text-blue-400 font-bold text-xl bg-slate-900/50 px-3 py-1 rounded-lg group-hover:text-white group-hover:bg-blue-500 transition-colors">git push origin main</code>
+                        </div>
+                        <p class="text-sm text-slate-300 leading-relaxed"><strong class="text-white block mb-1">Meaning:</strong> Go Live. Apne computer ke saved changes ko GitHub ke cloud server par bhej deta hai.</p>
+                        <div class="mt-4 bg-[#0a0e17] p-3 rounded-xl border border-slate-800/50 relative overflow-hidden">
+                             <p class="text-xs font-mono text-slate-400 italic relative z-10"><span class="text-blue-500/70 not-italic font-bold mr-2">Practice:</span> Spelling yaad rakhna: m-a-i-n, 'mian' nahi! 😉</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <div class="relative">
+                <h3 class="text-xl font-bold text-violet-300 mb-6 flex items-center border-b border-slate-800 pb-4">
+                   <span class="bg-violet-400/10 p-2 rounded-lg mr-3">🤖</span> DevOps Automation Concepts
+               </h3>
+               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                   <div class="group bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-violet-500 transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-1">
+                       <div class="flex justify-between items-start mb-4">
+                           <code class="text-violet-400 font-bold text-xl bg-slate-900/50 px-3 py-1 rounded-lg group-hover:text-white group-hover:bg-violet-500 transition-colors">YAML Workflows</code>
+                       </div>
+                       <p class="text-sm text-slate-300 leading-relaxed"><strong class="text-white block mb-1">Meaning:</strong> `.github/workflows/deploy.yml` file. Ye wo "Recipe" hai jo GitHub ke robot ko batati hai ki website kaise banani hai.</p>
+                       <div class="mt-4 bg-[#0a0e17] p-3 rounded-xl border border-slate-800/50 relative overflow-hidden">
+                            <p class="text-xs font-mono text-slate-400 italic relative z-10"><span class="text-violet-500/70 not-italic font-bold mr-2">Learnt:</span> Isme 'environment: github-pages' dalna zaroori hai.</p>
+                       </div>
+                   </div>
+                    <div class="group bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-violet-500 transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-1">
+                       <div class="flex justify-between items-start mb-4">
+                           <code class="text-violet-400 font-bold text-xl bg-slate-900/50 px-3 py-1 rounded-lg group-hover:text-white group-hover:bg-violet-500 transition-colors">Token Permissions</code>
+                       </div>
+                       <p class="text-sm text-slate-300 leading-relaxed"><strong class="text-white block mb-1">Meaning:</strong> Security Keys. GitHub Action ko chalne ke liye 'Contents' aur 'Workflows' dono ki Write permission chahiye hoti hai.</p>
+                       <div class="mt-4 bg-[#0a0e17] p-3 rounded-xl border border-slate-800/50 relative overflow-hidden">
+                            <p class="text-xs font-mono text-slate-400 italic relative z-10"><span class="text-violet-500/70 not-italic font-bold mr-2">Learnt:</span> Error 403 aaye toh naya token banao.</p>
+                       </div>
+                   </div>
+               </div>
+           </div>
 
             </div>
         </section>
     </main>
 
+    <footer class="text-center py-12 text-slate-500 text-sm border-t border-slate-800/50 relative z-10 bg-[#0f172a]">
+        <p>Built with ❤️ by <span class="text-blue-400 font-bold">Mariya</span> during her DevOps Journey.</p>
+        <p class="mt-2 opacity-50">© 2026 Maze Zone. All commands verified.</p>
+    </footer>
+
     <script>
-        function saveNote(color) {
-            const input = document.getElementById('noteInput');
-            if (!input.value) return;
-            const notes = JSON.parse(localStorage.getItem('mariya_notes') || '[]');
-            notes.push({ text: input.value, color: color });
-            localStorage.setItem('mariya_notes', JSON.stringify(notes));
-            input.value = '';
-            displayNotes();
-        }
-
-        function displayNotes() {
+        // Notes ko LocalStorage se load karna
+        function loadNotes() {
             const container = document.getElementById('notesDisplay');
+            // Agar pehli baar khol rahe ho toh 'No notes yet' wala message hatao
+            if(localStorage.getItem('mariya_notes')) {
+                 container.innerHTML = ''; 
+            }
+           
             const notes = JSON.parse(localStorage.getItem('mariya_notes') || '[]');
-            container.innerHTML = notes.map((n, i) => `
-                <div class="${n.color} p-4 rounded-lg shadow-lg w-48 min-h-[100px] relative">
-                    <button onclick="deleteNote(${i})" class="absolute top-1 right-1 font-bold text-black/50 hover:text-red-600">×</button>
-                    <p class="text-sm">${n.text}</p>
-                </div>
-            `).join('');
+            
+            notes.forEach((note, index) => {
+                createNoteElement(note.text, note.color, index);
+            });
         }
 
+        // Note ka HTML element banana
+        function createNoteElement(text, colorClass, index) {
+            const container = document.getElementById('notesDisplay');
+            const noteDiv = document.createElement('div');
+            
+            // Random rotation for realistic look
+            const rotate = Math.random() * 4 - 2; 
+            
+            noteDiv.className = `${colorClass} handwritten p-5 rounded-xl shadow-lg w-52 min-h-[160px] relative transform hover:scale-110 transition-all duration-300 hover:rotate-0 hover:z-20 cursor-grab group animate-in fade-in zoom-in`;
+            noteDiv.style.transform = `rotate(${rotate}deg)`;
+            noteDiv.innerHTML = `
+                <button onclick="deleteNote(${index})" class="absolute -top-2 -right-2 w-7 h-7 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity font-bold shadow-sm">×</button>
+                <p class="text-lg leading-snug text-slate-800 font-semibold">${text}</p>
+            `;
+            container.appendChild(noteDiv);
+        }
+
+        // Note Save karna
+        function saveNote(colorClass) {
+            const input = document.getElementById('noteInput');
+            const text = input.value.trim();
+            if (!text) {
+                input.classList.add('ring-2', 'ring-red-500');
+                setTimeout(() => input.classList.remove('ring-2', 'ring-red-500'), 1000);
+                return;
+            }
+
+            const notes = JSON.parse(localStorage.getItem('mariya_notes') || '[]');
+            notes.push({ text: text, color: colorClass });
+            localStorage.setItem('mariya_notes', JSON.stringify(notes));
+            
+            // Naye note ko screen par add karo bina pura page reload kiye
+            createNoteElement(text, colorClass, notes.length - 1);
+            input.value = '';
+        }
+
+        // Note Delete karna
         function deleteNote(index) {
             let notes = JSON.parse(localStorage.getItem('mariya_notes') || '[]');
             notes.splice(index, 1);
             localStorage.setItem('mariya_notes', JSON.stringify(notes));
-            displayNotes();
+            loadNotes(); // List refresh karo
         }
-        window.onload = displayNotes;
+
+        // Page load hote hi notes dikhao
+        window.onload = loadNotes;
     </script>
 </body>
 </html>
