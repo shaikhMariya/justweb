@@ -1,8 +1,9 @@
 name: Deploy-to-GitHub-Pages
+
 on:
   push:
     branches:
-      - main  # Agar branch 'master' hai toh master likhna
+      - main  # Agar branch 'master' hai toh yahan master likhna
 
 permissions:
   contents: read
@@ -11,16 +12,22 @@ permissions:
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
