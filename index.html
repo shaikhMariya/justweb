@@ -3,70 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mariya | DevOps Lab & Notes</title>
+    <title>Mariya | DevOps Lab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-[#0f172a] text-slate-200 font-sans">
 
-    <header class="py-12 text-center bg-gradient-to-b from-slate-800 to-slate-900 border-b border-blue-500/30 shadow-2xl">
-        <h1 class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">MARIYA'S COMMAND CENTER</h1>
-        <p class="mt-4 text-slate-400 text-lg">Linux Learner | DevOps Explorer | Maze Zone Creator</p>
+    <header class="py-12 text-center bg-gradient-to-b from-slate-800 to-slate-900 border-b border-blue-500/30">
+        <h1 class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">COMMAND CENTER</h1>
+        <p class="mt-2 text-slate-400">Maze Zone Creator | DevOps Learner</p>
     </header>
 
     <main class="max-w-6xl mx-auto p-6">
         
         <section class="mb-16">
-            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-                <span class="text-yellow-400 text-3xl">📝</span> My Sticky Notes (Saves Automatically)
-            </h2>
+            <h2 class="text-2xl font-bold mb-6 text-yellow-400 flex items-center gap-2">📝 Personal Study Notes</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="md:col-span-1 bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-lg">
-                    <label class="block text-sm font-medium mb-2">Write a New Note:</label>
-                    <textarea id="noteInput" class="w-full h-32 p-3 bg-slate-900 rounded-xl border border-slate-700 focus:border-blue-500 outline-none text-sm" placeholder="Aaj kya naya seekha?"></textarea>
-                    
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-xl">
+                    <textarea id="noteInput" class="w-full h-32 p-3 bg-slate-900 rounded-xl border border-slate-700 outline-none focus:border-blue-500 text-sm" placeholder="Write a note here..."></textarea>
                     <div class="flex gap-2 mt-4">
                         <button onclick="saveNote('bg-yellow-200 text-black')" class="w-8 h-8 rounded-full bg-yellow-200 border-2 border-white"></button>
                         <button onclick="saveNote('bg-pink-300 text-black')" class="w-8 h-8 rounded-full bg-pink-300 border-2 border-white"></button>
                         <button onclick="saveNote('bg-blue-300 text-black')" class="w-8 h-8 rounded-full bg-blue-300 border-2 border-white"></button>
                         <button onclick="saveNote('bg-green-300 text-black')" class="w-8 h-8 rounded-full bg-green-300 border-2 border-white"></button>
                     </div>
-                    <p class="text-[10px] mt-2 text-slate-500">*Click a color to save the note!</p>
                 </div>
-
-                <div id="notesContainer" class="md:col-span-2 flex flex-wrap gap-4 items-start">
-                    </div>
+                <div id="notesDisplay" class="md:col-span-2 flex flex-wrap gap-4"></div>
             </div>
         </section>
 
-        <section class="mb-16">
-            <h2 class="text-2xl font-bold mb-6 border-l-4 border-emerald-500 pl-4">🚀 Mastering Linux & Git</h2>
-            <div class="grid grid-cols-1 gap-4">
+        <section>
+            <h2 class="text-2xl font-bold mb-8 border-l-4 border-emerald-500 pl-4">🚀 Linux & Git Knowledge Base</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
-                <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-emerald-500 transition-all">
-                    <div class="flex justify-between items-start">
-                        <code class="text-emerald-400 font-bold text-lg">ls -lhS</code>
-                        <span class="bg-emerald-900/50 text-emerald-300 text-[10px] px-2 py-1 rounded uppercase tracking-wider">File System</span>
-                    </div>
-                    <p class="mt-3 text-sm leading-relaxed">
-                        <strong class="text-white">Meaning:</strong> Files ko unki size ke hisab se (bade se chota) human-readable format (KB, MB) mein dikhata hai.
-                    </p>
-                    <div class="mt-4 bg-black/30 p-2 rounded text-xs font-mono text-slate-400 italic">
-                        Example Use: Jab PC ki memory full ho rahi ho toh check karne ke liye.
-                    </div>
+                <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-emerald-500 transition-all">
+                    <code class="text-emerald-400 font-bold text-lg">ls -la</code>
+                    <p class="mt-3 text-sm text-slate-300"><strong class="text-white">Meaning:</strong> Sari files ki list details (size, permissions) ke saath dikhata hai, hidden files bhi.</p>
+                    <p class="mt-2 text-xs italic text-slate-500">Practice: Terminal mein chalakar dekho kaunsi hidden files (.git) hain.</p>
                 </div>
 
-                <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-blue-500 transition-all">
-                    <div class="flex justify-between items-start">
-                        <code class="text-blue-400 font-bold text-lg">git commit --amend</code>
-                        <span class="bg-blue-900/50 text-blue-300 text-[10px] px-2 py-1 rounded uppercase tracking-wider">Git Pro</span>
-                    </div>
-                    <p class="mt-3 text-sm leading-relaxed">
-                        <strong class="text-white">Meaning:</strong> Agar pichle commit message mein spelling mistake ho gayi ho, toh use theek karne ke liye.
-                    </p>
-                    <div class="mt-4 bg-black/30 p-2 rounded text-xs font-mono text-slate-400 italic">
-                        Example Use: git commit -m "mian" ko "main" karne ke liye!
-                    </div>
+                <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-blue-500 transition-all">
+                    <code class="text-blue-400 font-bold text-lg">git status</code>
+                    <p class="mt-3 text-sm text-slate-300"><strong class="text-white">Meaning:</strong> Ye batata hai ki kaunsi files change hui hain aur abhi tak save (commit) nahi hui.</p>
+                    <p class="mt-2 text-xs italic text-slate-500">Practice: Jab "Modified" laal dikhe, matlab file save karne ki zaroorat hai.</p>
                 </div>
 
             </div>
@@ -74,31 +53,23 @@
     </main>
 
     <script>
-        function saveNote(colorClass) {
+        function saveNote(color) {
             const input = document.getElementById('noteInput');
             if (!input.value) return;
-
-            const note = {
-                text: input.value,
-                color: colorClass,
-                date: new Date().toLocaleDateString()
-            };
-
-            let notes = JSON.parse(localStorage.getItem('mariya_notes') || '[]');
-            notes.push(note);
+            const notes = JSON.parse(localStorage.getItem('mariya_notes') || '[]');
+            notes.push({ text: input.value, color: color });
             localStorage.setItem('mariya_notes', JSON.stringify(notes));
             input.value = '';
             displayNotes();
         }
 
         function displayNotes() {
-            const container = document.getElementById('notesContainer');
+            const container = document.getElementById('notesDisplay');
             const notes = JSON.parse(localStorage.getItem('mariya_notes') || '[]');
-            container.innerHTML = notes.map((n, index) => `
-                <div class="${n.color} p-4 rounded-lg shadow-xl w-48 min-h-[120px] relative transform rotate-${(index % 2 === 0 ? '1' : '-1')}">
-                    <button onclick="deleteNote(${index})" class="absolute top-1 right-1 text-black/50 hover:text-red-600 font-bold">×</button>
-                    <p class="text-sm font-medium leading-tight">${n.text}</p>
-                    <p class="text-[8px] mt-4 opacity-50">${n.date}</p>
+            container.innerHTML = notes.map((n, i) => `
+                <div class="${n.color} p-4 rounded-lg shadow-lg w-48 min-h-[100px] relative">
+                    <button onclick="deleteNote(${i})" class="absolute top-1 right-1 font-bold text-black/50 hover:text-red-600">×</button>
+                    <p class="text-sm">${n.text}</p>
                 </div>
             `).join('');
         }
@@ -109,7 +80,6 @@
             localStorage.setItem('mariya_notes', JSON.stringify(notes));
             displayNotes();
         }
-
         window.onload = displayNotes;
     </script>
 </body>

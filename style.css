@@ -1,22 +1,14 @@
 /* Sticky Note appearance */
-#notesContainer > div {
+#notesDisplay > div {
     transition: all 0.3s ease;
-    cursor: default;
+    transform: rotate(-1deg);
 }
 
-#notesContainer > div:hover {
-    transform: scale(1.05) rotate(0deg) !important;
+#notesDisplay > div:nth-child(even) {
+    transform: rotate(1deg);
+}
+
+#notesDisplay > div:hover {
+    transform: scale(1.05) rotate(0deg);
     z-index: 10;
 }
-
-/* Scrollbar styling for dark theme */
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-track {
-    background: #0f172a;
-}
-::-webkit-scrollbar-thumb {
-    background: #334155;
-    border-radius: 10px;
-} 
