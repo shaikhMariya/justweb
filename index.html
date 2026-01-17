@@ -3,124 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Academy | Professional Command Center</title>
+    <title>DevOps Academy | Zero to Hero Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --p: #3b82f6; --s: #10b981; --a: #fbbf24; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #020617; color: #f8fafc; scroll-behavior: smooth; }
-        .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.05); }
-        .card-hover:hover { transform: translateY(-8px); border-color: var(--p); box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.3); }
-        .search-glow:focus { box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); border-color: var(--p); }
-        .handwritten { font-family: 'Plus Jakarta Sans', sans-serif; color: #1e293b; }
+        :root {
+            --primary: #3b82f6;
+            --bg-dark: #020617;
+            --glass: rgba(15, 23, 42, 0.7);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .code-font { font-family: 'Fira Code', monospace; }
+
+        * { transition: all 0.3s ease; }
+
+        .nav-blur {
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo-box {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #3b82f6, #818cf8);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass {
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+        }
+
+        .btn-primary {
+            background: #ffffff;
+            color: #000000;
+            padding: 10px 24px;
+            border-radius: 99px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:hover {
+            background: #3b82f6;
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Roadmap Checkbox Style */
+        .roadmap-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 24px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .roadmap-card:hover {
+             background: rgba(255, 255, 255, 0.05);
+        }
+
+        .roadmap-card.completed {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        input[type="checkbox"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #334155;
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            pointer-events: none; /* Clicks handled by parent card */
+        }
+
+        input[type="checkbox"]:checked {
+            background: #10b981;
+            border-color: #10b981;
+        }
+
+        input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            left: 3px;
+            top: -2px;
+        }
+
+        .input-field {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px;
+            border-radius: 16px;
+            outline: none;
+            color: white;
+        }
+
+        .input-field:focus { border-color: #3b82f6; }
+
+        /* Sticky Notes Appearance */
+        .note-card {
+            padding: 24px;
+            border-radius: 24px;
+            min-height: 180px;
+            width: 100%;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .note-card { width: 280px; }
+        }
+
+        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
     </style>
 </head>
-<body>
+<body class="bg-[#020617] text-slate-300">
 
-    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 px-8 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-            <div class="w-8 h-8 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-lg"></div>
-            <span class="font-extrabold text-xl tracking-tighter">DEVOPS <span class="text-blue-500">ACADEMY</span></span>
+    <nav class="nav-blur fixed top-0 w-full z-50 border-b border-white/5 px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="logo-box"></div>
+            <span class="font-extrabold text-xl tracking-tighter text-white">DEVOPS <span class="text-blue-500">PRO</span></span>
         </div>
-        <div class="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest text-slate-400">
-            <a href="#manual" class="hover:text-white transition">Commands</a>
-            <a href="#notes" class="hover:text-white transition">Study Notes</a>
-            <a href="#" class="hover:text-white transition">Resources</a>
+        <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-widest">
+            <a href="#roadmap" class="hover:text-blue-400">Roadmap</a>
+            <a href="#manual" class="hover:text-blue-400">Commands</a>
+            <a href="#notes" class="hover:text-blue-400">Workspace</a>
         </div>
-        <button onclick="toggleModal()" class="bg-white text-black hover:bg-slate-200 px-6 py-2 rounded-full text-xs font-black transition uppercase tracking-tighter shadow-xl shadow-white/5">+ Add Command</button>
+        <button onclick="toggleModal()" class="btn-primary">+ Add Knowledge</button>
     </nav>
 
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-20">
         
-        <header class="text-center mb-24">
-            <div class="inline-block px-4 py-1.5 mb-6 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-[10px] font-bold uppercase tracking-[0.2em]">
-                The Future of Learning DevOps
-            </div>
-            <h1 class="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-none">
-                Mastering the <br> 
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-emerald-400">Command Line.</span>
+        <header class="text-center mb-28">
+            <h1 class="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-none text-white">
+                Zero to Hero <br> 
+                <span class="gradient-text">DevOps Journey.</span>
             </h1>
-            
-            <div class="relative max-w-3xl mx-auto">
-                <input type="text" id="searchInput" onkeyup="searchCommands()" placeholder="Quick Search: git, docker, linux, automation..." 
-                class="w-full bg-slate-900/40 border border-white/10 rounded-[2rem] py-5 px-8 outline-none search-glow transition-all text-xl font-medium">
-                <div class="absolute right-8 top-5 flex gap-2">
-                    <span class="px-2 py-1 bg-white/5 rounded text-[10px] border border-white/10">Ctrl</span>
-                    <span class="px-2 py-1 bg-white/5 rounded text-[10px] border border-white/10">K</span>
-                </div>
-            </div>
+            <p class="text-slate-500 max-w-xl mx-auto text-lg">Mariya's official portal for global learners. Start from the terminal, end at the Cloud.</p>
         </header>
 
-        <section id="manual" class="space-y-12">
-            <div class="flex justify-between items-end border-b border-white/5 pb-6">
-                <div>
-                    <h2 class="text-4xl font-black tracking-tighter">Command Manual</h2>
-                    <p class="text-slate-500 text-sm mt-1">Directly added from the global database.</p>
-                </div>
-                <div class="text-right">
-                    <span id="cmdCount" class="text-blue-500 text-2xl font-black block leading-none">0</span>
-                    <span class="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Active Entries</span>
-                </div>
+        <section id="roadmap" class="mb-32">
+            <div class="flex items-center gap-4 mb-12">
+                <h2 class="text-4xl font-black text-white tracking-tighter">The Roadmap</h2>
+                <div class="flex-1 h-px bg-white/5"></div>
+                <span id="progressText" class="text-blue-500 font-mono font-bold text-sm">0% Completed</span>
             </div>
 
-            <div id="commandContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="roadmapGrid">
                 </div>
         </section>
 
-        <section id="notes" class="mt-32 pt-20 border-t border-white/5">
-            <div class="flex flex-col md:flex-row gap-16">
-                <div class="md:w-1/3">
-                    <h2 class="text-4xl font-black tracking-tighter mb-4">Quick <br> Sticky Notes</h2>
-                    <p class="text-slate-500 text-sm mb-8 leading-relaxed">Apne ideas aur thoughts yahan save karo. Ye browser mein save rahenge.</p>
-                    
-                    <div class="glass p-8 rounded-[2.5rem] space-y-6">
-                        <textarea id="noteInput" class="w-full h-40 bg-black/20 rounded-2xl p-4 text-sm border border-white/5 focus:border-blue-500 outline-none transition-all" placeholder="Write something important..."></textarea>
-                        <div class="flex justify-between items-center">
-                            <div class="flex gap-2">
-                                <button onclick="saveNote('bg-blue-300')" class="w-6 h-6 rounded-full bg-blue-300 hover:scale-125 transition"></button>
-                                <button onclick="saveNote('bg-amber-200')" class="w-6 h-6 rounded-full bg-amber-200 hover:scale-125 transition"></button>
-                                <button onclick="saveNote('bg-rose-300')" class="w-6 h-6 rounded-full bg-rose-300 hover:scale-125 transition"></button>
-                            </div>
-                            <button onclick="saveNote('bg-white')" class="bg-white text-black px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest">Save</button>
+        <section id="manual" class="mb-32">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
+                <h2 class="text-4xl font-black text-white tracking-tighter">Command Database</h2>
+                <div class="relative w-full md:w-96">
+                    <input type="text" id="searchInput" onkeyup="searchCommands()" placeholder="Search 100+ commands..." 
+                    class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-6 outline-none focus:border-blue-500 transition-all">
+                </div>
+            </div>
+
+            <div id="commandContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                </div>
+        </section>
+
+        <section id="notes">
+            <h2 class="text-4xl font-black text-white tracking-tighter mb-12">Creative Workspace</h2>
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/3 glass p-8 rounded-[2.5rem]">
+                    <textarea id="noteInput" class="w-full h-44 bg-transparent outline-none text-sm resize-none mb-6 text-white placeholder-slate-500" placeholder="Draft your designs or notes here..."></textarea>
+                    <div class="flex justify-between items-center">
+                        <div class="flex gap-2">
+                            <button onclick="saveNote('bg-indigo-500')" class="w-6 h-6 rounded-full bg-indigo-500 hover:scale-110 transition"></button>
+                            <button onclick="saveNote('bg-emerald-500')" class="w-6 h-6 rounded-full bg-emerald-500 hover:scale-110 transition"></button>
+                            <button onclick="saveNote('bg-amber-500')" class="w-6 h-6 rounded-full bg-amber-500 hover:scale-110 transition"></button>
                         </div>
+                        <button onclick="saveNote('bg-slate-700')" class="bg-white text-black px-6 py-2 rounded-full text-[10px] font-black uppercase hover:bg-blue-50 transition">Post Note</button>
                     </div>
                 </div>
-                
-                <div id="notesDisplay" class="md:w-2/3 flex flex-wrap gap-6 items-start">
-                    </div>
+                <div id="notesDisplay" class="lg:w-2/3 flex flex-wrap gap-6 items-start"></div>
             </div>
         </section>
 
     </main>
 
-    <div id="commandModal" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl">
-        <div class="glass w-full max-w-lg rounded-[3rem] p-10 border border-white/10">
-            <h3 class="text-3xl font-black mb-8 tracking-tighter">Add Knowledge Entry</h3>
+    <div id="commandModal" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+        <div class="glass w-full max-w-md p-10 rounded-[3rem]">
+            <h3 class="text-2xl font-bold mb-6 text-white">Add New Entry</h3>
             <div class="space-y-4">
-                <input type="text" id="cmdName" placeholder="Command (e.g. ls -la)" class="w-full bg-white/5 border border-white/5 rounded-2xl p-5 outline-none focus:border-blue-500 text-lg">
-                <input type="text" id="cmdCategory" placeholder="Category (Linux / Cloud / Git)" class="w-full bg-white/5 border border-white/5 rounded-2xl p-5 outline-none focus:border-blue-500 uppercase text-xs font-bold tracking-widest">
-                <textarea id="cmdDesc" placeholder="Explain this command in simple words..." class="w-full h-32 bg-white/5 border border-white/5 rounded-2xl p-5 outline-none focus:border-blue-500 text-sm"></textarea>
-                <div class="flex gap-4 pt-6">
-                    <button onclick="toggleModal()" class="flex-1 py-5 rounded-2xl font-bold text-slate-500 hover:bg-white/5">Discard</button>
-                    <button onclick="addNewCommand()" class="flex-1 bg-blue-600 hover:bg-blue-500 py-5 rounded-2xl font-black uppercase tracking-tighter text-sm">Save to Database</button>
+                <input type="text" id="cmdName" placeholder="Command Name (e.g. git commit)" class="input-field">
+                <input type="text" id="cmdCategory" placeholder="Category (e.g. Git)" class="input-field">
+                <textarea id="cmdDesc" placeholder="Description of what it does..." class="input-field h-24 resize-none"></textarea>
+                <div class="flex gap-4 pt-4">
+                    <button onclick="toggleModal()" class="flex-1 text-slate-500 font-bold hover:text-white transition">Cancel</button>
+                    <button onclick="addNewCommand()" class="flex-1 btn-primary">Save to Database</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="py-20 border-t border-white/5 text-center">
-        <div class="text-slate-600 text-[10px] font-bold uppercase tracking-[0.4em]">
-            Developed by Mariya &bull; DevOps Academy &bull; 2026
-        </div>
-    </footer>
-
     <script>
-        // COMMAND DATABASE LOGIC
-        let commands = JSON.parse(localStorage.getItem('mariya_pro_commands') || '[]');
+        // 1. Roadmap Data
+        const roadmapSteps = [
+            "Linux CLI Basics", "Bash Scripting", "Git & GitHub Flow", "Networking Fundamentals",
+            "Docker Containers", "Kubernetes Orchestration", "CI/CD (GitHub Actions)",
+            "Terraform (IaC)", "AWS/Azure Cloud Basics", "Monitoring (Prometheus)"
+        ];
 
+        // 2. Load Progress & Data from LocalStorage
+        let progress = JSON.parse(localStorage.getItem('mariya_progress') || '{}');
+        let commands = JSON.parse(localStorage.getItem('mariya_database') || '[]');
+
+        // --- Roadmap Functions ---
+        function renderRoadmap() {
+            const grid = document.getElementById('roadmapGrid');
+            grid.innerHTML = '';
+            let completedCount = 0;
+
+            roadmapSteps.forEach((step, index) => {
+                const isDone = progress[index] || false;
+                if(isDone) completedCount++;
+
+                const card = document.createElement('div');
+                card.className = `roadmap-card ${isDone ? 'completed' : ''}`;
+                card.onclick = () => toggleProgress(index); // Make whole card clickable
+                card.innerHTML = `
+                    <input type="checkbox" ${isDone ? 'checked' : ''}>
+                    <span class="text-sm font-bold ${isDone ? 'text-emerald-400' : 'text-slate-400'}">${step}</span>
+                `;
+                grid.appendChild(card);
+            });
+
+            const percent = Math.round((completedCount / roadmapSteps.length) * 100);
+            document.getElementById('progressText').textContent = `${percent}% Completed`;
+        }
+
+        function toggleProgress(index) {
+            progress[index] = !progress[index];
+            localStorage.setItem('mariya_progress', JSON.stringify(progress));
+            renderRoadmap();
+        }
+
+        // --- Command Management Functions ---
         function toggleModal() {
             document.getElementById('commandModal').classList.toggle('hidden');
         }
@@ -130,44 +281,46 @@
             const cat = document.getElementById('cmdCategory').value;
             const desc = document.getElementById('cmdDesc').value;
 
-            if(!name || !cat) return alert("Pehle details bharo!");
+            if(!name || !cat) return alert("Please fill in the command name and category.");
 
             commands.push({ name, cat, desc });
-            localStorage.setItem('mariya_pro_commands', JSON.stringify(commands));
+            localStorage.setItem('mariya_database', JSON.stringify(commands));
             
+            // Clear inputs
             document.getElementById('cmdName').value = '';
             document.getElementById('cmdCategory').value = '';
             document.getElementById('cmdDesc').value = '';
-            
+
             toggleModal();
             renderCommands();
         }
 
         function renderCommands() {
             const container = document.getElementById('commandContainer');
-            const countDisplay = document.getElementById('cmdCount');
             container.innerHTML = '';
-            countDisplay.textContent = commands.length;
-
+            if (commands.length === 0) {
+                container.innerHTML = '<p class="text-slate-500 col-span-full text-center">No commands added yet. Be the first!</p>';
+                return;
+            }
             commands.forEach((cmd, index) => {
                 const card = document.createElement('div');
-                card.className = "glass p-8 rounded-[2rem] card-hover transition-all group border-b-4 border-b-transparent hover:border-b-blue-500";
+                card.className = "glass p-6 rounded-3xl border border-transparent hover:border-blue-500 transition-all group relative";
                 card.innerHTML = `
-                    <div class="flex justify-between items-center mb-6">
-                        <span class="text-[9px] uppercase tracking-[0.2em] text-blue-400 font-black bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">${cmd.cat}</span>
-                        <button onclick="deleteCommand(${index})" class="opacity-0 group-hover:opacity-100 text-rose-500 text-[10px] font-bold hover:underline">REMOVE</button>
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-[9px] uppercase font-black tracking-widest text-blue-400">${cmd.cat}</span>
+                        <button onclick="deleteCommand(${index})" class="text-red-500 opacity-0 group-hover:opacity-100 transition-opacity text-xs font-bold">DELETE</button>
                     </div>
-                    <code class="text-2xl font-bold text-white block mb-4 tracking-tight">${cmd.name}</code>
-                    <p class="text-sm text-slate-400 leading-relaxed font-medium">${cmd.desc}</p>
+                    <code class="text-white font-bold text-lg mb-2 block code-font">${cmd.name}</code>
+                    <p class="text-xs text-slate-500 leading-relaxed">${cmd.desc}</p>
                 `;
                 container.appendChild(card);
             });
         }
 
         function deleteCommand(index) {
-            if(confirm("Ye command mita dein?")) {
+            if(confirm("Are you sure you want to delete this command?")) {
                 commands.splice(index, 1);
-                localStorage.setItem('mariya_pro_commands', JSON.stringify(commands));
+                localStorage.setItem('mariya_database', JSON.stringify(commands));
                 renderCommands();
             }
         }
@@ -176,44 +329,55 @@
             const query = document.getElementById('searchInput').value.toLowerCase();
             const cards = document.getElementById('commandContainer').children;
             for (let card of cards) {
-                card.style.display = card.innerText.toLowerCase().includes(query) ? "block" : "none";
+                if(card.tagName === 'P') continue; // Skip the "No commands" message
+                const textContent = card.innerText.toLowerCase();
+                card.style.display = textContent.includes(query) ? "block" : "none";
             }
         }
 
-        // STICKY NOTES LOGIC
-        function loadNotes() {
-            const container = document.getElementById('notesDisplay');
-            container.innerHTML = '';
-            const notes = JSON.parse(localStorage.getItem('mariya_pro_notes') || '[]');
+        // --- Sticky Notes Functions ---
+        function saveNote(color) {
+            const input = document.getElementById('noteInput');
+            const text = input.value.trim();
+            if(!text) return alert("Please write something first!");
+            
+            const notes = JSON.parse(localStorage.getItem('mariya_notes') || '[]');
+            notes.push({ text, color });
+            localStorage.setItem('mariya_notes', JSON.stringify(notes));
+            input.value = '';
+            renderNotes();
+        }
+
+        function renderNotes() {
+            const display = document.getElementById('notesDisplay');
+            display.innerHTML = '';
+            const notes = JSON.parse(localStorage.getItem('mariya_notes') || '[]');
             notes.forEach((note, index) => {
                 const div = document.createElement('div');
-                div.className = `${note.color} p-6 rounded-2xl shadow-2xl w-full md:w-64 min-h-[180px] relative text-slate-900 font-bold transform hover:scale-105 transition-all`;
+                div.className = `note-card ${note.color} flex flex-col justify-between group`;
                 div.innerHTML = `
-                    <button onclick="deleteNote(${index})" class="absolute top-4 right-4 text-black/40 hover:text-black">×</button>
-                    <p class="mt-2">${note.text}</p>
+                    <p class="text-sm font-medium whitespace-pre-wrap">${note.text}</p>
+                    <button onclick="deleteNote(${index})" class="text-[10px] text-white/50 text-left mt-4 group-hover:text-white uppercase font-bold tracking-widest transition-colors">Delete</button>
                 `;
-                container.appendChild(div);
+                display.appendChild(div);
             });
         }
 
-        function saveNote(color) {
-            const input = document.getElementById('noteInput');
-            if(!input.value.trim()) return;
-            const notes = JSON.parse(localStorage.getItem('mariya_pro_notes') || '[]');
-            notes.push({ text: input.value, color: color });
-            localStorage.setItem('mariya_pro_notes', JSON.stringify(notes));
-            input.value = '';
-            loadNotes();
+        function deleteNote(i) {
+            if(confirm("Delete this note?")) {
+                let notes = JSON.parse(localStorage.getItem('mariya_notes'));
+                notes.splice(i, 1);
+                localStorage.setItem('mariya_notes', JSON.stringify(notes));
+                renderNotes();
+            }
         }
 
-        function deleteNote(index) {
-            const notes = JSON.parse(localStorage.getItem('mariya_pro_notes') || '[]');
-            notes.splice(index, 1);
-            localStorage.setItem('mariya_pro_notes', JSON.stringify(notes));
-            loadNotes();
-        }
-
-        window.onload = () => { renderCommands(); loadNotes(); };
+        // --- Initialization ---
+        window.onload = () => {
+            renderRoadmap();
+            renderCommands();
+            renderNotes();
+        };
     </script>
 </body>
 </html>
