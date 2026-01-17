@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Academy | By Mariya</title>
+    <title>DevOps Academy | Professional Command Center</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root { --p: #3b82f6; --s: #10b981; --a: #fbbf24; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: #020617; color: #f8fafc; scroll-behavior: smooth; }
         .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.05); }
-        .neon-border { position: relative; }
-        .neon-border::after { content: ''; position: absolute; inset: -1px; background: linear-gradient(45deg, var(--p), var(--s)); border-radius: inherit; z-index: -1; opacity: 0.3; }
         .card-hover:hover { transform: translateY(-8px); border-color: var(--p); box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.3); }
         .search-glow:focus { box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); border-color: var(--p); }
-        /* Professional Scrollbar */
+        .handwritten { font-family: 'Plus Jakarta Sans', sans-serif; color: #1e293b; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #020617; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
@@ -24,69 +22,107 @@
 
     <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 px-8 py-4 flex justify-between items-center">
         <div class="flex items-center gap-2">
-            <div class="w-8 h-8 bg-gradient-to-tr from-blue-600 to-emerald-500 rounded-lg"></div>
-            <span class="font-bold text-xl tracking-tight">MAZE ZONE <span class="text-blue-500">DEVOPS</span></span>
+            <div class="w-8 h-8 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-lg"></div>
+            <span class="font-extrabold text-xl tracking-tighter">DEVOPS <span class="text-blue-500">ACADEMY</span></span>
         </div>
-        <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
-            <a href="#dashboard" class="hover:text-white transition">Dashboard</a>
-            <a href="#manual" class="hover:text-white transition">Manual</a>
+        <div class="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest text-slate-400">
+            <a href="#manual" class="hover:text-white transition">Commands</a>
             <a href="#notes" class="hover:text-white transition">Study Notes</a>
+            <a href="#" class="hover:text-white transition">Resources</a>
         </div>
-        <button onclick="toggleModal()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-full text-xs font-bold transition">+ Add Command</button>
+        <button onclick="toggleModal()" class="bg-white text-black hover:bg-slate-200 px-6 py-2 rounded-full text-xs font-black transition uppercase tracking-tighter shadow-xl shadow-white/5">+ Add Command</button>
     </nav>
 
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-20">
         
-        <header class="text-center mb-20">
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tighter">
-                Global Learner <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Database</span>
+        <header class="text-center mb-24">
+            <div class="inline-block px-4 py-1.5 mb-6 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-[10px] font-bold uppercase tracking-[0.2em]">
+                The Future of Learning DevOps
+            </div>
+            <h1 class="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-none">
+                Mastering the <br> 
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-emerald-400">Command Line.</span>
             </h1>
-            <p class="text-slate-400 max-w-2xl mx-auto mb-10">Mariya, yahan tumhare saare Linux aur DevOps commands honge. Future mein duniya yahan se sikhegi!</p>
             
-            <div class="relative max-w-2xl mx-auto">
-                <input type="text" id="searchInput" onkeyup="searchCommands()" placeholder="Search commands (e.g. git, ls, chmod)..." 
-                class="w-full bg-slate-900/50 border border-white/10 rounded-2xl py-4 px-6 outline-none search-glow transition-all text-lg">
-                <span class="absolute right-6 top-4 text-slate-500">🔍</span>
+            <div class="relative max-w-3xl mx-auto">
+                <input type="text" id="searchInput" onkeyup="searchCommands()" placeholder="Quick Search: git, docker, linux, automation..." 
+                class="w-full bg-slate-900/40 border border-white/10 rounded-[2rem] py-5 px-8 outline-none search-glow transition-all text-xl font-medium">
+                <div class="absolute right-8 top-5 flex gap-2">
+                    <span class="px-2 py-1 bg-white/5 rounded text-[10px] border border-white/10">Ctrl</span>
+                    <span class="px-2 py-1 bg-white/5 rounded text-[10px] border border-white/10">K</span>
+                </div>
             </div>
         </header>
 
         <section id="manual" class="space-y-12">
-            <div class="flex justify-between items-end">
+            <div class="flex justify-between items-end border-b border-white/5 pb-6">
                 <div>
-                    <h2 class="text-3xl font-bold">Command Manual</h2>
-                    <div class="h-1 w-12 bg-blue-500 mt-2 rounded-full"></div>
+                    <h2 class="text-4xl font-black tracking-tighter">Command Manual</h2>
+                    <p class="text-slate-500 text-sm mt-1">Directly added from the global database.</p>
                 </div>
-                <span id="cmdCount" class="text-slate-500 text-sm font-mono">Total: 0 Commands</span>
+                <div class="text-right">
+                    <span id="cmdCount" class="text-blue-500 text-2xl font-black block leading-none">0</span>
+                    <span class="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Active Entries</span>
+                </div>
             </div>
 
-            <div id="commandContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div id="commandContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 </div>
+        </section>
+
+        <section id="notes" class="mt-32 pt-20 border-t border-white/5">
+            <div class="flex flex-col md:flex-row gap-16">
+                <div class="md:w-1/3">
+                    <h2 class="text-4xl font-black tracking-tighter mb-4">Quick <br> Sticky Notes</h2>
+                    <p class="text-slate-500 text-sm mb-8 leading-relaxed">Apne ideas aur thoughts yahan save karo. Ye browser mein save rahenge.</p>
+                    
+                    <div class="glass p-8 rounded-[2.5rem] space-y-6">
+                        <textarea id="noteInput" class="w-full h-40 bg-black/20 rounded-2xl p-4 text-sm border border-white/5 focus:border-blue-500 outline-none transition-all" placeholder="Write something important..."></textarea>
+                        <div class="flex justify-between items-center">
+                            <div class="flex gap-2">
+                                <button onclick="saveNote('bg-blue-300')" class="w-6 h-6 rounded-full bg-blue-300 hover:scale-125 transition"></button>
+                                <button onclick="saveNote('bg-amber-200')" class="w-6 h-6 rounded-full bg-amber-200 hover:scale-125 transition"></button>
+                                <button onclick="saveNote('bg-rose-300')" class="w-6 h-6 rounded-full bg-rose-300 hover:scale-125 transition"></button>
+                            </div>
+                            <button onclick="saveNote('bg-white')" class="bg-white text-black px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest">Save</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="notesDisplay" class="md:w-2/3 flex flex-wrap gap-6 items-start">
+                    </div>
+            </div>
         </section>
 
     </main>
 
-    <div id="commandModal" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-        <div class="glass w-full max-w-lg rounded-[2.5rem] p-8 border border-white/10">
-            <h3 class="text-2xl font-bold mb-6">Add New Command</h3>
+    <div id="commandModal" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl">
+        <div class="glass w-full max-w-lg rounded-[3rem] p-10 border border-white/10">
+            <h3 class="text-3xl font-black mb-8 tracking-tighter">Add Knowledge Entry</h3>
             <div class="space-y-4">
-                <input type="text" id="cmdName" placeholder="Command (e.g. git commit)" class="w-full bg-black/40 border border-white/5 rounded-xl p-4 outline-none focus:border-blue-500">
-                <input type="text" id="cmdCategory" placeholder="Category (Linux / Git / DevOps)" class="w-full bg-black/40 border border-white/5 rounded-xl p-4 outline-none focus:border-blue-500">
-                <textarea id="cmdDesc" placeholder="What does it do?" class="w-full h-24 bg-black/40 border border-white/5 rounded-xl p-4 outline-none focus:border-blue-500"></textarea>
-                <div class="flex gap-4 pt-4">
-                    <button onclick="toggleModal()" class="flex-1 py-4 rounded-xl font-bold text-slate-400 hover:bg-white/5">Cancel</button>
-                    <button onclick="addNewCommand()" class="flex-1 bg-blue-600 hover:bg-blue-500 py-4 rounded-xl font-bold">Save Command</button>
+                <input type="text" id="cmdName" placeholder="Command (e.g. ls -la)" class="w-full bg-white/5 border border-white/5 rounded-2xl p-5 outline-none focus:border-blue-500 text-lg">
+                <input type="text" id="cmdCategory" placeholder="Category (Linux / Cloud / Git)" class="w-full bg-white/5 border border-white/5 rounded-2xl p-5 outline-none focus:border-blue-500 uppercase text-xs font-bold tracking-widest">
+                <textarea id="cmdDesc" placeholder="Explain this command in simple words..." class="w-full h-32 bg-white/5 border border-white/5 rounded-2xl p-5 outline-none focus:border-blue-500 text-sm"></textarea>
+                <div class="flex gap-4 pt-6">
+                    <button onclick="toggleModal()" class="flex-1 py-5 rounded-2xl font-bold text-slate-500 hover:bg-white/5">Discard</button>
+                    <button onclick="addNewCommand()" class="flex-1 bg-blue-600 hover:bg-blue-500 py-5 rounded-2xl font-black uppercase tracking-tighter text-sm">Save to Database</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <footer class="py-20 border-t border-white/5 text-center">
+        <div class="text-slate-600 text-[10px] font-bold uppercase tracking-[0.4em]">
+            Developed by Mariya &bull; DevOps Academy &bull; 2026
+        </div>
+    </footer>
+
     <script>
-        // Commands Management Logic
-        let commands = JSON.parse(localStorage.getItem('mariya_commands') || '[]');
+        // COMMAND DATABASE LOGIC
+        let commands = JSON.parse(localStorage.getItem('mariya_pro_commands') || '[]');
 
         function toggleModal() {
-            const modal = document.getElementById('commandModal');
-            modal.classList.toggle('hidden');
+            document.getElementById('commandModal').classList.toggle('hidden');
         }
 
         function addNewCommand() {
@@ -94,12 +130,11 @@
             const cat = document.getElementById('cmdCategory').value;
             const desc = document.getElementById('cmdDesc').value;
 
-            if(!name || !cat) return alert("Bhai, naam aur category toh dalo!");
+            if(!name || !cat) return alert("Pehle details bharo!");
 
             commands.push({ name, cat, desc });
-            localStorage.setItem('mariya_commands', JSON.stringify(commands));
+            localStorage.setItem('mariya_pro_commands', JSON.stringify(commands));
             
-            // Clear inputs
             document.getElementById('cmdName').value = '';
             document.getElementById('cmdCategory').value = '';
             document.getElementById('cmdDesc').value = '';
@@ -112,42 +147,73 @@
             const container = document.getElementById('commandContainer');
             const countDisplay = document.getElementById('cmdCount');
             container.innerHTML = '';
-            countDisplay.textContent = `Total: ${commands.length} Commands`;
+            countDisplay.textContent = commands.length;
 
             commands.forEach((cmd, index) => {
                 const card = document.createElement('div');
-                card.className = "glass p-6 rounded-3xl card-hover transition-all group relative";
+                card.className = "glass p-8 rounded-[2rem] card-hover transition-all group border-b-4 border-b-transparent hover:border-b-blue-500";
                 card.innerHTML = `
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-[10px] uppercase tracking-widest text-blue-400 font-bold bg-blue-500/10 px-2 py-1 rounded">${cmd.cat}</span>
-                        <button onclick="deleteCommand(${index})" class="opacity-0 group-hover:opacity-100 text-red-500 text-xs">Delete</button>
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-[9px] uppercase tracking-[0.2em] text-blue-400 font-black bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">${cmd.cat}</span>
+                        <button onclick="deleteCommand(${index})" class="opacity-0 group-hover:opacity-100 text-rose-500 text-[10px] font-bold hover:underline">REMOVE</button>
                     </div>
-                    <code class="text-xl font-bold text-white block mb-3 code-font">${cmd.name}</code>
-                    <p class="text-sm text-slate-400 leading-relaxed">${cmd.desc}</p>
+                    <code class="text-2xl font-bold text-white block mb-4 tracking-tight">${cmd.name}</code>
+                    <p class="text-sm text-slate-400 leading-relaxed font-medium">${cmd.desc}</p>
                 `;
                 container.appendChild(card);
             });
         }
 
         function deleteCommand(index) {
-            if(confirm("Bhai, pakka delete karun?")) {
+            if(confirm("Ye command mita dein?")) {
                 commands.splice(index, 1);
-                localStorage.setItem('mariya_commands', JSON.stringify(commands));
+                localStorage.setItem('mariya_pro_commands', JSON.stringify(commands));
                 renderCommands();
             }
         }
 
         function searchCommands() {
             const query = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.getElementById('commandContainer').getElementsByTagName('div');
-            
-            for (let i = 0; i < cards.length; i++) {
-                const name = cards[i].innerText.toLowerCase();
-                cards[i].style.display = name.includes(query) ? "block" : "none";
+            const cards = document.getElementById('commandContainer').children;
+            for (let card of cards) {
+                card.style.display = card.innerText.toLowerCase().includes(query) ? "block" : "none";
             }
         }
 
-        window.onload = renderCommands;
+        // STICKY NOTES LOGIC
+        function loadNotes() {
+            const container = document.getElementById('notesDisplay');
+            container.innerHTML = '';
+            const notes = JSON.parse(localStorage.getItem('mariya_pro_notes') || '[]');
+            notes.forEach((note, index) => {
+                const div = document.createElement('div');
+                div.className = `${note.color} p-6 rounded-2xl shadow-2xl w-full md:w-64 min-h-[180px] relative text-slate-900 font-bold transform hover:scale-105 transition-all`;
+                div.innerHTML = `
+                    <button onclick="deleteNote(${index})" class="absolute top-4 right-4 text-black/40 hover:text-black">×</button>
+                    <p class="mt-2">${note.text}</p>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function saveNote(color) {
+            const input = document.getElementById('noteInput');
+            if(!input.value.trim()) return;
+            const notes = JSON.parse(localStorage.getItem('mariya_pro_notes') || '[]');
+            notes.push({ text: input.value, color: color });
+            localStorage.setItem('mariya_pro_notes', JSON.stringify(notes));
+            input.value = '';
+            loadNotes();
+        }
+
+        function deleteNote(index) {
+            const notes = JSON.parse(localStorage.getItem('mariya_pro_notes') || '[]');
+            notes.splice(index, 1);
+            localStorage.setItem('mariya_pro_notes', JSON.stringify(notes));
+            loadNotes();
+        }
+
+        window.onload = () => { renderCommands(); loadNotes(); };
     </script>
 </body>
 </html>
