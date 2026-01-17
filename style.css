@@ -16,4 +16,15 @@ html {
 }
 ::-webkit-scrollbar-thumb:hover {
     background: #475569;
+}/* Luxury Card Effect */
+.bg-slate-800\/50 {
+    backdrop-filter: blur(12px);
+    background-color: rgba(30, 41, 59, 0.4);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Golden border on hover for luxury feel */
+.bg-slate-800\/50:hover {
+    border-color: #fbbf24; /* Golden color */
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.15);
 }
