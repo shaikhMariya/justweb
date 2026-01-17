@@ -3,213 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mariya's Devops|journey</title>
+    <title>DevOps Learning | Mariya</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --p: #3b82f6; --s: #10b981; --bg: #020617; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: #f8fafc; scroll-behavior: smooth; }
-        .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.05); }
-        .roadmap-step { background: rgba(255, 255, 255, 0.02); border-left: 4px solid #334155; transition: all 0.3s; }
-        .roadmap-step.active { border-left-color: var(--p); background: rgba(59, 130, 246, 0.05); }
-        .roadmap-step.done { border-left-color: var(--s); background: rgba(16, 185, 129, 0.05); }
-        .gradient-text { background: linear-gradient(to right, #60a5fa, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        input[type="checkbox"] { width: 18px; height: 18px; accent-color: #10b981; cursor: pointer; }
-        .code-card { border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
-        .code-card:hover { border-color: var(--p); transform: translateY(-4px); }
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        :root { --p: #3b82f6; --bg: #0f172a; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: #f1f5f9; scroll-behavior: smooth; }
+        .cmd-card { background: #1e293b; border-radius: 24px; padding: 24px; transition: 0.3s; border: 1px solid #334155; }
+        .cmd-card:hover { border-color: var(--p); transform: translateY(-5px); }
+        .code-snippet { background: #020617; color: #38bdf8; font-family: 'Fira Code', monospace; padding: 12px; border-radius: 12px; font-size: 14px; margin-bottom: 12px; display: block; }
+        .roadmap-box { background: #1e293b; border-radius: 16px; padding: 20px; border: 2px solid transparent; cursor: pointer; transition: 0.3s; }
+        .roadmap-box.done { border-color: #22c55e; background: #064e3b; }
+        .note-card { border-radius: 20px; padding: 20px; color: #1e293b; font-weight: 600; min-height: 150px; width: 100%; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        @media (min-width: 768px) { .note-card { width: 280px; } }
     </style>
 </head>
-<body>
+<body class="p-4 md:p-12">
 
-    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 px-8 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-            <div class="w-8 h-8 bg-blue-600 rounded-lg shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
-            <span class="font-bold text-xl tracking-tighter">DEVOPS <span class="text-blue-500">ACADEMY</span></span>
-        </div>
-        <button onclick="toggleModal()" class="bg-white text-black px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-blue-500 hover:text-white transition">+ Add Command</button>
-    </nav>
+    <header class="max-w-6xl mx-auto mb-20">
+        <h1 class="text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">DevOps Academy.</h1>
+        <p class="text-slate-400 text-lg">Mariya, yahan tumhare detailed commands aur progress boxes hain. Easy to learn, easy to master!</p>
+    </header>
 
-    <main class="max-w-7xl mx-auto px-6 pt-32 pb-20">
-        
-        <header class="mb-24">
-            <h1 class="text-6xl md:text-8xl font-black tracking-tighter mb-6">Zero to <span class="gradient-text">Hero.</span></h1>
-            <p class="text-slate-500 text-lg max-w-2xl">Mariya's structured roadmap for mastering DevOps. Track your progress and build your command database.</p>
-        </header>
+    <main class="max-w-6xl mx-auto space-y-24">
 
-        <section id="roadmap" class="mb-32">
-            <div class="flex items-center justify-between mb-12">
-                <h2 class="text-3xl font-black tracking-tighter">Learning Path</h2>
-                <div id="progressStatus" class="text-blue-500 font-mono font-bold">Progress: 0%</div>
+        <section id="commands">
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-3xl font-bold">📜 Master Command List</h2>
+                <div class="flex gap-2">
+                    <input type="text" id="searchInput" onkeyup="searchCmd()" placeholder="Search..." class="bg-slate-800 border-none rounded-xl px-4 py-2 text-sm outline-none focus:ring-2 ring-blue-500">
+                    <button onclick="toggleModal()" class="bg-blue-600 px-4 py-2 rounded-xl text-xs font-bold hover:bg-blue-500">+ Add</button>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="roadmapGrid">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cmdContainer">
                 </div>
         </section>
 
-        <section id="manual" class="mb-32">
-            <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-12 border-b border-white/5 pb-8">
-                <div>
-                    <h2 class="text-4xl font-black tracking-tighter">Command Manual</h2>
-                    <p class="text-slate-500 text-sm mt-2">Essential commands for every DevOps Engineer.</p>
-                </div>
-                <input type="text" id="searchInput" onkeyup="searchCommands()" placeholder="Filter commands..." 
-                class="bg-white/5 border border-white/10 rounded-xl px-6 py-3 outline-none focus:border-blue-500 w-full md:w-80 transition-all">
-            </div>
-
-            <div id="commandContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                </div>
-        </section>
-
-        <section id="notes">
-            <h2 class="text-3xl font-black tracking-tighter mb-10">Study Workspace</h2>
+        <section id="workspace">
+            <h2 class="text-3xl font-bold mb-10">✍️ My Creative Workspace</h2>
             <div class="flex flex-col lg:flex-row gap-10">
-                <div class="lg:w-1/3 glass p-8 rounded-[2rem]">
-                    <textarea id="noteInput" class="w-full h-40 bg-transparent border-none outline-none text-white text-sm resize-none mb-4" placeholder="Quick notes or design ideas..."></textarea>
+                <div class="lg:w-1/3 bg-slate-800 p-8 rounded-[2rem]">
+                    <textarea id="noteText" placeholder="Jaldi se kuch note karo..." class="w-full bg-transparent border-none outline-none text-white h-32 resize-none mb-4"></textarea>
                     <div class="flex justify-between items-center">
                         <div class="flex gap-2">
-                            <button onclick="saveNote('bg-indigo-600')" class="w-6 h-6 rounded-full bg-indigo-600"></button>
-                            <button onclick="saveNote('bg-rose-500')" class="w-6 h-6 rounded-full bg-rose-500"></button>
-                            <button onclick="saveNote('bg-emerald-500')" class="w-6 h-6 rounded-full bg-emerald-500"></button>
+                            <button onclick="saveNote('bg-yellow-200')" class="w-8 h-8 rounded-full bg-yellow-200"></button>
+                            <button onclick="saveNote('bg-blue-200')" class="w-8 h-8 rounded-full bg-blue-200"></button>
+                            <button onclick="saveNote('bg-pink-200')" class="w-8 h-8 rounded-full bg-pink-200"></button>
                         </div>
-                        <button onclick="saveNote('bg-slate-800')" class="bg-blue-600 text-white px-5 py-2 rounded-xl text-[10px] font-bold uppercase">Save</button>
+                        <button onclick="saveNote('bg-slate-200')" class="bg-white text-black px-6 py-2 rounded-full text-[10px] font-black uppercase">Save Note</button>
                     </div>
                 </div>
-                <div id="notesDisplay" class="lg:w-2/3 flex flex-wrap gap-6"></div>
+                <div id="notesDisplay" class="lg:w-2/3 flex flex-wrap gap-4"></div>
             </div>
+        </section>
+
+        <section id="roadmap" class="pb-20">
+            <div class="flex items-center gap-4 mb-10">
+                <h2 class="text-3xl font-bold">🏆 My Learning Roadmap</h2>
+                <div class="h-1 flex-1 bg-slate-800 rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="roadmapGrid">
+                </div>
+            <p class="text-center mt-8 text-slate-500 text-sm italic">Mariya, har box par click karke use complete karo!</p>
         </section>
 
     </main>
 
-    <div id="commandModal" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
-        <div class="glass w-full max-w-md p-10 rounded-[3rem]">
-            <h3 class="text-2xl font-bold mb-6">Add Command</h3>
+    <div id="cmdModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
+        <div class="bg-slate-800 w-full max-w-md p-10 rounded-[2.5rem] border border-white/10">
+            <h3 class="text-2xl font-bold mb-6">Naya Command Sikha?</h3>
             <div class="space-y-4">
-                <input type="text" id="cmdName" placeholder="Command" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-blue-500">
-                <input type="text" id="cmdCategory" placeholder="Category (Linux/Git)" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-blue-500">
-                <textarea id="cmdDesc" placeholder="Description" class="w-full h-24 bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-blue-500"></textarea>
+                <input type="text" id="newCmd" placeholder="Command (e.g. ls -la)" class="w-full bg-slate-900 p-4 rounded-xl outline-none">
+                <input type="text" id="newCat" placeholder="Category (Linux/Git)" class="w-full bg-slate-900 p-4 rounded-xl outline-none">
+                <textarea id="newDesc" placeholder="Ye command kya karta hai? Example do..." class="w-full h-24 bg-slate-900 p-4 rounded-xl outline-none"></textarea>
                 <div class="flex gap-4 pt-4">
                     <button onclick="toggleModal()" class="flex-1 text-slate-500 font-bold">Cancel</button>
-                    <button onclick="addNewCommand()" class="flex-1 bg-blue-600 py-4 rounded-xl font-bold">Save</button>
+                    <button onclick="addCmd()" class="flex-1 bg-blue-600 py-4 rounded-xl font-bold">Add to List</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // --- 1. ROADMAP STRUCTURE ---
-        const roadmapData = [
-            { phase: "Phase 1: Terminal Pro", steps: ["Basic Navigation (ls, cd, pwd)", "File Permissions (chmod, chown)", "Package Management (apt)", "SSH & Remote Access"] },
-            { phase: "Phase 2: Version Control", steps: ["Git Basics (Add, Commit)", "Branching & Merging", "GitHub Actions (CI/CD)", "Resolving Conflicts"] },
-            { phase: "Phase 3: Infrastructure", steps: ["Networking (IPs, DNS, Ports)", "Docker Containers", "Kubernetes Basics", "AWS/Cloud Essentials"] },
-            { phase: "Phase 4: Automation", steps: ["Bash Scripting", "Cron Job Automation", "Terraform (IaC)", "Monitoring (Prometheus)"] }
+        // --- 1. PRE-FILLED DETAILED COMMANDS ---
+        const initialCmds = [
+            { name: "ls -lah", cat: "Linux", desc: "Isse saari hidden files bhi dikhti hain aur file ka size (KB/MB) bhi asani se samajh aata hai." },
+            { name: "chmod 777 filename", cat: "Permissions", desc: "Is command se kisi bhi file ko poori permission (Read, Write, Execute) mil jati hai." },
+            { name: "git commit -m 'msg'", cat: "Git", desc: "Apne badlav (changes) ko ek message ke saath save karne ke liye. 'msg' ki jagah apna message likho." },
+            { name: "df -h", cat: "Monitoring", desc: "Computer ki Hard Drive kitni bhari hai aur kitni khali, ye dekhne ka sabse asaan tarika." },
+            { name: "git push origin main", cat: "GitHub", desc: "Apne computer ke code ko live GitHub website par bhejne ke liye use hota hai." },
+            { name: "tar -czvf backup.tar.gz folder", cat: "Backup", desc: "Kisi bhi folder ki zip file (backup) banane ke liye ye command best hai." }
         ];
 
-        // --- 2. PRE-FILLED COMMANDS ---
-        const initialCommands = [
-            { name: "ls -la", cat: "Linux", desc: "List all files including hidden ones with details." },
-            { name: "chmod +x", cat: "Linux", desc: "Make a script executable (ready to run)." },
-            { name: "df -h", cat: "Monitoring", desc: "Check disk space (Storage) in human-readable format." },
-            { name: "git status", cat: "Git", desc: "Check which files are changed or ready to commit." },
-            { name: "git push origin main", cat: "Git", desc: "Upload your local code to the live GitHub repository." },
-            { name: "crontab -e", cat: "Automation", desc: "Open the scheduler to automate tasks (Cron Jobs)." }
-        ];
+        const roadmapSteps = ["Level 1: Linux Basics", "Level 2: Git Warrior", "Level 3: Automation", "Level 4: Cloud Ninja"];
 
-        let progress = JSON.parse(localStorage.getItem('m_progress') || '{}');
-        let commands = JSON.parse(localStorage.getItem('m_db'));
+        let db = JSON.parse(localStorage.getItem('m_db')) || initialCmds;
+        let progress = JSON.parse(localStorage.getItem('m_progress')) || [];
 
-        // If DB is empty, fill with initial commands
-        if (!commands || commands.length === 0) {
-            commands = initialCommands;
-            localStorage.setItem('m_db', JSON.stringify(commands));
-        }
-
-        // --- 3. FUNCTIONS ---
-        function renderRoadmap() {
-            const grid = document.getElementById('roadmapGrid');
-            grid.innerHTML = '';
-            let totalSteps = 0, completed = 0;
-
-            roadmapData.forEach((p, pIdx) => {
-                const phaseDiv = document.createElement('div');
-                phaseDiv.className = "space-y-4";
-                phaseDiv.innerHTML = `<h3 class="text-sm font-black uppercase tracking-widest text-slate-500 mb-4">${p.phase}</h3>`;
-                
-                p.steps.forEach((step, sIdx) => {
-                    totalSteps++;
-                    const key = `${pIdx}-${sIdx}`;
-                    const isDone = progress[key] || false;
-                    if(isDone) completed++;
-
-                    const stepDiv = document.createElement('div');
-                    stepDiv.className = `roadmap-step p-5 rounded-2xl flex justify-between items-center cursor-pointer ${isDone ? 'done' : 'active'}`;
-                    stepDiv.onclick = () => {
-                        progress[key] = !isDone;
-                        localStorage.setItem('m_progress', JSON.stringify(progress));
-                        renderRoadmap();
-                    };
-                    stepDiv.innerHTML = `
-                        <span class="text-sm font-bold ${isDone ? 'text-emerald-400' : 'text-white'}">${step}</span>
-                        <input type="checkbox" ${isDone ? 'checked' : ''} class="pointer-events-none">
-                    `;
-                    phaseDiv.appendChild(stepDiv);
-                });
-                grid.appendChild(phaseDiv);
-            });
-            document.getElementById('progressStatus').textContent = `Progress: ${Math.round((completed/totalSteps)*100)}%`;
-        }
-
+        // --- FUNCTIONS ---
         function renderCommands() {
-            const container = document.getElementById('commandContainer');
+            const container = document.getElementById('cmdContainer');
             container.innerHTML = '';
-            commands.forEach((c, i) => {
+            db.forEach((item, i) => {
                 const card = document.createElement('div');
-                card.className = "code-card glass p-6 rounded-3xl group relative";
+                card.className = "cmd-card";
                 card.innerHTML = `
-                    <span class="text-[9px] font-black text-blue-400 uppercase tracking-widest bg-blue-500/10 px-2 py-1 rounded mb-4 inline-block">${c.cat}</span>
-                    <code class="text-white font-bold text-lg block mb-2 font-mono">${c.name}</code>
-                    <p class="text-xs text-slate-500 leading-relaxed">${c.desc}</p>
-                    <button onclick="deleteCommand(${i})" class="absolute top-4 right-4 text-red-500 opacity-0 group-hover:opacity-100 text-[10px] font-bold">DELETE</button>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-blue-400 mb-2 block">${item.cat}</span>
+                    <code class="code-snippet"># ${item.name}</code>
+                    <p class="text-sm text-slate-400 leading-relaxed">${item.desc}</p>
+                    <button onclick="deleteCmd(${i})" class="text-[10px] text-red-500 mt-4 font-bold hover:underline">DELETE</button>
                 `;
                 container.appendChild(card);
             });
         }
 
-        function toggleModal() { document.getElementById('commandModal').classList.toggle('hidden'); }
+        function renderRoadmap() {
+            const grid = document.getElementById('roadmapGrid');
+            grid.innerHTML = '';
+            roadmapSteps.forEach((step, i) => {
+                const isDone = progress.includes(i);
+                const box = document.createElement('div');
+                box.className = `roadmap-box ${isDone ? 'done' : ''}`;
+                box.onclick = () => {
+                    if(isDone) progress = progress.filter(idx => idx !== i);
+                    else progress.push(i);
+                    localStorage.setItem('m_progress', JSON.stringify(progress));
+                    renderRoadmap();
+                };
+                box.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold ${isDone ? 'text-white' : 'text-slate-400'}">${step}</span>
+                        <span>${isDone ? '✅' : '⚪'}</span>
+                    </div>
+                `;
+                grid.appendChild(box);
+            });
+        }
 
-        function addNewCommand() {
-            const name = document.getElementById('cmdName').value;
-            const cat = document.getElementById('cmdCategory').value;
-            const desc = document.getElementById('cmdDesc').value;
-            if(!name || !cat) return alert("Details bharo!");
-            commands.push({ name, cat, desc });
-            localStorage.setItem('m_db', JSON.stringify(commands));
+        function toggleModal() { document.getElementById('cmdModal').classList.toggle('hidden'); }
+
+        function addCmd() {
+            const name = document.getElementById('newCmd').value;
+            const cat = document.getElementById('newCat').value;
+            const desc = document.getElementById('newDesc').value;
+            if(!name || !cat) return alert("Bhai, commands dalo!");
+            db.push({ name, cat, desc });
+            localStorage.setItem('m_db', JSON.stringify(db));
             toggleModal();
             renderCommands();
         }
 
-        function deleteCommand(i) {
-            commands.splice(i, 1);
-            localStorage.setItem('m_db', JSON.stringify(commands));
+        function deleteCmd(i) {
+            db.splice(i, 1);
+            localStorage.setItem('m_db', JSON.stringify(db));
             renderCommands();
         }
 
-        function searchCommands() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.getElementById('commandContainer').children;
-            for (let card of cards) {
-                card.style.display = card.innerText.toLowerCase().includes(query) ? "block" : "none";
-            }
-        }
-
         function saveNote(color) {
-            const text = document.getElementById('noteInput').value;
+            const text = document.getElementById('noteText').value;
             if(!text) return;
             const notes = JSON.parse(localStorage.getItem('m_notes') || '[]');
             notes.push({ text, color });
             localStorage.setItem('m_notes', JSON.stringify(notes));
-            document.getElementById('noteInput').value = '';
+            document.getElementById('noteText').value = '';
             renderNotes();
         }
 
@@ -219,8 +177,8 @@
             const notes = JSON.parse(localStorage.getItem('m_notes') || '[]');
             notes.forEach((n, i) => {
                 const div = document.createElement('div');
-                div.className = `${n.color} p-6 rounded-3xl w-64 min-h-[160px] text-white font-bold relative shadow-xl`;
-                div.innerHTML = `<p class="text-sm">${n.text}</p><button onclick="deleteNote(${i})" class="absolute top-2 right-2 opacity-50 hover:opacity-100">×</button>`;
+                div.className = `note-card ${n.color}`;
+                div.innerHTML = `<p>${n.text}</p><button onclick="deleteNote(${i})" class="text-[10px] mt-4 opacity-50 font-bold uppercase">Mitao</button>`;
                 display.appendChild(div);
             });
         }
@@ -232,7 +190,15 @@
             renderNotes();
         }
 
-        window.onload = () => { renderRoadmap(); renderCommands(); renderNotes(); };
+        function searchCmd() {
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.getElementById('cmdContainer').children;
+            for(let card of cards) {
+                card.style.display = card.innerText.toLowerCase().includes(q) ? "block" : "none";
+            }
+        }
+
+        window.onload = () => { renderCommands(); renderRoadmap(); renderNotes(); };
     </script>
 </body>
 </html>
