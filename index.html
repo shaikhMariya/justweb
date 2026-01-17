@@ -223,14 +223,14 @@
         <p>Built with ❤️ by <span class="text-blue-400 font-bold">Mariya</span> during her DevOps Journey.</p>
         <p class="mt-2 opacity-50">© 2026 Maze Zone. All commands verified.</p>
     </footer>
+p
 
     <script>
         // Notes ko LocalStorage se load karna
         function loadNotes() {
             const container = document.getElementById('notesDisplay');
             // Agar pehli baar khol rahe ho toh 'No notes yet' wala message hatao
-            if(localStorage.getItem('mariya_notes')) {
-                 container.innerHTML = ''; 
+            if(localStorage.getItem('mariya_notes')) {                 container.innerHTML = ''; 
             }
            
             const notes = JSON.parse(localStorage.getItem('mariya_notes') || '[]');
@@ -239,6 +239,7 @@
                 createNoteElement(note.text, note.color, index);
             });
         }
+7dd
         <div class="bg-gradient-to-r from-violet-900/40 to-blue-900/40 p-6 rounded-3xl border border-violet-500/30 mb-12 flex flex-col md:flex-row items-center justify-between gap-6">
     <div>
         <h3 class="text-xl font-bold text-violet-300">💡 Today's Challenge</h3>
