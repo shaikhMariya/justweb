@@ -1,64 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>DevOps Learning Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevOps Notebook</title>
 
 <style>
 
 body{
-background:#071018;
+margin:0;
 font-family:Segoe UI;
+background:#06131b;
 color:white;
-padding:30px;
 }
 
-h2{
+header{
+padding:15px 25px;
+font-size:20px;
+letter-spacing:2px;
 color:#00e1ff;
+border-bottom:1px solid #0b2734;
 }
 
-.grid{
+.container{
 display:grid;
-grid-template-columns:250px 1fr 250px;
-gap:20px;
+grid-template-columns:240px 1fr 280px;
+height:calc(100vh - 60px);
 }
 
-.card{
-background:#0b1f2b;
+/* SIDEBAR */
+
+.sidebar{
+background:#081c25;
 padding:20px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,255,255,.1);
+overflow:auto;
 }
 
-input,textarea{
-width:100%;
+.sidebar h3{
+color:#00e1ff;
+margin-bottom:10px;
+}
+
+.topic{
 padding:8px;
-margin-top:8px;
-background:#04131b;
-border:1px solid #123;
+border-radius:6px;
+cursor:pointer;
+}
+
+.topic:hover{
+background:#0f2c3a;
+}
+
+/* MAIN NOTES */
+
+.main{
+padding:25px;
+overflow:auto;
+}
+
+.main input{
+width:100%;
+padding:10px;
+margin-bottom:10px;
+background:#0a202a;
+border:none;
+color:white;
+border-radius:6px;
+}
+
+.main textarea{
+width:100%;
+height:60vh;
+background:#0a202a;
+border:none;
+padding:15px;
 color:white;
 border-radius:6px;
 }
 
 button{
 margin-top:10px;
-padding:10px;
+padding:10px 15px;
 background:#00e1ff;
 border:none;
 border-radius:6px;
 cursor:pointer;
 }
 
+/* RIGHT PANEL */
+
+.right{
+background:#081c25;
+padding:20px;
+overflow:auto;
+}
+
+.card{
+background:#0d2633;
+padding:15px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
 .command{
-background:#021018;
-padding:8px;
-margin:5px 0;
+background:#06131b;
+padding:6px;
+margin:4px 0;
 border-radius:6px;
 font-family:monospace;
 }
 
 .skill-bar{
 height:6px;
-background:#021018;
+background:#06131b;
 margin-top:5px;
 border-radius:6px;
 overflow:hidden;
@@ -72,35 +126,50 @@ width:0;
 transition:1s;
 }
 
-.task{
-background:#021018;
-padding:8px;
-margin:6px 0;
-border-radius:6px;
-cursor:grab;
-}
-
-.columns{
-display:grid;
-grid-template-columns:1fr 1fr 1fr;
-gap:15px;
-margin-top:20px;
-}
-
 </style>
 </head>
 
 <body>
 
-<h2>DEVOPS LEARNING DASHBOARD</h2>
+<header>DEVOPS NOTEBOOK</header>
 
-<div class="grid">
+<div class="container">
 
-<!-- COMMAND VAULT -->
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h3>Topics</h3>
+
+<div class="topic">Linux</div>
+<div class="topic">Git</div>
+<div class="topic">Docker</div>
+<div class="topic">Kubernetes</div>
+<div class="topic">AWS</div>
+
+</div>
+
+<!-- MAIN NOTES -->
+
+<div class="main">
+
+<input id="title" placeholder="Note title">
+
+<textarea id="note"></textarea>
+
+<button onclick="saveNote()">Save Note</button>
+
+<div id="saved"></div>
+
+</div>
+
+<!-- RIGHT PANEL -->
+
+<div class="right">
 
 <div class="card">
 
-<h3>Command Vault</h3>
+<h4>Command Vault</h4>
 
 <div class="command">ls</div>
 <div class="command">chmod 777 file</div>
@@ -110,30 +179,12 @@ margin-top:20px;
 
 </div>
 
-<!-- NOTES -->
-
 <div class="card">
 
-<h3>Learning Notes</h3>
-
-<input id="title" placeholder="Note title">
-
-<textarea id="content" rows="5" placeholder="Write notes"></textarea>
-
-<button onclick="saveNote()">Save Note</button>
-
-<div id="notes"></div>
-
-</div>
-
-<!-- PROGRESS -->
-
-<div class="card">
-
-<h3>Learning Progress</h3>
+<h4>Progress</h4>
 
 Linux
-<div class="skill-bar"><span data-value="90"></span></div>
+<div class="skill-bar"><span data-value="80"></span></div>
 
 Docker
 <div class="skill-bar"><span data-value="60"></span></div>
@@ -141,46 +192,17 @@ Docker
 Kubernetes
 <div class="skill-bar"><span data-value="30"></span></div>
 
-<h3>Daily Practice</h3>
-
-<div id="practice">
-Learn docker volumes
 </div>
+
+<div class="card">
+
+<h4>Daily Practice</h4>
+
+<div id="task">Practice docker containers</div>
 
 <button onclick="nextTask()">Next Task</button>
 
 </div>
-
-</div>
-
-<!-- PROJECT TRACKER -->
-
-<h3 style="margin-top:30px">DevOps Project Tracker</h3>
-
-<div class="columns">
-
-<div class="card column">
-
-<h4>To Learn</h4>
-
-<div class="task" draggable="true">Kubernetes Pods</div>
-<div class="task" draggable="true">Terraform</div>
-
-</div>
-
-<div class="card column">
-
-<h4>Learning</h4>
-
-<div class="task" draggable="true">Docker Volumes</div>
-
-</div>
-
-<div class="card column">
-
-<h4>Completed</h4>
-
-<div class="task" draggable="true">Linux Commands</div>
 
 </div>
 
@@ -191,23 +213,23 @@ Learn docker volumes
 function saveNote(){
 
 let title=document.getElementById("title").value
-let content=document.getElementById("content").value
+let note=document.getElementById("note").value
 
-if(title==""||content=="") return
+if(title==""||note=="") return
 
 let div=document.createElement("div")
 
 div.className="card"
 
-div.innerHTML="<h4>"+title+"</h4><p>"+content+"</p>"
+div.innerHTML="<h4>"+title+"</h4><p>"+note+"</p>"
 
-document.getElementById("notes").prepend(div)
+document.getElementById("saved").prepend(div)
 
 }
 
-const skills=document.querySelectorAll(".skill-bar span")
+const bars=document.querySelectorAll(".skill-bar span")
 
-skills.forEach(bar=>{
+bars.forEach(bar=>{
 let value=bar.dataset.value
 setTimeout(()=>{
 bar.style.width=value+"%"
@@ -215,10 +237,10 @@ bar.style.width=value+"%"
 })
 
 const tasks=[
-"Learn docker volumes",
-"Practice kubectl commands",
-"Create docker container",
-"Write terraform script"
+"Practice docker containers",
+"Create kubernetes pod",
+"Write terraform script",
+"Learn linux permissions"
 ]
 
 let index=0
@@ -227,38 +249,9 @@ function nextTask(){
 
 index=(index+1)%tasks.length
 
-document.getElementById("practice").innerText=tasks[index]
+document.getElementById("task").innerText=tasks[index]
 
 }
-
-const columns=document.querySelectorAll(".column")
-const tasksDraggable=document.querySelectorAll(".task")
-
-tasksDraggable.forEach(task=>{
-
-task.addEventListener("dragstart",()=>{
-task.classList.add("dragging")
-})
-
-task.addEventListener("dragend",()=>{
-task.classList.remove("dragging")
-})
-
-})
-
-columns.forEach(col=>{
-
-col.addEventListener("dragover",e=>{
-
-e.preventDefault()
-
-const card=document.querySelector(".dragging")
-
-if(card) col.appendChild(card)
-
-})
-
-})
 
 </script>
 
