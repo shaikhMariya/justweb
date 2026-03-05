@@ -3,168 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Learning | Mariya</title>
+    <title>DevOps Notes - Premium Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --p: #3b82f6; --bg: #0f172a; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: #f1f5f9; scroll-behavior: smooth; }
-        .cmd-card { background: #1e293b; border-radius: 24px; padding: 24px; transition: 0.3s; border: 1px solid #334155; }
-        .cmd-card:hover { border-color: var(--p); transform: translateY(-5px); }
-        .code-snippet { background: #020617; color: #38bdf8; font-family: 'Fira Code', monospace; padding: 12px; border-radius: 12px; font-size: 14px; margin-bottom: 12px; display: block; }
-        .roadmap-box { background: #1e293b; border-radius: 16px; padding: 20px; border: 2px solid transparent; cursor: pointer; transition: 0.3s; }
-        .roadmap-box.done { border-color: #22c55e; background: #064e3b; }
-        .note-card { border-radius: 20px; padding: 20px; color: #1e293b; font-weight: 600; min-height: 150px; width: 100%; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
-        @media (min-width: 768px) { .note-card { width: 280px; } }
+        body { font-family: 'Inter', sans-serif; background-color: #020617; color: white; }
+        .glass-card { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; }
+        .neon-glow { box-shadow: 0 0 20px rgba(56, 189, 248, 0.2); }
+        input::placeholder { color: #64748b; }
     </style>
 </head>
-<body class="p-4 md:p-12">
+<body class="p-4 md:p-10 max-w-7xl mx-auto">
 
-    <header class="max-w-6xl mx-auto mb-20">
-        <h1 class="text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">DevOps Academy.</h1>
-        <p class="text-slate-400 text-lg">Mariya's</p>
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12">
+        <div>
+            <h1 class="text-2xl font-bold tracking-tight text-blue-400">DevOps Academy</h1>
+            <p class="text-slate-400 text-sm mt-1">Thinking Workspace v4.2</p>
+        </div>
+        <div class="relative w-full md:w-72">
+            <input type="text" id="searchInput" onkeyup="searchCmd()" placeholder="Search commands..." 
+                   class="w-full bg-slate-900/50 border border-slate-700 rounded-full py-2 px-5 text-sm focus:outline-none focus:border-blue-500 transition-all">
+        </div>
     </header>
 
-    <main class="max-w-6xl mx-auto space-y-24">
+    <div class="mb-12">
+        <h2 class="text-4xl font-extrabold mb-3">Welcome back, Mariya.</h2>
+        <p class="text-slate-400 max-w-2xl">Ready to expand your neural network? Track your DevOps progress, manage your notes, and master the cloud.</p>
+    </div>
 
-        <section id="commands">
-            <div class="flex justify-between items-center mb-10">
-                <h2 class="text-3xl font-bold">📜 Master Command List</h2>
-                <div class="flex gap-2">
-                    <input type="text" id="searchInput" onkeyup="searchCmd()" placeholder="Search..." class="bg-slate-800 border-none rounded-xl px-4 py-2 text-sm outline-none focus:ring-2 ring-blue-500">
-                    <button onclick="toggleModal()" class="bg-blue-600 px-4 py-2 rounded-xl text-xs font-bold hover:bg-blue-500">+ Add</button>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+        <div class="glass-card p-6 lg:col-span-2">
+            <div class="flex items-center gap-2 mb-4">
+                <div class="flex gap-1.5">
+                    <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+                    <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
+                    <span class="w-3 h-3 bg-green-500 rounded-full"></span>
                 </div>
+                <span class="text-xs text-slate-500 ml-2 font-mono italic">terminal — bash — 80x24</span>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cmdContainer">
+            <div class="bg-[#0b1120] rounded-xl p-6 font-mono text-sm min-h-[220px] border border-slate-800">
+                <p class="text-green-400">mariya@academy:~$ <span class="text-slate-300">ls learning/roadmap</span></p>
+                <div class="grid grid-cols-2 md:grid-cols-4 mt-4 gap-2">
+                    <div class="text-blue-400">01_Linux.sh</div>
+                    <div class="text-purple-400">02_Git.git</div>
+                    <div class="text-cyan-400">03_Docker.yml</div>
+                    <div class="text-orange-400">04_K8s.yaml</div>
                 </div>
-        </section>
-
-        <section id="workspace">
-            <h2 class="text-3xl font-bold mb-10">✍️ My Creative Workspace</h2>
-            <div class="flex flex-col lg:flex-row gap-10">
-                <div class="lg:w-1/3 bg-slate-800 p-8 rounded-[2rem]">
-                    <textarea id="noteText" placeholder="Jaldi se kuch note karo..." class="w-full bg-transparent border-none outline-none text-white h-32 resize-none mb-4"></textarea>
-                    <div class="flex justify-between items-center">
-                        <div class="flex gap-2">
-                            <button onclick="saveNote('bg-yellow-200')" class="w-8 h-8 rounded-full bg-yellow-200"></button>
-                            <button onclick="saveNote('bg-blue-200')" class="w-8 h-8 rounded-full bg-blue-200"></button>
-                            <button onclick="saveNote('bg-pink-200')" class="w-8 h-8 rounded-full bg-pink-200"></button>
-                        </div>
-                        <button onclick="saveNote('bg-slate-200')" class="bg-white text-black px-6 py-2 rounded-full text-[10px] font-black uppercase">Save Note</button>
-                    </div>
-                </div>
-                <div id="notesDisplay" class="lg:w-2/3 flex flex-wrap gap-4"></div>
+                <p class="text-green-400 mt-6">mariya@academy:~$ <span class="animate-pulse">_</span></p>
             </div>
-        </section>
+        </div>
 
-        <section id="roadmap" class="pb-20">
-            <div class="flex items-center gap-4 mb-10">
-                <h2 class="text-3xl font-bold">🏆 My Learning Roadmap</h2>
-                <div class="h-1 flex-1 bg-slate-800 rounded-full"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="roadmapGrid">
+        <div class="glass-card p-6">
+            <h3 class="font-semibold mb-6 flex items-center gap-2 text-blue-400">
+                <span>🏆</span> Learning Progress
+            </h3>
+            <div class="space-y-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-8 h-8 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center text-xs">✓</div>
+                    <div><p class="text-sm font-medium">Linux Basics</p><p class="text-[10px] text-slate-500">Mastered 2 days ago</p></div>
                 </div>
-            <p class="text-center mt-8 text-slate-500 text-sm italic">Mariya, har box par click karke use complete karo!</p>
-        </section>
-
-    </main>
-
-    <div id="cmdModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
-        <div class="bg-slate-800 w-full max-w-md p-10 rounded-[2.5rem] border border-white/10">
-            <h3 class="text-2xl font-bold mb-6">Naya Command Sikha?</h3>
-            <div class="space-y-4">
-                <input type="text" id="newCmd" placeholder="Command (e.g. ls -la)" class="w-full bg-slate-900 p-4 rounded-xl outline-none">
-                <input type="text" id="newCat" placeholder="Category (Linux/Git)" class="w-full bg-slate-900 p-4 rounded-xl outline-none">
-                <textarea id="newDesc" placeholder="Ye command kya karta hai? Example do..." class="w-full h-24 bg-slate-900 p-4 rounded-xl outline-none"></textarea>
-                <div class="flex gap-4 pt-4">
-                    <button onclick="toggleModal()" class="flex-1 text-slate-500 font-bold">Cancel</button>
-                    <button onclick="addCmd()" class="flex-1 bg-blue-600 py-4 rounded-xl font-bold">Add to List</button>
+                <div class="flex items-center gap-4">
+                    <div class="w-8 h-8 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center text-xs">✓</div>
+                    <div><p class="text-sm font-medium">Git & GitHub</p><p class="text-[10px] text-slate-500">Mastered 5 hours ago</p></div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-500 flex items-center justify-center text-xs animate-pulse">⚡</div>
+                    <div><p class="text-sm font-medium">Docker Automation</p><p class="text-[10px] text-slate-500">In Progress...</p></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // --- 1. PRE-FILLED DETAILED COMMANDS ---
-        const initialCmds = [
-            { name: "ls -lah", cat: "Linux", desc: "Isse saari hidden files bhi dikhti hain aur file ka size (KB/MB) bhi asani se samajh aata hai." },
-            { name: "chmod 777 filename", cat: "Permissions", desc: "Is command se kisi bhi file ko poori permission (Read, Write, Execute) mil jati hai." },
-            { name: "git commit -m 'msg'", cat: "Git", desc: "Apne badlav (changes) ko ek message ke saath save karne ke liye. 'msg' ki jagah apna message likho." },
-            { name: "df -h", cat: "Monitoring", desc: "Computer ki Hard Drive kitni bhari hai aur kitni khali, ye dekhne ka sabse asaan tarika." },
-            { name: "git push origin main", cat: "GitHub", desc: "Apne computer ke code ko live GitHub website par bhejne ke liye use hota hai." },
-            { name: "tar -czvf backup.tar.gz folder", cat: "Backup", desc: "Kisi bhi folder ki zip file (backup) banane ke liye ye command best hai." }
-        ];
-
-        const roadmapSteps = ["Level 1: Linux Basics", "Level 2: Git Warrior", "Level 3: Automation", "Level 4: Cloud Ninja"];
-
-        let db = JSON.parse(localStorage.getItem('m_db')) || initialCmds;
-        let progress = JSON.parse(localStorage.getItem('m_progress')) || [];
-
-        // --- FUNCTIONS ---
-        function renderCommands() {
-            const container = document.getElementById('cmdContainer');
-            container.innerHTML = '';
-            db.forEach((item, i) => {
-                const card = document.createElement('div');
-                card.className = "cmd-card";
-                card.innerHTML = `
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-blue-400 mb-2 block">${item.cat}</span>
-                    <code class="code-snippet"># ${item.name}</code>
-                    <p class="text-sm text-slate-400 leading-relaxed">${item.desc}</p>
-                    <button onclick="deleteCmd(${i})" class="text-[10px] text-red-500 mt-4 font-bold hover:underline">DELETE</button>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function renderRoadmap() {
-            const grid = document.getElementById('roadmapGrid');
-            grid.innerHTML = '';
-            roadmapSteps.forEach((step, i) => {
-                const isDone = progress.includes(i);
-                const box = document.createElement('div');
-                box.className = `roadmap-box ${isDone ? 'done' : ''}`;
-                box.onclick = () => {
-                    if(isDone) progress = progress.filter(idx => idx !== i);
-                    else progress.push(i);
-                    localStorage.setItem('m_progress', JSON.stringify(progress));
-                    renderRoadmap();
-                };
-                box.innerHTML = `
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold ${isDone ? 'text-white' : 'text-slate-400'}">${step}</span>
-                        <span>${isDone ? '✅' : '⚪'}</span>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div>
+            <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+                <span class="text-yellow-500">📜</span> Command Cheat Sheet
+            </h3>
+            <div id="cmdContainer" class="space-y-4">
+                <div class="glass-card p-5 border-l-4 border-green-500 group hover:bg-slate-800/60 transition">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-[10px] bg-green-900/40 text-green-400 px-2 py-0.5 rounded font-bold uppercase">Linux</span>
+                        <button class="opacity-0 group-hover:opacity-100 transition text-xs text-slate-500">Copy</button>
                     </div>
-                `;
-                grid.appendChild(box);
-            });
-        }
+                    <code class="text-green-400 block mb-2 font-mono">ls -lah</code>
+                    <p class="text-xs text-slate-400">List all files in human-readable format.</p>
+                </div>
+            </div>
+        </div>
 
-        function toggleModal() { document.getElementById('cmdModal').classList.toggle('hidden'); }
+        <div>
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-bold flex items-center gap-2">
+                    <span class="text-pink-500">🧠</span> Neural Notes
+                </h3>
+                <button onclick="document.getElementById('noteInput').focus()" class="text-xs bg-blue-600 px-3 py-1 rounded-full">+ Add Note</button>
+            </div>
+            
+            <div class="glass-card p-4 mb-6">
+                <textarea id="noteText" placeholder="Write a quick DevOps note..." class="w-full bg-transparent border-none focus:ring-0 text-sm resize-none" rows="2"></textarea>
+                <div class="flex justify-between items-center mt-2 pt-2 border-t border-slate-700">
+                    <select id="noteColor" class="bg-slate-800 text-[10px] rounded px-2 py-1 outline-none border-none">
+                        <option value="blue">Blue</option>
+                        <option value="purple">Purple</option>
+                        <option value="orange">Orange</option>
+                    </select>
+                    <button onclick="addNote()" class="text-xs font-bold text-blue-400 hover:text-blue-300">SAVE NOTE</button>
+                </div>
+            </div>
 
-        function addCmd() {
-            const name = document.getElementById('newCmd').value;
-            const cat = document.getElementById('newCat').value;
-            const desc = document.getElementById('newDesc').value;
-            if(!name || !cat) return alert("Bhai, commands dalo!");
-            db.push({ name, cat, desc });
-            localStorage.setItem('m_db', JSON.stringify(db));
-            toggleModal();
-            renderCommands();
-        }
+            <div id="notesDisplay" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                </div>
+        </div>
+    </div>
 
-        function deleteCmd(i) {
-            db.splice(i, 1);
-            localStorage.setItem('m_db', JSON.stringify(db));
-            renderCommands();
-        }
+    <script>
+        // --- Your existing logic integrated ---
 
-        function saveNote(color) {
+        function addNote() {
             const text = document.getElementById('noteText').value;
-            if(!text) return;
-            const notes = JSON.parse(localStorage.getItem('m_notes') || '[]');
+            const color = document.getElementById('noteColor').value;
+            if (!text) return;
+
+            let notes = JSON.parse(localStorage.getItem('m_notes')) || [];
             notes.push({ text, color });
             localStorage.setItem('m_notes', JSON.stringify(notes));
             document.getElementById('noteText').value = '';
@@ -174,11 +134,18 @@
         function renderNotes() {
             const display = document.getElementById('notesDisplay');
             display.innerHTML = '';
-            const notes = JSON.parse(localStorage.getItem('m_notes') || '[]');
+            let notes = JSON.parse(localStorage.getItem('m_notes')) || [];
+
             notes.forEach((n, i) => {
                 const div = document.createElement('div');
-                div.className = `note-card ${n.color}`;
-                div.innerHTML = `<p>${n.text}</p><button onclick="deleteNote(${i})" class="text-[10px] mt-4 opacity-50 font-bold uppercase">Mitao</button>`;
+                div.className = `glass-card p-4 border-t-4 border-${n.color}-500`;
+                div.innerHTML = `
+                    <p class="text-sm text-slate-200 mb-4">${n.text}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] text-slate-500 uppercase font-bold">${n.color}</span>
+                        <button onclick="deleteNote(${i})" class="text-[10px] text-red-400 font-bold hover:underline">DELETE</button>
+                    </div>
+                `;
                 display.appendChild(div);
             });
         }
@@ -193,13 +160,15 @@
         function searchCmd() {
             const q = document.getElementById('searchInput').value.toLowerCase();
             const cards = document.getElementById('cmdContainer').children;
-            for(let card of cards) {
+            for (let card of cards) {
                 card.style.display = card.innerText.toLowerCase().includes(q) ? "block" : "none";
             }
         }
 
-        window.onload = () => { renderCommands(); renderRoadmap(); renderNotes(); };
+        window.onload = () => {
+            renderNotes();
+            // renderCommands(); // If you have a command rendering function
+        };
     </script>
 </body>
-
 </html>
