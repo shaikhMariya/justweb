@@ -3,167 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Elite Workspace | Mariya</title>
+    <title>DevOps Elite Lab | Mariya</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: #f8fafc; scroll-behavior: smooth; }
-        .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; }
-        .glow-blue { box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.4); }
+        :root { --bg: #030712; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #f8fafc; scroll-behavior: smooth; }
         
-        /* Dynamic Themes for Notes */
-        .card-linux { border-top: 4px solid #22c55e; background: linear-gradient(to bottom, rgba(34,197,94,0.1), transparent); }
-        .card-git { border-top: 4px solid #f97316; background: linear-gradient(to bottom, rgba(249,115,22,0.1), transparent); }
-        .card-python { border-top: 4px solid #eab308; background: linear-gradient(to bottom, rgba(234,179,8,0.1), transparent); }
-        .card-bash { border-top: 4px solid #4ade80; background: linear-gradient(to bottom, rgba(74,222,128,0.1), transparent); }
-        .card-docker { border-top: 4px solid #0ea5e9; background: linear-gradient(to bottom, rgba(14,165,233,0.1), transparent); }
-        .card-k8s { border-top: 4px solid #326ce5; background: linear-gradient(to bottom, rgba(50,108,229,0.1), transparent); }
-        .card-aws { border-top: 4px solid #ff9900; background: linear-gradient(to bottom, rgba(255,153,0,0.1), transparent); }
-        .card-terraform { border-top: 4px solid #7c3aed; background: linear-gradient(to bottom, rgba(124,58,237,0.1), transparent); }
-        .card-cicd { border-top: 4px solid #ec4899; background: linear-gradient(to bottom, rgba(236,72,153,0.1), transparent); }
-        .card-monitoring { border-top: 4px solid #ef4444; background: linear-gradient(to bottom, rgba(239,68,68,0.1), transparent); }
-        .card-other { border-top: 4px solid #64748b; background: linear-gradient(to bottom, rgba(100,116,139,0.1), transparent); }
+        /* Premium Glassmorphism */
+        .glass { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 28px; transition: all 0.4s ease; }
+        .glass:hover { border-color: rgba(255, 255, 255, 0.2); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
 
-        .roadmap-dot { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .roadmap-dot:hover { transform: scale(1.2) translateY(-5px); filter: brightness(1.2); }
+        /* Dynamic Aesthetic Themes */
+        .card-linux { border-bottom: 4px solid #10b981; box-shadow: 0 0 20px rgba(16, 185, 129, 0.1); }
+        .card-git { border-bottom: 4px solid #f97316; box-shadow: 0 0 20px rgba(249, 115, 22, 0.1); }
+        .card-docker { border-bottom: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.1); }
+        .card-k8s { border-bottom: 4px solid #3b82f6; box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); }
+        .card-aws { border-bottom: 4px solid #fbbf24; box-shadow: 0 0 20px rgba(251, 191, 36, 0.1); }
+        .card-terraform { border-bottom: 4px solid #8b5cf6; box-shadow: 0 0 20px rgba(139, 92, 246, 0.1); }
+        .card-cicd { border-bottom: 4px solid #ec4899; box-shadow: 0 0 20px rgba(236, 72, 153, 0.1); }
+        .card-python { border-bottom: 4px solid #60a5fa; box-shadow: 0 0 20px rgba(96, 165, 250, 0.1); }
+        .card-bash { border-bottom: 4px solid #4ade80; box-shadow: 0 0 20px rgba(74, 222, 128, 0.1); }
+        .card-monitoring { border-bottom: 4px solid #f43f5e; box-shadow: 0 0 20px rgba(244, 63, 94, 0.1); }
+        .card-other { border-bottom: 4px solid #94a3b8; box-shadow: 0 0 20px rgba(148, 163, 184, 0.1); }
+
+        /* Animated Roadmap Nodes */
+        .roadmap-node { transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .roadmap-node:hover { transform: scale(1.2) rotate(5deg); }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #374151; }
     </style>
 </head>
-<body class="p-4 md:p-10 max-w-[1600px] mx-auto">
+<body class="p-4 md:p-12 max-w-[1700px] mx-auto">
 
-    <header class="flex flex-col lg:flex-row justify-between items-center mb-12 gap-8">
-        <div class="flex items-center gap-4">
-            <div class="w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl flex items-center justify-center text-3xl shadow-2xl shadow-blue-500/30">👨‍💻</div>
-            <div>
-                <h1 class="text-3xl font-black tracking-tighter">DEVOPS<span class="text-blue-500 italic">CORE</span></h1>
-                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.4em]">Mariya's Engineering Journal</p>
-            </div>
+    <header class="flex flex-col lg:flex-row justify-between items-center mb-16 gap-8">
+        <div class="space-y-2">
+            <h1 class="text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+                DEVOPS.ARCHIVE
+            </h1>
+            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.5em] flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> MARIYA'S NEURAL INTERFACE v7.0
+            </p>
         </div>
 
-        <div class="glass px-8 py-4 flex items-center gap-8 glow-blue">
-            <div class="hidden sm:block">
-                <p class="text-[10px] font-bold text-blue-400 uppercase">Today's Objective</p>
-                <p id="dailyObjective" class="text-sm font-semibold">Generating mission...</p>
+        <div class="glass px-10 py-5 flex items-center gap-10 border-white/5 shadow-2xl">
+            <div class="text-left">
+                <p class="text-[10px] font-black text-blue-400 uppercase tracking-widest">Active Mission</p>
+                <p id="dailyObjective" class="text-sm font-semibold opacity-90 italic text-slate-200">Initializing Roadmap...</p>
             </div>
-            <div class="h-10 w-px bg-slate-800 hidden sm:block"></div>
-            <div class="flex items-center gap-3">
-                <div class="text-right">
-                    <p class="text-xs font-bold">Mariya</p>
-                    <p class="text-[9px] text-green-500 font-mono">Status: Learning</p>
-                </div>
-                <div class="w-12 h-12 rounded-full border-2 border-blue-500/50 p-1">
-                    <div class="w-full h-full rounded-full bg-gradient-to-tr from-purple-600 to-pink-500"></div>
+            <div class="h-12 w-px bg-white/10"></div>
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur opacity-40 group-hover:opacity-100 transition duration-1000"></div>
+                <div class="relative w-12 h-12 rounded-full bg-slate-900 border border-white/20 overflow-hidden">
+                    <div class="w-full h-full bg-gradient-to-tr from-indigo-500 to-pink-500 opacity-80"></div>
                 </div>
             </div>
         </div>
     </header>
 
-    <section class="mb-20">
-        <h3 class="text-center text-[10px] font-bold text-slate-500 uppercase tracking-[0.5em] mb-12">Industrial DevOps Roadmap 2024</h3>
-        <div class="relative overflow-x-auto pb-6">
-            <div class="flex justify-between items-start min-w-[1200px] px-10 relative">
-                <div class="absolute h-0.5 bg-slate-800 w-[92%] top-7 left-1/2 -translate-x-1/2 -z-10"></div>
-                
-                <div class="roadmap-dot flex flex-col items-center gap-3" title="Linux Fundamentals">
-                    <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-green-500/50 text-2xl">🐧</div>
-                    <span class="text-[10px] font-bold text-green-500">LINUX</span>
-                </div>
-                <div class="roadmap-dot flex flex-col items-center gap-3" title="Shell Scripting">
-                    <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-emerald-400/50 text-2xl">🐚</div>
-                    <span class="text-[10px] font-bold text-emerald-400">BASH</span>
-                </div>
-                <div class="roadmap-dot flex flex-col items-center gap-3" title="Version Control">
-                    <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-orange-500/50 text-2xl">🎋</div>
-                    <span class="text-[10px] font-bold text-orange-500">GIT</span>
-                </div>
-                <div class="roadmap-dot flex flex-col items-center gap-3" title="Programming">
-                    <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-yellow-400/50 text-2xl">🐍</div>
-                    <span class="text-[10px] font-bold text-yellow-400">PYTHON</span>
-                </div>
-                <div class="roadmap-dot flex flex-col items-center gap-3" title="Containers">
-                    <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-sky-400/50 text-2xl">🐋</div>
-                    <span class="text-[10px] font-bold text-sky-400">DOCKER</span>
-                </div>
-                <div class="roadmap-dot flex flex-col items-center gap-3" title="Orchestration">
-                    <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-blue-600/50 text-2xl">☸️</div>
-                    <span class="text-[10px] font-bold text-blue-600">K8S</span>
-                </div>
-                <div class="roadmap-dot flex flex-col items-center gap-3" title="Cloud Provider">
-                    <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-amber-500/50 text-2xl">☁️</div>
-                    <span class="text-[10px] font-bold text-amber-500">AWS</span>
-                </div>
-                <div class="roadmap-dot flex flex-col items-center gap-3" title="Infrastructure as Code">
-                    <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-violet-500/50 text-2xl">🏗️</div>
-                    <span class="text-[10px] font-bold text-violet-500">TERRAFORM</span>
-                </div>
-                <div class="roadmap-dot flex flex-col items-center gap-3" title="Automation">
-                    <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-pink-500/50 text-2xl">🔄</div>
-                    <span class="text-[10px] font-bold text-pink-500">CI/CD</span>
-                </div>
-                <div class="roadmap-dot flex flex-col items-center gap-3" title="Observability">
-                    <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-red-500/50 text-2xl">📊</div>
-                    <span class="text-[10px] font-bold text-red-500">MONITOR</span>
-                </div>
+    <section class="mb-24 overflow-x-auto no-scrollbar py-4 px-2">
+        <div class="flex justify-between items-center min-w-[1300px] relative px-10">
+            <div class="absolute h-[1px] bg-gradient-to-r from-transparent via-slate-800 to-transparent w-full top-1/2 -z-10"></div>
+            
+            <div class="roadmap-node flex flex-col items-center gap-4 text-emerald-400">
+                <div class="w-16 h-16 glass flex items-center justify-center text-3xl border-emerald-500/30">🐧</div>
+                <span class="text-[10px] font-black tracking-widest">LINUX</span>
+            </div>
+            <div class="roadmap-node flex flex-col items-center gap-4 text-emerald-300">
+                <div class="w-16 h-16 glass flex items-center justify-center text-3xl border-emerald-300/30">🐚</div>
+                <span class="text-[10px] font-black tracking-widest text-emerald-300">BASH</span>
+            </div>
+            <div class="roadmap-node flex flex-col items-center gap-4 text-orange-500">
+                <div class="w-16 h-16 glass flex items-center justify-center text-3xl border-orange-500/30">🎋</div>
+                <span class="text-[10px] font-black tracking-widest text-orange-500">GIT</span>
+            </div>
+            <div class="roadmap-node flex flex-col items-center gap-4 text-blue-400">
+                <div class="w-16 h-16 glass flex items-center justify-center text-3xl border-blue-400/30">🐍</div>
+                <span class="text-[10px] font-black tracking-widest text-blue-400">PYTHON</span>
+            </div>
+            <div class="roadmap-node flex flex-col items-center gap-4 text-sky-400">
+                <div class="w-16 h-16 glass flex items-center justify-center text-3xl border-sky-400/30">🐋</div>
+                <span class="text-[10px] font-black tracking-widest text-sky-400">DOCKER</span>
+            </div>
+            <div class="roadmap-node flex flex-col items-center gap-4 text-blue-600">
+                <div class="w-16 h-16 glass flex items-center justify-center text-3xl border-blue-600/30">☸️</div>
+                <span class="text-[10px] font-black tracking-widest text-blue-600">K8S</span>
+            </div>
+            <div class="roadmap-node flex flex-col items-center gap-4 text-amber-500">
+                <div class="w-16 h-16 glass flex items-center justify-center text-3xl border-amber-500/30">☁️</div>
+                <span class="text-[10px] font-black tracking-widest text-amber-500">AWS</span>
+            </div>
+            <div class="roadmap-node flex flex-col items-center gap-4 text-violet-500">
+                <div class="w-16 h-16 glass flex items-center justify-center text-3xl border-violet-500/30">🏗️</div>
+                <span class="text-[10px] font-black tracking-widest text-violet-500">TF</span>
+            </div>
+            <div class="roadmap-node flex flex-col items-center gap-4 text-pink-500">
+                <div class="w-16 h-16 glass flex items-center justify-center text-3xl border-pink-500/30">🔄</div>
+                <span class="text-[10px] font-black tracking-widest text-pink-500">CI/CD</span>
+            </div>
+            <div class="roadmap-node flex flex-col items-center gap-4 text-red-500">
+                <div class="w-16 h-16 glass flex items-center justify-center text-3xl border-red-500/30">📊</div>
+                <span class="text-[10px] font-black tracking-widest text-red-500">MONITOR</span>
             </div>
         </div>
     </section>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <div class="lg:col-span-4">
-            <div class="glass p-8 glow-blue sticky top-10">
-                <h2 class="text-xl font-bold mb-8 flex items-center gap-3">📝 Brain Dump</h2>
+            <div class="glass p-10 space-y-8 sticky top-12 border-white/5">
+                <div class="space-y-1">
+                    <h2 class="text-2xl font-bold">Input Module</h2>
+                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Inject new knowledge into the database</p>
+                </div>
+
                 <div class="space-y-6">
                     <div>
-                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1 mb-2 block">Note Category</label>
-                        <select id="noteCat" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm focus:border-blue-500 outline-none cursor-pointer">
-                            <option value="linux">🐧 Linux Fundamentals</option>
-                            <option value="bash">🐚 Bash Scripting</option>
-                            <option value="git">🎋 Git & Version Control</option>
-                            <option value="python">🐍 Python for DevOps</option>
-                            <option value="docker">🐋 Docker Containerization</option>
-                            <option value="k8s">☸️ Kubernetes (K8s)</option>
-                            <option value="aws">☁️ AWS Cloud Services</option>
-                            <option value="terraform">🏗️ Terraform (IaC)</option>
-                            <option value="cicd">🔄 CI/CD Pipelines</option>
-                            <option value="monitoring">📊 Monitoring & Logs</option>
-                            <option value="other">✨ Extra / Custom Notes</option>
+                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest block mb-3">Target Category</label>
+                        <select id="noteCat" class="w-full bg-slate-900/50 border border-white/10 rounded-2xl p-4 text-sm focus:border-blue-500 outline-none cursor-pointer transition-all">
+                            <option value="linux">🐧 Linux OS</option>
+                            <option value="bash">🐚 Shell Scripting</option>
+                            <option value="git">🎋 Git Version Control</option>
+                            <option value="python">🐍 Python Automation</option>
+                            <option value="docker">🐋 Containerization (Docker)</option>
+                            <option value="k8s">☸️ Orchestration (K8s)</option>
+                            <option value="aws">☁️ AWS Cloud Core</option>
+                            <option value="terraform">🏗️ Infrastructure (TF)</option>
+                            <option value="cicd">🔄 Jenkins/CI-CD</option>
+                            <option value="monitoring">📊 Logs & Monitoring</option>
+                            <option value="other">✨ Extra / Personal Notes</option>
                         </select>
                     </div>
                     <div>
-                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1 mb-2 block">Concept Title</label>
-                        <input type="text" id="noteTitle" placeholder="e.g. Reverse Proxy setup" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm focus:border-blue-500 outline-none">
+                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest block mb-3">Topic Title</label>
+                        <input type="text" id="noteTitle" placeholder="e.g. Docker Compose V3" class="w-full bg-slate-900/50 border border-white/10 rounded-2xl p-4 text-sm focus:border-blue-500 outline-none transition-all">
                     </div>
                     <div>
-                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1 mb-2 block">Deep Dive Content</label>
-                        <textarea id="noteText" rows="6" placeholder="Steps, commands, or logic..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm focus:border-blue-500 outline-none resize-none"></textarea>
+                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest block mb-3">Encrypted Content</label>
+                        <textarea id="noteText" rows="6" placeholder="Document your findings..." class="w-full bg-slate-900/50 border border-white/10 rounded-2xl p-4 text-sm focus:border-blue-500 outline-none resize-none transition-all"></textarea>
                     </div>
-                    <button onclick="saveNote()" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-xl font-bold text-sm tracking-widest shadow-xl shadow-blue-500/20 transition-all active:scale-95">COMMIT TO DATABASE</button>
+                    <button onclick="saveNote()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:scale-[1.02] py-4 rounded-2xl font-black text-xs tracking-[0.2em] shadow-xl shadow-blue-500/20 active:scale-95 transition-all">
+                        STABILIZE & SAVE
+                    </button>
                 </div>
             </div>
         </div>
 
-        <div class="lg:col-span-8 space-y-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <h3 class="text-2xl font-bold">Stored Knowledge</h3>
-                <div class="flex gap-3">
-                    <input type="text" id="search" onkeyup="filterNotes()" placeholder="Filter notes..." class="bg-slate-900 border border-slate-800 rounded-full px-6 py-2 text-xs outline-none focus:border-blue-500 w-64">
+        <div class="lg:col-span-8 space-y-10">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <h3 class="text-3xl font-black tracking-tighter italic">NEURAL_RECORDS</h3>
+                <div class="relative">
+                    <input type="text" id="search" onkeyup="filterNotes()" placeholder="Search archives..." class="bg-white/5 border border-white/10 rounded-full px-8 py-3 text-xs outline-none focus:border-blue-500 w-72 transition-all">
                 </div>
             </div>
             
-            <div id="notesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div id="notesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 </div>
         </div>
     </div>
 
     <script>
         const dailyMissions = [
-            "Linux: Learn how 'SSH Keys' work for secure access.",
-            "Docker: Containerize a simple Python app today.",
-            "Git: Understand 'git rebase' vs 'git merge'.",
-            "Terraform: Write a code to create an S3 bucket.",
-            "AWS: Setup a free-tier EC2 instance and login via Terminal.",
-            "CI/CD: Build a GitHub Action to auto-deploy your site.",
-            "K8s: Learn what a 'Pod' and 'Deployment' is.",
-            "Bash: Write a script to backup a folder automatically."
+            "Linux: Deep dive into Systemd & Kernel logs.",
+            "Docker: Optimize image size using Alpine base.",
+            "Git: Master 'interactive rebase' for clean history.",
+            "Terraform: Implement 'State Locking' with S3/DynamoDB.",
+            "AWS: Setup 'VPC Peering' between two regions.",
+            "K8s: Configure 'Liveness' & 'Readiness' probes.",
+            "Monitoring: Create a Grafana dashboard for CPU metrics."
         ];
 
         const icons = {
@@ -181,14 +191,13 @@
             const cat = document.getElementById('noteCat').value;
             const text = document.getElementById('noteText').value;
 
-            if(!title || !text) return alert("Pehle content toh bharo, Engineer saab!");
+            if(!title || !text) return;
 
             const note = { title, cat, text, id: Date.now(), date: new Date().toLocaleDateString() };
-            let notes = JSON.parse(localStorage.getItem('mariya_pro_v3') || '[]');
+            let notes = JSON.parse(localStorage.getItem('mariya_pro_final') || '[]');
             notes.unshift(note);
-            localStorage.setItem('mariya_pro_v3', JSON.stringify(notes));
+            localStorage.setItem('mariya_pro_final', JSON.stringify(notes));
 
-            // Reset UI
             document.getElementById('noteTitle').value = '';
             document.getElementById('noteText').value = '';
             renderNotes();
@@ -196,30 +205,30 @@
 
         function renderNotes() {
             const grid = document.getElementById('notesGrid');
-            const notes = JSON.parse(localStorage.getItem('mariya_pro_v3') || '[]');
+            const notes = JSON.parse(localStorage.getItem('mariya_pro_final') || '[]');
             grid.innerHTML = '';
 
             if(notes.length === 0) {
-                grid.innerHTML = '<div class="col-span-full py-20 text-center text-slate-600 font-bold uppercase tracking-widest italic">Database is empty. Start adding notes...</div>';
+                grid.innerHTML = '<div class="col-span-full py-32 text-center opacity-20 font-black tracking-[0.5em] text-2xl uppercase">Memory Unit Empty</div>';
                 return;
             }
 
             notes.forEach(n => {
                 const div = document.createElement('div');
-                div.className = `glass p-6 card-${n.cat} group hover:scale-[1.02] transition-all duration-300 flex flex-col`;
+                div.className = `glass p-8 card-${n.cat} flex flex-col`;
                 div.innerHTML = `
-                    <div class="flex justify-between items-center mb-6">
-                        <span class="text-2xl opacity-80">${icons[n.cat]}</span>
-                        <div class="flex gap-2">
-                            <button onclick="copyContent('${n.text.replace(/'/g, "\\'")}')" class="text-[9px] font-bold text-slate-500 hover:text-white uppercase">Copy</button>
-                            <button onclick="deleteNote(${n.id})" class="text-[9px] font-bold text-slate-500 hover:text-red-500 uppercase">Delete</button>
+                    <div class="flex justify-between items-center mb-8">
+                        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-2xl">${icons[n.cat]}</div>
+                        <div class="flex gap-4">
+                            <button onclick="copyContent('${n.text.replace(/'/g, "\\'")}')" class="text-[9px] font-black text-slate-500 hover:text-white uppercase tracking-widest">Copy</button>
+                            <button onclick="deleteNote(${n.id})" class="text-[9px] font-black text-slate-500 hover:text-red-500 uppercase tracking-widest">Purge</button>
                         </div>
                     </div>
-                    <h4 class="font-bold text-white text-lg mb-3 tracking-tight">${n.title}</h4>
-                    <p class="text-xs text-slate-400 leading-relaxed mb-8 flex-grow whitespace-pre-wrap">${n.text}</p>
-                    <div class="flex justify-between items-center mt-auto pt-4 border-t border-slate-800/50">
-                        <span class="text-[10px] font-bold text-blue-400/80 uppercase tracking-widest">${n.cat}</span>
-                        <span class="text-[9px] text-slate-600 italic font-medium">${n.date}</span>
+                    <h4 class="font-bold text-white text-xl mb-4 tracking-tight leading-tight">${n.title}</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-10 flex-grow italic opacity-80 whitespace-pre-wrap">${n.text}</p>
+                    <div class="mt-auto pt-6 border-t border-white/5 flex justify-between items-center">
+                        <span class="text-[10px] font-black text-blue-400/60 uppercase tracking-widest">${n.cat} unit</span>
+                        <span class="text-[9px] text-slate-600 font-bold">${n.date}</span>
                     </div>
                 `;
                 grid.appendChild(div);
@@ -227,24 +236,23 @@
         }
 
         function deleteNote(id) {
-            if(!confirm("Are you sure?")) return;
-            let notes = JSON.parse(localStorage.getItem('mariya_pro_v3') || '[]');
+            if(!confirm("Purge record?")) return;
+            let notes = JSON.parse(localStorage.getItem('mariya_pro_final') || '[]');
             notes = notes.filter(n => n.id !== id);
-            localStorage.setItem('mariya_pro_v3', JSON.stringify(notes));
+            localStorage.setItem('mariya_pro_final', JSON.stringify(notes));
             renderNotes();
         }
 
         function filterNotes() {
             const q = document.getElementById('search').value.toLowerCase();
             document.querySelectorAll('#notesGrid > div').forEach(card => {
-                const isVisible = card.innerText.toLowerCase().includes(q);
-                card.style.display = isVisible ? 'flex' : 'none';
+                card.style.display = card.innerText.toLowerCase().includes(q) ? 'flex' : 'none';
             });
         }
 
         function copyContent(txt) {
             navigator.clipboard.writeText(txt);
-            alert("Note copied to clipboard! 📋");
+            alert("Data Extracted! 📋");
         }
 
         window.onload = init;
