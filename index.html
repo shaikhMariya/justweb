@@ -1,377 +1,45 @@
 <!DOCTYPE html>
+<html class="dark" lang="en">
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>DevOps Command Center Dashboard</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#0db9f2",
-                        "background-light": "#f5f8f8",
-                        "background-dark": "#0A0E14",
-                        "card-bg": "rgba(16, 30, 34, 0.6)",
-                    },
-                    fontFamily: {
-                        "display": ["Space Grotesk"]
-                    },
-                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
-                },
-            },
-        }
-    </script>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevOps Command Center</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+<script>
+tailwind.config = {
+darkMode:"class",
+theme:{
+extend:{
+colors:{
+primary:"#0db9f2",
+background:"#0A0E14"
+},
+fontFamily:{
+display:["Space Grotesk"]
+}
+}
+}
+}
+</script>
+
 <style>
-        .glass {
-            background: rgba(13, 185, 242, 0.03);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(13, 185, 242, 0.1);
-        }
-        .neon-border {
-            box-shadow: 0 0 10px rgba(13, 185, 242, 0.2);
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: rgba(13, 185, 242, 0.3);
-            border-radius: 10px;
-        }
-    </style>
-</head>
-<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
-<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
-<!-- Top Navigation -->
-<header class="flex items-center justify-between border-b border-primary/20 px-8 py-4 glass sticky top-0 z-50">
-<div class="flex items-center gap-8">
-<div class="flex items-center gap-3 text-primary">
-<span class="material-symbols-outlined text-3xl">terminal</span>
-<h2 class="text-xl font-bold tracking-tight">DEVOPS_CMD</h2>
-</div>
-<nav class="hidden md:flex items-center gap-8">
-<a class="text-primary text-sm font-medium border-b-2 border-primary pb-1" href="#">COMMAND_CENTER</a>
-<a class="text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">TERMINAL</a>
-<a class="text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">NETWORK_MAP</a>
-<a class="text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">SYSTEM_LOGS</a>
-</nav>
-</div>
-<div class="flex items-center gap-6">
-<div class="relative hidden sm:block">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
-<input class="bg-primary/5 border border-primary/20 rounded-lg pl-10 pr-4 py-1.5 text-sm focus:ring-1 focus:ring-primary focus:outline-none w-64 text-slate-100" placeholder="QUERY_SYSTEM..." type="text"/>
-</div>
-<div class="flex gap-3">
-<button class="p-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-all border border-primary/20">
-<span class="material-symbols-outlined text-xl">notifications</span>
-</button>
-<div class="h-10 w-10 rounded-full border border-primary/50 p-0.5">
-<div class="h-full w-full rounded-full bg-cover bg-center" data-alt="Cyberpunk style user profile avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC7wiqSWhBPLZ_k6e-OII4Gn1jB8_IJ2VfTjehX4Vpf-4ljEeZxgciR51Di9BOFa3czOJNoDoC8LfN6I_jv0yOuIZuUOyK0A9LRqbzlj4NyeUpymBCZWRXgHnhM05lf877jTqoT3ry-YOVcMrC6HBiPXD3ZYTYcyVGoesxUgjZ6-zYHkLZ85IUODxMikZzo050OOnWy6Lkudv8ODEWJpRT-mSZiA6v294X9GUiG7lYOaWteYdkgeHX3eRVrLqPpDl_J5kyxooFtWh0')"></div>
-</div>
-</div>
-</div>
-</header>
-<!-- Main Content Area -->
-<main class="flex-1 p-6 space-y-6 max-w-[1600px] mx-auto w-full">
-<!-- Skill Modules Row -->
-<section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-<div class="glass p-4 rounded-xl flex flex-col items-center justify-center gap-2 border border-primary/20 hover:border-primary/50 transition-all cursor-pointer group">
-<span class="material-symbols-outlined text-3xl text-primary group-hover:scale-110 transition-transform">terminal</span>
-<span class="text-xs font-bold tracking-widest text-slate-400 group-hover:text-primary">LINUX</span>
-</div>
-<div class="glass p-4 rounded-xl flex flex-col items-center justify-center gap-2 border border-primary/20 hover:border-primary/50 transition-all cursor-pointer group">
-<span class="material-symbols-outlined text-3xl text-primary group-hover:scale-110 transition-transform">account_tree</span>
-<span class="text-xs font-bold tracking-widest text-slate-400 group-hover:text-primary">GIT</span>
-</div>
-<div class="glass p-4 rounded-xl flex flex-col items-center justify-center gap-2 border border-primary/20 hover:border-primary/50 transition-all cursor-pointer group">
-<span class="material-symbols-outlined text-3xl text-primary group-hover:scale-110 transition-transform">package</span>
-<span class="text-xs font-bold tracking-widest text-slate-400 group-hover:text-primary">DOCKER</span>
-</div>
-<div class="glass p-4 rounded-xl flex flex-col items-center justify-center gap-2 border border-primary/40 bg-primary/10 shadow-[0_0_15px_rgba(13,185,242,0.15)] group">
-<span class="material-symbols-outlined text-3xl text-primary scale-110">layers</span>
-<span class="text-xs font-bold tracking-widest text-primary">KUBERNETES</span>
-</div>
-<div class="glass p-4 rounded-xl flex flex-col items-center justify-center gap-2 border border-primary/20 hover:border-primary/50 transition-all cursor-pointer group">
-<span class="material-symbols-outlined text-3xl text-primary group-hover:scale-110 transition-transform">sync_alt</span>
-<span class="text-xs font-bold tracking-widest text-slate-400 group-hover:text-primary">CI/CD</span>
-</div>
-<div class="glass p-4 rounded-xl flex flex-col items-center justify-center gap-2 border border-primary/20 hover:border-primary/50 transition-all cursor-pointer group">
-<span class="material-symbols-outlined text-3xl text-primary group-hover:scale-110 transition-transform">cloud</span>
-<span class="text-xs font-bold tracking-widest text-slate-400 group-hover:text-primary">AWS</span>
-</div>
-</section>
-<!-- Dashboard Grid -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-<!-- Left Panel: Note Injector -->
-<aside class="lg:col-span-3 space-y-6">
-<div class="glass rounded-xl p-5 border border-primary/20">
-<div class="flex items-center gap-2 mb-6">
-<span class="material-symbols-outlined text-primary">add_box</span>
-<h3 class="font-bold text-sm tracking-wider uppercase">Note Injector</h3>
-</div>
-<div class="space-y-4">
-<div class="space-y-1.5">
-<label class="text-[10px] uppercase tracking-widest text-slate-500 font-bold ml-1">Target Module</label>
-<select class="w-full bg-primary/5 border border-primary/20 rounded-lg text-sm p-2.5 focus:ring-1 focus:ring-primary text-slate-300">
-<option>Kubernetes</option>
-<option>Docker</option>
-<option>AWS Architecture</option>
-</select>
-</div>
-<div class="space-y-1.5">
-<label class="text-[10px] uppercase tracking-widest text-slate-500 font-bold ml-1">Note Title</label>
-<input class="w-full bg-primary/5 border border-primary/20 rounded-lg text-sm p-2.5 focus:ring-1 focus:ring-primary text-slate-100 placeholder:text-slate-600" placeholder="E.g. Helm Chart Basics" type="text"/>
-</div>
-<div class="space-y-1.5">
-<label class="text-[10px] uppercase tracking-widest text-slate-500 font-bold ml-1">Learning Content</label>
-<textarea class="w-full bg-primary/5 border border-primary/20 rounded-lg text-sm p-2.5 focus:ring-1 focus:ring-primary text-slate-100 placeholder:text-slate-600 resize-none" placeholder="Inject knowledge here..." rows="6"></textarea>
-</div>
-<button class="w-full bg-primary hover:bg-primary/80 text-background-dark font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(13,185,242,0.3)]">
-<span class="material-symbols-outlined text-lg">bolt</span>
-                                SAVE_DATA
-                            </button>
-</div>
-</div>
-</aside>
-<!-- Center Panel: Data Archive -->
-<section class="lg:col-span-6 space-y-6">
-<div class="glass rounded-xl border border-primary/20 flex flex-col h-[600px]">
-<div class="p-5 border-b border-primary/10 flex items-center justify-between bg-primary/5 rounded-t-xl">
-<h3 class="font-bold text-lg tracking-wider uppercase text-primary">DATA_ARCHIVE</h3>
-<div class="flex gap-2">
-<span class="material-symbols-outlined text-slate-500 cursor-pointer hover:text-primary">filter_list</span>
-<span class="material-symbols-outlined text-slate-500 cursor-pointer hover:text-primary">sort</span>
-</div>
-</div>
-<div class="p-4 bg-primary/5">
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary text-lg">search</span>
-<input class="w-full bg-background-dark border border-primary/20 rounded-lg pl-10 pr-4 py-2.5 text-sm focus:ring-1 focus:ring-primary text-slate-100" placeholder="SCAN ARCHIVE..." type="text"/>
-</div>
-</div>
-<div class="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
-<!-- Note Card 1 -->
-<div class="glass bg-primary/5 p-4 rounded-xl border border-primary/10 hover:border-primary/40 transition-all cursor-pointer group">
-<div class="flex items-start justify-between mb-2">
-<div class="flex items-center gap-3">
-<div class="bg-primary/20 p-2 rounded-lg">
-<span class="material-symbols-outlined text-primary text-xl">layers</span>
-</div>
-<div>
-<h4 class="font-bold text-slate-100 group-hover:text-primary transition-colors">Kubernetes Node Affinity</h4>
-<p class="text-[10px] text-slate-500 font-mono tracking-tighter uppercase">STAMP: 2024-05-20 // 14:32</p>
-</div>
-</div>
-<span class="material-symbols-outlined text-slate-600 text-sm">open_in_new</span>
-</div>
-<p class="text-sm text-slate-400 line-clamp-2">Understanding how to constrain pods to specific nodes using label selectors. Key difference between hard and soft affinity rules...</p>
-</div>
-<!-- Note Card 2 -->
-<div class="glass bg-primary/5 p-4 rounded-xl border border-primary/10 hover:border-primary/40 transition-all cursor-pointer group">
-<div class="flex items-start justify-between mb-2">
-<div class="flex items-center gap-3">
-<div class="bg-primary/20 p-2 rounded-lg">
-<span class="material-symbols-outlined text-primary text-xl">package</span>
-</div>
-<div>
-<h4 class="font-bold text-slate-100 group-hover:text-primary transition-colors">Multi-stage Docker Builds</h4>
-<p class="text-[10px] text-slate-500 font-mono tracking-tighter uppercase">STAMP: 2024-05-19 // 09:15</p>
-</div>
-</div>
-<span class="material-symbols-outlined text-slate-600 text-sm">open_in_new</span>
-</div>
-<p class="text-sm text-slate-400 line-clamp-2">Optimizing image size by separating build environment from runtime environment. Significant reduction in production image footprint...</p>
-</div>
-<!-- Note Card 3 -->
-<div class="glass bg-primary/5 p-4 rounded-xl border border-primary/10 hover:border-primary/40 transition-all cursor-pointer group">
-<div class="flex items-start justify-between mb-2">
-<div class="flex items-center gap-3">
-<div class="bg-primary/20 p-2 rounded-lg">
-<span class="material-symbols-outlined text-primary text-xl">cloud</span>
-</div>
-<div>
-<h4 class="font-bold text-slate-100 group-hover:text-primary transition-colors">IAM Policy Principle of Least Privilege</h4>
-<p class="text-[10px] text-slate-500 font-mono tracking-tighter uppercase">STAMP: 2024-05-18 // 18:45</p>
-</div>
-</div>
-<span class="material-symbols-outlined text-slate-600 text-sm">open_in_new</span>
-</div>
-<p class="text-sm text-slate-400 line-clamp-2">Security best practices for AWS IAM. Never use '*' actions in production. Fine-grained resource ARN mapping for S3 buckets...</p>
-</div>
-</div>
-</div>
-</section>
-<!-- Right Panel: Activity Widgets -->
-<aside class="lg:col-span-3 space-y-6">
-<!-- Practice Card -->
-<div class="glass rounded-xl p-5 border border-primary/20 bg-gradient-to-br from-primary/10 to-transparent">
-<div class="flex items-center gap-2 mb-4">
-<span class="material-symbols-outlined text-primary">task_alt</span>
-<h3 class="font-bold text-sm tracking-wider uppercase">Daily Practice Task</h3>
-</div>
-<div class="space-y-3">
-<p class="text-sm text-slate-100 font-medium">Provision a 3-node EKS cluster using Terraform.</p>
-<div class="flex items-center justify-between text-[10px] text-slate-400 font-mono">
-<span>DIFFICULTY: HARD</span>
-<span>EXP: +450</span>
-</div>
-<button class="w-full py-2 border border-primary/30 rounded-lg text-primary text-xs font-bold hover:bg-primary/10 transition-all">START_MISSION</button>
-</div>
-</div>
-<!-- Streak Tracker -->
-<div class="glass rounded-xl p-5 border border-primary/20">
-<div class="flex items-center justify-between mb-4">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-orange-500 fill-orange-500">local_fire_department</span>
-<h3 class="font-bold text-sm tracking-wider uppercase">Streak</h3>
-</div>
-<span class="text-2xl font-bold text-slate-100">7 <span class="text-xs text-slate-500">DAYS</span></span>
-</div>
-<div class="flex justify-between gap-1">
-<div class="h-8 w-full bg-primary rounded-sm opacity-100"></div>
-<div class="h-8 w-full bg-primary rounded-sm opacity-90"></div>
-<div class="h-8 w-full bg-primary rounded-sm opacity-80"></div>
-<div class="h-8 w-full bg-primary rounded-sm opacity-70"></div>
-<div class="h-8 w-full bg-primary rounded-sm opacity-60"></div>
-<div class="h-8 w-full bg-primary rounded-sm opacity-40"></div>
-<div class="h-8 w-full bg-primary rounded-sm opacity-30 border border-primary/30"></div>
-</div>
-</div>
-<!-- Progress Bars -->
-<div class="glass rounded-xl p-5 border border-primary/20 space-y-4">
-<h3 class="font-bold text-sm tracking-wider uppercase mb-2">Skill Levels</h3>
-<div class="space-y-4">
-<div>
-<div class="flex justify-between text-[10px] mb-1 text-slate-400">
-<span>KUBERNETES</span>
-<span>85%</span>
-</div>
-<div class="w-full h-1.5 bg-primary/10 rounded-full overflow-hidden">
-<div class="h-full bg-primary shadow-[0_0_8px_#0db9f2]" style="width: 85%"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-[10px] mb-1 text-slate-400">
-<span>AWS</span>
-<span>62%</span>
-</div>
-<div class="w-full h-1.5 bg-primary/10 rounded-full overflow-hidden">
-<div class="h-full bg-primary shadow-[0_0_8px_#0db9f2]" style="width: 62%"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-[10px] mb-1 text-slate-400">
-<span>LINUX SYSTEM</span>
-<span>94%</span>
-</div>
-<div class="w-full h-1.5 bg-primary/10 rounded-full overflow-hidden">
-<div class="h-full bg-primary shadow-[0_0_8px_#0db9f2]" style="width: 94%"></div>
-</div>
-</div>
-</div>
-</div>
-</aside>
-</div>
-<!-- Bottom Section: Project Tracker (Kanban) -->
-<section class="space-y-4">
-<div class="flex items-center gap-2 px-2">
-<span class="material-symbols-outlined text-primary">view_kanban</span>
-<h3 class="font-bold text-lg tracking-wider uppercase">DevOps Project Tracker</h3>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<!-- Column: To Learn -->
-<div class="glass rounded-xl p-4 border border-primary/10 bg-primary/5 min-h-[300px] flex flex-col gap-4">
-<div class="flex items-center justify-between mb-2">
-<span class="text-xs font-bold text-slate-500 uppercase tracking-widest px-2 py-1 bg-slate-800 rounded">TO_LEARN</span>
-<span class="material-symbols-outlined text-slate-500 text-sm">more_horiz</span>
-</div>
-<div class="glass p-3 rounded-lg border border-primary/20 bg-background-dark/40 shadow-sm">
-<h5 class="text-sm font-bold text-slate-100 mb-2">Kubernetes Pod Disruption Budgets</h5>
-<div class="flex gap-2">
-<span class="text-[9px] bg-primary/10 text-primary px-1.5 py-0.5 rounded border border-primary/20">K8S</span>
-<span class="text-[9px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700">ADVANCED</span>
-</div>
-</div>
-<div class="glass p-3 rounded-lg border border-primary/20 bg-background-dark/40 shadow-sm opacity-80">
-<h5 class="text-sm font-bold text-slate-100 mb-2">Prometheus Custom Exporters</h5>
-<div class="flex gap-2">
-<span class="text-[9px] bg-primary/10 text-primary px-1.5 py-0.5 rounded border border-primary/20">OBSERVABILITY</span>
-</div>
-</div>
-</div>
-<!-- Column: Learning -->
-<div class="glass rounded-xl p-4 border border-primary/30 bg-primary/10 min-h-[300px] flex flex-col gap-4 shadow-[inset_0_0_20px_rgba(13,185,242,0.05)]">
-<div class="flex items-center justify-between mb-2">
-<span class="text-xs font-bold text-primary uppercase tracking-widest px-2 py-1 bg-primary/20 rounded">LEARNING_NOW</span>
-<div class="h-2 w-2 rounded-full bg-primary animate-pulse"></div>
-</div>
-<div class="glass p-3 rounded-lg border border-primary/40 bg-background-dark/60 shadow-md">
-<div class="flex justify-between items-start mb-2">
-<h5 class="text-sm font-bold text-slate-100">Kubernetes Pods &amp; ReplicaSets</h5>
-<span class="material-symbols-outlined text-primary text-xs">edit</span>
-</div>
-<div class="w-full h-1 bg-primary/10 rounded-full mb-2">
-<div class="h-full bg-primary" style="width: 65%"></div>
-</div>
-<div class="flex gap-2">
-<span class="text-[9px] bg-primary/10 text-primary px-1.5 py-0.5 rounded border border-primary/20">K8S_CORE</span>
-</div>
-</div>
-</div>
-<!-- Column: Completed -->
-<div class="glass rounded-xl p-4 border border-primary/10 bg-primary/5 min-h-[300px] flex flex-col gap-4">
-<div class="flex items-center justify-between mb-2">
-<span class="text-xs font-bold text-green-500 uppercase tracking-widest px-2 py-1 bg-green-900/20 rounded">ARCHIVED_SUCCESS</span>
-<span class="material-symbols-outlined text-green-500 text-sm">verified</span>
-</div>
-<div class="glass p-3 rounded-lg border border-green-500/20 bg-background-dark/40 opacity-60">
-<h5 class="text-sm font-bold text-slate-300 line-through">Docker Basic Commands</h5>
-<div class="flex gap-2">
-<span class="text-[9px] bg-green-900/20 text-green-500 px-1.5 py-0.5 rounded border border-green-900/40">MASTERED</span>
-</div>
-</div>
-</div>
-</div>
-</section>
-</main>
-<!-- Footer / Status Bar -->
-<footer class="glass border-t border-primary/20 px-6 py-2 flex items-center justify-between text-[10px] text-slate-500 font-mono tracking-widest uppercase">
-<div class="flex items-center gap-6">
-<span class="flex items-center gap-1.5"><div class="size-1.5 rounded-full bg-primary"></div> CONNECTION: SECURE</span>
-<span class="flex items-center gap-1.5"><div class="size-1.5 rounded-full bg-primary"></div> LATENCY: 24MS</span>
-</div>
-<div class="flex items-center gap-6">
-<span>SYSTEM_VERSION: 2.0.4-LTS</span>
-<span>© 2024 CMD_CENTER</span>
-</div>
-</footer>
-</div>
-        <div class="card ai-box">
 
-<h3>DevOps AI Assistant</h3>
+body{
+font-family:"Space Grotesk",sans-serif;
+background:#0A0E14;
+}
 
-<div id="chatBox" class="chat-box"></div>
-
-<input id="aiInput" placeholder="Ask DevOps AI..." />
-
-<button onclick="askAI()">Ask</button>
-
-</div>
-</body></html>
-<style>
-.ai-box{
-background:#0b2430;
-border-radius:10px;
-padding:15px;
+.glass{
+background:rgba(13,185,242,.03);
+border:1px solid rgba(13,185,242,.1);
+backdrop-filter:blur(12px);
 }
 
 .chat-box{
@@ -381,276 +49,215 @@ background:#071a23;
 padding:10px;
 margin-bottom:10px;
 border-radius:8px;
-font-size:14px;
 }
 
-.user{
-color:#00e1ff;
-margin:5px 0;
-}
+.user{color:#00e1ff;margin:6px 0;}
+.ai{color:#7dffb3;margin:6px 0;}
 
-.ai{
-color:#7dffb3;
-margin:5px 0;
-}
-        </style>
+</style>
+</head>
+
+
+<body class="text-slate-200">
+
+<!-- HEADER -->
+
+<header class="glass p-4 flex justify-between items-center">
+
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-3xl">terminal</span>
+<h1 class="font-bold text-xl">DEVOPS_CMD</h1>
+</div>
+
+<nav class="flex gap-6 text-sm">
+<a class="text-primary">COMMAND_CENTER</a>
+<a class="hover:text-primary">TERMINAL</a>
+<a class="hover:text-primary">NETWORK_MAP</a>
+<a class="hover:text-primary">SYSTEM_LOGS</a>
+</nav>
+
+</header>
+
+
+
+<main class="p-6 grid grid-cols-12 gap-6">
+
+<!-- LEFT PANEL -->
+
+<div class="col-span-3 glass p-5 rounded-xl">
+
+<h3 class="text-primary font-bold mb-4">NOTE INJECTOR</h3>
+
+<input id="noteTitle" placeholder="Note title" class="w-full p-2 mb-3 bg-black border border-primary/20 rounded">
+
+<textarea id="noteContent" rows="5" placeholder="Write notes..." class="w-full p-2 mb-3 bg-black border border-primary/20 rounded"></textarea>
+
+<button id="saveBtn" class="w-full bg-primary text-black font-bold py-2 rounded">SAVE NOTE</button>
+
+</div>
+
+
+
+<!-- CENTER PANEL -->
+
+<div class="col-span-6 glass p-5 rounded-xl">
+
+<h3 class="text-primary font-bold mb-4">DATA ARCHIVE</h3>
+
+<div id="archive" class="space-y-3"></div>
+
+</div>
+
+
+
+<!-- RIGHT PANEL -->
+
+<div class="col-span-3 space-y-6">
+
+<!-- DAILY TASK -->
+
+<div class="glass p-5 rounded-xl">
+
+<h3 class="text-primary font-bold mb-2">Daily Practice</h3>
+
+<p>Provision 3 node Kubernetes cluster</p>
+
+<button class="mt-3 w-full border border-primary py-2 rounded hover:bg-primary/10">START MISSION</button>
+
+</div>
+
+
+
+<!-- SKILL LEVEL -->
+
+<div class="glass p-5 rounded-xl">
+
+<h3 class="text-primary font-bold mb-4">Skill Levels</h3>
+
+<p>Linux</p>
+<div class="w-full bg-gray-800 h-2 rounded mb-3">
+<div class="bg-primary h-2 rounded" style="width:90%"></div>
+</div>
+
+<p>Docker</p>
+<div class="w-full bg-gray-800 h-2 rounded mb-3">
+<div class="bg-primary h-2 rounded" style="width:70%"></div>
+</div>
+
+<p>Kubernetes</p>
+<div class="w-full bg-gray-800 h-2 rounded">
+<div class="bg-primary h-2 rounded" style="width:50%"></div>
+</div>
+
+</div>
+
+
+
+<!-- AI ASSISTANT -->
+
+<div class="glass p-5 rounded-xl">
+
+<h3 class="text-primary font-bold mb-3">DevOps AI Assistant</h3>
+
+<div id="chatBox" class="chat-box"></div>
+
+<input id="aiInput" placeholder="Ask DevOps AI..." class="w-full p-2 bg-black border border-primary/20 rounded">
+
+<button onclick="askAI()" class="w-full mt-2 border border-primary py-2 rounded hover:bg-primary/10">ASK</button>
+
+</div>
+
+</div>
+
+</main>
+
+
+
+<!-- FOOTER -->
+
+<footer class="glass p-3 flex justify-between text-xs text-gray-400">
+
+<div>CONNECTION: SECURE</div>
+<div>LATENCY: 24MS</div>
+<div>VERSION 2.0.4</div>
+
+</footer>
+
+
+
 <script>
-        function askAI(){
 
-const input=document.getElementById("aiInput")
-const chat=document.getElementById("chatBox")
+/* SAVE NOTES */
 
-let question=input.value.toLowerCase()
-
-if(question==="") return
-
-chat.innerHTML += `<div class="user">You: ${question}</div>`
-
-let answer="I don't know that yet."
-
-if(question.includes("docker")){
-answer="Docker is a container platform. Example command: docker run -d nginx"
-}
-
-else if(question.includes("kubernetes")){
-answer="Kubernetes manages containers at scale. Example: kubectl get pods"
-}
-
-else if(question.includes("linux")){
-answer="Linux is the base OS for DevOps servers. Example command: ls -la"
-}
-
-else if(question.includes("terraform")){
-answer="Terraform is Infrastructure as Code. Example: terraform apply"
-}
-
-else if(question.includes("ci cd")){
-answer="CI/CD automates build, test and deploy pipelines."
-}
-
-chat.innerHTML += `<div class="ai">AI: ${answer}</div>`
-
-chat.scrollTop=chat.scrollHeight
-
-input.value=""
-
-}
-        document.addEventListener("DOMContentLoaded",()=>{
-
-/* MODULE FILTER */
-
-const modules=document.querySelectorAll(".module")
-const notes=document.querySelectorAll(".archive-card")
-
-modules.forEach(module=>{
-
-module.addEventListener("click",()=>{
-
-const target=module.dataset.module
-
-notes.forEach(note=>{
-
-if(note.dataset.module===target || target==="all"){
-note.style.display="block"
-}else{
-note.style.display="none"
-}
-
-})
-
-})
-
-})
-
-
-/* SAVE NOTE */
-
-const saveBtn=document.querySelector("#saveBtn")
-const titleInput=document.querySelector("#noteTitle")
-const contentInput=document.querySelector("#noteContent")
-const archive=document.querySelector("#archive")
-const moduleSelect=document.querySelector("#module")
-
-if(saveBtn){
+const saveBtn=document.getElementById("saveBtn")
+const titleInput=document.getElementById("noteTitle")
+const contentInput=document.getElementById("noteContent")
+const archive=document.getElementById("archive")
 
 saveBtn.addEventListener("click",()=>{
 
-const title=titleInput.value.trim()
-const content=contentInput.value.trim()
-const module=moduleSelect.value
+let title=titleInput.value
+let content=contentInput.value
 
 if(title===""||content==="") return
 
-const card=document.createElement("div")
+let card=document.createElement("div")
 
-card.className="archive-card"
-card.dataset.module=module
+card.className="glass p-3 rounded"
 
 card.innerHTML=`
-<h4>${title}</h4>
-<p>${content}</p>
-<small>${module}</small>
+<h4 class="text-primary font-bold">${title}</h4>
+<p class="text-sm">${content}</p>
 `
 
-card.style.opacity="0"
-card.style.transform="translateY(20px)"
-
 archive.prepend(card)
-
-setTimeout(()=>{
-
-card.style.transition="all .4s"
-card.style.opacity="1"
-card.style.transform="translateY(0)"
-
-},50)
 
 titleInput.value=""
 contentInput.value=""
 
 })
 
-}
 
 
-/* SKILL BAR ANIMATION */
+/* AI ASSISTANT */
 
-const skills=document.querySelectorAll(".skill-bar span")
+function askAI(){
 
-skills.forEach(bar=>{
+const input=document.getElementById("aiInput")
+const chat=document.getElementById("chatBox")
 
-const value=bar.dataset.value
+let question=input.value.toLowerCase()
 
-setTimeout(()=>{
-bar.style.width=value+"%"
-},400)
+if(question==="")return
 
-})
+chat.innerHTML+=`<div class="user">You: ${question}</div>`
 
+let answer="I don't know that yet."
 
-/* TERMINAL AUTO COMMAND */
+if(question.includes("docker"))
+answer="docker run -d nginx"
 
-const terminal=document.querySelector("#terminalText")
+else if(question.includes("kubernetes"))
+answer="kubectl get pods"
 
-if(terminal){
+else if(question.includes("linux"))
+answer="ls -la"
 
-const commands=[
-"$ initializing devops core...",
-"$ loading modules...",
-"$ docker service ready",
-"$ kubernetes cluster connected"
-]
+else if(question.includes("terraform"))
+answer="terraform apply"
 
-let i=0
+else if(question.includes("ci cd"))
+answer="CI/CD automates build and deployment"
 
-function runTerminal(){
+chat.innerHTML+=`<div class="ai">AI: ${answer}</div>`
 
-if(i<commands.length){
+chat.scrollTop=chat.scrollHeight
 
-terminal.innerHTML+=commands[i]+"<br>"
-i++
-
-setTimeout(runTerminal,900)
+input.value=""
 
 }
 
-}
-
-runTerminal()
-
-}
-
-
-/* PROJECT TRACKER DRAG */
-
-const cards=document.querySelectorAll(".task")
-const columns=document.querySelectorAll(".column")
-
-cards.forEach(card=>{
-
-card.addEventListener("dragstart",()=>{
-card.classList.add("dragging")
-})
-
-card.addEventListener("dragend",()=>{
-card.classList.remove("dragging")
-})
-
-})
-
-columns.forEach(col=>{
-
-col.addEventListener("dragover",e=>{
-
-e.preventDefault()
-
-const dragging=document.querySelector(".dragging")
-
-if(dragging){
-col.appendChild(dragging)
-}
-
-})
-
-})
-
-
-/* NOTE EXPAND */
-
-document.querySelectorAll(".archive-card").forEach(note=>{
-
-note.addEventListener("click",()=>{
-
-note.classList.toggle("expand")
-
-})
-
-})
-
-
-/* MISSION BUTTON */
-
-const mission=document.querySelector(".start-mission")
-
-if(mission){
-
-mission.addEventListener("click",()=>{
-
-mission.innerText="Mission Running..."
-mission.style.background="#00ff9f"
-
-})
-
-}
-
-})
 </script>
-<style>
-.archive-card{
-transition:all .3s ease;
-cursor:pointer;
-}
 
-.archive-card:hover{
-transform:translateY(-5px) scale(1.02);
-box-shadow:0 0 20px rgba(0,255,255,.35);
-}
-
-.dragging{
-opacity:.5;
-transform:scale(1.05);
-box-shadow:0 0 20px cyan;
-}
-
-.expand{
-position:fixed;
-top:10%;
-left:10%;
-width:80%;
-height:80%;
-z-index:999;
-background:#0b2430;
-padding:30px;
-overflow:auto;
-}
-        </style>
+</body>
+</html>
