@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DevOps CMD Dashboard</title>
 
 <style>
@@ -131,18 +132,14 @@ background:#0a2b3a;
 <h2>DEVOPS_CMD</h2>
 
 <div class="modules">
-
 <div class="module" data-module="linux">Linux</div>
 <div class="module" data-module="git">Git</div>
 <div class="module" data-module="docker">Docker</div>
 <div class="module" data-module="k8s">Kubernetes</div>
 <div class="module" data-module="aws">AWS</div>
-
 </div>
 
 <div class="container">
-
-<!-- NOTE INJECTOR -->
 
 <div class="card">
 
@@ -164,8 +161,6 @@ background:#0a2b3a;
 
 </div>
 
-<!-- DATA ARCHIVE -->
-
 <div class="card">
 
 <h3>DATA ARCHIVE</h3>
@@ -175,8 +170,6 @@ background:#0a2b3a;
 <div id="archive"></div>
 
 </div>
-
-<!-- RIGHT PANEL -->
 
 <div class="card">
 
@@ -225,19 +218,22 @@ Kubernetes
 
 <script>
 
+document.addEventListener("DOMContentLoaded",function(){
+
 const saveBtn=document.querySelector("#saveBtn")
 const titleInput=document.querySelector("#noteTitle")
 const contentInput=document.querySelector("#noteContent")
 const moduleSelect=document.querySelector("#module")
 const archive=document.querySelector("#archive")
+const search=document.querySelector("#search")
 
 saveBtn.addEventListener("click",()=>{
 
-const title=titleInput.value
-const content=contentInput.value
+const title=titleInput.value.trim()
+const content=contentInput.value.trim()
 const module=moduleSelect.value
 
-if(title==""||content=="") return
+if(title===""||content==="") return
 
 const card=document.createElement("div")
 card.classList.add("archive-card")
@@ -256,6 +252,21 @@ contentInput.value=""
 
 })
 
+search.addEventListener("input",()=>{
+
+const term=search.value.toLowerCase()
+const notes=document.querySelectorAll(".archive-card")
+
+notes.forEach(note=>{
+
+note.style.display=
+note.innerText.toLowerCase().includes(term)
+?"block":"none"
+
+})
+
+})
+
 const skills=document.querySelectorAll(".skill-bar span")
 
 skills.forEach(bar=>{
@@ -263,9 +274,7 @@ skills.forEach(bar=>{
 const value=bar.dataset.value
 
 setTimeout(()=>{
-
 bar.style.width=value+"%"
-
 },300)
 
 })
@@ -278,11 +287,9 @@ let i=0
 function typing(){
 
 if(i<text.length){
-
 terminal.innerHTML+=text.charAt(i)
 i++
 setTimeout(typing,40)
-
 }
 
 }
@@ -307,36 +314,10 @@ card.classList.remove("dragging")
 columns.forEach(col=>{
 
 col.addEventListener("dragover",(e)=>{
-
 e.preventDefault()
+
 const card=document.querySelector(".dragging")
-col.appendChild(card)
-
-})
-
-})
-
-const modules=document.querySelectorAll(".module")
-
-modules.forEach(mod=>{
-
-mod.addEventListener("click",()=>{
-
-const target=mod.dataset.module
-
-const notes=document.querySelectorAll(".archive-card")
-
-notes.forEach(note=>{
-
-if(note.dataset.module===target){
-
-note.style.display="block"
-
-}else{
-
-note.style.display="none"
-
-}
+if(card) col.appendChild(card)
 
 })
 
