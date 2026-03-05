@@ -1,127 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DevOps CMD Dashboard</title>
+<title>DevOps Learning Dashboard</title>
 
 <style>
 
 body{
+background:#071018;
 font-family:Segoe UI;
-background:#020b12;
-color:#cfefff;
-margin:0;
+color:white;
 padding:30px;
 }
 
 h2{
 color:#00e1ff;
-letter-spacing:2px;
 }
 
-.container{
+.grid{
 display:grid;
-grid-template-columns:300px 1fr 300px;
+grid-template-columns:250px 1fr 250px;
 gap:20px;
 }
 
 .card{
-background:#071a23;
-border-radius:12px;
+background:#0b1f2b;
 padding:20px;
-box-shadow:0 0 15px rgba(0,255,255,.05);
-transition:.3s;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,255,255,.1);
 }
 
-.card:hover{
-transform:translateY(-5px);
-box-shadow:0 0 20px rgba(0,255,255,.25);
-}
-
-input,textarea,select{
+input,textarea{
 width:100%;
-padding:10px;
-margin-top:10px;
-background:#031018;
-border:1px solid #0c3645;
+padding:8px;
+margin-top:8px;
+background:#04131b;
+border:1px solid #123;
 color:white;
-border-radius:8px;
+border-radius:6px;
 }
 
 button{
-margin-top:15px;
-padding:12px;
-width:100%;
+margin-top:10px;
+padding:10px;
 background:#00e1ff;
 border:none;
-border-radius:8px;
-font-weight:bold;
+border-radius:6px;
 cursor:pointer;
 }
 
-.archive-card{
-background:#0b2430;
-padding:12px;
-border-radius:10px;
-margin-bottom:10px;
+.command{
+background:#021018;
+padding:8px;
+margin:5px 0;
+border-radius:6px;
+font-family:monospace;
 }
 
 .skill-bar{
 height:6px;
-background:#0b1e28;
-border-radius:10px;
-margin-top:8px;
+background:#021018;
+margin-top:5px;
+border-radius:6px;
 overflow:hidden;
 }
 
 .skill-bar span{
 display:block;
 height:100%;
-width:0;
 background:#00e1ff;
-transition:width 1.5s ease;
-}
-
-.terminal{
-background:#01070c;
-padding:15px;
-border-radius:10px;
-font-family:monospace;
-color:#00ff9f;
-margin-top:10px;
-}
-
-.column{
-min-height:150px;
-background:#04131b;
-padding:10px;
-border-radius:10px;
+width:0;
+transition:1s;
 }
 
 .task{
-background:#0a2733;
-padding:10px;
-margin:8px 0;
-border-radius:8px;
+background:#021018;
+padding:8px;
+margin:6px 0;
+border-radius:6px;
 cursor:grab;
 }
 
-.modules{
-display:flex;
-gap:10px;
-margin-bottom:20px;
-}
-
-.module{
-padding:10px 15px;
-background:#071a23;
-border-radius:8px;
-cursor:pointer;
-}
-
-.module:hover{
-background:#0a2b3a;
+.columns{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:15px;
+margin-top:20px;
 }
 
 </style>
@@ -129,51 +92,45 @@ background:#0a2b3a;
 
 <body>
 
-<h2>DEVOPS_CMD</h2>
+<h2>DEVOPS LEARNING DASHBOARD</h2>
 
-<div class="modules">
-<div class="module" data-module="linux">Linux</div>
-<div class="module" data-module="git">Git</div>
-<div class="module" data-module="docker">Docker</div>
-<div class="module" data-module="k8s">Kubernetes</div>
-<div class="module" data-module="aws">AWS</div>
-</div>
+<div class="grid">
 
-<div class="container">
+<!-- COMMAND VAULT -->
 
 <div class="card">
 
-<h3>Note Injector</h3>
+<h3>Command Vault</h3>
 
-<select id="module">
-<option value="linux">Linux</option>
-<option value="git">Git</option>
-<option value="docker">Docker</option>
-<option value="k8s">Kubernetes</option>
-<option value="aws">AWS</option>
-</select>
-
-<input id="noteTitle" placeholder="Note title">
-
-<textarea id="noteContent" rows="5" placeholder="Write learning notes"></textarea>
-
-<button id="saveBtn">SAVE DATA</button>
+<div class="command">ls</div>
+<div class="command">chmod 777 file</div>
+<div class="command">docker ps</div>
+<div class="command">docker build -t app</div>
+<div class="command">kubectl get pods</div>
 
 </div>
 
+<!-- NOTES -->
+
 <div class="card">
 
-<h3>DATA ARCHIVE</h3>
+<h3>Learning Notes</h3>
 
-<input id="search" placeholder="search archive">
+<input id="title" placeholder="Note title">
 
-<div id="archive"></div>
+<textarea id="content" rows="5" placeholder="Write notes"></textarea>
+
+<button onclick="saveNote()">Save Note</button>
+
+<div id="notes"></div>
 
 </div>
 
+<!-- PROGRESS -->
+
 <div class="card">
 
-<h3>Skill Levels</h3>
+<h3>Learning Progress</h3>
 
 Linux
 <div class="skill-bar"><span data-value="90"></span></div>
@@ -184,142 +141,120 @@ Docker
 Kubernetes
 <div class="skill-bar"><span data-value="30"></span></div>
 
-<h3>Terminal</h3>
+<h3>Daily Practice</h3>
 
-<div class="terminal" id="terminalText"></div>
+<div id="practice">
+Learn docker volumes
+</div>
+
+<button onclick="nextTask()">Next Task</button>
 
 </div>
 
 </div>
 
-<br><br>
+<!-- PROJECT TRACKER -->
 
-<h3>DevOps Project Tracker</h3>
+<h3 style="margin-top:30px">DevOps Project Tracker</h3>
 
-<div class="container">
+<div class="columns">
 
-<div class="column" id="todo">
+<div class="card column">
+
 <h4>To Learn</h4>
+
 <div class="task" draggable="true">Kubernetes Pods</div>
 <div class="task" draggable="true">Terraform</div>
+
 </div>
 
-<div class="column" id="learning">
+<div class="card column">
+
 <h4>Learning</h4>
+
 <div class="task" draggable="true">Docker Volumes</div>
+
 </div>
 
-<div class="column" id="done">
+<div class="card column">
+
 <h4>Completed</h4>
+
 <div class="task" draggable="true">Linux Commands</div>
+
 </div>
 
 </div>
 
 <script>
 
-document.addEventListener("DOMContentLoaded",function(){
+function saveNote(){
 
-const saveBtn=document.querySelector("#saveBtn")
-const titleInput=document.querySelector("#noteTitle")
-const contentInput=document.querySelector("#noteContent")
-const moduleSelect=document.querySelector("#module")
-const archive=document.querySelector("#archive")
-const search=document.querySelector("#search")
+let title=document.getElementById("title").value
+let content=document.getElementById("content").value
 
-saveBtn.addEventListener("click",()=>{
+if(title==""||content=="") return
 
-const title=titleInput.value.trim()
-const content=contentInput.value.trim()
-const module=moduleSelect.value
+let div=document.createElement("div")
 
-if(title===""||content==="") return
+div.className="card"
 
-const card=document.createElement("div")
-card.classList.add("archive-card")
-card.dataset.module=module
+div.innerHTML="<h4>"+title+"</h4><p>"+content+"</p>"
 
-card.innerHTML=`
-<h4>${title}</h4>
-<p>${content}</p>
-<small>${module}</small>
-`
+document.getElementById("notes").prepend(div)
 
-archive.prepend(card)
-
-titleInput.value=""
-contentInput.value=""
-
-})
-
-search.addEventListener("input",()=>{
-
-const term=search.value.toLowerCase()
-const notes=document.querySelectorAll(".archive-card")
-
-notes.forEach(note=>{
-
-note.style.display=
-note.innerText.toLowerCase().includes(term)
-?"block":"none"
-
-})
-
-})
+}
 
 const skills=document.querySelectorAll(".skill-bar span")
 
 skills.forEach(bar=>{
-
-const value=bar.dataset.value
-
+let value=bar.dataset.value
 setTimeout(()=>{
 bar.style.width=value+"%"
 },300)
-
 })
 
-const text="Initializing DevOps Command Center..."
-const terminal=document.querySelector("#terminalText")
+const tasks=[
+"Learn docker volumes",
+"Practice kubectl commands",
+"Create docker container",
+"Write terraform script"
+]
 
-let i=0
+let index=0
 
-function typing(){
+function nextTask(){
 
-if(i<text.length){
-terminal.innerHTML+=text.charAt(i)
-i++
-setTimeout(typing,40)
+index=(index+1)%tasks.length
+
+document.getElementById("practice").innerText=tasks[index]
+
 }
 
-}
-
-typing()
-
-const cards=document.querySelectorAll(".task")
 const columns=document.querySelectorAll(".column")
+const tasksDraggable=document.querySelectorAll(".task")
 
-cards.forEach(card=>{
+tasksDraggable.forEach(task=>{
 
-card.addEventListener("dragstart",()=>{
-card.classList.add("dragging")
+task.addEventListener("dragstart",()=>{
+task.classList.add("dragging")
 })
 
-card.addEventListener("dragend",()=>{
-card.classList.remove("dragging")
+task.addEventListener("dragend",()=>{
+task.classList.remove("dragging")
 })
 
 })
 
 columns.forEach(col=>{
 
-col.addEventListener("dragover",(e)=>{
+col.addEventListener("dragover",e=>{
+
 e.preventDefault()
 
 const card=document.querySelector(".dragging")
-if(card) col.appendChild(card)
 
-})
+if(card) col.appendChild(card)
 
 })
 
