@@ -3,220 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Academy - Interactive Dashboard</title>
+    <title>DevOps Learning Lab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b1120; color: #f8fafc; }
-        .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(51, 65, 85, 0.5); border-radius: 12px; transition: all 0.3s ease; }
-        .glass:hover { border-color: rgba(56, 189, 248, 0.4); }
-        .terminal-bg { background: #000000; border: 1px solid #1e293b; position: relative; }
-        .glow-node { filter: drop-shadow(0 0 8px currentColor); cursor: pointer; transition: transform 0.2s; }
-        .glow-node:hover { transform: scale(1.1); }
-        .mindmap-bg { background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 30px 30px; }
-        
-        /* Interactive Switch */
-        .switch-input { display: none; }
-        .switch-label { width: 42px; height: 22px; background: #334155; border-radius: 20px; display: inline-block; position: relative; cursor: pointer; transition: 0.3s; }
-        .switch-label::after { content: ''; position: absolute; width: 18px; height: 18px; background: white; border-radius: 50%; top: 2px; left: 2px; transition: 0.3s; }
-        .switch-input:checked + .switch-label { background: #22c55e; box-shadow: 0 0 10px rgba(34, 197, 94, 0.4); }
-        .switch-input:checked + .switch-label::after { left: 22px; }
-
-        /* Roadmap Animation */
-        .step-active { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); border-color: #3b82f6 !important; }
+        .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(51, 65, 85, 0.5); border-radius: 16px; }
+        .terminal-bg { background: #010409; border: 1px solid #30363d; }
+        .active-step { border: 2px solid #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); transform: scale(1.05); }
+        .command-badge { font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
     </style>
 </head>
-<body class="p-6 max-w-[1200px] mx-auto">
+<body class="p-4 md:p-8 max-w-[1300px] mx-auto">
 
-    <header class="flex justify-between items-center mb-10">
-        <div class="flex items-center gap-2 cursor-pointer" onclick="location.reload()">
-            <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center font-bold text-sm">💻</div>
-            <h1 class="text-xl font-bold text-blue-400">DevOps Academy</h1>
+    <header class="flex flex-col md:row justify-between items-center mb-10 gap-4">
+        <div class="flex items-center gap-3">
+            <div class="p-2 bg-blue-600 rounded-lg shadow-lg shadow-blue-900/20">🚀</div>
+            <h1 class="text-2xl font-bold tracking-tight text-white">DevOps<span class="text-blue-500 underline decoration-blue-500/30 ml-1">Lab</span></h1>
         </div>
-        <div class="flex items-center gap-4">
-            <input type="text" id="globalSearch" onkeyup="filterCommands()" placeholder="Search knowledge..." class="bg-slate-900/50 border border-slate-700 rounded-md py-1.5 px-4 text-xs w-64 focus:outline-none focus:border-blue-500 transition-all">
-            <div class="text-slate-400 cursor-pointer hover:text-white" onclick="alert('No new notifications')">🔔</div>
-            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 border border-slate-600 cursor-pointer"></div>
+        <div class="flex items-center gap-4 w-full md:w-auto">
+            <input type="text" id="mainSearch" onkeyup="searchLab()" placeholder="Search commands or topics..." class="bg-slate-900/80 border border-slate-700 rounded-full py-2 px-6 text-sm w-full md:w-80 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
         </div>
     </header>
 
-    <div class="mb-12">
-        <h2 class="text-3xl font-bold mb-2">Welcome back, Mariya.</h2>
-        <p class="text-slate-400 text-sm mb-6">Explore your Visual Mind Map to see how your DevOps skills connect.</p>
-        <div class="flex gap-3">
-            <button onclick="alert('Resuming your last session...')" class="bg-[#1e40af] hover:bg-blue-700 text-white text-xs font-semibold px-5 py-2.5 rounded flex items-center gap-2 active:scale-95 transition">
-                <span>▶</span> Continue Roadmap
-            </button>
-            <button onclick="addNewNote()" class="bg-[#1e293b] hover:bg-slate-700 text-white text-xs font-semibold px-5 py-2.5 rounded border border-slate-600 active:scale-95 transition">
-                <span>🪄</span> New Connection
-            </button>
-        </div>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12">
-        <div class="lg:col-span-5">
-            <div class="flex items-center gap-2 mb-3"><span>⌨️</span> <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Terminal</span></div>
-            <div class="terminal-bg rounded-xl p-5 font-mono text-xs min-h-[280px]" id="terminalBody">
-                <div class="flex gap-1.5 mb-4">
-                    <span class="w-2.5 h-2.5 bg-[#ff5f56] rounded-full"></span>
-                    <span class="w-2.5 h-2.5 bg-[#ffbd2e] rounded-full"></span>
-                    <span class="w-2.5 h-2.5 bg-[#27c93f] rounded-full"></span>
-                </div>
-                <div id="terminalContent">
-                    <p class="text-slate-500 mb-4">DevOpsOS v4.2.0 - Click here to type...</p>
-                    <p class="text-[#4ade80]">mariya@academy:~$ <span id="cursor" class="w-2 h-4 bg-green-500 inline-block align-middle animate-pulse"></span></p>
-                </div>
-                <input type="text" id="terminalInput" class="absolute inset-0 opacity-0 cursor-default" autofocus>
-            </div>
-        </div>
-
-        <div class="lg:col-span-7">
-            <div class="flex items-center gap-2 mb-3"><span>🏆</span> <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Learning Roadmap</span></div>
-            <div class="glass h-[280px] p-8 flex items-center justify-center">
-                <div class="relative w-full flex justify-between items-center">
-                    <div class="absolute h-[2px] bg-slate-700 w-full top-1/2 -z-10"></div>
-                    <div class="flex flex-col items-center gap-3 cursor-pointer group" onclick="toggleStep(this)">
-                        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center border-4 border-[#0b1120] glow-node">✓</div>
-                        <span class="text-[10px] font-bold text-green-500 uppercase">Linux</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-3 cursor-pointer group" onclick="toggleStep(this)">
-                        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center border-4 border-[#0b1120] glow-node">✓</div>
-                        <span class="text-[10px] font-bold text-green-500 uppercase">Git</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-3 cursor-pointer group" onclick="toggleStep(this)">
-                        <div class="w-10 h-10 bg-[#3b82f6] rounded-full flex items-center justify-center border-4 border-[#0b1120] glow-node italic step-active">⚡</div>
-                        <span class="text-[10px] font-bold text-blue-400 uppercase">Automation</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-3 cursor-pointer opacity-40 hover:opacity-100 transition" onclick="toggleStep(this)">
-                        <div class="w-10 h-10 bg-slate-700 rounded-full flex items-center justify-center border-4 border-[#0b1120]">🔒</div>
-                        <span class="text-[10px] font-bold text-slate-400 uppercase">Cloud</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="mb-12">
-        <div class="glass h-[400px] mindmap-bg relative flex items-center justify-center">
-            <div class="absolute top-10 left-10 glow-node text-green-500 glass p-3" onclick="alert('Linux Module Loaded')">🖼️</div>
-            <div class="absolute top-10 right-10 glow-node text-purple-500 glass p-3" onclick="alert('Git Flow Active')">🔀</div>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
+        <div class="lg:col-span-8 space-y-8">
             
-            <div class="relative z-10 glass px-8 py-4 border-blue-400 glow-node group" onclick="this.style.transform='rotate(360deg)'">
-                <span class="font-bold text-sm tracking-widest text-blue-400">CORE CONCEPT</span>
+            <div class="glass p-6">
+                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Learning Path (Click to change topic)</h3>
+                <div class="flex justify-between items-center relative">
+                    <div class="absolute h-0.5 bg-slate-800 w-full top-6 -z-10"></div>
+                    <button onclick="switchTopic('linux')" class="topic-btn active-step flex flex-col items-center gap-2 group">
+                        <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700 group-hover:border-blue-500 transition-all text-xl">🐧</div>
+                        <span class="text-[10px] font-bold uppercase">Linux</span>
+                    </button>
+                    <button onclick="switchTopic('git')" class="topic-btn flex flex-col items-center gap-2 group">
+                        <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700 group-hover:border-orange-500 transition-all text-xl">🎋</div>
+                        <span class="text-[10px] font-bold uppercase">Git</span>
+                    </button>
+                    <button onclick="switchTopic('docker')" class="topic-btn flex flex-col items-center gap-2 group">
+                        <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700 group-hover:border-cyan-500 transition-all text-xl">🐋</div>
+                        <span class="text-[10px] font-bold uppercase">Docker</span>
+                    </button>
+                    <button onclick="switchTopic('k8s')" class="topic-btn flex flex-col items-center gap-2 group">
+                        <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700 group-hover:border-purple-500 transition-all text-xl">☸️</div>
+                        <span class="text-[10px] font-bold uppercase">K8s</span>
+                    </button>
+                </div>
             </div>
 
-            <div class="absolute bottom-6 w-1/2 glass px-6 py-4 flex items-center gap-4">
-                <button id="playBtn" class="text-white hover:text-blue-400 transition" onclick="togglePlay()">▶</button>
-                <input type="range" class="flex-1 accent-blue-500 cursor-pointer" value="80">
-                <div class="text-[10px] text-slate-500">HISTORY_LOG.v4</div>
-            </div>
-        </div>
-    </div>
+            <div class="terminal-bg rounded-2xl overflow-hidden border border-slate-800 shadow-2xl">
+                <div class="bg-slate-900/50 px-4 py-2 border-b border-slate-800 flex justify-between items-center">
+                    <div class="flex gap-1.5">
+                        <div class="w-2.5 h-2.5 bg-red-500/80 rounded-full"></div>
+                        <div class="w-2.5 h-2.5 bg-yellow-500/80 rounded-full"></div>
+                        <div class="w-2.5 h-2.5 bg-green-500/80 rounded-full"></div>
+                    </div>
+                    <span class="text-[10px] text-slate-500 font-mono">mission_control.sh</span>
+                </div>
+                <div class="p-6 font-mono text-sm min-h-[250px]" id="terminalArea">
+                    <p class="text-blue-400 mb-2"># CURRENT TASK:</p>
+                    <p class="text-white mb-6" id="currentTask">Type <span class="text-yellow-400">'ls'</span> to see files in your current directory.</p>
+                    
+                    <div id="terminalLog" class="space-y-1 mb-4"></div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12" id="cmdGrid">
-        <div class="glass p-5 cmd-card" data-tags="linux">
-            <span class="text-[10px] font-bold text-green-400 uppercase">LINUX</span>
-            <div class="bg-black/40 rounded p-3 my-4 flex justify-between items-center group cursor-pointer" onclick="copyCmd('ls -lah', this)">
-                <code class="text-xs text-green-400"># ls -lah</code>
-                <span class="text-slate-600 text-[10px] opacity-0 group-hover:opacity-100 transition">COPY</span>
-            </div>
-            <p class="text-[11px] text-slate-400 mb-6">List all files including hidden ones.</p>
-            <div class="flex justify-between items-center">
-                <span class="text-[10px] text-slate-600 italic">2 days ago</span>
-                <div class="flex items-center gap-2">
-                    <input type="checkbox" id="m1" class="switch-input" checked>
-                    <label for="m1" class="switch-label"></label>
+                    <div class="flex items-center gap-2">
+                        <span class="text-green-500">mariya@devops:~$</span>
+                        <input type="text" id="termInput" class="bg-transparent border-none outline-none flex-1 text-white" autofocus autocomplete="off">
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="glass p-5 cmd-card" data-tags="git">
-            <span class="text-[10px] font-bold text-purple-400 uppercase">GIT</span>
-            <div class="bg-black/40 rounded p-3 my-4 flex justify-between items-center group cursor-pointer" onclick="copyCmd('git commit -m', this)">
-                <code class="text-xs text-purple-400"># git commit -m</code>
-                <span class="text-slate-600 text-[10px] opacity-0 group-hover:opacity-100 transition">COPY</span>
+        <div class="lg:col-span-4 space-y-6">
+            <div class="glass p-6 border-l-4 border-blue-500">
+                <h4 class="text-blue-400 font-bold text-sm mb-2">💡 Quick Tip</h4>
+                <p id="quickTip" class="text-xs text-slate-400 leading-relaxed italic">Linux commands are case-sensitive. 'LS' and 'ls' are different!</p>
             </div>
-            <p class="text-[11px] text-slate-400 mb-6">Saves staged changes to repo.</p>
-            <div class="flex justify-between items-center">
-                <span class="text-[10px] text-slate-600 italic">5 hours ago</span>
-                <input type="checkbox" id="m2" class="switch-input">
-                <label for="m2" class="switch-label"></label>
+
+            <div class="glass p-6">
+                <h4 class="text-white font-bold text-sm mb-4">📝 Topic Notes</h4>
+                <ul id="topicNotes" class="space-y-3 text-xs text-slate-400">
+                    <li class="flex items-start gap-2"><span>•</span> <span>Root directory is <b>/</b></span></li>
+                    <li class="flex items-start gap-2"><span>•</span> <span><b>~</b> means Home directory</span></li>
+                    <li class="flex items-start gap-2"><span>•</span> <span><b>..</b> means one level up</span></li>
+                </ul>
             </div>
-        </div>
-        
-        <div class="glass p-5 cmd-card" data-tags="security">
-            <span class="text-[10px] font-bold text-orange-400 uppercase">SECURITY</span>
-            <div class="bg-black/40 rounded p-3 my-4 flex justify-between items-center group cursor-pointer" onclick="copyCmd('chmod 700', this)">
-                <code class="text-xs text-orange-400"># chmod 700</code>
-                <span class="text-slate-600 text-[10px] opacity-0 group-hover:opacity-100 transition">COPY</span>
-            </div>
-            <p class="text-[11px] text-slate-400 mb-6">Change file permissions.</p>
-            <div class="flex justify-between items-center">
-                <span class="text-[10px] text-slate-600 italic">Just now</span>
-                <input type="checkbox" id="m3" class="switch-input">
-                <label for="m3" class="switch-label"></label>
+
+            <div class="glass p-6 bg-gradient-to-br from-blue-600/10 to-transparent">
+                <h4 class="text-white font-bold text-sm mb-2">🎯 Goal Tracker</h4>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full mt-4">
+                    <div id="progressBar" class="bg-blue-500 h-1.5 rounded-full transition-all duration-500" style="width: 25%"></div>
+                </div>
+                <p class="text-[10px] text-slate-500 mt-2">1 of 4 Modules Completed</p>
             </div>
         </div>
     </div>
+
+    <h3 class="text-lg font-bold mb-6 flex items-center gap-2">📜 Command Cheat Sheet <span class="text-[10px] bg-slate-800 text-slate-500 px-2 py-1 rounded">Click to copy</span></h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="cheatSheet">
+        </div>
 
     <script>
-        // --- 1. Terminal Typing Action ---
-        const termInput = document.getElementById('terminalInput');
-        const termContent = document.getElementById('terminalContent');
-        const cursor = document.getElementById('cursor');
+        const data = {
+            linux: {
+                task: "Type 'pwd' to see your current folder path.",
+                answer: "pwd",
+                tip: "Use 'clear' to clean your terminal screen anytime.",
+                notes: ["Root directory is /", "Use -h with commands for human-readable output", "ls -a shows hidden files"],
+                cmds: [
+                    {c: "ls -la", d: "List all files with details", t: "Common"},
+                    {c: "cd ..", d: "Go back one folder", t: "Nav"},
+                    {c: "mkdir test", d: "Create new folder", t: "Files"},
+                    {c: "rm -rf", d: "Force delete (BE CAREFUL)", t: "Danger"}
+                ]
+            },
+            git: {
+                task: "Type 'git init' to start a new repository.",
+                answer: "git init",
+                tip: "Always check 'git status' before committing.",
+                notes: ["Staging area is where changes sit before commit", "A branch is a separate version of code", "GitHub is for hosting, Git is the tool"],
+                cmds: [
+                    {c: "git status", d: "Check current state", t: "Essential"},
+                    {c: "git add .", d: "Stage all changes", t: "Flow"},
+                    {c: "git commit -m", d: "Save changes with message", t: "Flow"},
+                    {c: "git push", d: "Send code to GitHub", t: "Cloud"}
+                ]
+            }
+        };
 
-        termInput.addEventListener('input', (e) => {
-            const lastLine = termContent.querySelector('p:last-child');
-            lastLine.innerHTML = `mariya@academy:~$ <span class="text-white">${e.target.value}</span><span id="cursor" class="w-2 h-4 bg-green-500 inline-block align-middle animate-pulse ml-1"></span>`;
-        });
+        let currentTopic = 'linux';
+        let progress = 25;
 
-        termInput.addEventListener('keypress', (e) => {
+        function switchTopic(topic) {
+            currentTopic = topic;
+            // Update UI styles
+            document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active-step'));
+            event.currentTarget.classList.add('active-step');
+            
+            // Update Content
+            const tData = data[topic] || data.linux;
+            document.getElementById('currentTask').innerHTML = tData.task;
+            document.getElementById('quickTip').innerText = tData.tip;
+            
+            // Update Notes
+            const notesList = document.getElementById('topicNotes');
+            notesList.innerHTML = tData.notes.map(n => `<li class="flex items-start gap-2"><span>•</span> <span>${n}</span></li>`).join('');
+            
+            // Update Cheat Sheet
+            renderCheatSheet(tData.cmds, topic);
+        }
+
+        function renderCheatSheet(cmds, topic) {
+            const container = document.getElementById('cheatSheet');
+            container.innerHTML = cmds.map(cmd => `
+                <div class="glass p-4 hover:border-blue-500/50 cursor-pointer transition group" onclick="copyCmd('${cmd.c}', this)">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="command-badge text-blue-400 bg-blue-900/20">${cmd.t}</span>
+                        <span class="text-[10px] text-slate-600 opacity-0 group-hover:opacity-100">COPY</span>
+                    </div>
+                    <code class="text-sm text-white font-mono block mb-2">${cmd.c}</code>
+                    <p class="text-[10px] text-slate-500">${cmd.d}</p>
+                </div>
+            `).join('');
+        }
+
+        // Terminal Logic
+        const input = document.getElementById('termInput');
+        const log = document.getElementById('terminalLog');
+
+        input.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                const cmd = termInput.value;
+                const val = input.value.trim();
                 const p = document.createElement('p');
-                p.className = "text-slate-400 mt-1";
-                p.innerText = cmd === 'ls' ? 'linux_kernel.map  git_rebase.map  ssh_keys.map' : `Command '${cmd}' executed successfully.`;
-                termContent.insertBefore(p, termContent.lastElementChild);
-                termInput.value = '';
+                p.innerHTML = `<span class="text-slate-500">mariya@devops:~$</span> ${val}`;
+                log.appendChild(p);
+
+                // Validation
+                const res = document.createElement('p');
+                if (val === data[currentTopic].answer) {
+                    res.className = "text-green-400 text-xs";
+                    res.innerText = "✓ Correct! Task Complete.";
+                    progress += 10;
+                    document.getElementById('progressBar').style.width = progress + '%';
+                } else {
+                    res.className = "text-red-400 text-xs";
+                    res.innerText = "× Try again. Check the cheat sheet below.";
+                }
+                log.appendChild(res);
+                input.value = '';
+                log.scrollTop = log.scrollHeight;
             }
         });
 
-        // --- 2. Copy Command Action ---
         function copyCmd(text, el) {
             navigator.clipboard.writeText(text);
-            const original = el.querySelector('span').innerText;
-            el.querySelector('span').innerText = "COPIED!";
-            el.querySelector('span').style.color = "#4ade80";
-            setTimeout(() => {
-                el.querySelector('span').innerText = original;
-                el.querySelector('span').style.color = "";
-            }, 1000);
+            const original = el.innerHTML;
+            el.innerHTML = "<div class='flex items-center justify-center h-full text-green-400 font-bold py-4'>COPIED!</div>";
+            setTimeout(() => { el.innerHTML = original; }, 800);
         }
 
-        // --- 3. Roadmap Toggle ---
-        function toggleStep(el) {
-            const icon = el.querySelector('div');
-            icon.classList.toggle('step-active');
-            el.style.opacity = "1";
-        }
-
-        // --- 4. Global Search Action ---
-        function filterCommands() {
-            const q = document.getElementById('globalSearch').value.toLowerCase();
-            document.querySelectorAll('.cmd-card').forEach(card => {
+        function searchLab() {
+            const q = document.getElementById('mainSearch').value.toLowerCase();
+            document.querySelectorAll('#cheatSheet > div').forEach(card => {
                 card.style.display = card.innerText.toLowerCase().includes(q) ? 'block' : 'none';
             });
         }
 
-        function togglePlay() {
-            const btn = document.getElementById('playBtn');
-            btn.innerText = btn.innerText === '▶' ? '⏸' : '▶';
-        }
+        // Initial Load
+        window.onload = () => renderCheatSheet(data.linux.cmds, 'linux');
 
-        function addNewNote() {
-            const note = prompt("Enter new DevOps note:");
-            if(note) alert("Note Saved to Neural Network!");
-        }
     </script>
 </body>
 </html>
