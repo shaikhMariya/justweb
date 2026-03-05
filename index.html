@@ -3,166 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Pro Workspace | Mariya</title>
+    <title>DevOps Engineer Lab | Mariya</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: #f8fafc; }
-        .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; }
-        .roadmap-line { background: linear-gradient(90deg, #22c55e, #3b82f6, #a855f7, #64748b); }
-        
-        /* Note Card Themes */
-        .note-linux { border-left: 5px solid #22c55e; background: linear-gradient(135deg, rgba(34,197,94,0.1), transparent); }
-        .note-docker { border-left: 5px solid #0ea5e9; background: linear-gradient(135deg, rgba(14,165,233,0.1), transparent); }
-        .note-git { border-left: 5px solid #f97316; background: linear-gradient(135deg, rgba(249,115,22,0.1), transparent); }
-        .note-k8s { border-left: 5px solid #326ce5; background: linear-gradient(135deg, rgba(50,108,229,0.1), transparent); }
+        .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; }
+        .glow-border { border: 1px solid rgba(59, 130, 246, 0.5); box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); }
+        .note-linux { border-left: 6px solid #22c55e; background: linear-gradient(135deg, rgba(34,197,94,0.05), transparent); }
+        .note-docker { border-left: 6px solid #0ea5e9; background: linear-gradient(135deg, rgba(14,165,233,0.05), transparent); }
+        .note-git { border-left: 6px solid #f97316; background: linear-gradient(135deg, rgba(249,115,22,0.05), transparent); }
+        .note-cicd { border-left: 6px solid #a855f7; background: linear-gradient(135deg, rgba(168,85,247,0.05), transparent); }
     </style>
 </head>
-<body class="p-6 md:p-10 max-w-[1400px] mx-auto">
+<body class="p-6 md:p-10 max-w-[1500px] mx-auto">
 
-    <header class="flex justify-between items-center mb-12">
+    <div class="glass p-4 mb-10 flex flex-col md:flex-row justify-between items-center glow-border">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">🚀</div>
+            <span class="animate-bounce">🎯</span>
             <div>
-                <h1 class="text-xl font-bold">DevOps Academy</h1>
-                <p class="text-[10px] text-slate-500 uppercase tracking-widest">Future Engineer Workspace</p>
+                <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Today's Automatic Task</p>
+                <p id="dailyTask" class="text-sm font-semibold text-white">Loading your mission...</p>
             </div>
         </div>
-        <div class="flex gap-4 items-center">
-            <div class="hidden md:block text-right">
-                <p class="text-xs font-bold text-slate-400">Mariya's Study Lab</p>
-                <p class="text-[10px] text-green-500">System Online v6.0</p>
-            </div>
-            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-600 to-pink-500 border border-slate-700"></div>
-        </div>
-    </header>
+        <button onclick="completeTask()" class="mt-3 md:mt-0 text-[10px] bg-blue-600 px-4 py-2 rounded-lg font-bold hover:bg-blue-700 transition">MARK AS DONE</button>
+    </div>
 
     <section class="mb-16">
-        <h3 class="text-xs font-bold text-slate-500 uppercase mb-8 tracking-widest text-center">Master Learning Roadmap</h3>
-        <div class="relative flex justify-between items-center max-w-4xl mx-auto">
-            <div class="absolute h-1 roadmap-line w-full -z-10 rounded-full opacity-30"></div>
-            
-            <div class="flex flex-col items-center gap-3 group cursor-help">
-                <div class="w-12 h-12 glass rounded-full flex items-center justify-center border-green-500 text-green-500 shadow-[0_0_15px_rgba(34,197,94,0.3)]">🐧</div>
-                <span class="text-[10px] font-bold text-green-500">LINUX</span>
+        <h2 class="text-center text-sm font-bold text-slate-500 uppercase tracking-[0.3em] mb-10">DevOps Mastery Roadmap (CI/CD Included)</h2>
+        <div class="flex flex-wrap justify-center gap-6">
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-14 h-14 glass flex items-center justify-center rounded-2xl border-green-500/50 text-2xl shadow-lg">🐧</div>
+                <p class="text-[10px] font-bold">1. LINUX</p>
             </div>
-            <div class="flex flex-col items-center gap-3 group cursor-help">
-                <div class="w-12 h-12 glass rounded-full flex items-center justify-center border-orange-500 text-orange-500">🎋</div>
-                <span class="text-[10px] font-bold text-orange-400">GIT</span>
+            <div class="w-10 h-1 hidden md:block bg-slate-800 self-center"></div>
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-14 h-14 glass flex items-center justify-center rounded-2xl border-orange-500/50 text-2xl shadow-lg">🎋</div>
+                <p class="text-[10px] font-bold">2. GIT</p>
             </div>
-            <div class="flex flex-col items-center gap-3 group cursor-help">
-                <div class="w-12 h-12 glass rounded-full flex items-center justify-center border-blue-400 text-blue-400 animate-pulse">🐋</div>
-                <span class="text-[10px] font-bold text-blue-400">DOCKER</span>
+            <div class="w-10 h-1 hidden md:block bg-slate-800 self-center"></div>
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-14 h-14 glass flex items-center justify-center rounded-2xl border-blue-500/50 text-2xl shadow-lg">🐋</div>
+                <p class="text-[10px] font-bold">3. DOCKER</p>
             </div>
-            <div class="flex flex-col items-center gap-3 group cursor-help opacity-40">
-                <div class="w-12 h-12 glass rounded-full flex items-center justify-center">☸️</div>
-                <span class="text-[10px] font-bold text-slate-400">K8S</span>
+            <div class="w-10 h-1 hidden md:block bg-slate-800 self-center"></div>
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-14 h-14 glass flex items-center justify-center rounded-2xl border-purple-500/50 text-2xl shadow-lg">🔄</div>
+                <p class="text-[10px] font-bold">4. CI/CD</p>
             </div>
-            <div class="flex flex-col items-center gap-3 group cursor-help opacity-40">
-                <div class="w-12 h-12 glass rounded-full flex items-center justify-center">☁️</div>
-                <span class="text-[10px] font-bold text-slate-400">AWS</span>
+            <div class="w-10 h-1 hidden md:block bg-slate-800 self-center"></div>
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-14 h-14 glass flex items-center justify-center rounded-2xl border-pink-500/50 text-2xl shadow-lg">☁️</div>
+                <p class="text-[10px] font-bold">5. CLOUD/K8S</p>
             </div>
         </div>
     </section>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-        
         <div class="lg:col-span-4 space-y-6">
-            <div class="glass p-8 border-t-4 border-blue-500 shadow-2xl">
-                <h3 class="text-lg font-bold mb-6 flex items-center gap-2">✍️ Create Smart Note</h3>
+            <div class="glass p-8 border-t-4 border-blue-600">
+                <h3 class="text-lg font-bold mb-6">📝 Add New Learning</h3>
                 <div class="space-y-4">
-                    <div>
-                        <label class="text-[10px] font-bold text-slate-500 uppercase ml-1">Note Title</label>
-                        <input type="text" id="noteTitle" placeholder="e.g. Docker Volumes" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-3 text-sm focus:border-blue-500 outline-none transition-all">
+                    <input type="text" id="noteTitle" placeholder="Topic: e.g. Linux Permissions" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm focus:border-blue-500 outline-none">
+                    <select id="noteType" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm outline-none">
+                        <option value="linux">🐧 Linux Fundamentals</option>
+                        <option value="git">🎋 Git & Version Control</option>
+                        <option value="docker">🐋 Docker Containerization</option>
+                        <option value="cicd">🔄 CI/CD Pipelines</option>
+                    </select>
+                    <textarea id="noteBody" rows="4" placeholder="Write your notes or practice steps..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm outline-none"></textarea>
+                    
+                    <div class="flex items-center gap-2 p-2 bg-slate-900/50 rounded-lg">
+                        <input type="checkbox" id="needsPractice" class="w-4 h-4 accent-blue-600">
+                        <label for="needsPractice" class="text-[10px] font-bold text-slate-400 uppercase">Needs Revision/Practice</label>
                     </div>
-                    <div>
-                        <label class="text-[10px] font-bold text-slate-500 uppercase ml-1">Category & Design</label>
-                        <select id="noteType" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-3 text-sm focus:border-blue-500 outline-none">
-                            <option value="linux">🐧 Linux Basics</option>
-                            <option value="git">🎋 Git Version Control</option>
-                            <option value="docker">🐋 Docker Containerization</option>
-                            <option value="k8s">☸️ Kubernetes Orchestration</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-bold text-slate-500 uppercase ml-1">Your Learning</label>
-                        <textarea id="noteBody" rows="4" placeholder="What did you learn today?" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-3 text-sm focus:border-blue-500 outline-none"></textarea>
-                    </div>
-                    <button onclick="saveProNote()" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold shadow-lg shadow-blue-500/20 transition-all active:scale-95">SAVE TO NEURAL NETWORK</button>
+
+                    <button onclick="saveNote()" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold transition active:scale-95 shadow-lg shadow-blue-500/20">SAVE TO MY LAB</button>
                 </div>
+            </div>
+
+            <div class="glass p-6">
+                <h4 class="text-xs font-bold text-orange-400 uppercase tracking-widest mb-4">Pending Practice</h4>
+                <div id="practiceList" class="space-y-3">
+                    </div>
             </div>
         </div>
 
-        <div class="lg:col-span-8 space-y-10">
-            
-            <div class="flex justify-between items-center mb-4">
-                <h4 class="text-sm font-bold uppercase tracking-widest text-slate-400">Quick Command Reference</h4>
-                <div class="flex gap-2 text-[10px]">
-                    <span class="bg-green-500/10 text-green-500 px-2 py-1 rounded border border-green-500/20">LS</span>
-                    <span class="bg-blue-500/10 text-blue-500 px-2 py-1 rounded border border-blue-500/20">DOCKER RUN</span>
-                    <span class="bg-orange-500/10 text-orange-500 px-2 py-1 rounded border border-orange-500/20">GIT PUSH</span>
+        <div class="lg:col-span-8">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">My DevOps Knowledge Base</h3>
+                <div class="flex gap-2">
+                    <button onclick="filterNotes('all')" class="text-[10px] font-bold bg-slate-800 px-3 py-1 rounded-full border border-slate-700 hover:bg-slate-700">All</button>
+                    <button onclick="filterNotes('linux')" class="text-[10px] font-bold text-green-400 hover:underline">Linux</button>
+                    <button onclick="filterNotes('docker')" class="text-[10px] font-bold text-blue-400 hover:underline">Docker</button>
                 </div>
             </div>
-
-            <div id="proNotesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div id="notesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 </div>
         </div>
     </div>
 
     <script>
-        function saveProNote() {
+        const tasks = [
+            "Linux: Use 'chmod 400' on a test file and try to edit it.",
+            "Git: Create a new branch and merge it back to main.",
+            "Docker: Create a Dockerfile for a simple HTML site.",
+            "Linux: Use 'top' command to find which process uses most RAM.",
+            "Docker: Practice 'docker-compose' to run two containers.",
+            "CI/CD: Explain what 'Build, Test, Deploy' means in 2 lines."
+        ];
+
+        // Automatic Task Generator
+        function loadDailyTask() {
+            const dayOfYear = new Date().getDate() % tasks.length;
+            document.getElementById('dailyTask').innerText = tasks[dayOfYear];
+        }
+
+        function saveNote() {
             const title = document.getElementById('noteTitle').value;
             const type = document.getElementById('noteType').value;
             const body = document.getElementById('noteBody').value;
+            const practice = document.getElementById('needsPractice').checked;
 
-            if(!title || !body) return alert("Bhai, kuch toh likho!");
+            if(!title || !body) return alert("Pehle notes toh likh lo bhai!");
 
-            const note = { title, type, body, id: Date.now() };
-            let notes = JSON.parse(localStorage.getItem('mariya_pro_notes') || '[]');
+            const note = { title, type, body, practice, id: Date.now(), date: new Date().toLocaleDateString() };
+            let notes = JSON.parse(localStorage.getItem('mariya_devops_lab') || '[]');
             notes.unshift(note);
-            localStorage.setItem('mariya_pro_notes', JSON.stringify(notes));
+            localStorage.setItem('mariya_devops_lab', JSON.stringify(notes));
 
-            // Clear inputs
+            // Reset
             document.getElementById('noteTitle').value = '';
             document.getElementById('noteBody').value = '';
-            renderProNotes();
+            document.getElementById('needsPractice').checked = false;
+            renderAll();
         }
 
-        function renderProNotes() {
-            const container = document.getElementById('proNotesContainer');
-            const notes = JSON.parse(localStorage.getItem('mariya_pro_notes') || '[]');
-            container.innerHTML = '';
-
-            const icons = { linux: '🐧', docker: '🐋', git: '🎋', k8s: '☸️' };
+        function renderAll() {
+            const grid = document.getElementById('notesGrid');
+            const practiceList = document.getElementById('practiceList');
+            const notes = JSON.parse(localStorage.getItem('mariya_devops_lab') || '[]');
+            
+            grid.innerHTML = '';
+            practiceList.innerHTML = '';
 
             notes.forEach(n => {
-                const div = document.createElement('div');
-                div.className = `glass p-6 note-${n.type} group relative overflow-hidden transition-all hover:shadow-2xl`;
-                div.innerHTML = `
+                // Render Note Card
+                const card = document.createElement('div');
+                card.className = `glass p-6 note-${n.type} group hover:scale-[1.02] transition-all relative`;
+                card.innerHTML = `
                     <div class="flex justify-between items-start mb-4">
-                        <span class="text-2xl">${icons[n.type]}</span>
-                        <button onclick="deleteNote(${n.id})" class="text-[10px] text-slate-600 hover:text-red-500 font-bold">DELETE</button>
+                        <span class="text-[10px] font-bold text-slate-500 uppercase">${n.date}</span>
+                        <button onclick="deleteNote(${n.id})" class="text-[10px] text-slate-600 hover:text-red-500">DELETE</button>
                     </div>
-                    <h4 class="font-bold text-white mb-2 uppercase tracking-tight">${n.title}</h4>
-                    <p class="text-xs text-slate-400 leading-relaxed">${n.body}</p>
-                    <div class="mt-6 flex items-center justify-between">
-                        <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">${n.type} module</span>
-                        <div class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></div>
+                    <h4 class="font-bold text-white text-md mb-2">${n.title}</h4>
+                    <p class="text-xs text-slate-400 mb-6 leading-relaxed">${n.body}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] bg-slate-900 px-2 py-1 rounded border border-slate-700 font-bold uppercase">${n.type}</span>
+                        ${n.practice ? '<span class="text-[9px] text-orange-400 font-bold animate-pulse">REVISION NEEDED</span>' : ''}
                     </div>
                 `;
-                container.appendChild(div);
+                grid.appendChild(card);
+
+                // Add to Practice List if checked
+                if(n.practice) {
+                    const pItem = document.createElement('div');
+                    pItem.className = "p-3 bg-orange-500/10 border border-orange-500/20 rounded-lg text-xs flex justify-between items-center";
+                    pItem.innerHTML = `<span>${n.title}</span> <button onclick="markDone(${n.id})" class="text-orange-500 font-bold">DONE</button>`;
+                    practiceList.appendChild(pItem);
+                }
             });
+            if(practiceList.innerHTML === '') practiceList.innerHTML = '<p class="text-[10px] text-slate-600">All caught up! No pending practice.</p>';
+        }
+
+        function markDone(id) {
+            let notes = JSON.parse(localStorage.getItem('mariya_devops_lab') || '[]');
+            notes = notes.map(n => n.id === id ? {...n, practice: false} : n);
+            localStorage.setItem('mariya_devops_lab', JSON.stringify(notes));
+            renderAll();
         }
 
         function deleteNote(id) {
-            let notes = JSON.parse(localStorage.getItem('mariya_pro_notes') || '[]');
+            let notes = JSON.parse(localStorage.getItem('mariya_devops_lab') || '[]');
             notes = notes.filter(n => n.id !== id);
-            localStorage.setItem('mariya_pro_notes', JSON.stringify(notes));
-            renderProNotes();
+            localStorage.setItem('mariya_devops_lab', JSON.stringify(notes));
+            renderAll();
         }
 
-        window.onload = renderProNotes;
+        function completeTask() {
+            alert("Great work Future Engineer! Keep the streak alive. 🔥");
+            document.getElementById('dailyTask').classList.add('line-through', 'text-slate-500');
+        }
+
+        window.onload = () => { loadDailyTask(); renderAll(); };
     </script>
 </body>
 </html>
+
 
