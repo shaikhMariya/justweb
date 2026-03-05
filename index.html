@@ -355,4 +355,302 @@
 </div>
 </footer>
 </div>
+        <div class="card ai-box">
+
+<h3>DevOps AI Assistant</h3>
+
+<div id="chatBox" class="chat-box"></div>
+
+<input id="aiInput" placeholder="Ask DevOps AI..." />
+
+<button onclick="askAI()">Ask</button>
+
+</div>
 </body></html>
+<style>
+.ai-box{
+background:#0b2430;
+border-radius:10px;
+padding:15px;
+}
+
+.chat-box{
+height:200px;
+overflow:auto;
+background:#071a23;
+padding:10px;
+margin-bottom:10px;
+border-radius:8px;
+font-size:14px;
+}
+
+.user{
+color:#00e1ff;
+margin:5px 0;
+}
+
+.ai{
+color:#7dffb3;
+margin:5px 0;
+}
+        </style>
+<script>
+        function askAI(){
+
+const input=document.getElementById("aiInput")
+const chat=document.getElementById("chatBox")
+
+let question=input.value.toLowerCase()
+
+if(question==="") return
+
+chat.innerHTML += `<div class="user">You: ${question}</div>`
+
+let answer="I don't know that yet."
+
+if(question.includes("docker")){
+answer="Docker is a container platform. Example command: docker run -d nginx"
+}
+
+else if(question.includes("kubernetes")){
+answer="Kubernetes manages containers at scale. Example: kubectl get pods"
+}
+
+else if(question.includes("linux")){
+answer="Linux is the base OS for DevOps servers. Example command: ls -la"
+}
+
+else if(question.includes("terraform")){
+answer="Terraform is Infrastructure as Code. Example: terraform apply"
+}
+
+else if(question.includes("ci cd")){
+answer="CI/CD automates build, test and deploy pipelines."
+}
+
+chat.innerHTML += `<div class="ai">AI: ${answer}</div>`
+
+chat.scrollTop=chat.scrollHeight
+
+input.value=""
+
+}
+        document.addEventListener("DOMContentLoaded",()=>{
+
+/* MODULE FILTER */
+
+const modules=document.querySelectorAll(".module")
+const notes=document.querySelectorAll(".archive-card")
+
+modules.forEach(module=>{
+
+module.addEventListener("click",()=>{
+
+const target=module.dataset.module
+
+notes.forEach(note=>{
+
+if(note.dataset.module===target || target==="all"){
+note.style.display="block"
+}else{
+note.style.display="none"
+}
+
+})
+
+})
+
+})
+
+
+/* SAVE NOTE */
+
+const saveBtn=document.querySelector("#saveBtn")
+const titleInput=document.querySelector("#noteTitle")
+const contentInput=document.querySelector("#noteContent")
+const archive=document.querySelector("#archive")
+const moduleSelect=document.querySelector("#module")
+
+if(saveBtn){
+
+saveBtn.addEventListener("click",()=>{
+
+const title=titleInput.value.trim()
+const content=contentInput.value.trim()
+const module=moduleSelect.value
+
+if(title===""||content==="") return
+
+const card=document.createElement("div")
+
+card.className="archive-card"
+card.dataset.module=module
+
+card.innerHTML=`
+<h4>${title}</h4>
+<p>${content}</p>
+<small>${module}</small>
+`
+
+card.style.opacity="0"
+card.style.transform="translateY(20px)"
+
+archive.prepend(card)
+
+setTimeout(()=>{
+
+card.style.transition="all .4s"
+card.style.opacity="1"
+card.style.transform="translateY(0)"
+
+},50)
+
+titleInput.value=""
+contentInput.value=""
+
+})
+
+}
+
+
+/* SKILL BAR ANIMATION */
+
+const skills=document.querySelectorAll(".skill-bar span")
+
+skills.forEach(bar=>{
+
+const value=bar.dataset.value
+
+setTimeout(()=>{
+bar.style.width=value+"%"
+},400)
+
+})
+
+
+/* TERMINAL AUTO COMMAND */
+
+const terminal=document.querySelector("#terminalText")
+
+if(terminal){
+
+const commands=[
+"$ initializing devops core...",
+"$ loading modules...",
+"$ docker service ready",
+"$ kubernetes cluster connected"
+]
+
+let i=0
+
+function runTerminal(){
+
+if(i<commands.length){
+
+terminal.innerHTML+=commands[i]+"<br>"
+i++
+
+setTimeout(runTerminal,900)
+
+}
+
+}
+
+runTerminal()
+
+}
+
+
+/* PROJECT TRACKER DRAG */
+
+const cards=document.querySelectorAll(".task")
+const columns=document.querySelectorAll(".column")
+
+cards.forEach(card=>{
+
+card.addEventListener("dragstart",()=>{
+card.classList.add("dragging")
+})
+
+card.addEventListener("dragend",()=>{
+card.classList.remove("dragging")
+})
+
+})
+
+columns.forEach(col=>{
+
+col.addEventListener("dragover",e=>{
+
+e.preventDefault()
+
+const dragging=document.querySelector(".dragging")
+
+if(dragging){
+col.appendChild(dragging)
+}
+
+})
+
+})
+
+
+/* NOTE EXPAND */
+
+document.querySelectorAll(".archive-card").forEach(note=>{
+
+note.addEventListener("click",()=>{
+
+note.classList.toggle("expand")
+
+})
+
+})
+
+
+/* MISSION BUTTON */
+
+const mission=document.querySelector(".start-mission")
+
+if(mission){
+
+mission.addEventListener("click",()=>{
+
+mission.innerText="Mission Running..."
+mission.style.background="#00ff9f"
+
+})
+
+}
+
+})
+</script>
+<style>
+.archive-card{
+transition:all .3s ease;
+cursor:pointer;
+}
+
+.archive-card:hover{
+transform:translateY(-5px) scale(1.02);
+box-shadow:0 0 20px rgba(0,255,255,.35);
+}
+
+.dragging{
+opacity:.5;
+transform:scale(1.05);
+box-shadow:0 0 20px cyan;
+}
+
+.expand{
+position:fixed;
+top:10%;
+left:10%;
+width:80%;
+height:80%;
+z-index:999;
+background:#0b2430;
+padding:30px;
+overflow:auto;
+}
+        </style>
