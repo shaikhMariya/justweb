@@ -1,207 +1,358 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Pro Lab | Mariya</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: #f8fafc; scroll-behavior: smooth; }
-        .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 28px; transition: 0.4s; }
-        .glass:hover { border-color: rgba(59, 130, 246, 0.5); transform: translateY(-5px); }
-        
-        /* Topic Based Aesthetic Backgrounds */
-        .card-linux { border-top: 5px solid #22c55e; background: linear-gradient(to bottom, rgba(34,197,94,0.1), transparent); }
-        .card-git { border-top: 5px solid #f97316; background: linear-gradient(to bottom, rgba(249,115,22,0.1), transparent); }
-        .card-docker { border-top: 5px solid #0ea5e9; background: linear-gradient(to bottom, rgba(14,165,233,0.1), transparent); }
-        .card-k8s { border-top: 5px solid #326ce5; background: linear-gradient(to bottom, rgba(50,108,229,0.1), transparent); }
-        .card-aws { border-top: 5px solid #ff9900; background: linear-gradient(to bottom, rgba(255,153,0,0.1), transparent); }
-        .card-cicd { border-top: 5px solid #ec4899; background: linear-gradient(to bottom, rgba(236,72,153,0.1), transparent); }
-        .card-other { border-top: 5px solid #64748b; background: linear-gradient(to bottom, rgba(100,116,139,0.1), transparent); }
 
-        .roadmap-node { transition: 0.3s; cursor: pointer; }
-        .roadmap-node:hover { transform: scale(1.1); filter: brightness(1.2); }
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DevOps Command Center Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0db9f2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0A0E14",
+                        "card-bg": "rgba(16, 30, 34, 0.6)",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass {
+            background: rgba(13, 185, 242, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(13, 185, 242, 0.1);
+        }
+        .neon-border {
+            box-shadow: 0 0 10px rgba(13, 185, 242, 0.2);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(13, 185, 242, 0.3);
+            border-radius: 10px;
+        }
     </style>
 </head>
-<body class="p-6 md:p-12 max-w-[1600px] mx-auto">
-
-    <header class="flex flex-col lg:flex-row justify-between items-center mb-16 gap-8">
-        <div>
-            <h1 class="text-4xl font-black italic tracking-tighter text-blue-500">DEVOPS.CORE</h1>
-            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.5em]">Future Engineer • Mariya</p>
-        </div>
-        <div class="glass px-8 py-4 flex items-center gap-6 border-blue-500/20 shadow-2xl">
-            <div class="text-left">
-                <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Daily Practice Task</p>
-                <p id="dailyTask" class="text-sm font-semibold italic">Loading your mission...</p>
-            </div>
-            <div class="h-10 w-px bg-slate-800"></div>
-            <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-2xl">👩‍🚀</div>
-        </div>
-    </header>
-
-    <section class="mb-20">
-        <h3 class="text-center text-[10px] font-bold text-slate-500 uppercase tracking-[0.6em] mb-12">Industrial Learning Path (A to Z)</h3>
-        <div class="flex flex-wrap justify-center gap-8 relative">
-            <div class="roadmap-node flex flex-col items-center gap-3">
-                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-green-500 text-3xl">🐧</div>
-                <span class="text-[10px] font-bold text-green-500">LINUX</span>
-            </div>
-            <div class="roadmap-node flex flex-col items-center gap-3">
-                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-orange-500 text-3xl">🎋</div>
-                <span class="text-[10px] font-bold text-orange-400">GIT</span>
-            </div>
-            <div class="roadmap-node flex flex-col items-center gap-3">
-                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-blue-400 text-3xl">🐋</div>
-                <span class="text-[10px] font-bold text-blue-400">DOCKER</span>
-            </div>
-            <div class="roadmap-node flex flex-col items-center gap-3">
-                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-purple-500 text-3xl">☸️</div>
-                <span class="text-[10px] font-bold text-purple-400">K8S</span>
-            </div>
-            <div class="roadmap-node flex flex-col items-center gap-3">
-                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-pink-500 text-3xl">🔄</div>
-                <span class="text-[10px] font-bold text-pink-400">CI/CD</span>
-            </div>
-            <div class="roadmap-node flex flex-col items-center gap-3">
-                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-yellow-500 text-3xl">☁️</div>
-                <span class="text-[10px] font-bold text-yellow-400">AWS</span>
-            </div>
-        </div>
-    </section>
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <div class="lg:col-span-4">
-            <div class="glass p-10 space-y-8 sticky top-10 border-white/5 shadow-2xl">
-                <h2 class="text-2xl font-bold flex items-center gap-3">📝 Note Injector</h2>
-                <div class="space-y-6">
-                    <div>
-                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Target Module</label>
-                        <select id="noteCat" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-4 text-sm focus:border-blue-500 outline-none cursor-pointer transition-all">
-                            <option value="linux">🐧 Linux OS</option>
-                            <option value="git">🎋 Git Version Control</option>
-                            <option value="docker">🐋 Docker Containerization</option>
-                            <option value="k8s">☸️ Kubernetes (K8s)</option>
-                            <option value="aws">☁️ AWS Cloud Services</option>
-                            <option value="cicd">🔄 CI/CD Automation</option>
-                            <option value="other">✨ Extra / Custom Notes</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Note Title</label>
-                        <input type="text" id="noteTitle" placeholder="e.g. Docker Volumes" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-4 text-sm focus:border-blue-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Learning Content</label>
-                        <textarea id="noteText" rows="6" placeholder="Document your logic here..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-4 text-sm focus:border-blue-500 outline-none resize-none"></textarea>
-                    </div>
-                    <button onclick="saveNote()" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-xl font-bold text-xs tracking-[0.2em] shadow-xl shadow-blue-500/20 active:scale-95 transition-all">
-                        STABILIZE RECORD
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="lg:col-span-8 space-y-10">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                <h3 class="text-3xl font-black italic tracking-tighter">DATA_ARCHIVE</h3>
-                <input type="text" id="search" onkeyup="filterNotes()" placeholder="Search neural records..." class="bg-white/5 border border-white/10 rounded-full px-8 py-3 text-xs outline-none focus:border-blue-500 w-72">
-            </div>
-            
-            <div id="notesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                </div>
-        </div>
-    </div>
-
-    <script>
-        const dailyTasks = [
-            "Linux: Learn how 'SSH Keys' work for secure access.",
-            "Docker: Containerize a simple HTML site today.",
-            "Git: Understand 'git rebase' vs 'git merge'.",
-            "AWS: Setup an EC2 instance and login via Terminal.",
-            "CI/CD: Explain 'Build, Test, Deploy' flow.",
-            "Linux: Practice 'chmod' permissions on files.",
-            "Docker: Try 'docker-compose' for 2 containers."
-        ];
-
-        const icons = { linux: '🐧', git: '🎋', docker: '🐋', k8s: '☸️', aws: '☁️', cicd: '🔄', other: '✨' };
-
-        function init() {
-            document.getElementById('dailyTask').innerText = dailyTasks[new Date().getDate() % dailyTasks.length];
-            renderNotes();
-        }
-
-        function saveNote() {
-            const title = document.getElementById('noteTitle').value;
-            const cat = document.getElementById('noteCat').value;
-            const text = document.getElementById('noteText').value;
-
-            if(!title || !text) return alert("Pehle content toh bharo!");
-
-            const note = { title, cat, text, id: Date.now(), date: new Date().toLocaleDateString() };
-            let notes = JSON.parse(localStorage.getItem('mariya_pro_final_v9') || '[]');
-            notes.unshift(note);
-            localStorage.setItem('mariya_pro_final_v9', JSON.stringify(notes));
-
-            // Reset UI
-            document.getElementById('noteTitle').value = '';
-            document.getElementById('noteText').value = '';
-            renderNotes();
-        }
-
-        function renderNotes() {
-            const grid = document.getElementById('notesGrid');
-            const notes = JSON.parse(localStorage.getItem('mariya_pro_final_v9') || '[]');
-            grid.innerHTML = '';
-
-            if(notes.length === 0) {
-                grid.innerHTML = '<div class="col-span-full py-32 text-center opacity-20 font-black tracking-[0.5em] text-2xl uppercase">Archive Empty</div>';
-                return;
-            }
-
-            notes.forEach(n => {
-                const div = document.createElement('div');
-                div.className = `glass p-8 card-${n.cat} flex flex-col group`;
-                div.innerHTML = `
-                    <div class="flex justify-between items-center mb-8">
-                        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-2xl">${icons[n.cat]}</div>
-                        <div class="flex gap-4">
-                            <button onclick="copyContent('${n.text.replace(/'/g, "\\'")}')" class="text-[9px] font-black text-slate-500 hover:text-white uppercase tracking-widest">Copy</button>
-                            <button onclick="deleteNote(${n.id})" class="text-[9px] font-black text-slate-500 hover:text-red-500 uppercase tracking-widest">Delete</button>
-                        </div>
-                    </div>
-                    <h4 class="font-bold text-white text-xl mb-4 tracking-tight leading-tight uppercase">${n.title}</h4>
-                    <p class="text-xs text-slate-400 leading-relaxed mb-10 flex-grow italic opacity-80 whitespace-pre-wrap">${n.text}</p>
-                    <div class="mt-auto pt-6 border-t border-white/5 flex justify-between items-center">
-                        <span class="text-[10px] font-black text-blue-400 uppercase tracking-widest">${n.cat} module</span>
-                        <span class="text-[9px] text-slate-600 font-bold italic">${n.date}</span>
-                    </div>
-                `;
-                grid.appendChild(div);
-            });
-        }
-
-        function deleteNote(id) {
-            let notes = JSON.parse(localStorage.getItem('mariya_pro_final_v9') || '[]');
-            notes = notes.filter(n => n.id !== id);
-            localStorage.setItem('mariya_pro_final_v9', JSON.stringify(notes));
-            renderNotes();
-        }
-
-        function filterNotes() {
-            const q = document.getElementById('search').value.toLowerCase();
-            document.querySelectorAll('#notesGrid > div').forEach(card => {
-                card.style.display = card.innerText.toLowerCase().includes(q) ? 'flex' : 'none';
-            });
-        }
-
-        function copyContent(txt) {
-            navigator.clipboard.writeText(txt);
-            alert("Data Extracted! 📋");
-        }
-
-        window.onload = init;
-    </script>
-</body>
-</html>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between border-b border-primary/20 px-8 py-4 glass sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-3xl">terminal</span>
+<h2 class="text-xl font-bold tracking-tight">DEVOPS_CMD</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-primary text-sm font-medium border-b-2 border-primary pb-1" href="#">COMMAND_CENTER</a>
+<a class="text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">TERMINAL</a>
+<a class="text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">NETWORK_MAP</a>
+<a class="text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">SYSTEM_LOGS</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="bg-primary/5 border border-primary/20 rounded-lg pl-10 pr-4 py-1.5 text-sm focus:ring-1 focus:ring-primary focus:outline-none w-64 text-slate-100" placeholder="QUERY_SYSTEM..." type="text"/>
+</div>
+<div class="flex gap-3">
+<button class="p-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-all border border-primary/20">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full border border-primary/50 p-0.5">
+<div class="h-full w-full rounded-full bg-cover bg-center" data-alt="Cyberpunk style user profile avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC7wiqSWhBPLZ_k6e-OII4Gn1jB8_IJ2VfTjehX4Vpf-4ljEeZxgciR51Di9BOFa3czOJNoDoC8LfN6I_jv0yOuIZuUOyK0A9LRqbzlj4NyeUpymBCZWRXgHnhM05lf877jTqoT3ry-YOVcMrC6HBiPXD3ZYTYcyVGoesxUgjZ6-zYHkLZ85IUODxMikZzo050OOnWy6Lkudv8ODEWJpRT-mSZiA6v294X9GUiG7lYOaWteYdkgeHX3eRVrLqPpDl_J5kyxooFtWh0')"></div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 p-6 space-y-6 max-w-[1600px] mx-auto w-full">
+<!-- Skill Modules Row -->
+<section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+<div class="glass p-4 rounded-xl flex flex-col items-center justify-center gap-2 border border-primary/20 hover:border-primary/50 transition-all cursor-pointer group">
+<span class="material-symbols-outlined text-3xl text-primary group-hover:scale-110 transition-transform">terminal</span>
+<span class="text-xs font-bold tracking-widest text-slate-400 group-hover:text-primary">LINUX</span>
+</div>
+<div class="glass p-4 rounded-xl flex flex-col items-center justify-center gap-2 border border-primary/20 hover:border-primary/50 transition-all cursor-pointer group">
+<span class="material-symbols-outlined text-3xl text-primary group-hover:scale-110 transition-transform">account_tree</span>
+<span class="text-xs font-bold tracking-widest text-slate-400 group-hover:text-primary">GIT</span>
+</div>
+<div class="glass p-4 rounded-xl flex flex-col items-center justify-center gap-2 border border-primary/20 hover:border-primary/50 transition-all cursor-pointer group">
+<span class="material-symbols-outlined text-3xl text-primary group-hover:scale-110 transition-transform">package</span>
+<span class="text-xs font-bold tracking-widest text-slate-400 group-hover:text-primary">DOCKER</span>
+</div>
+<div class="glass p-4 rounded-xl flex flex-col items-center justify-center gap-2 border border-primary/40 bg-primary/10 shadow-[0_0_15px_rgba(13,185,242,0.15)] group">
+<span class="material-symbols-outlined text-3xl text-primary scale-110">layers</span>
+<span class="text-xs font-bold tracking-widest text-primary">KUBERNETES</span>
+</div>
+<div class="glass p-4 rounded-xl flex flex-col items-center justify-center gap-2 border border-primary/20 hover:border-primary/50 transition-all cursor-pointer group">
+<span class="material-symbols-outlined text-3xl text-primary group-hover:scale-110 transition-transform">sync_alt</span>
+<span class="text-xs font-bold tracking-widest text-slate-400 group-hover:text-primary">CI/CD</span>
+</div>
+<div class="glass p-4 rounded-xl flex flex-col items-center justify-center gap-2 border border-primary/20 hover:border-primary/50 transition-all cursor-pointer group">
+<span class="material-symbols-outlined text-3xl text-primary group-hover:scale-110 transition-transform">cloud</span>
+<span class="text-xs font-bold tracking-widest text-slate-400 group-hover:text-primary">AWS</span>
+</div>
+</section>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left Panel: Note Injector -->
+<aside class="lg:col-span-3 space-y-6">
+<div class="glass rounded-xl p-5 border border-primary/20">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">add_box</span>
+<h3 class="font-bold text-sm tracking-wider uppercase">Note Injector</h3>
+</div>
+<div class="space-y-4">
+<div class="space-y-1.5">
+<label class="text-[10px] uppercase tracking-widest text-slate-500 font-bold ml-1">Target Module</label>
+<select class="w-full bg-primary/5 border border-primary/20 rounded-lg text-sm p-2.5 focus:ring-1 focus:ring-primary text-slate-300">
+<option>Kubernetes</option>
+<option>Docker</option>
+<option>AWS Architecture</option>
+</select>
+</div>
+<div class="space-y-1.5">
+<label class="text-[10px] uppercase tracking-widest text-slate-500 font-bold ml-1">Note Title</label>
+<input class="w-full bg-primary/5 border border-primary/20 rounded-lg text-sm p-2.5 focus:ring-1 focus:ring-primary text-slate-100 placeholder:text-slate-600" placeholder="E.g. Helm Chart Basics" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-[10px] uppercase tracking-widest text-slate-500 font-bold ml-1">Learning Content</label>
+<textarea class="w-full bg-primary/5 border border-primary/20 rounded-lg text-sm p-2.5 focus:ring-1 focus:ring-primary text-slate-100 placeholder:text-slate-600 resize-none" placeholder="Inject knowledge here..." rows="6"></textarea>
+</div>
+<button class="w-full bg-primary hover:bg-primary/80 text-background-dark font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(13,185,242,0.3)]">
+<span class="material-symbols-outlined text-lg">bolt</span>
+                                SAVE_DATA
+                            </button>
+</div>
+</div>
+</aside>
+<!-- Center Panel: Data Archive -->
+<section class="lg:col-span-6 space-y-6">
+<div class="glass rounded-xl border border-primary/20 flex flex-col h-[600px]">
+<div class="p-5 border-b border-primary/10 flex items-center justify-between bg-primary/5 rounded-t-xl">
+<h3 class="font-bold text-lg tracking-wider uppercase text-primary">DATA_ARCHIVE</h3>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-slate-500 cursor-pointer hover:text-primary">filter_list</span>
+<span class="material-symbols-outlined text-slate-500 cursor-pointer hover:text-primary">sort</span>
+</div>
+</div>
+<div class="p-4 bg-primary/5">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary text-lg">search</span>
+<input class="w-full bg-background-dark border border-primary/20 rounded-lg pl-10 pr-4 py-2.5 text-sm focus:ring-1 focus:ring-primary text-slate-100" placeholder="SCAN ARCHIVE..." type="text"/>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+<!-- Note Card 1 -->
+<div class="glass bg-primary/5 p-4 rounded-xl border border-primary/10 hover:border-primary/40 transition-all cursor-pointer group">
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary text-xl">layers</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-100 group-hover:text-primary transition-colors">Kubernetes Node Affinity</h4>
+<p class="text-[10px] text-slate-500 font-mono tracking-tighter uppercase">STAMP: 2024-05-20 // 14:32</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-600 text-sm">open_in_new</span>
+</div>
+<p class="text-sm text-slate-400 line-clamp-2">Understanding how to constrain pods to specific nodes using label selectors. Key difference between hard and soft affinity rules...</p>
+</div>
+<!-- Note Card 2 -->
+<div class="glass bg-primary/5 p-4 rounded-xl border border-primary/10 hover:border-primary/40 transition-all cursor-pointer group">
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary text-xl">package</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-100 group-hover:text-primary transition-colors">Multi-stage Docker Builds</h4>
+<p class="text-[10px] text-slate-500 font-mono tracking-tighter uppercase">STAMP: 2024-05-19 // 09:15</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-600 text-sm">open_in_new</span>
+</div>
+<p class="text-sm text-slate-400 line-clamp-2">Optimizing image size by separating build environment from runtime environment. Significant reduction in production image footprint...</p>
+</div>
+<!-- Note Card 3 -->
+<div class="glass bg-primary/5 p-4 rounded-xl border border-primary/10 hover:border-primary/40 transition-all cursor-pointer group">
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary text-xl">cloud</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-100 group-hover:text-primary transition-colors">IAM Policy Principle of Least Privilege</h4>
+<p class="text-[10px] text-slate-500 font-mono tracking-tighter uppercase">STAMP: 2024-05-18 // 18:45</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-600 text-sm">open_in_new</span>
+</div>
+<p class="text-sm text-slate-400 line-clamp-2">Security best practices for AWS IAM. Never use '*' actions in production. Fine-grained resource ARN mapping for S3 buckets...</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Panel: Activity Widgets -->
+<aside class="lg:col-span-3 space-y-6">
+<!-- Practice Card -->
+<div class="glass rounded-xl p-5 border border-primary/20 bg-gradient-to-br from-primary/10 to-transparent">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">task_alt</span>
+<h3 class="font-bold text-sm tracking-wider uppercase">Daily Practice Task</h3>
+</div>
+<div class="space-y-3">
+<p class="text-sm text-slate-100 font-medium">Provision a 3-node EKS cluster using Terraform.</p>
+<div class="flex items-center justify-between text-[10px] text-slate-400 font-mono">
+<span>DIFFICULTY: HARD</span>
+<span>EXP: +450</span>
+</div>
+<button class="w-full py-2 border border-primary/30 rounded-lg text-primary text-xs font-bold hover:bg-primary/10 transition-all">START_MISSION</button>
+</div>
+</div>
+<!-- Streak Tracker -->
+<div class="glass rounded-xl p-5 border border-primary/20">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-500 fill-orange-500">local_fire_department</span>
+<h3 class="font-bold text-sm tracking-wider uppercase">Streak</h3>
+</div>
+<span class="text-2xl font-bold text-slate-100">7 <span class="text-xs text-slate-500">DAYS</span></span>
+</div>
+<div class="flex justify-between gap-1">
+<div class="h-8 w-full bg-primary rounded-sm opacity-100"></div>
+<div class="h-8 w-full bg-primary rounded-sm opacity-90"></div>
+<div class="h-8 w-full bg-primary rounded-sm opacity-80"></div>
+<div class="h-8 w-full bg-primary rounded-sm opacity-70"></div>
+<div class="h-8 w-full bg-primary rounded-sm opacity-60"></div>
+<div class="h-8 w-full bg-primary rounded-sm opacity-40"></div>
+<div class="h-8 w-full bg-primary rounded-sm opacity-30 border border-primary/30"></div>
+</div>
+</div>
+<!-- Progress Bars -->
+<div class="glass rounded-xl p-5 border border-primary/20 space-y-4">
+<h3 class="font-bold text-sm tracking-wider uppercase mb-2">Skill Levels</h3>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-[10px] mb-1 text-slate-400">
+<span>KUBERNETES</span>
+<span>85%</span>
+</div>
+<div class="w-full h-1.5 bg-primary/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary shadow-[0_0_8px_#0db9f2]" style="width: 85%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[10px] mb-1 text-slate-400">
+<span>AWS</span>
+<span>62%</span>
+</div>
+<div class="w-full h-1.5 bg-primary/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary shadow-[0_0_8px_#0db9f2]" style="width: 62%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[10px] mb-1 text-slate-400">
+<span>LINUX SYSTEM</span>
+<span>94%</span>
+</div>
+<div class="w-full h-1.5 bg-primary/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary shadow-[0_0_8px_#0db9f2]" style="width: 94%"></div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<!-- Bottom Section: Project Tracker (Kanban) -->
+<section class="space-y-4">
+<div class="flex items-center gap-2 px-2">
+<span class="material-symbols-outlined text-primary">view_kanban</span>
+<h3 class="font-bold text-lg tracking-wider uppercase">DevOps Project Tracker</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Column: To Learn -->
+<div class="glass rounded-xl p-4 border border-primary/10 bg-primary/5 min-h-[300px] flex flex-col gap-4">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-widest px-2 py-1 bg-slate-800 rounded">TO_LEARN</span>
+<span class="material-symbols-outlined text-slate-500 text-sm">more_horiz</span>
+</div>
+<div class="glass p-3 rounded-lg border border-primary/20 bg-background-dark/40 shadow-sm">
+<h5 class="text-sm font-bold text-slate-100 mb-2">Kubernetes Pod Disruption Budgets</h5>
+<div class="flex gap-2">
+<span class="text-[9px] bg-primary/10 text-primary px-1.5 py-0.5 rounded border border-primary/20">K8S</span>
+<span class="text-[9px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700">ADVANCED</span>
+</div>
+</div>
+<div class="glass p-3 rounded-lg border border-primary/20 bg-background-dark/40 shadow-sm opacity-80">
+<h5 class="text-sm font-bold text-slate-100 mb-2">Prometheus Custom Exporters</h5>
+<div class="flex gap-2">
+<span class="text-[9px] bg-primary/10 text-primary px-1.5 py-0.5 rounded border border-primary/20">OBSERVABILITY</span>
+</div>
+</div>
+</div>
+<!-- Column: Learning -->
+<div class="glass rounded-xl p-4 border border-primary/30 bg-primary/10 min-h-[300px] flex flex-col gap-4 shadow-[inset_0_0_20px_rgba(13,185,242,0.05)]">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-primary uppercase tracking-widest px-2 py-1 bg-primary/20 rounded">LEARNING_NOW</span>
+<div class="h-2 w-2 rounded-full bg-primary animate-pulse"></div>
+</div>
+<div class="glass p-3 rounded-lg border border-primary/40 bg-background-dark/60 shadow-md">
+<div class="flex justify-between items-start mb-2">
+<h5 class="text-sm font-bold text-slate-100">Kubernetes Pods &amp; ReplicaSets</h5>
+<span class="material-symbols-outlined text-primary text-xs">edit</span>
+</div>
+<div class="w-full h-1 bg-primary/10 rounded-full mb-2">
+<div class="h-full bg-primary" style="width: 65%"></div>
+</div>
+<div class="flex gap-2">
+<span class="text-[9px] bg-primary/10 text-primary px-1.5 py-0.5 rounded border border-primary/20">K8S_CORE</span>
+</div>
+</div>
+</div>
+<!-- Column: Completed -->
+<div class="glass rounded-xl p-4 border border-primary/10 bg-primary/5 min-h-[300px] flex flex-col gap-4">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-green-500 uppercase tracking-widest px-2 py-1 bg-green-900/20 rounded">ARCHIVED_SUCCESS</span>
+<span class="material-symbols-outlined text-green-500 text-sm">verified</span>
+</div>
+<div class="glass p-3 rounded-lg border border-green-500/20 bg-background-dark/40 opacity-60">
+<h5 class="text-sm font-bold text-slate-300 line-through">Docker Basic Commands</h5>
+<div class="flex gap-2">
+<span class="text-[9px] bg-green-900/20 text-green-500 px-1.5 py-0.5 rounded border border-green-900/40">MASTERED</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer / Status Bar -->
+<footer class="glass border-t border-primary/20 px-6 py-2 flex items-center justify-between text-[10px] text-slate-500 font-mono tracking-widest uppercase">
+<div class="flex items-center gap-6">
+<span class="flex items-center gap-1.5"><div class="size-1.5 rounded-full bg-primary"></div> CONNECTION: SECURE</span>
+<span class="flex items-center gap-1.5"><div class="size-1.5 rounded-full bg-primary"></div> LATENCY: 24MS</span>
+</div>
+<div class="flex items-center gap-6">
+<span>SYSTEM_VERSION: 2.0.4-LTS</span>
+<span>© 2024 CMD_CENTER</span>
+</div>
+</footer>
+</div>
+</body></html>
