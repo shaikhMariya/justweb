@@ -220,3 +220,170 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Elite Lab | Mariya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: #f8fafc; }
+        .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; }
+        
+        /* Dynamic Theme Colors for Notes */
+        .card-linux { border-left: 5px solid #22c55e; background: linear-gradient(135deg, rgba(34,197,94,0.1), transparent); }
+        .card-git { border-left: 5px solid #f97316; background: linear-gradient(135deg, rgba(249,115,22,0.1), transparent); }
+        .card-docker { border-left: 5px solid #0ea5e9; background: linear-gradient(135deg, rgba(14,165,233,0.1), transparent); }
+        .card-k8s { border-left: 5px solid #326ce5; background: linear-gradient(135deg, rgba(50,108,229,0.1), transparent); }
+        .card-cicd { border-left: 5px solid #a855f7; background: linear-gradient(135deg, rgba(168,85,247,0.1), transparent); }
+        .card-aws { border-left: 5px solid #ff9900; background: linear-gradient(135deg, rgba(255,153,0,0.1), transparent); }
+        .card-other { border-left: 5px solid #64748b; background: linear-gradient(135deg, rgba(100,116,139,0.1), transparent); }
+    </style>
+</head>
+<body class="p-6 md:p-10 max-w-[1500px] mx-auto">
+
+    <header class="flex justify-between items-center mb-12">
+        <div class="flex flex-col">
+            <h1 class="text-3xl font-black italic tracking-tighter text-blue-500">DEVOPS.ELITE</h1>
+            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.5em]">Mariya's Workspace v8.0</p>
+        </div>
+        <div class="glass px-6 py-3 flex items-center gap-4">
+            <div class="text-right">
+                <p class="text-xs font-bold">Mariya</p>
+                <p class="text-[9px] text-blue-400">Future Cloud Engineer</p>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center text-xl">👩‍🚀</div>
+        </div>
+    </header>
+
+    <section class="mb-16">
+        <h3 class="text-center text-[10px] font-bold text-slate-500 uppercase tracking-[0.5em] mb-10">Master Learning Roadmap</h3>
+        <div class="flex flex-wrap justify-center gap-6">
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-green-500 text-2xl group-hover:scale-110 transition">🐧</div>
+                <span class="text-[10px] font-bold text-green-500">LINUX</span>
+            </div>
+            <div class="w-8 h-px bg-slate-800 self-center"></div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-orange-500 text-2xl group-hover:scale-110 transition">🎋</div>
+                <span class="text-[10px] font-bold text-orange-400">GIT</span>
+            </div>
+            <div class="w-8 h-px bg-slate-800 self-center"></div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-blue-400 text-2xl group-hover:scale-110 transition">🐋</div>
+                <span class="text-[10px] font-bold text-blue-400">DOCKER</span>
+            </div>
+            <div class="w-8 h-px bg-slate-800 self-center"></div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-purple-500 text-2xl group-hover:scale-110 transition">☸️</div>
+                <span class="text-[10px] font-bold text-purple-400">K8S</span>
+            </div>
+            <div class="w-8 h-px bg-slate-800 self-center"></div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-pink-500 text-2xl group-hover:scale-110 transition">🔄</div>
+                <span class="text-[10px] font-bold text-pink-400">CI/CD</span>
+            </div>
+            <div class="w-8 h-px bg-slate-800 self-center"></div>
+            <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                <div class="w-14 h-14 glass rounded-2xl flex items-center justify-center border-yellow-500 text-2xl group-hover:scale-110 transition">☁️</div>
+                <span class="text-[10px] font-bold text-yellow-400">AWS</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        
+        <div class="lg:col-span-4">
+            <div class="glass p-8 border-t-4 border-blue-600 shadow-2xl sticky top-10">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2">✍️ Brain Dump</h3>
+                <div class="space-y-4">
+                    <select id="noteCat" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm focus:border-blue-500 outline-none">
+                        <option value="linux">🐧 Linux Fundamentals</option>
+                        <option value="git">🎋 Git & GitHub</option>
+                        <option value="docker">🐋 Docker Containers</option>
+                        <option value="k8s">☸️ Kubernetes</option>
+                        <option value="cicd">🔄 CI/CD Pipelines</option>
+                        <option value="aws">☁️ AWS Cloud Core</option>
+                        <option value="other">✨ Extra Notes / Custom</option>
+                    </select>
+                    <input type="text" id="noteTitle" placeholder="Topic Title..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm focus:border-blue-500 outline-none">
+                    <textarea id="noteBody" rows="5" placeholder="Document your learnings..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm focus:border-blue-500 outline-none"></textarea>
+                    
+                    <button onclick="saveNote()" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold transition shadow-lg shadow-blue-500/20 active:scale-95">COMMIT TO DATABASE</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-8">
+            <h3 class="text-xl font-bold mb-6 italic tracking-tight">Stored Knowledge Base</h3>
+            <div id="notesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        const icons = { linux: '🐧', git: '🎋', docker: '🐋', k8s: '☸️', cicd: '🔄', aws: '☁️', other: '✨' };
+
+        function saveNote() {
+            const title = document.getElementById('noteTitle').value;
+            const type = document.getElementById('noteCat').value;
+            const body = document.getElementById('noteBody').value;
+
+            if(!title || !body) return alert("Pehle notes toh likho bhai!");
+
+            const note = { title, type, body, id: Date.now(), date: new Date().toLocaleDateString() };
+            let notes = JSON.parse(localStorage.getItem('mariya_pro_lab') || '[]');
+            notes.unshift(note);
+            localStorage.setItem('mariya_pro_lab', JSON.stringify(notes));
+
+            // Reset UI
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('noteBody').value = '';
+            renderNotes();
+        }
+
+        function renderNotes() {
+            const grid = document.getElementById('notesGrid');
+            const notes = JSON.parse(localStorage.getItem('mariya_pro_lab') || '[]');
+            grid.innerHTML = '';
+
+            notes.forEach(n => {
+                const div = document.createElement('div');
+                div.className = `glass p-6 card-${n.type} transition-all hover:scale-[1.02]`;
+                div.innerHTML = `
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="text-3xl opacity-80">${icons[n.type]}</span>
+                        <div class="flex gap-3">
+                            <button onclick="copyNote('${n.body.replace(/'/g, "\\'")}')" class="text-[10px] font-bold text-slate-500 hover:text-white uppercase">Copy</button>
+                            <button onclick="deleteNote(${n.id})" class="text-[10px] font-bold text-slate-500 hover:text-red-500 uppercase">Purge</button>
+                        </div>
+                    </div>
+                    <h4 class="font-bold text-white text-lg mb-2 tracking-tight uppercase">${n.title}</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-6">${n.body}</p>
+                    <div class="flex justify-between items-center mt-auto pt-4 border-t border-white/5">
+                        <span class="text-[9px] font-black text-blue-400 uppercase tracking-widest">${n.type} module</span>
+                        <span class="text-[9px] text-slate-600 italic font-medium">${n.date}</span>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function deleteNote(id) {
+            let notes = JSON.parse(localStorage.getItem('mariya_pro_lab') || '[]');
+            notes = notes.filter(n => n.id !== id);
+            localStorage.setItem('mariya_pro_lab', JSON.stringify(notes));
+            renderNotes();
+        }
+
+        function copyNote(txt) {
+            navigator.clipboard.writeText(txt);
+            alert("Copied to clipboard! 📋");
+        }
+
+        window.onload = renderNotes;
+    </script>
+</body>
+</html>
