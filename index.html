@@ -1,570 +1,317 @@
 <!DOCTYPE html>
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>DevOps Unified Command Center</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style type="text/tailwindcss">
-        :root {
-            --primary: #2a557e;
-            --cyber-blue: #00D1FF;
-            --cyber-neon: #39FF14;
-            --cyber-purple: #BD00FF;
-            --background-dark: #0a0e14;
-            --card-bg: rgba(16, 22, 30, 0.7);
-        }
-        .glass {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-        }
-        .glow-blue { box-shadow: 0 0 15px rgba(0, 209, 255, 0.2); }
-        .glow-neon { box-shadow: 0 0 15px rgba(57, 255, 20, 0.2); }
-        .glow-purple { box-shadow: 0 0 15px rgba(189, 0, 255, 0.2); }
-        .terminal-scroll::-webkit-scrollbar { width: 4px; }
-        .terminal-scroll::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
-        .kanban-col { min-height: 250px; background: rgba(0,0,0,0.2); border-radius: 0.75rem; padding: 1rem; }
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Pro Lab | Mariya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: #f8fafc; scroll-behavior: smooth; }
+        
+        /* Premium Glassmorphism styling */
+        .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; transition: all 0.4s ease; }
+        .glass:hover { border-color: rgba(59, 130, 246, 0.5); transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+
+        /* Dynamic Theme Colors for Notes */
+        .card-linux { border-left: 5px solid #22c55e; background: linear-gradient(135deg, rgba(34,197,94,0.05), transparent); }
+        .card-git { border-left: 5px solid #f97316; background: linear-gradient(135deg, rgba(249,115,22,0.05), transparent); }
+        .card-docker { border-left: 5px solid #0ea5e9; background: linear-gradient(135deg, rgba(14,165,233,0.05), transparent); }
+        .card-aws { border-left: 5px solid #ff9900; background: linear-gradient(135deg, rgba(255,153,0,0.05), transparent); }
+        .card-cicd { border-left: 5px solid #a855f7; background: linear-gradient(135deg, rgba(168,85,247,0.05), transparent); }
+        .card-other { border-left: 5px solid #64748b; background: linear-gradient(135deg, rgba(100,116,139,0.05), transparent); }
+
+        /* Roadmap Node Animation */
+        .roadmap-node { transition: all 0.3s; cursor: pointer; }
+        .roadmap-node:hover { transform: scale(1.1); filter: brightness(1.2); }
+        .roadmap-node.active { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); border-color: #3b82f6; }
     </style>
-<script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        primary: "#2a557e",
-                        "background-dark": "#0a0e14",
-                        cyber: {
-                            blue: "#00D1FF",
-                            neon: "#39FF14",
-                            purple: "#BD00FF"
-                        }
-                    },
-                    fontFamily: {
-                        sans: ["Inter", "sans-serif"],
-                        mono: ["JetBrains Mono", "monospace"],
-                        display: ["Epilogue", "sans-serif"]
-                    }
-                }
-            }
-        };
-    </script>
 </head>
-<body class="bg-background-dark text-slate-100 font-sans min-h-screen overflow-x-hidden">
-<header class="border-b border-slate-800 bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
-<div class="max-w-[1600px] mx-auto px-4 py-3 flex justify-between items-center">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
-<span class="material-symbols-outlined text-white text-xl">terminal</span>
-</div>
-<h1 class="text-xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-cyber-blue to-cyber-purple">
-                ENGINEER_COMMAND_CENTER v2.4
-            </h1>
-</div>
-<div class="flex items-center gap-6">
-<div class="flex items-center gap-2 text-xs font-mono">
-<span class="text-slate-500">SYSTEM_LOAD:</span>
-<span class="text-cyber-neon">NORMAL</span>
-<div class="w-2 h-2 rounded-full bg-cyber-neon animate-pulse"></div>
-</div>
-<div class="flex items-center gap-3 border-l border-slate-800 pl-6">
-<img alt="User Avatar" class="w-8 h-8 rounded-full border border-cyber-blue" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS9bN79KYk6GuL2vLTk5OXiOS6ffFKtJJOj291oFcrZgkzZ64cOaZwmx5fIS5LAT-w4O_xY6f9-GunMEpdtSYS2l3UZ_gOT7I5TCTNBma3siR-AP_bCKtpTFV8DvRB6NaQ60gdZnoE7KtmfYS8MSTesIKHbrNTqvwEdM4CI-lm1V4WcMmq4fTBpgPmh2S6WHAN1cKLTJtDdohIF0YdHczHu_9dhUF27As9LovpzRDCtA9sq_QDtBqq9rd2eMCuo5PLWq9cF0s3MII"/>
-<span class="text-sm font-medium">MARIYA_S</span>
-</div>
-</div>
-</div>
-</header>
-<main class="max-w-[1600px] mx-auto p-4 space-y-4">
-<section class="flex gap-4 overflow-x-auto pb-2 no-scrollbar">
-<div class="flex-none w-48 glass p-4 rounded-xl border-l-4 border-l-cyber-blue glow-blue group cursor-pointer hover:bg-white/5 transition-all">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-cyber-blue">terminal</span>
-<div>
-<p class="text-[10px] text-slate-500 font-mono">MODULE_01</p>
-<p class="text-sm font-bold">Linux Basics</p>
-</div>
-</div>
-</div>
-<div class="flex-none w-48 glass p-4 rounded-xl border-l-4 border-l-cyber-neon glow-neon group cursor-pointer hover:bg-white/5 transition-all">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-cyber-neon">account_tree</span>
-<div>
-<p class="text-[10px] text-slate-500 font-mono">MODULE_02</p>
-<p class="text-sm font-bold">Git Warrior</p>
-</div>
-</div>
-</div>
-<div class="flex-none w-48 glass p-4 rounded-xl border-l-4 border-l-cyber-purple glow-purple group cursor-pointer hover:bg-white/5 transition-all">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-cyber-purple">bolt</span>
-<div>
-<p class="text-[10px] text-slate-500 font-mono">MODULE_03</p>
-<p class="text-sm font-bold">Automation</p>
-</div>
-</div>
-</div>
-<div class="flex-none w-48 glass p-4 rounded-xl border-l-4 border-l-orange-500 group cursor-pointer hover:bg-white/5 transition-all">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-orange-500">cloud</span>
-<div>
-<p class="text-[10px] text-slate-500 font-mono">MODULE_04</p>
-<p class="text-sm font-bold">Cloud Ninja</p>
-</div>
-</div>
-</div>
-<div class="flex-none w-48 glass p-4 rounded-xl border-l-4 border-l-red-500 opacity-60 grayscale group cursor-pointer">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-red-500">security</span>
-<div>
-<p class="text-[10px] text-slate-500 font-mono">MODULE_05</p>
-<p class="text-sm font-bold">Hardening</p>
-</div>
-</div>
-</div>
-</section>
-<div class="grid grid-cols-12 gap-4">
-<aside class="col-span-12 lg:col-span-3 space-y-4">
-<div class="glass rounded-xl p-5 border border-slate-700/50">
-<div class="flex items-center gap-2 mb-6">
-<span class="material-symbols-outlined text-cyber-blue">edit_note</span>
-<h2 class="text-sm font-bold uppercase tracking-widest text-cyber-blue">Note Injector</h2>
-</div>
-<div class="space-y-4">
-<div>
-<label class="block text-[10px] font-mono text-slate-500 mb-1 uppercase">Target Module</label>
-<select class="w-full bg-black/40 border-slate-700 rounded text-sm focus:ring-cyber-blue">
-<option>Linux Basics</option>
-<option>Git Warrior</option>
-<option>Automation</option>
-</select>
-</div>
-<div>
-<label class="block text-[10px] font-mono text-slate-500 mb-1 uppercase">Note Title</label>
-<input class="w-full bg-black/40 border-slate-700 rounded text-sm focus:ring-cyber-blue" placeholder="e.g. Chmod patterns" type="text"/>
-</div>
-<div>
-<label class="block text-[10px] font-mono text-slate-500 mb-1 uppercase">Learning Content</label>
-<textarea class="w-full bg-black/40 border-slate-700 rounded text-sm focus:ring-cyber-blue" placeholder="Execute 'chmod 755' to..." rows="6"></textarea>
-</div>
-<button class="w-full py-2.5 bg-cyber-blue/10 border border-cyber-blue/30 text-cyber-blue hover:bg-cyber-blue/20 rounded font-bold text-xs uppercase transition-all flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-sm">save</span>
-                        Save Note
-                    </button>
-</div>
-</div>
-</aside>
-<section class="col-span-12 lg:col-span-6 space-y-4">
-<div class="bg-black rounded-xl border border-slate-800 shadow-2xl overflow-hidden flex flex-col h-[350px]">
-<div class="bg-slate-900/80 px-4 py-2 flex items-center justify-between border-b border-slate-800">
-<div class="flex gap-1.5">
-<div class="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
-<div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
-<div class="w-2.5 h-2.5 rounded-full bg-green-500/50"></div>
-</div>
-<span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">playground.sh — 80x24</span>
-<span class="material-symbols-outlined text-sm text-slate-500">settings</span>
-</div>
-<div class="p-4 font-mono text-xs terminal-scroll overflow-y-auto flex-1 space-y-2">
-<div class="text-slate-500 italic mb-2">Initialize workspace... success.</div>
-<div class="flex gap-2 text-cyber-neon">
-<span class="shrink-0">mariya@command:~$</span>
-<span class="text-white">kubectl get pods --all-namespaces</span>
-</div>
-<div class="grid grid-cols-4 gap-4 text-slate-500 text-[10px] py-1 border-b border-white/5">
-<span>NAMESPACE</span>
-<span>NAME</span>
-<span>STATUS</span>
-<span>AGE</span>
-</div>
-<div class="grid grid-cols-4 gap-4 text-white text-[10px]">
-<span class="text-cyber-blue">kube-system</span>
-<span>core-dns-84</span>
-<span class="text-cyber-neon">Running</span>
-<span>14d</span>
-</div>
-<div class="flex gap-2 text-cyber-neon mt-2">
-<span class="shrink-0">mariya@command:~$</span>
-<span class="w-1.5 h-4 bg-cyber-neon animate-pulse"></span>
-</div>
-</div>
-</div>
-<div class="glass rounded-xl p-5 border border-slate-700/50 flex flex-col h-[280px]">
-<div class="flex items-center justify-between mb-4">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-cyber-purple">database</span>
-<h2 class="text-sm font-bold uppercase tracking-widest text-cyber-purple">Data_Archive</h2>
-</div>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 text-sm">search</span>
-<input class="pl-8 py-1 bg-black/40 border-slate-700 rounded-full text-xs w-48" placeholder="Filter nodes..." type="text"/>
-</div>
-</div>
-<div class="flex-1 overflow-y-auto space-y-2 pr-2 terminal-scroll">
-<div class="bg-white/5 p-3 rounded border border-white/5 hover:border-cyber-purple/30 transition-all flex justify-between items-center group">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-slate-600">description</span>
-<div>
-<h3 class="text-xs font-bold">Nginx Reverse Proxy Config</h3>
-<p class="text-[10px] text-slate-500">MODULE: Automation • 2h ago</p>
-</div>
-</div>
-<span class="material-symbols-outlined text-slate-600 opacity-0 group-hover:opacity-100 cursor-pointer hover:text-white">open_in_new</span>
-</div>
-<div class="bg-white/5 p-3 rounded border border-white/5 hover:border-cyber-purple/30 transition-all flex justify-between items-center group">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-slate-600">description</span>
-<div>
-<h3 class="text-xs font-bold">SSH Tunneling Basics</h3>
-<p class="text-[10px] text-slate-500">MODULE: Linux Basics • 1d ago</p>
-</div>
-</div>
-<span class="material-symbols-outlined text-slate-600 opacity-0 group-hover:opacity-100 cursor-pointer hover:text-white">open_in_new</span>
-</div>
-<div class="bg-white/5 p-3 rounded border border-white/5 hover:border-cyber-purple/30 transition-all flex justify-between items-center group">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-slate-600">description</span>
-<div>
-<h3 class="text-xs font-bold">Git Rebase Flow</h3>
-<p class="text-[10px] text-slate-500">MODULE: Git Warrior • 3d ago</p>
-</div>
-</div>
-<span class="material-symbols-outlined text-slate-600 opacity-0 group-hover:opacity-100 cursor-pointer hover:text-white">open_in_new</span>
-</div>
-</div>
-</div>
-</section>
-<aside class="col-span-12 lg:col-span-3 space-y-4">
-<div class="glass rounded-xl p-5 border border-slate-700/50">
-<div class="flex items-center gap-2 mb-4">
-<span class="material-symbols-outlined text-cyber-blue">radar</span>
-<h2 class="text-sm font-bold uppercase tracking-widest text-cyber-blue">Live Cloud Status</h2>
-</div>
-<div class="space-y-4">
-<div class="bg-black/30 p-3 rounded border border-slate-800">
-<div class="flex justify-between items-center mb-2">
-<span class="text-xs font-mono">AWS</span>
-<span class="text-[10px] px-1.5 bg-slate-800 text-slate-400 rounded">us-east-1</span>
-</div>
-<div class="flex items-center gap-3">
-<div class="w-2 h-2 rounded-full bg-cyber-neon glow-neon animate-pulse"></div>
-<div class="flex-1 flex items-end gap-[1px] h-4">
-<div class="w-1 h-3 bg-cyber-neon/40"></div>
-<div class="w-1 h-4 bg-cyber-neon/40"></div>
-<div class="w-1 h-2 bg-cyber-neon/40"></div>
-<div class="w-1 h-3 bg-cyber-neon/40"></div>
-<div class="w-1 h-4 bg-cyber-neon"></div>
-</div>
-<span class="text-[10px] font-mono text-cyber-neon">UP</span>
-</div>
-</div>
-<div class="bg-black/30 p-3 rounded border border-slate-800">
-<div class="flex justify-between items-center mb-2">
-<span class="text-xs font-mono">AZURE</span>
-<span class="text-[10px] px-1.5 bg-slate-800 text-slate-400 rounded">eu-west-1</span>
-</div>
-<div class="flex items-center gap-3">
-<div class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></div>
-<div class="flex-1 flex items-end gap-[1px] h-4">
-<div class="w-1 h-1 bg-yellow-400/40"></div>
-<div class="w-1 h-2 bg-yellow-400/40"></div>
-<div class="w-1 h-3 bg-yellow-400/40"></div>
-<div class="w-1 h-1 bg-yellow-400/40"></div>
-<div class="w-1 h-2 bg-yellow-400"></div>
-</div>
-<span class="text-[10px] font-mono text-yellow-400">LATENCY</span>
-</div>
-</div>
-</div>
-</div>
-<div class="glass rounded-xl p-5 border border-slate-700/50">
-<div class="flex items-center gap-2 mb-4">
-<span class="material-symbols-outlined text-orange-500">local_fire_department</span>
-<h2 class="text-sm font-bold uppercase tracking-widest text-orange-500">Dev_Activity</h2>
-</div>
-<div class="space-y-4">
-<div class="flex justify-between items-center">
-<span class="text-xs text-slate-400">Current Streak</span>
-<span class="text-xl font-bold text-orange-500">12 Days</span>
-</div>
-<div class="space-y-3 pt-2">
-<div>
-<div class="flex justify-between text-[10px] mb-1">
-<span class="text-slate-400">LINUX_SKILL</span>
-<span class="text-cyber-blue">88%</span>
-</div>
-<div class="h-1 bg-slate-800 rounded-full overflow-hidden">
-<div class="h-full bg-cyber-blue w-[88%]"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-[10px] mb-1">
-<span class="text-slate-400">DOCKER_MASTERY</span>
-<span class="text-cyber-neon">62%</span>
-</div>
-<div class="h-1 bg-slate-800 rounded-full overflow-hidden">
-<div class="h-full bg-cyber-neon w-[62%]"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-[10px] mb-1">
-<span class="text-slate-400">TERRAFORM_OPS</span>
-<span class="text-cyber-purple">45%</span>
-</div>
-<div class="h-1 bg-slate-800 rounded-full overflow-hidden">
-<div class="h-full bg-cyber-purple w-[45%]"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</aside>
-<section class="col-span-12">
-<div class="glass rounded-xl p-6 border border-slate-700/50">
-<div class="flex items-center gap-3 mb-6">
-<span class="material-symbols-outlined text-cyber-neon">view_kanban</span>
-<h2 class="text-lg font-bold">DevOps Project Tracker</h2>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="kanban-col border border-slate-800/50">
-<div class="flex items-center justify-between mb-4 px-2">
-<h3 class="text-xs font-mono font-bold text-slate-400">TO_LEARN [04]</h3>
-<span class="material-symbols-outlined text-slate-600 text-sm">add</span>
-</div>
-<div class="space-y-3">
-<div class="bg-slate-900/50 border border-slate-800 p-3 rounded-lg shadow-sm hover:border-cyber-blue transition-colors cursor-move">
-<p class="text-xs font-semibold mb-2">Kubernetes ingress controllers</p>
-<div class="flex gap-2">
-<span class="text-[9px] bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded border border-blue-500/20">K8S</span>
-</div>
-</div>
-<div class="bg-slate-900/50 border border-slate-800 p-3 rounded-lg shadow-sm hover:border-cyber-blue transition-colors cursor-move">
-<p class="text-xs font-semibold mb-2">Advanced Prometheus queries</p>
-<div class="flex gap-2">
-<span class="text-[9px] bg-red-500/10 text-red-400 px-2 py-0.5 rounded border border-red-500/20">Monitor</span>
-</div>
-</div>
-</div>
-</div>
-<div class="kanban-col border border-cyber-blue/20 bg-cyber-blue/5">
-<div class="flex items-center justify-between mb-4 px-2">
-<h3 class="text-xs font-mono font-bold text-cyber-blue">LEARNING [02]</h3>
-<div class="w-1.5 h-1.5 rounded-full bg-cyber-blue animate-pulse"></div>
-</div>
-<div class="space-y-3">
-<div class="bg-slate-900 border border-cyber-blue/30 p-3 rounded-lg shadow-sm cursor-move">
-<p class="text-xs font-semibold mb-2">Terraform State Management</p>
-<div class="flex items-center justify-between">
-<span class="text-[9px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded border border-purple-500/20">IaC</span>
-<span class="text-[9px] text-slate-500">65% Done</span>
-</div>
-</div>
-</div>
-</div>
-<div class="kanban-col border border-cyber-neon/20">
-<div class="flex items-center justify-between mb-4 px-2">
-<h3 class="text-xs font-mono font-bold text-cyber-neon">COMPLETED [18]</h3>
-<span class="material-symbols-outlined text-cyber-neon text-sm">check_circle</span>
-</div>
-<div class="space-y-3 opacity-70">
-<div class="bg-slate-900/30 border border-slate-800 p-3 rounded-lg shadow-sm cursor-move line-through text-slate-500">
-<p class="text-xs font-semibold mb-1">GitHub Actions CI Pipeline</p>
-<p class="text-[9px]">Finished: Oct 12</p>
-</div>
-<div class="bg-slate-900/30 border border-slate-800 p-3 rounded-lg shadow-sm cursor-move line-through text-slate-500">
-<p class="text-xs font-semibold mb-1">Docker Multi-stage Builds</p>
-<p class="text-[9px]">Finished: Oct 08</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-</div>
-</main>
-<footer class="max-w-[1600px] mx-auto p-8 text-center border-t border-slate-800 mt-8">
-<p class="text-slate-500 text-xs font-mono tracking-widest uppercase">System Operational • Latency: 14ms • Last Sync: Just Now</p>
-</footer>
-<script>
-
-/* =========================
-   NOTES SAVE SYSTEM
-========================= */
-
-const saveBtn = document.querySelector('button');
-const titleInput = document.querySelector('input[placeholder="e.g. Chmod patterns"]');
-const contentInput = document.querySelector("textarea");
-const archive = document.querySelector(".terminal-scroll");
-
-saveBtn.addEventListener("click", () => {
-
-const title = titleInput.value.trim();
-const content = contentInput.value.trim();
-
-if (!title || !content) return;
-
-const card = document.createElement("div");
-
-card.className =
-"bg-white/5 p-3 rounded border border-white/5 hover:border-cyber-blue/30 transition-all";
-
-card.innerHTML = `
-<h3 class="text-xs font-bold">${title}</h3>
-<p class="text-[10px] text-slate-400">${content}</p>
-`;
-
-archive.prepend(card);
-
-titleInput.value = "";
-contentInput.value = "";
-
-});
-
-
-/* =========================
-   TERMINAL AUTO COMMANDS
-========================= */
-
-const terminal = document.querySelector(".terminal-scroll");
-
-const commands = [
-"docker ps",
-"kubectl get nodes",
-"terraform plan",
-"git status"
-];
-
-let i = 0;
-
-function runTerminal(){
-
-if(i >= commands.length) return;
-
-const line = document.createElement("div");
-
-line.className = "flex gap-2 text-cyber-neon";
-
-line.innerHTML = `
-<span>mariya@command:~$</span>
-<span class="text-white">${commands[i]}</span>
-`;
-
-terminal.appendChild(line);
-
-terminal.scrollTop = terminal.scrollHeight;
-
-i++;
-
-setTimeout(runTerminal,1500);
-
-}
-
-runTerminal();
-
-
-/* =========================
-   SKILL BAR ANIMATION
-========================= */
-
-document.querySelectorAll(".h-1 > div").forEach(bar=>{
-
-const width = bar.style.width;
-
-bar.style.width = "0";
-
-setTimeout(()=>{
-bar.style.transition = "width 1.5s";
-bar.style.width = width;
-},300);
-
-});
-
-
-/* =========================
-   KANBAN DRAG DROP
-========================= */
-
-const cards = document.querySelectorAll(".cursor-move");
-const columns = document.querySelectorAll(".kanban-col");
-
-cards.forEach(card=>{
-
-card.setAttribute("draggable","true");
-
-card.addEventListener("dragstart",()=>{
-card.classList.add("dragging");
-});
-
-card.addEventListener("dragend",()=>{
-card.classList.remove("dragging");
-});
-
-});
-
-columns.forEach(column=>{
-
-column.addEventListener("dragover",(e)=>{
-
-e.preventDefault();
-
-const dragging = document.querySelector(".dragging");
-
-if(dragging){
-column.appendChild(dragging);
-}
-
-});
-
-});
-
-
-/* =========================
-   MODULE CLICK HIGHLIGHT
-========================= */
-
-const modules = document.querySelectorAll(".group");
-
-modules.forEach(module=>{
-
-module.addEventListener("click",()=>{
-
-modules.forEach(m=>{
-m.classList.remove("ring-2","ring-cyber-blue");
-});
-
-module.classList.add("ring-2","ring-cyber-blue");
-
-});
-
-});
-
-
-/* =========================
-   DEVOPS AI ASSISTANT
-========================= */
-
-function askAI(question){
-
-question = question.toLowerCase();
-
-if(question.includes("docker"))
-return "Example: docker ps";
-
-if(question.includes("kubernetes"))
-return "Example: kubectl get pods";
-
-if(question.includes("terraform"))
-return "Example: terraform apply";
-
-if(question.includes("git"))
-return "Example: git status";
-
-return "DevOps AI: command not found";
-
-}
-
-</script>
-</body></html>
-
+<body class="p-4 md:p-10 max-w-[1500px] mx-auto">
+
+    <header class="flex justify-between items-center mb-12">
+        <div class="flex flex-col">
+            <h1 class="text-3xl font-black italic tracking-tighter text-blue-500">DEVOPS.ELITE</h1>
+            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.5em]">Mariya's Workspace v10.0</p>
+        </div>
+        <div class="glass px-6 py-3 flex items-center gap-4 border-white/5">
+            <div class="text-right">
+                <p class="text-xs font-bold text-white">Mariya</p>
+                <p class="text-[9px] text-green-500 font-mono">Status: LEARNING</p>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-purple-600 p-0.5" id="profileCircle">
+                <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-xl">👩‍🚀</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="mb-16">
+        <h3 class="text-center text-[10px] font-bold text-slate-500 uppercase tracking-[0.6em] mb-10">Learning Path A to Z</h3>
+        <div class="flex flex-wrap justify-center gap-8 relative px-10">
+            <div class="absolute h-px bg-slate-800 w-[90%] top-8 -z-10"></div>
+            <div class="roadmap-node flex flex-col items-center gap-3 active" onclick="roadmapClick(this, 'Linux')">
+                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-green-500 text-3xl">🐧</div>
+                <span class="text-[10px] font-bold text-green-500">LINUX</span>
+            </div>
+            <div class="roadmap-node flex flex-col items-center gap-3" onclick="roadmapClick(this, 'Git')">
+                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-orange-500 text-3xl">🎋</div>
+                <span class="text-[10px] font-bold text-orange-400">GIT</span>
+            </div>
+            <div class="roadmap-node flex flex-col items-center gap-3" onclick="roadmapClick(this, 'Docker')">
+                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-blue-400 text-3xl animate-pulse">🐋</div>
+                <span class="text-[10px] font-bold text-blue-400">DOCKER</span>
+            </div>
+            <div class="roadmap-node flex flex-col items-center gap-3 opacity-50" onclick="roadmapClick(this, 'CI/CD')">
+                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-purple-500 text-3xl">🔄</div>
+                <span class="text-[10px] font-bold text-purple-400">CI/CD</span>
+            </div>
+            <div class="roadmap-node flex flex-col items-center gap-3 opacity-50" onclick="roadmapClick(this, 'AWS Cloud')">
+                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-yellow-500 text-3xl">☁️</div>
+                <span class="text-[10px] font-bold text-yellow-400">AWS</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-12">
+        <div class="lg:col-span-5">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="text-slate-500 text-xs font-bold uppercase tracking-widest">Interactive Terminal</span>
+            </div>
+            <div class="glass p-5 bg-black/50 border border-slate-800 rounded-2xl h-[330px] font-mono text-sm overflow-hidden flex flex-col cursor-text" id="terminalArea">
+                <div class="flex gap-2 mb-4 pb-2 border-b border-slate-800">
+                    <span class="w-2.5 h-2.5 bg-red-500 rounded-full"></span>
+                    <span class="w-2.5 h-2.5 bg-yellow-500 rounded-full"></span>
+                    <span class="w-2.5 h-2.5 bg-green-500 rounded-full"></span>
+                    <span class="ml-auto text-[10px] text-slate-600 font-sans">bash — 80x24</span>
+                </div>
+                <div class="flex-grow overflow-y-auto space-y-1" id="terminalLog">
+                    <p class="text-blue-400"># Welcome Mariya. Start practicing DevOps commands below.</p>
+                    <p class="text-slate-500">mariya@elite:~$ <span id="currentInput" class="text-white"></span><span class="animate-pulse">|</span></p>
+                </div>
+                <input type="text" id="terminalInput" class="absolute -top-[100px] opacity-0">
+            </div>
+        </div>
+
+        <div class="lg:col-span-7">
+            <div class="glass p-8 border-t-4 border-blue-600 space-y-5">
+                <h3 class="text-xl font-bold flex items-center gap-3">✍️ Smart Note Maker</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" id="noteTitle" placeholder="Topic: e.g. Docker Volumes" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm focus:border-blue-500 outline-none transition-all">
+                    <select id="noteCat" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm focus:border-blue-500 outline-none cursor-pointer">
+                        <option value="linux">🐧 Linux Fundamentals</option>
+                        <option value="git">🎋 Git Version Control</option>
+                        <option value="docker">🐋 Docker Containers</option>
+                        <option value="cicd">🔄 CI/CD Pipelines</option>
+                        <option value="aws">☁️ AWS Cloud Services</option>
+                        <option value="other">✨ Other / Custom Note</option>
+                    </select>
+                </div>
+                <textarea id="noteBody" rows="4" placeholder="Commands, steps or theory you learned..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm focus:border-blue-500 outline-none resize-none"></textarea>
+                <button onclick="saveNote()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 py-3 rounded-xl font-bold text-xs tracking-[0.2em] shadow-lg shadow-blue-500/20 active:scale-95 transition-all">COMMIT TO KNOWLEDGE BASE</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-10">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+            <h3 class="text-2xl font-black italic tracking-tighter">DATA_ARCHIVE</h3>
+            <div class="relative">
+                <input type="text" id="searchNotes" onkeyup="filterNotes()" placeholder="Filter neural records..." class="bg-white/5 border border-white/10 rounded-full px-6 py-2 text-xs outline-none focus:border-blue-500 w-72">
+            </div>
+        </div>
+        <div id="notesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="col-span-full py-16 text-center opacity-30 text-lg font-black tracking-widest italic" id="emptyState">Database is empty. Add your first note!</div>
+        </div>
+    </div>
+
+    <footer class="glass p-6 text-center border-slate-800 mt-12">
+        <p class="text-[10px] text-slate-600 font-bold mb-4 uppercase tracking-widest">Mariya, continue your engineering path! 🔥</p>
+        <div class="flex justify-center gap-3">
+            <button onclick="alert('Continuing your Roadmap to Automation level!')" class="bg-slate-800 text-[10px] font-bold px-4 py-1.5 rounded-full hover:bg-slate-700">Continue Roadmap</button>
+            <button onclick="alert('Opening new connection suggestions...')" class="bg-slate-800 text-[10px] font-bold px-4 py-1.5 rounded-full hover:bg-slate-700">New Connection</button>
+        </div>
+    </footer>
+
+    <script>
+        // Store notes in LocalStorage
+        const STORAGE_KEY = 'mariya_devops_lab_v10';
+        const icons = { linux: '🐧', git: '🎋', docker: '🐋', cicd: '🔄', aws: '☁️', other: '✨' };
+
+        // DOM Elements
+        const terminalArea = document.getElementById('terminalArea');
+        const terminalLog = document.getElementById('terminalLog');
+        const terminalInput = document.getElementById('terminalInput');
+        const currentInputDisp = document.getElementById('currentInput');
+        const notesGrid = document.getElementById('notesGrid');
+        const emptyState = document.getElementById('emptyState');
+
+        // Initial Load
+        function init() {
+            renderNotes();
+            // Header Search Interaction dummy
+            document.querySelector('input[placeholder="Search knowledge..."]').addEventListener('keypress', (e) => {
+                if(e.key === 'Enter') alert('Searching database...');
+            });
+            // Profile Interaction dummy
+            document.getElementById('profileCircle').addEventListener('click', () => {
+                alert('Mariya Engineer | Progress: 35%');
+            });
+        }
+
+        // --- Core Utility: Note Making ---
+        function saveNote() {
+            const title = document.getElementById('noteTitle').value.trim();
+            const type = document.getElementById('noteCat').value;
+            const body = document.getElementById('noteBody').value.trim();
+
+            if (!title || !body) return alert("Pehle Topic aur Content toh likh lo bhai!");
+
+            const note = {
+                title, type, body,
+                id: Date.now(),
+                date: new Date().toLocaleDateString('en-GB') // Format: dd/mm/yyyy
+            };
+
+            let notes = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            notes.unshift(note); // Add new note to top
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+
+            // Reset inputs
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('noteBody').value = '';
+            
+            alert("Note successfully committed to Neural Database!");
+            renderNotes();
+        }
+
+        function renderNotes() {
+            const notes = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            notesGrid.innerHTML = '';
+
+            if (notes.length === 0) {
+                notesGrid.appendChild(emptyState);
+                return;
+            }
+
+            notes.forEach(n => {
+                const div = document.createElement('div');
+                // Dynamic styling based on category
+                div.className = `glass p-6 card-${n.type} flex flex-col group transition-all`;
+                div.innerHTML = `
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">${n.date}</span>
+                        <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition">
+                            <button onclick="copyContent('${n.body.replace(/'/g, "\\'")}')" class="text-[9px] font-bold text-slate-500 hover:text-white uppercase">Copy</button>
+                            <button onclick="deleteNote(${n.id})" class="text-[9px] font-bold text-slate-500 hover:text-red-500 uppercase">Purge</button>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-2xl opacity-80">${icons[n.type]}</span>
+                        <h4 class="font-bold text-white text-md tracking-tight uppercase">${n.title}</h4>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed flex-grow italic opacity-70 whitespace-pre-wrap">${n.body}</p>
+                    <div class="flex justify-between items-center mt-auto pt-4 border-t border-white/5">
+                        <span class="text-[9px] font-black text-blue-500/60 uppercase tracking-widest">${n.type} Unit</span>
+                        <span class="text-[10px] bg-slate-900 text-blue-400 px-2 py-0.5 rounded border border-slate-700">v1.0</span>
+                    </div>
+                `;
+                notesGrid.appendChild(div);
+            });
+        }
+
+        function deleteNote(id) {
+            if (!confirm("Are you sure? Data will be purged from Local Storage.")) return;
+            let notes = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            notes = notes.filter(n => n.id !== id);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+            renderNotes();
+        }
+
+        function copyContent(text) {
+            navigator.clipboard.writeText(text);
+            alert("Note content extracted to clipboard! 📋");
+        }
+
+        function filterNotes() {
+            const query = document.getElementById('searchNotes').value.toLowerCase();
+            const cards = notesGrid.querySelectorAll('div[class^="glass p-6"]');
+            
+            cards.forEach(card => {
+                const isVisible = card.innerText.toLowerCase().includes(query);
+                card.style.display = isVisible ? 'flex' : 'none';
+            });
+        }
+
+        // --- Interactive Terminal Simulation ---
+        terminalArea.addEventListener('click', () => terminalInput.focus());
+
+        terminalInput.addEventListener('input', (e) => {
+            currentInputDisp.innerText = e.target.value;
+        });
+
+        terminalInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') {
+                const cmd = terminalInput.value.trim().toLowerCase();
+                if(cmd === '') return;
+
+                // Log the command
+                const pCmd = document.createElement('p');
+                pCmd.innerHTML = `<span class="text-slate-500">mariya@elite:~$</span> ${terminalInput.value}`;
+                terminalLog.insertBefore(pCmd, currentInputDisp.closest('p'));
+
+                // Log dummy output
+                const pOut = document.createElement('p');
+                pOut.className = "text-yellow-400 text-xs pl-2 border-l border-slate-700";
+                
+                if (cmd === 'ls') pOut.innerText = "linux/ git/ dockerfile README.md";
+                else if (cmd === 'pwd') pOut.innerText = "/home/mariya/workspace";
+                else if (cmd.startsWith('docker')) pOut.innerText = "Error: Docker daemon not running. (Practice only)";
+                else if (cmd === 'clear') {
+                    // Specific logic for clear
+                    terminalLog.innerHTML = `<p class="text-slate-500">mariya@elite:~$ <span id="currentInput" class="text-white"></span><span class="animate-pulse">|</span></p>`;
+                    terminalInput.value = '';
+                    // Re-assign currentInput element
+                    currentInputDisp = document.getElementById('currentInput');
+                    return;
+                }
+                else pOut.innerText = `Command '${cmd}' recognized but not implemented (Simulator).`;
+
+                terminalLog.insertBefore(pOut, currentInputDisp.closest('p'));
+
+                // Reset inputs
+                terminalInput.value = '';
+                currentInputDisp.innerText = '';
+                // Autoscroll terminal
+                terminalLog.parentElement.scrollTop = terminalLog.parentElement.scrollHeight;
+            }
+        });
+
+        // --- Dummy Roadmap Interaction ---
+        function roadmapClick(el, topic) {
+            alert(`Opening knowledge base for: ${topic}`);
+            // Toggle active visual
+            document.querySelectorAll('.roadmap-node').forEach(node => node.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // --- Dynamic Note Maker Category Styling ---
+        const catSelect = document.getElementById('noteCat');
+        catSelect.addEventListener('change', (e) => {
+            const cat = e.target.value;
+            const editorDiv = e.target.closest('div.glass');
+            // Remove previous theme border
+            editorDiv.className = editorDiv.className.replace(/\bborder-t-4 border-\w+-\d+/g, '');
+            // Add new theme border
+            if (cat === 'linux') editorDiv.classList.add('border-t-4', 'border-green-600');
+            else if (cat === 'git') editorDiv.classList.add('border-t-4', 'border-orange-600');
+            else if (cat === 'docker') editorDiv.classList.add('border-t-4', 'border-blue-600');
+            else if (cat === 'cicd') editorDiv.classList.add('border-t-4', 'border-purple-600');
+            else if (cat === 'aws') editorDiv.classList.add('border-t-4', 'border-yellow-600');
+            else editorDiv.classList.add('border-t-4', 'border-slate-600');
+        });
+
+        // Run Init on load
+        window.onload = init;
+    </script>
+</body>
+</html>
