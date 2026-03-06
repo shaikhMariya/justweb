@@ -9,31 +9,24 @@
     <style>
         :root { --bg: #020617; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #f8fafc; overflow: hidden; }
-        
         .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; transition: all 0.3s ease; }
         .glass:hover { border-color: rgba(59, 130, 246, 0.3); }
-
         .screen { display: none; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .screen.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
         .nav-item { transition: all 0.3s; cursor: pointer; border-left: 3px solid transparent; }
         .nav-item.active { background: linear-gradient(90deg, rgba(59, 130, 246, 0.15), transparent); border-left: 3px solid #3b82f6; color: #60a5fa; }
         .nav-item:hover:not(.active) { background: rgba(255, 255, 255, 0.05); }
-
         .theme-linux { border-top: 4px solid #10b981; }
         .theme-git { border-top: 4px solid #f97316; }
         .theme-docker { border-top: 4px solid #38bdf8; }
-        .theme-k8s { border-top: 4px solid #8b5cf6; }
-        .theme-aws { border-top: 4px solid #fbbf24; }
-        .theme-cicd { border-top: 4px solid #ec4899; }
-        .theme-other { border-top: 4px solid #64748b; }
-
         .progress-bar-bg { background: #1e293b; height: 8px; border-radius: 10px; overflow: hidden; width: 100%; }
         .progress-fill { background: linear-gradient(90deg, #3b82f6, #8b5cf6); height: 100%; transition: width 1s ease-in-out; }
-        
         .cmd-snippet { font-family: 'Courier New', monospace; background: #000; color: #4ade80; padding: 10px; border-radius: 8px; border: 1px solid #1f2937; }
-        
+        /* Chat Styling */
+        .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 13px; margin-bottom: 10px; }
+        .ai-msg { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); align-self: flex-start; }
+        .user-msg { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); align-self: flex-end; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
     </style>
@@ -43,440 +36,131 @@
     <aside class="w-64 bg-[#050b14] border-r border-slate-800 flex flex-col h-full z-10 flex-shrink-0 hidden md:flex">
         <div class="p-8 pb-4">
             <h1 class="text-2xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">DEVOPS.OS</h1>
-            <p class="text-[9px] font-bold text-slate-500 uppercase tracking-[0.3em] mt-1">v12.1 • Smart Library</p>
+            <p class="text-[9px] font-bold text-slate-500 uppercase tracking-[0.3em] mt-1">v13.0 • AI Powered</p>
         </div>
         
-        <nav class="flex-grow flex flex-col gap-2 px-4 mt-4 overflow-y-auto">
-            <div class="nav-item active p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-300" onclick="switchTab('dashboard', this)">
-                <span class="text-lg">📊</span> Progress & Dash
-            </div>
-            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('vault', this)">
-                <span class="text-lg">🔐</span> Command Vault
-            </div>
-            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('library', this)">
-                <span class="text-lg">📚</span> PDF Notes & Books
-            </div>
-            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('projects', this)">
-                <span class="text-lg">🚀</span> Project Tracker
-            </div>
-            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('practice', this)">
-                <span class="text-lg">⚔️</span> Daily Practice
-            </div>
+        <nav class="flex-grow flex flex-col gap-1 px-4 mt-4 overflow-y-auto">
+            <div class="nav-item active p-4 rounded-xl font-bold text-sm flex items-center gap-3" onclick="switchTab('dashboard', this)"><span class="text-lg">📊</span> Dashboard</div>
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('ai', this)"><span class="text-lg">🤖</span> AI Assistant</div>
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('vault', this)"><span class="text-lg">🔐</span> Command Vault</div>
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('library', this)"><span class="text-lg">📚</span> PDF Library</div>
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('projects', this)"><span class="text-lg">🚀</span> Projects</div>
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('practice', this)"><span class="text-lg">⚔️</span> Practice</div>
         </nav>
 
         <div class="p-4 mx-4 mb-4 bg-blue-900/20 border border-blue-500/20 rounded-xl text-center space-y-2">
-            <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-2">Data Backup</p>
-            <button onclick="exportData()" class="w-full bg-blue-600 hover:bg-blue-700 py-1.5 rounded text-[10px] font-bold transition">📥 EXPORT BACKUP</button>
-            <label class="w-full bg-slate-800 hover:bg-slate-700 py-1.5 rounded text-[10px] font-bold transition cursor-pointer block">
-                📤 IMPORT DATA
-                <input type="file" id="importFile" class="hidden" accept=".json" onchange="importData(event)">
-            </label>
+            <button onclick="exportData()" class="w-full bg-blue-600 py-1.5 rounded text-[10px] font-bold">📥 EXPORT</button>
+            <label class="w-full bg-slate-800 py-1.5 rounded text-[10px] font-bold cursor-pointer block">📤 IMPORT<input type="file" class="hidden" onchange="importData(event)"></label>
         </div>
 
         <div class="p-6 border-t border-slate-800 flex items-center gap-4 bg-slate-900/30">
-            <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-xl shadow-[0_0_15px_rgba(37,99,235,0.5)]">👩‍🚀</div>
-            <div>
-                <p class="text-xs font-bold text-white">Mariya</p>
-                <p class="text-[10px] text-emerald-400 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Online</p>
-            </div>
+            <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-xl shadow-lg">👩‍🚀</div>
+            <div><p class="text-xs font-bold text-white">Mariya</p><p class="text-[10px] text-emerald-400">Online</p></div>
         </div>
     </aside>
 
     <main class="flex-grow h-full overflow-y-auto relative bg-[#020617]">
         
         <div id="dashboard" class="screen active p-6 md:p-12 max-w-[1400px] mx-auto">
-            <header class="mb-12">
-                <h2 class="text-4xl font-black mb-2">System Overview</h2>
-                <p class="text-slate-400">Welcome back. Here is your DevOps learning telemetry.</p>
+            <h2 class="text-4xl font-black mb-12">System Overview</h2>
+            <div class="glass p-8 border-l-4 border-blue-500 mb-8">
+                <h3 class="text-lg font-bold mb-4">📈 Learning Progress</h3>
+                <div class="progress-bar-bg"><div id="mainProgressBar" class="progress-fill" style="width: 0%"></div></div>
+                <p id="progressText" class="text-2xl font-black text-blue-400 mt-2">0%</p>
+            </div>
+        </div>
+
+        <div id="ai" class="screen p-6 md:p-12 max-w-[1000px] mx-auto h-full flex flex-col">
+            <header class="mb-6">
+                <h2 class="text-3xl font-black flex items-center gap-3 italic">DEVOPS_AI <span class="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded not-italic">BETA</span></h2>
+                <p class="text-slate-400 text-sm">Ask anything about Linux, Docker, or Git.</p>
             </header>
 
-            <div class="glass p-8 mb-12 border-l-4 border-blue-500 relative overflow-hidden">
-                <div class="absolute -right-10 -top-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"></div>
-                <h3 class="text-lg font-bold mb-6 flex items-center gap-2">📈 Learning Progress Tracker</h3>
-                <div class="flex items-center gap-6 mb-2">
-                    <div class="progress-bar-bg flex-grow"><div id="mainProgressBar" class="progress-fill" style="width: 0%"></div></div>
-                    <span id="progressText" class="text-2xl font-black text-blue-400">0%</span>
+            <div class="flex-grow glass p-6 mb-4 flex flex-col overflow-hidden border-white/5">
+                <div id="chatBox" class="flex-grow overflow-y-auto pr-2 flex flex-col space-y-4">
+                    <div class="chat-bubble ai-msg">Hello Mariya! I am your DevOps Assistant. How can I help you build today?</div>
                 </div>
-                
-                <div class="grid grid-cols-4 gap-6 mt-8">
-                    <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5 text-center">
-                        <p class="text-[9px] text-slate-400 font-bold uppercase mb-1">Commands</p>
-                        <p class="text-2xl font-black text-white" id="statVault">0</p>
-                    </div>
-                    <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5 text-center">
-                        <p class="text-[9px] text-slate-400 font-bold uppercase mb-1">Books/PDFs</p>
-                        <p class="text-2xl font-black text-white" id="statLibrary">0</p>
-                    </div>
-                    <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5 text-center">
-                        <p class="text-[9px] text-slate-400 font-bold uppercase mb-1">Projects</p>
-                        <p class="text-2xl font-black text-white" id="statProjects">0</p>
-                    </div>
-                    <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5 text-center">
-                        <p class="text-[9px] text-slate-400 font-bold uppercase mb-1">Practices</p>
-                        <p class="text-2xl font-black text-white" id="statPractice">0</p>
-                    </div>
-                </div>
+            </div>
+
+            <div class="flex gap-3 bg-slate-900/50 p-3 rounded-2xl border border-white/10">
+                <input type="text" id="aiInput" placeholder="Ask e.g. 'How to delete all docker containers?'" class="flex-grow bg-transparent outline-none text-sm px-2" onkeypress="handleChat(event)">
+                <button onclick="askAI()" class="bg-blue-600 hover:bg-blue-700 p-3 rounded-xl transition"><span class="text-lg">⚡</span></button>
             </div>
         </div>
 
-        <div id="vault" class="screen p-6 md:p-12 max-w-[1400px] mx-auto">
-            <div class="flex flex-col lg:flex-row justify-between items-start gap-8 mb-10">
-                <div>
-                    <h2 class="text-4xl font-black mb-2 italic">COMMAND_VAULT</h2>
-                    <p class="text-slate-400">The secret weapon. Store and copy exact terminal commands.</p>
-                </div>
-                <div class="w-full lg:w-96">
-                    <input type="text" id="vaultSearch" onkeyup="searchVault()" placeholder="Search commands..." class="w-full bg-slate-900 border border-slate-700 rounded-full px-6 py-3 text-sm focus:border-blue-500 outline-none">
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                <div class="lg:col-span-4">
-                    <div class="glass p-8 sticky top-6">
-                        <h3 class="text-lg font-bold mb-6 flex items-center gap-2">➕ Inject Command</h3>
-                        <div class="space-y-4">
-                            <select id="vCat" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm outline-none focus:border-blue-500">
-                                <option value="linux">🐧 Linux OS</option>
-                                <option value="git">🎋 Git Hub/Lab</option>
-                                <option value="docker">🐋 Docker</option>
-                                <option value="k8s">☸️ Kubernetes</option>
-                                <option value="aws">☁️ AWS Cloud</option>
-                                <option value="cicd">🔄 CI/CD</option>
-                            </select>
-                            <input type="text" id="vTitle" placeholder="What does this do?" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm outline-none">
-                            <textarea id="vCmd" rows="3" placeholder="Command (e.g., free -m)" class="w-full bg-black border border-slate-800 rounded-xl p-3 text-sm outline-none text-green-400 font-mono"></textarea>
-                            <button onclick="saveVaultCmd()" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold text-xs tracking-widest transition">SAVE TO VAULT</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="lg:col-span-8">
-                    <div class="flex gap-2 mb-6 overflow-x-auto pb-2 no-scrollbar">
-                        <button onclick="filterVault('all')" class="bg-slate-800 px-4 py-1.5 rounded-full text-xs font-bold">All</button>
-                        <button onclick="filterVault('linux')" class="bg-green-900/30 text-green-400 border border-green-500/30 px-4 py-1.5 rounded-full text-xs font-bold">Linux</button>
-                        <button onclick="filterVault('docker')" class="bg-blue-900/30 text-blue-400 border border-blue-500/30 px-4 py-1.5 rounded-full text-xs font-bold">Docker</button>
-                    </div>
-                    <div id="vaultGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-                </div>
-            </div>
-        </div>
-
-        <div id="library" class="screen p-6 md:p-12 max-w-[1400px] mx-auto">
-            <header class="mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div>
-                    <h2 class="text-4xl font-black mb-2 italic">RESOURCE_LIBRARY</h2>
-                    <p class="text-slate-400">Your core study materials. Read directly from the cloud.</p>
-                </div>
-                <button onclick="document.getElementById('newPdfModal').classList.remove('hidden')" class="bg-white text-black px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-200 transition">+ ADD PDF/LINK</button>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6" id="libraryGrid">
-                </div>
-
-            <div id="newPdfModal" class="hidden absolute inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <div class="glass p-8 w-full max-w-md border-t-4 border-purple-500">
-                    <h3 class="text-xl font-bold mb-6">Add Learning Resource</h3>
-                    <div class="space-y-4">
-                        <select id="pdfCat" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm outline-none">
-                            <option value="linux">🐧 Linux Book/Notes</option>
-                            <option value="git">🎋 Git Notes</option>
-                            <option value="docker">🐋 Docker Notes</option>
-                            <option value="other">📚 Other Subject</option>
-                        </select>
-                        <input type="text" id="pdfTitle" placeholder="e.g. AWS Cheatsheet" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm outline-none">
-                        <input type="url" id="pdfLink" placeholder="Paste PDF/URL Link here..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm outline-none">
-                        <div class="flex gap-4 pt-4">
-                            <button onclick="savePdf()" class="flex-1 bg-purple-600 hover:bg-purple-700 py-3 rounded-xl font-bold text-sm">SAVE</button>
-                            <button onclick="document.getElementById('newPdfModal').classList.add('hidden')" class="flex-1 bg-slate-800 py-3 rounded-xl font-bold text-sm">CANCEL</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="projects" class="screen p-6 md:p-12 max-w-[1400px] mx-auto">
-            <header class="mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div>
-                    <h2 class="text-4xl font-black mb-2">Project Deployments</h2>
-                    <p class="text-slate-400">Track your live infrastructure and GitHub repos.</p>
-                </div>
-                <button onclick="document.getElementById('newProjectModal').classList.remove('hidden')" class="bg-white text-black px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-200 transition">+ NEW PROJECT</button>
-            </header>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="projectGrid"></div>
-
-            <div id="newProjectModal" class="hidden absolute inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <div class="glass p-8 w-full max-w-md border-t-4 border-white">
-                    <h3 class="text-xl font-bold mb-6">Launch New Project</h3>
-                    <div class="space-y-4">
-                        <input type="text" id="pName" placeholder="Project Name (e.g. justweb)" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm outline-none">
-                        <select id="pStatus" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm outline-none">
-                            <option value="planning">📋 Planning / Coding</option>
-                            <option value="building">⚙️ Building Docker/CI</option>
-                            <option value="live">🟢 Live / Deployed</option>
-                        </select>
-                        <input type="text" id="pLink" placeholder="Live URL or GitHub Link" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm outline-none">
-                        <div class="flex gap-4 pt-4">
-                            <button onclick="saveProject()" class="flex-1 bg-white text-black py-3 rounded-xl font-bold text-sm">SAVE</button>
-                            <button onclick="document.getElementById('newProjectModal').classList.add('hidden')" class="flex-1 bg-slate-800 py-3 rounded-xl font-bold text-sm">CANCEL</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="practice" class="screen p-6 md:p-12 max-w-[1000px] mx-auto">
-            <header class="mb-12 text-center">
-                <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-6 shadow-[0_0_30px_rgba(239,68,68,0.4)] animate-bounce">⚔️</div>
-                <h2 class="text-4xl font-black mb-2">The Training Ground</h2>
-                <p class="text-slate-400">Complete daily scenarios to boost your Progress Tracker.</p>
-            </header>
-            <div class="glass p-8 border-t-4 border-orange-500 mb-8 relative overflow-hidden">
-                <div class="absolute right-0 top-0 text-9xl opacity-5">🎯</div>
-                <h3 class="text-[10px] font-bold text-orange-400 uppercase tracking-widest mb-4">Today's Scenario</h3>
-                <p id="dailyScenario" class="text-xl font-bold text-white mb-6 leading-relaxed">Loading training data...</p>
-                <button onclick="completePractice()" class="bg-orange-600 hover:bg-orange-700 px-8 py-3 rounded-full font-bold text-sm transition">MARK SCENARIO COMPLETE</button>
-            </div>
-            <h3 class="text-sm font-bold text-slate-400 mb-4">Past Training Log</h3>
-            <div id="practiceLog" class="space-y-3"></div>
-        </div>
+        <div id="vault" class="screen p-12">Vault Screen Loading...</div>
+        <div id="library" class="screen p-12">Library Screen Loading...</div>
+        <div id="projects" class="screen p-12">Projects Screen Loading...</div>
+        <div id="practice" class="screen p-12">Practice Screen Loading...</div>
 
     </main>
 
     <script>
-        const icons = { linux: '🐧', git: '🎋', docker: '🐋', k8s: '☸️', aws: '☁️', cicd: '🔄', other: '📚' };
+        // AI Knowledge Base (Local Logic for Speed)
+        const aiKnowledge = {
+            "docker delete": "To delete all containers: <br><code class='cmd-snippet'>docker rm -f $(docker ps -aq)</code>",
+            "linux permission": "Use <code class='cmd-snippet'>chmod</code> to change permissions. e.g., 755 for public, 400 for private.",
+            "git undo": "To undo last commit: <br><code class='cmd-snippet'>git reset --soft HEAD~1</code>",
+            "docker ps": "Shows running containers. Use <code class='cmd-snippet'>docker ps -a</code> to see all.",
+            "hello": "Hi Mariya! Ready to learn some DevOps today?",
+            "roadmap": "Focus on Linux first, then Git, then Docker. You are doing great!",
+            "help": "You can ask about Docker commands, Linux permissions, or Git workflows."
+        };
 
-        // Ensure default books are loaded
-        function initializeDefaultLibrary() {
-            if (!localStorage.getItem('mariya_library_v12')) {
-                const defaultBooks = [
-                    { id: 101, cat: 'linux', title: 'The Linux Command Line (Book)', link: 'https://www.kea.nu/files/textbooks/humblesec/thelinuxcommandline.pdf' },
-                    { id: 102, cat: 'docker', title: 'Docker for Beginners (KodeKloud)', link: 'https://kodekloud.com/wp-content/uploads/2021/10/Docker-for-Beginners-Mumshad-Mannambeth.pdf' },
-                    { id: 103, cat: 'git', title: 'How to Git (Official Guide)', link: 'https://groundwater.usu.edu/assets/pdf/How_to_Git.pdf' }
-                ];
-                localStorage.setItem('mariya_library_v12', JSON.stringify(defaultBooks));
+        function askAI() {
+            const input = document.getElementById('aiInput');
+            const chatBox = document.getElementById('chatBox');
+            const query = input.value.trim().toLowerCase();
+            if(!query) return;
+
+            // User Message
+            chatBox.innerHTML += `<div class="chat-bubble user-msg">${input.value}</div>`;
+            
+            // AI Logic
+            let response = "I'm still learning that specific concept. Try asking about Docker, Linux, or Git basics!";
+            for(let key in aiKnowledge) {
+                if(query.includes(key)) { response = aiKnowledge[key]; break; }
             }
+
+            setTimeout(() => {
+                chatBox.innerHTML += `<div class="chat-bubble ai-msg">${response}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 500);
+
+            input.value = '';
         }
 
-        // --- SPA Navigation ---
+        function handleChat(e) { if(e.key === 'Enter') askAI(); }
+
+        // Core SPA Functions
         function switchTab(screenId, navElement) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(n => {
-                n.classList.remove('active', 'text-slate-300');
-                n.classList.add('text-slate-400');
-            });
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active', 'text-slate-300'));
             document.getElementById(screenId).classList.add('active');
             navElement.classList.add('active', 'text-slate-300');
-            navElement.classList.remove('text-slate-400');
-            updateDashboardStats();
+            updateStats();
         }
 
-        // --- PDF Library Logic ---
-        function savePdf() {
-            const cat = document.getElementById('pdfCat').value;
-            const title = document.getElementById('pdfTitle').value.trim();
-            const link = document.getElementById('pdfLink').value.trim();
-
-            if(!title || !link) return alert("Title and Link are required!");
-
-            const pdf = { id: Date.now(), cat, title, link };
-            let library = JSON.parse(localStorage.getItem('mariya_library_v12') || '[]');
-            library.unshift(pdf);
-            localStorage.setItem('mariya_library_v12', JSON.stringify(library));
-
-            document.getElementById('newPdfModal').classList.add('hidden');
-            document.getElementById('pdfTitle').value = ''; document.getElementById('pdfLink').value = '';
-            renderLibrary();
-            updateDashboardStats();
-        }
-
-        function renderLibrary() {
-            const grid = document.getElementById('libraryGrid');
-            const library = JSON.parse(localStorage.getItem('mariya_library_v12') || '[]');
-            grid.innerHTML = '';
-
-            library.forEach(p => {
-                const div = document.createElement('div');
-                div.className = `glass p-6 theme-${p.cat} flex flex-col group relative`;
-                div.innerHTML = `
-                    <button onclick="deletePdf(${p.id})" class="absolute top-4 right-4 text-[10px] text-red-500 font-bold opacity-0 group-hover:opacity-100 transition z-10">DEL</button>
-                    <span class="text-4xl mb-4">${icons[p.cat] || '📚'}</span>
-                    <h4 class="font-bold text-white mb-4 leading-tight">${p.title}</h4>
-                    <a href="${p.link}" target="_blank" class="mt-auto inline-block text-center bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white py-2 rounded-lg text-xs font-bold transition">READ / OPEN ↗</a>
-                `;
-                grid.appendChild(div);
-            });
-        }
-
-        function deletePdf(id) {
-            if(!confirm("Remove this book/link?")) return;
-            let library = JSON.parse(localStorage.getItem('mariya_library_v12') || '[]');
-            library = library.filter(p => p.id !== id);
-            localStorage.setItem('mariya_library_v12', JSON.stringify(library));
-            renderLibrary();
-            updateDashboardStats();
-        }
-
-        // --- Data Backup & Export/Import ---
-        function exportData() {
-            const data = {
-                vault: localStorage.getItem('mariya_vault_v11'),
-                projects: localStorage.getItem('mariya_projects_v11'),
-                practice: localStorage.getItem('mariya_practice_v11'),
-                library: localStorage.getItem('mariya_library_v12')
-            };
-            const jsonStr = JSON.stringify(data, null, 2);
-            const blob = new Blob([jsonStr], { type: "application/json" });
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `DevOps_Mariya_Backup_${new Date().toLocaleDateString().replace(/\//g, '-')}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-            alert("Backup downloaded successfully! Keep this file safe.");
-        }
-
-        function importData(event) {
-            const file = event.target.files[0];
-            if(!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const data = JSON.parse(e.target.result);
-                    if(data.vault) localStorage.setItem('mariya_vault_v11', data.vault);
-                    if(data.projects) localStorage.setItem('mariya_projects_v11', data.projects);
-                    if(data.practice) localStorage.setItem('mariya_practice_v11', data.practice);
-                    if(data.library) localStorage.setItem('mariya_library_v12', data.library);
-                    
-                    alert("Data imported successfully! System will refresh.");
-                    window.location.reload();
-                } catch(err) {
-                    alert("Invalid backup file! Please select a valid JSON backup.");
-                }
-            };
-            reader.readAsText(file);
-        }
-
-        // --- Command Vault ---
-        function saveVaultCmd() {
-            const cat = document.getElementById('vCat').value;
-            const title = document.getElementById('vTitle').value.trim();
-            const cmd = document.getElementById('vCmd').value.trim();
-            if(!title || !cmd) return;
-            const entry = { id: Date.now(), cat, title, cmd, date: new Date().toLocaleDateString() };
-            let vault = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]');
-            vault.unshift(entry);
-            localStorage.setItem('mariya_vault_v11', JSON.stringify(vault));
-            document.getElementById('vTitle').value = ''; document.getElementById('vCmd').value = '';
-            renderVault('all'); updateDashboardStats();
-        }
-
-        function renderVault(filterCat = 'all') {
-            const grid = document.getElementById('vaultGrid');
-            let vault = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]');
-            if(filterCat !== 'all') vault = vault.filter(v => v.cat === filterCat);
-            grid.innerHTML = '';
-            vault.forEach(v => {
-                grid.innerHTML += `
-                    <div class="glass p-6 theme-${v.cat} flex flex-col group relative">
-                        <button onclick="deleteVault(${v.id})" class="absolute top-4 right-4 text-[10px] text-red-500 uppercase opacity-0 group-hover:opacity-100 transition z-10">DEL</button>
-                        <h4 class="font-bold text-white flex items-center gap-2 mb-4"><span>${icons[v.cat]}</span> ${v.title}</h4>
-                        <div class="cmd-snippet mb-4 flex-grow cursor-pointer" onclick="copyText('${v.cmd.replace(/'/g, "\\'")}')" title="Click to copy">$ ${v.cmd}</div>
-                    </div>`;
-            });
-        }
-        function deleteVault(id) {
-            let vault = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]');
-            vault = vault.filter(v => v.id !== id);
-            localStorage.setItem('mariya_vault_v11', JSON.stringify(vault));
-            renderVault('all'); updateDashboardStats();
-        }
-        function filterVault(cat) { renderVault(cat); }
-        function searchVault() {
-            const q = document.getElementById('vaultSearch').value.toLowerCase();
-            document.querySelectorAll('#vaultGrid > div').forEach(c => c.style.display = c.innerText.toLowerCase().includes(q) ? 'flex' : 'none');
-        }
-        function copyText(txt) { navigator.clipboard.writeText(txt); alert("Copied!"); }
-
-        // --- Projects ---
-        function saveProject() {
-            const name = document.getElementById('pName').value.trim();
-            const status = document.getElementById('pStatus').value;
-            const link = document.getElementById('pLink').value.trim();
-            if(!name) return;
-            const proj = { id: Date.now(), name, status, link };
-            let projects = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]');
-            projects.unshift(proj);
-            localStorage.setItem('mariya_projects_v11', JSON.stringify(projects));
-            document.getElementById('newProjectModal').classList.add('hidden');
-            renderProjects(); updateDashboardStats();
-        }
-        function renderProjects() {
-            const grid = document.getElementById('projectGrid');
-            const projects = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]');
-            grid.innerHTML = '';
-            projects.forEach(p => {
-                grid.innerHTML += `
-                    <div class="glass p-6 flex flex-col relative group border-t-4 ${p.status === 'live' ? 'border-green-500' : 'border-yellow-500'}">
-                        <button onclick="deleteProj(${p.id})" class="absolute top-4 right-4 text-[10px] text-red-500 opacity-0 group-hover:opacity-100 z-10">DEL</button>
-                        <h4 class="font-bold text-xl mb-2 text-white">${p.name}</h4>
-                        <p class="text-[10px] uppercase text-blue-400 mb-4">${p.status}</p>
-                        ${p.link ? `<a href="${p.link}" target="_blank" class="text-xs font-bold text-blue-400 hover:underline mt-auto">Open Link ↗</a>` : ``}
-                    </div>`;
-            });
-        }
-        function deleteProj(id) {
-            if(!confirm("Delete this project?")) return;
-            let projects = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]');
-            projects = projects.filter(p => p.id !== id);
-            localStorage.setItem('mariya_projects_v11', JSON.stringify(projects));
-            renderProjects(); updateDashboardStats();
-        }
-
-        // --- Practice ---
-        function completePractice() {
-            const today = new Date().toLocaleDateString();
-            let logs = JSON.parse(localStorage.getItem('mariya_practice_v11') || '[]');
-            if(logs.includes(today)) return alert("Already done today!");
-            logs.unshift(today);
-            localStorage.setItem('mariya_practice_v11', JSON.stringify(logs));
-            renderPracticeLog(); updateDashboardStats();
-        }
-        function renderPracticeLog() {
-            const div = document.getElementById('practiceLog');
-            const logs = JSON.parse(localStorage.getItem('mariya_practice_v11') || '[]');
-            div.innerHTML = '';
-            logs.forEach(date => div.innerHTML += `<div class="p-3 bg-slate-900/50 rounded-lg text-xs font-bold text-emerald-400">✅ Training cleared on ${date}</div>`);
-        }
-
-        // --- Dashboard Update ---
-        function updateDashboardStats() {
-            const v = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]').length;
-            const p = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]').length;
-            const pr = JSON.parse(localStorage.getItem('mariya_practice_v11') || '[]').length;
-            const l = JSON.parse(localStorage.getItem('mariya_library_v12') || '[]').length;
-
-            document.getElementById('statVault').innerText = v;
-            document.getElementById('statProjects').innerText = p;
-            document.getElementById('statPractice').innerText = pr;
-            document.getElementById('statLibrary').innerText = l;
-
-            // Calculate progress out of 100%
-            let progress = Math.min((v * 2) + (pr * 5) + (l * 5), 100);
-            document.getElementById('mainProgressBar').style.width = progress + '%';
-            document.getElementById('progressText').innerText = Math.round(progress) + '%';
-        }
-
-        // --- INIT ---
+        // Initialize Library with your 3 PDFs (v12.1 Logic)
         window.onload = () => {
-            initializeDefaultLibrary(); // Loads the 3 PDFs automatically if not present!
-            renderVault(); 
-            renderProjects(); 
-            renderLibrary();
-            document.getElementById('dailyScenario').innerText = "Write a Dockerfile that uses Ubuntu as base image.";
-            renderPracticeLog(); 
-            updateDashboardStats();
+            if (!localStorage.getItem('mariya_library_v12')) {
+                const books = [
+                    { id: 1, cat: 'linux', title: 'The Linux Command Line', link: 'https://www.kea.nu/files/textbooks/humblesec/thelinuxcommandline.pdf' },
+                    { id: 2, cat: 'docker', title: 'KodeKloud Docker Notes', link: 'https://kodekloud.com/wp-content/uploads/2021/10/Docker-for-Beginners-Mumshad-Mannambeth.pdf' },
+                    { id: 3, cat: 'git', title: 'How to Git Guide', link: 'https://groundwater.usu.edu/assets/pdf/How_to_Git.pdf' }
+                ];
+                localStorage.setItem('mariya_library_v12', JSON.stringify(books));
+            }
+            updateStats();
         };
+
+        function updateStats() {
+            const v = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]').length;
+            const l = JSON.parse(localStorage.getItem('mariya_library_v12') || '[]').length;
+            const progress = Math.min((v * 2) + (l * 10), 100);
+            document.getElementById('mainProgressBar').style.width = progress + '%';
+            document.getElementById('progressText').innerText = progress + '%';
+        }
     </script>
 </body>
 </html>
