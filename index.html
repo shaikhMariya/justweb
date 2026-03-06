@@ -387,5 +387,46 @@
 <p>Mariya, har box par click karke use complete karo! 🔥</p>
 <p class="mt-2">© 2024 DevOps Academy. Engineered for Excellence.</p>
 </footer>
+        <style>
+.card{
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(0,255,255,0.2);
+border-radius:14px;
+transition:0.3s;
+}
 
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 0 20px rgba(0,255,255,0.4);
+}
+                .module{
+transition:0.3s;
+cursor:pointer;
+}
+
+.module:hover{
+transform:scale(1.05);
+box-shadow:0 0 15px #00eaff;
+}
+                </style>
+        <script> const text="Initializing DevOps System..."
+
+let i=0
+
+function typing(){
+
+if(i<text.length){
+
+document.getElementById("terminal").innerHTML+=text.charAt(i)
+
+i++
+
+setTimeout(typing,40)
+
+}
+
+}
+
+typing()</script>
 </body></html>
+
