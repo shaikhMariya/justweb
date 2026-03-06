@@ -3,311 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps OS | Mariya</title>
+    <title>DevOps OS v16 | Mariya</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #020617; }
+        :root { --bg: #020617; --accent: #3b82f6; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #f8fafc; overflow: hidden; }
-        
-        .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; transition: all 0.3s ease; }
-        
-        /* 100% Working Screen Logic */
-        .screen { display: none; opacity: 0; transform: translateY(10px); height: 0; overflow: hidden; }
-        .screen.active { display: block !important; opacity: 1; transform: translateY(0); height: auto; overflow: visible; animation: fadeIn 0.4s ease forwards; }
-
+        .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; transition: 0.3s; }
+        .screen { display: none; opacity: 0; transform: translateY(10px); }
+        .screen.active { display: block !important; opacity: 1; transform: translateY(0); animation: fadeIn 0.4s ease forwards; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .nav-item { transition: all 0.3s; cursor: pointer; border-left: 3px solid transparent; }
-        .nav-item.active { background: linear-gradient(90deg, rgba(59, 130, 246, 0.15), transparent); border-left: 3px solid #3b82f6; color: #60a5fa; }
-        
-        .cmd-snippet { font-family: 'Courier New', monospace; background: #000; color: #4ade80; padding: 12px; border-radius: 8px; border: 1px solid #1f2937; font-size: 12px; display: block; margin: 5px 0; }
-        .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 13px; margin-bottom: 10px; }
-        .ai-msg { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); align-self: flex-start; }
-        .user-msg { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); align-self: flex-end; }
-        
+        .nav-item { transition: 0.3s; cursor: pointer; border-left: 3px solid transparent; }
+        .nav-item.active { background: linear-gradient(90deg, rgba(59, 130, 246, 0.1), transparent); border-left: 3px solid var(--accent); color: #60a5fa; }
+        .cmd-snippet { font-family: 'Courier New', monospace; background: #000; color: #4ade80; padding: 12px; border-radius: 12px; border: 1px solid #1f2937; font-size: 12px; display: block; }
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .check-item { transition: 0.2s; cursor: pointer; border-radius: 12px; padding: 10px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.05); }
+        .check-item:hover { background: rgba(255,255,255,0.05); }
+        .check-item.done { border-color: #10b981; background: rgba(16,185,129,0.05); }
     </style>
 </head>
 <body class="flex h-screen">
 
     <aside class="w-64 bg-[#050b14] border-r border-slate-800 flex flex-col h-full z-50">
         <div class="p-8">
-            <h1 class="text-2xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">DEVOPS.OS</h1>
-            <p class="text-[9px] font-bold text-slate-500 uppercase tracking-[0.3em] mt-1">Mariya v14.1 • FIXED</p>
+            <h1 class="text-2xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">DEVOPS.OS</h1>
+            <p class="text-[9px] font-bold text-slate-500 uppercase tracking-[0.3em] mt-1">Mariya v16.0 • PRO</p>
         </div>
         
         <nav class="flex-grow flex flex-col gap-1 px-4 mt-4 overflow-y-auto">
             <div class="nav-item active p-4 rounded-xl font-bold text-sm flex items-center gap-3" onclick="switchTab('dashboard', this)"><span>📊</span> Dashboard</div>
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('roadmap', this)"><span>🗺️</span> Checklist Roadmap</div>
             <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('ai', this)"><span>🤖</span> AI Assistant</div>
             <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('vault', this)"><span>🔐</span> Command Vault</div>
             <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('library', this)"><span>📚</span> PDF Library</div>
             <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('projects', this)"><span>🚀</span> Projects</div>
-            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('practice', this)"><span>⚔️</span> Practice</div>
         </nav>
 
-        <div class="p-4 m-4 glass text-center">
-            <p id="timerDisplay" class="text-xl font-black text-white mb-2">25:00</p>
-            <button onclick="toggleTimer()" id="timerBtn" class="text-[10px] font-bold text-blue-400">START FOCUS</button>
+        <div class="p-4 m-4 glass border-blue-500/10 text-center">
+            <p id="timerDisplay" class="text-xl font-black text-white mb-1">25:00</p>
+            <button onclick="toggleTimer()" id="timerBtn" class="text-[9px] font-bold text-blue-400 uppercase">Start Session</button>
         </div>
     </aside>
 
     <main class="flex-grow h-full overflow-y-auto bg-[#020617] relative p-6 md:p-12">
         
         <div id="dashboard" class="screen active max-w-[1200px] mx-auto">
-            <h2 class="text-4xl font-black mb-8 italic">System Telemetry</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-                <div class="lg:col-span-2 glass p-8 border-l-4 border-blue-500">
-                    <div class="flex justify-between mb-4"><h3 class="font-bold text-xs uppercase text-slate-400 tracking-widest">Global Progress</h3><span id="progressText" class="font-black text-blue-400 text-2xl">0%</span></div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden"><div id="mainProgressBar" class="h-full bg-blue-500 transition-all duration-1000"></div></div>
-                    <div class="grid grid-cols-4 gap-4 mt-10">
-                        <div class="text-center p-4 bg-slate-900/50 rounded-2xl"><p id="statVault" class="text-xl font-black">0</p><p class="text-[8px] text-slate-500 font-bold uppercase">Vault</p></div>
-                        <div class="text-center p-4 bg-slate-900/50 rounded-2xl"><p id="statLibrary" class="text-xl font-black">0</p><p class="text-[8px] text-slate-500 font-bold uppercase">PDFs</p></div>
-                        <div class="text-center p-4 bg-slate-900/50 rounded-2xl"><p id="statProjects" class="text-xl font-black">0</p><p class="text-[8px] text-slate-500 font-bold uppercase">Projects</p></div>
-                        <div class="text-center p-4 bg-slate-900/50 rounded-2xl"><p id="statPractice" class="text-xl font-black">0</p><p class="text-[8px] text-slate-500 font-bold uppercase">Cleared</p></div>
+            <h2 class="text-4xl font-black mb-8 tracking-tight">System Telemetry</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-8">
+                    <div class="glass p-8 border-l-4 border-blue-600">
+                        <div class="flex justify-between mb-4 items-end">
+                            <h3 class="font-bold text-xs uppercase text-slate-500 tracking-widest">Mastery Level</h3>
+                            <span id="progressText" class="font-black text-blue-500 text-3xl">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden"><div id="mainProgressBar" class="h-full bg-blue-500 transition-all duration-1000"></div></div>
+                        <div class="grid grid-cols-4 gap-4 mt-8">
+                            <div class="text-center p-4 bg-slate-900/50 rounded-2xl border border-white/5"><p id="statVault" class="text-xl font-black">0</p><p class="text-[8px] text-slate-500 font-bold uppercase">Vault</p></div>
+                            <div class="text-center p-4 bg-slate-900/50 rounded-2xl border border-white/5"><p id="statLibrary" class="text-xl font-black">0</p><p class="text-[8px] text-slate-500 font-bold uppercase">PDFs</p></div>
+                            <div class="text-center p-4 bg-slate-900/50 rounded-2xl border border-white/5"><p id="statCheck" class="text-xl font-black">0</p><p class="text-[8px] text-slate-500 font-bold uppercase">Skills</p></div>
+                            <div class="text-center p-4 bg-slate-900/50 rounded-2xl border border-white/5"><p id="statPractice" class="text-xl font-black">0</p><p class="text-[8px] text-slate-500 font-bold uppercase">Verified</p></div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass p-6 border-b-4 border-emerald-500/30 flex items-center justify-between">
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Learning Streak</h4>
+                            <p class="text-2xl font-black text-white italic">7 DAYS ACTIVE 🔥</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500 flex items-center justify-center text-xs">M</span>
+                            <span class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500 flex items-center justify-center text-xs">T</span>
+                            <span class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500 flex items-center justify-center text-xs">W</span>
+                            <span class="w-8 h-8 rounded-lg bg-blue-500/20 border border-blue-500 flex items-center justify-center text-xs">T</span>
+                        </div>
                     </div>
                 </div>
-                <div class="glass p-6 border-t-4 border-purple-500">
-                    <h3 class="text-xs font-bold text-purple-400 uppercase tracking-widest mb-4">Live DevOps Feed</h3>
-                    <div class="space-y-4" id="newsFeed">
-                        <div class="border-b border-white/5 pb-2"><p class="text-[11px] font-bold">Docker Engine v26.0</p><p class="text-[9px] text-slate-500">Wasm support improved.</p></div>
-                        <div class="border-b border-white/5 pb-2"><p class="text-[11px] font-bold">AWS Free Tier Update</p><p class="text-[9px] text-slate-500">Check new 2026 limits.</p></div>
+
+                <div class="glass p-6 flex flex-col justify-between border-t-4 border-indigo-500">
+                    <div>
+                        <h3 class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-6">System Health</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center"><span class="text-[10px] text-slate-400">Logic Core</span><span class="text-[10px] text-emerald-400 font-mono">STABLE</span></div>
+                            <div class="flex justify-between items-center"><span class="text-[10px] text-slate-400">Library Sync</span><span class="text-[10px] text-emerald-400 font-mono">100%</span></div>
+                            <div class="flex justify-between items-center"><span class="text-[10px] text-slate-400">Brain Archive</span><span class="text-[10px] text-blue-400 font-mono">ENCRYPTED</span></div>
+                        </div>
+                    </div>
+                    <div class="pt-6 border-t border-white/5 text-center">
+                        <p class="text-[10px] text-slate-500 italic">Mariya, you are ready for Deployment.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="ai" class="screen max-w-[900px] mx-auto h-[80vh] flex flex-col">
-            <h2 class="text-3xl font-black mb-6 italic">DEVOPS_AI</h2>
-            <div class="flex-grow glass p-6 mb-4 flex flex-col overflow-hidden">
-                <div id="chatBox" class="flex-grow overflow-y-auto flex flex-col space-y-4 pr-2">
-                    <div class="chat-bubble ai-msg">Hello Mariya! Ask me about Linux, Git, or Docker.</div>
-                </div>
-            </div>
-            <div class="flex gap-2 bg-slate-900 p-2 rounded-2xl border border-white/10">
-                <input type="text" id="aiInput" placeholder="Ask e.g. How to delete docker images?" class="flex-grow bg-transparent px-4 text-sm outline-none" onkeypress="if(event.key==='Enter') askAI()">
-                <button onclick="askAI()" class="bg-blue-600 px-6 py-2 rounded-xl font-bold">ASK AI</button>
-            </div>
-        </div>
-
-        <div id="vault" class="screen max-w-[1400px] mx-auto">
-            <h2 class="text-3xl font-black mb-10 italic">COMMAND_VAULT</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <div class="lg:col-span-4 glass p-8 h-fit sticky top-0">
-                    <div class="space-y-4">
-                        <select id="vCat" class="w-full bg-slate-900 p-3 rounded-xl text-xs border border-slate-700">
-                            <option value="linux">Linux</option><option value="git">Git</option><option value="docker">Docker</option>
-                        </select>
-                        <input type="text" id="vTitle" placeholder="Command Purpose" class="w-full bg-slate-900 p-3 rounded-xl text-xs border border-slate-700">
-                        <textarea id="vCmd" placeholder="The Command" class="w-full bg-black p-3 rounded-xl text-xs text-green-400 font-mono"></textarea>
-                        <button onclick="saveVaultCmd()" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-xs uppercase tracking-widest">Store Command</button>
+        <div id="roadmap" class="screen max-w-[1200px] mx-auto">
+            <h2 class="text-3xl font-black mb-8 italic">CHECKLIST_ROADMAP</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass p-6 border-t-4 border-green-500">
+                    <h4 class="font-bold text-green-500 mb-6 flex items-center gap-2"><span>🐧</span> Linux Mastery</h4>
+                    <div id="linuxList" class="space-y-2">
+                        <div class="check-item flex items-center gap-3" onclick="toggleSkill(this, 2)"><span>⬜</span> File System (ls, cd, pwd)</div>
+                        <div class="check-item flex items-center gap-3" onclick="toggleSkill(this, 3)"><span>⬜</span> Permissions (chmod, chown)</div>
+                        <div class="check-item flex items-center gap-3" onclick="toggleSkill(this, 3)"><span>⬜</span> SSH & Networking</div>
                     </div>
                 </div>
-                <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4" id="vaultGrid"></div>
+                <div class="glass p-6 border-t-4 border-orange-500">
+                    <h4 class="font-bold text-orange-400 mb-6 flex items-center gap-2"><span>🎋</span> Git Ops</h4>
+                    <div id="gitList" class="space-y-2">
+                        <div class="check-item flex items-center gap-3" onclick="toggleSkill(this, 2)"><span>⬜</span> Commit & Push Workflow</div>
+                        <div class="check-item flex items-center gap-3" onclick="toggleSkill(this, 3)"><span>⬜</span> Branching & Merging</div>
+                        <div class="check-item flex items-center gap-3" onclick="toggleSkill(this, 4)"><span>⬜</span> Resolving Conflicts</div>
+                    </div>
+                </div>
+                <div class="glass p-6 border-t-4 border-blue-500">
+                    <h4 class="font-bold text-blue-400 mb-6 flex items-center gap-2"><span>🐋</span> Containerization</h4>
+                    <div id="dockerList" class="space-y-2">
+                        <div class="check-item flex items-center gap-3" onclick="toggleSkill(this, 3)"><span>⬜</span> Writing Dockerfiles</div>
+                        <div class="check-item flex items-center gap-3" onclick="toggleSkill(this, 4)"><span>⬜</span> Docker Compose Setup</div>
+                        <div class="check-item flex items-center gap-3" onclick="toggleSkill(this, 5)"><span>⬜</span> Volume & Port Mapping</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div id="library" class="screen max-w-[1400px] mx-auto">
-            <h2 class="text-3xl font-black mb-8 italic text-purple-400">RESOURCE_ARCHIVE</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6" id="libraryGrid"></div>
-        </div>
-
-        <div id="projects" class="screen max-w-[1400px] mx-auto">
-            <div class="flex justify-between mb-8">
-                <h2 class="text-3xl font-black italic">PROJECT_TRACKER</h2>
-                <button onclick="addProject()" class="bg-white text-black px-6 py-2 rounded-xl font-bold text-xs">+ LAUNCH</button>
-            </div>
-            <div id="projectGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
-        </div>
-
-        <div id="practice" class="screen max-w-[800px] mx-auto text-center">
-            <h2 class="text-3xl font-black mb-10 italic text-orange-500">TRAINING_GROUND</h2>
-            <div class="glass p-10 border-t-4 border-orange-500">
-                <p id="dailyScenario" class="text-xl font-bold mb-8 italic text-slate-300">"Practice: Check Linux memory usage using 'free -m'"</p>
-                <button onclick="completePractice()" class="bg-orange-600 px-10 py-3 rounded-full font-bold">MARK COMPLETE</button>
-            </div>
-            <div id="practiceLog" class="mt-8 space-y-2"></div>
-        </div>
+        <div id="ai" class="screen max-w-[900px] mx-auto h-[80vh] flex flex-col"><h2 class="text-3xl font-black mb-6 italic text-blue-400">DEVOPS_AI</h2><div class="flex-grow glass p-6 mb-4 overflow-y-auto space-y-4" id="chatBox"><div class="p-3 bg-blue-500/10 rounded-xl text-xs border border-blue-500/20">Ask Mariya, I'm here!</div></div><div class="flex gap-2 bg-slate-900 p-2 rounded-2xl border border-white/10"><input type="text" id="aiInput" placeholder="How to use chmod?" class="flex-grow bg-transparent px-4 text-sm outline-none" onkeypress="if(event.key==='Enter') askAI()"><button onclick="askAI()" class="bg-blue-600 px-6 py-2 rounded-xl font-bold">ASK</button></div></div>
+        <div id="vault" class="screen max-w-[1400px] mx-auto"><h2 class="text-3xl font-black mb-10 italic">COMMAND_VAULT</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="vaultGrid"></div></div>
+        <div id="library" class="screen max-w-[1400px] mx-auto"><h2 class="text-3xl font-black mb-10 italic">PDF_LIBRARY</h2><div class="grid grid-cols-1 md:grid-cols-4 gap-6" id="libraryGrid"></div></div>
+        <div id="projects" class="screen max-w-[1400px] mx-auto"><h2 class="text-3xl font-black mb-10 italic">PROJECTS</h2><div id="projectGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div></div>
 
     </main>
 
     <script>
-        // --- 1. THE NAVIGATION FIX ---
+        // --- Core Navigation ---
         function switchTab(id, el) {
-            // Hide ALL screens first - Forceful
-            const allScreens = document.querySelectorAll('.screen');
-            allScreens.forEach(s => {
-                s.style.display = 'none';
-                s.classList.remove('active');
-            });
-
-            // Show only the target screen
-            const targetScreen = document.getElementById(id);
-            if (targetScreen) {
-                targetScreen.style.display = 'block';
-                // Small timeout to allow 'block' to register before adding 'active' for animation
-                setTimeout(() => {
-                    targetScreen.classList.add('active');
-                }, 10);
-            }
-
-            // Update Sidebar colors
-            document.querySelectorAll('.nav-item').forEach(n => {
-                n.classList.remove('active', 'text-slate-300');
-                n.classList.add('text-slate-400');
-            });
+            document.querySelectorAll('.screen').forEach(s => { s.style.display = 'none'; s.classList.remove('active'); });
+            const target = document.getElementById(id);
+            target.style.display = 'block';
+            setTimeout(() => target.classList.add('active'), 10);
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active', 'text-slate-300'));
             el.classList.add('active', 'text-slate-300');
-            el.classList.remove('text-slate-400');
-            
             refreshUI();
         }
 
-        // --- 2. AI LOGIC ---
-        const brain = {
-            "what is linux": "Linux is a free, open-source kernel that powers most of the world's servers and DevOps tools.",
-            "git commit": "To save changes in Git, use: <br><code class='cmd-snippet'>git commit -m 'message'</code>",
-            "docker delete": "To delete all containers: <br><code class='cmd-snippet'>docker rm -f $(docker ps -aq)</code>",
-            "hi": "Hi Mariya! Ready to learn some DevOps today?",
-            "hello": "Hello! How can I help with your projects?",
-            "docker ps": "Shows running containers. Use <code class='cmd-snippet'>docker ps -a</code> to see all."
-        };
+        // --- Checklist Logic ---
+        let skillProgress = 0;
+        function toggleSkill(el, value) {
+            if(el.classList.contains('done')) {
+                el.classList.remove('done');
+                el.querySelector('span').innerText = '⬜';
+                skillProgress -= value;
+            } else {
+                el.classList.add('done');
+                el.querySelector('span').innerText = '✅';
+                skillProgress += value;
+            }
+            refreshUI();
+        }
 
+        // --- Core UI & Data ---
+        function refreshUI() {
+            const v = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]').length;
+            const l = JSON.parse(localStorage.getItem('mariya_library_v12') || '[]').length;
+            const p = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]').length;
+            const pr = JSON.parse(localStorage.getItem('mariya_practice_v11') || '[]').length;
+
+            document.getElementById('statVault').innerText = v;
+            document.getElementById('statLibrary').innerText = l;
+            document.getElementById('statProjects').innerText = p;
+            document.getElementById('statPractice').innerText = pr;
+            document.getElementById('statCheck').innerText = document.querySelectorAll('.check-item.done').length;
+
+            // Mastery Score: (Skill Checklist + Vault + Practice)
+            const totalProgress = Math.min(skillProgress + (v * 1) + (pr * 3) + (l * 5), 100);
+            document.getElementById('mainProgressBar').style.width = totalProgress + '%';
+            document.getElementById('progressText').innerText = totalProgress + '%';
+
+            renderLibrary(l); renderVault(v); renderProjects(p);
+        }
+
+        // Library & Vault Renders (Simplified for v16.0 Action)
+        function renderVault(data) { document.getElementById('vaultGrid').innerHTML = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]').map(v => `<div class="glass p-4 border-t-2 border-blue-500/20"><p class="text-[10px] font-bold text-slate-500 uppercase">${v.cat}: ${v.title}</p><div class="cmd-snippet">$ ${v.cmd}</div></div>`).join(''); }
+        function renderLibrary() { document.getElementById('libraryGrid').innerHTML = JSON.parse(localStorage.getItem('mariya_library_v12') || '[]').map(b => `<div class="glass p-5 text-center"><h4 class="text-[10px] font-bold mb-4">${b.title}</h4><a href="${b.link}" target="_blank" class="block bg-blue-600/20 text-blue-400 py-1.5 rounded text-[10px] font-bold">READ PDF</a></div>`).join(''); }
+        function renderProjects() { document.getElementById('projectGrid').innerHTML = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]').map(x => `<div class="glass p-6 border-l-4 border-blue-500"><h4 class="font-bold text-sm">${x.name}</h4><p class="text-[9px] text-slate-500 mt-2 uppercase font-black">${x.status}</p></div>`).join(''); }
+
+        // --- AI Logic ---
         function askAI() {
             const input = document.getElementById('aiInput');
             const box = document.getElementById('chatBox');
             if(!input.value.trim()) return;
-
-            box.innerHTML += `<div class="chat-bubble user-msg">${input.value}</div>`;
+            box.innerHTML += `<div class="p-3 bg-white/5 rounded-xl text-xs self-end ml-10 border border-white/10">${input.value}</div>`;
             const q = input.value.toLowerCase();
-            let res = "I'm still learning that. Try asking about Docker, Linux, or Git!";
-            
-            for(let key in brain) {
-                if(q.includes(key)) { res = brain[key]; break; }
-            }
-
-            setTimeout(() => {
-                box.innerHTML += `<div class="chat-bubble ai-msg">${res}</div>`;
-                box.scrollTop = box.scrollHeight;
-            }, 500);
+            let res = "Ask about Linux, Docker or Git commands!";
+            if(q.includes('chmod')) res = "Chmod changes file permissions. Use <code class='cmd-snippet'>chmod 400 key.pem</code> for security.";
+            if(q.includes('docker')) res = "Docker runs containers. Use <code class='cmd-snippet'>docker build -t image .</code> to create an image.";
+            setTimeout(() => { box.innerHTML += `<div class="p-3 bg-blue-500/10 rounded-xl text-xs self-start mr-10 border border-blue-500/20">${res}</div>`; box.scrollTop = box.scrollHeight; }, 400);
             input.value = '';
         }
 
-        // --- 3. DATA REFRESH ---
-        function refreshUI() {
-            const vault = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]');
-            const library = JSON.parse(localStorage.getItem('mariya_library_v12') || '[]');
-            const projects = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]');
-            const practice = JSON.parse(localStorage.getItem('mariya_practice_v11') || '[]');
-
-            document.getElementById('statVault').innerText = vault.length;
-            document.getElementById('statLibrary').innerText = library.length;
-            document.getElementById('statProjects').innerText = projects.length;
-            document.getElementById('statPractice').innerText = practice.length;
-
-            const progress = Math.min((vault.length * 2) + (practice.length * 5) + (library.length * 10), 100);
-            document.getElementById('mainProgressBar').style.width = progress + '%';
-            document.getElementById('progressText').innerText = progress + '%';
-
-            renderVault(vault);
-            renderLibrary(library);
-            renderProjects(projects);
-            renderPractice(practice);
-        }
-
-        function saveVaultCmd() {
-            const t = document.getElementById('vTitle').value;
-            const c = document.getElementById('vCmd').value;
-            const cat = document.getElementById('vCat').value;
-            if(!t || !c) return;
-            let v = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]');
-            v.unshift({id: Date.now(), title: t, cmd: c, cat});
-            localStorage.setItem('mariya_vault_v11', JSON.stringify(v));
-            document.getElementById('vTitle').value=''; document.getElementById('vCmd').value='';
-            refreshUI();
-        }
-
-        function renderVault(data) {
-            document.getElementById('vaultGrid').innerHTML = data.map(v => `
-                <div class="glass p-5 border-t-2 border-blue-500/30">
-                    <p class="text-[10px] uppercase font-bold text-slate-500 mb-2">${v.cat}: ${v.title}</p>
-                    <div class="cmd-snippet" onclick="navigator.clipboard.writeText('${v.cmd}'); alert('Copied!')">$ ${v.cmd}</div>
-                </div>
-            `).join('');
-        }
-
-        function renderLibrary(data) {
-            document.getElementById('libraryGrid').innerHTML = data.map(b => `
-                <div class="glass p-6 text-center">
-                    <h4 class="text-[11px] font-bold mb-4 h-10 overflow-hidden">${b.title}</h4>
-                    <a href="${b.link}" target="_blank" class="block bg-blue-600/20 text-blue-400 py-2 rounded text-[10px] font-bold">READ PDF</a>
-                </div>
-            `).join('');
-        }
-
-        function addProject() {
-            const n = prompt("Project Name?");
-            if(!n) return;
-            let p = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]');
-            p.unshift({id: Date.now(), name: n, status: 'Active'});
-            localStorage.setItem('mariya_projects_v11', JSON.stringify(p));
-            refreshUI();
-        }
-
-        function renderProjects(data) {
-            document.getElementById('projectGrid').innerHTML = data.map(x => `
-                <div class="glass p-6 border-l-4 border-blue-500">
-                    <h4 class="font-bold">${x.name}</h4><p class="text-[10px] text-slate-500 mt-2 uppercase font-black">${x.status}</p>
-                </div>
-            `).join('');
-        }
-
-        function renderPractice(data) {
-            document.getElementById('practiceLog').innerHTML = data.map(d => `<div class="p-3 bg-slate-900 rounded text-[10px] text-green-500 font-bold">✅ Completed on ${d}</div>`).join('');
-        }
-
-        function completePractice() {
-            let log = JSON.parse(localStorage.getItem('mariya_practice_v11') || '[]');
-            const d = new Date().toLocaleDateString();
-            if(log.includes(d)) return alert("Already verified today!");
-            log.unshift(d);
-            localStorage.setItem('mariya_practice_v11', JSON.stringify(log));
-            refreshUI();
-        }
-
-        // --- 4. TIMER LOGIC ---
-        let timerSeconds = 1500;
-        let timerRunning = false;
-        let timerInterval;
-
+        // --- Focus Timer ---
+        let timerSeconds = 1500; let timerInterval;
         function toggleTimer() {
-            if(timerRunning) { clearInterval(timerInterval); document.getElementById('timerBtn').innerText = 'START FOCUS'; }
-            else {
-                timerInterval = setInterval(() => {
-                    timerSeconds--;
-                    let mins = Math.floor(timerSeconds / 60);
-                    let secs = timerSeconds % 60;
-                    document.getElementById('timerDisplay').innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-                    if(timerSeconds <= 0) { clearInterval(timerInterval); alert("Focus session complete!"); }
-                }, 1000);
-                document.getElementById('timerBtn').innerText = 'STOP FOCUS';
-            }
-            timerRunning = !timerRunning;
+            if(timerInterval) { clearInterval(timerInterval); timerInterval = null; document.getElementById('timerBtn').innerText = 'START'; }
+            else { timerInterval = setInterval(() => { timerSeconds--; let mins = Math.floor(timerSeconds/60); let secs = timerSeconds%60; document.getElementById('timerDisplay').innerText = `${mins}:${secs<10?'0':''}${secs}`; if(timerSeconds<=0){ clearInterval(timerInterval); alert("Session over!"); } }, 1000); document.getElementById('timerBtn').innerText = 'STOP'; }
         }
 
-        window.onload = () => {
-            if (!localStorage.getItem('mariya_library_v12')) {
-                const b = [
-                    { id: 1, cat: 'linux', title: 'The Linux Command Line', link: 'https://www.kea.nu/files/textbooks/humblesec/thelinuxcommandline.pdf' },
-                    { id: 2, cat: 'docker', title: 'KodeKloud Docker Notes', link: 'https://kodekloud.com/wp-content/uploads/2021/10/Docker-for-Beginners-Mumshad-Mannambeth.pdf' },
-                    { id: 3, cat: 'git', title: 'How to Git Guide', link: 'https://groundwater.usu.edu/assets/pdf/How_to_Git.pdf' }
-                ];
-                localStorage.setItem('mariya_library_v12', JSON.stringify(b));
-            }
-            refreshUI();
-            // Start at Dashboard screen
-            switchTab('dashboard', document.querySelector('.nav-item'));
-        };
+        window.onload = () => { refreshUI(); switchTab('dashboard', document.querySelector('.nav-item')); };
     </script>
 </body>
 </html>
