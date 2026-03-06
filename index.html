@@ -3,355 +3,466 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Pro Lab | Mariya</title>
+    <title>DevOps OS | Mariya</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: #f8fafc; overflow-x: hidden; }
-        .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; transition: 0.3s; }
-        .glass:hover { border-color: rgba(59, 130, 246, 0.4); }
+        :root { --bg: #020617; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #f8fafc; overflow: hidden; }
         
-        /* Sidebar Active State */
-        .nav-item { transition: all 0.3s; cursor: pointer; }
-        .nav-item.active { background: rgba(59, 130, 246, 0.1); border-right: 4px solid #3b82f6; color: #60a5fa; }
+        /* Premium Glassmorphism */
+        .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; transition: all 0.3s ease; }
+        .glass:hover { border-color: rgba(59, 130, 246, 0.3); }
+
+        /* Multi-Screen SPA Logic */
+        .screen { display: none; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .screen.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Sidebar Navigation */
+        .nav-item { transition: all 0.3s; cursor: pointer; border-left: 3px solid transparent; }
+        .nav-item.active { background: linear-gradient(90deg, rgba(59, 130, 246, 0.15), transparent); border-left: 3px solid #3b82f6; color: #60a5fa; }
         .nav-item:hover:not(.active) { background: rgba(255, 255, 255, 0.05); }
 
-        /* Dynamic Theme Colors for Notes */
-        .card-linux { border-top: 4px solid #22c55e; background: linear-gradient(to bottom, rgba(34,197,94,0.05), transparent); }
-        .card-git { border-top: 4px solid #f97316; background: linear-gradient(to bottom, rgba(249,115,22,0.05), transparent); }
-        .card-docker { border-top: 4px solid #0ea5e9; background: linear-gradient(to bottom, rgba(14,165,233,0.05), transparent); }
-        .card-aws { border-top: 4px solid #ff9900; background: linear-gradient(to bottom, rgba(255,153,0,0.05), transparent); }
+        /* Dynamic Command Vault Themes */
+        .theme-linux { border-top: 4px solid #10b981; box-shadow: 0 10px 30px rgba(16,185,129,0.05); }
+        .theme-git { border-top: 4px solid #f97316; box-shadow: 0 10px 30px rgba(249,115,22,0.05); }
+        .theme-docker { border-top: 4px solid #38bdf8; box-shadow: 0 10px 30px rgba(56,189,248,0.05); }
+        .theme-k8s { border-top: 4px solid #8b5cf6; box-shadow: 0 10px 30px rgba(139,92,246,0.05); }
+        .theme-aws { border-top: 4px solid #fbbf24; box-shadow: 0 10px 30px rgba(251,191,36,0.05); }
+        .theme-cicd { border-top: 4px solid #ec4899; box-shadow: 0 10px 30px rgba(236,72,153,0.05); }
 
-        .roadmap-node { cursor: pointer; transition: 0.3s; }
-        .roadmap-node:hover { transform: translateY(-5px) scale(1.05); filter: brightness(1.2); }
+        /* Custom Progress Bar */
+        .progress-bar-bg { background: #1e293b; height: 8px; border-radius: 10px; overflow: hidden; width: 100%; }
+        .progress-fill { background: linear-gradient(90deg, #3b82f6, #8b5cf6); height: 100%; transition: width 1s ease-in-out; }
         
-        /* Hide screens */
-        .screen { display: none; animation: fadeIn 0.4s ease-in-out; }
-        .screen.active { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Command Snippet Style */
+        .cmd-snippet { font-family: 'Courier New', monospace; background: #000; color: #4ade80; padding: 10px; border-radius: 8px; border: 1px solid #1f2937; }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden">
+<body class="flex h-screen">
 
-    <aside class="w-64 bg-[#090e1a] border-r border-slate-800 flex flex-col hidden md:flex h-full">
+    <aside class="w-64 bg-[#050b14] border-r border-slate-800 flex flex-col h-full z-10 flex-shrink-0 hidden md:flex">
         <div class="p-8">
-            <h1 class="text-2xl font-black italic tracking-tighter text-blue-500">DEVOPS.CORE</h1>
-            <p class="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em]">Mariya's Platform</p>
+            <h1 class="text-2xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">DEVOPS.OS</h1>
+            <p class="text-[9px] font-bold text-slate-500 uppercase tracking-[0.3em] mt-1">Mariya's Platform</p>
         </div>
-        <nav class="flex-grow flex flex-col gap-2 px-4">
-            <div class="nav-item active p-4 rounded-xl font-bold text-sm flex items-center gap-3" onclick="switchScreen('dashboard', this)">
-                <span>🏠</span> Dashboard
+        
+        <nav class="flex-grow flex flex-col gap-2 px-4 mt-4">
+            <div class="nav-item active p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-300" onclick="switchTab('dashboard', this)">
+                <span class="text-lg">📊</span> Progress & Dash
             </div>
-            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchScreen('notes', this)">
-                <span>📝</span> My Notes Archive
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('vault', this)">
+                <span class="text-lg">🔐</span> Command Vault
             </div>
-            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchScreen('terminal', this)">
-                <span>💻</span> Terminal Lab
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('projects', this)">
+                <span class="text-lg">🚀</span> Project Tracker
+            </div>
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('practice', this)">
+                <span class="text-lg">⚔️</span> Daily Practice
             </div>
         </nav>
-        <div class="p-6 border-t border-slate-800 flex items-center gap-4 cursor-pointer hover:bg-white/5 transition">
-            <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-xl">👩‍🚀</div>
+
+        <div class="p-6 border-t border-slate-800 flex items-center gap-4 bg-slate-900/30">
+            <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-xl shadow-[0_0_15px_rgba(37,99,235,0.5)]">👩‍🚀</div>
             <div>
                 <p class="text-xs font-bold text-white">Mariya</p>
-                <p class="text-[10px] text-green-500">Online</p>
+                <p class="text-[10px] text-emerald-400 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Online</p>
             </div>
         </div>
     </aside>
 
-    <main class="flex-grow h-full overflow-y-auto p-6 md:p-10 relative">
+    <main class="flex-grow h-full overflow-y-auto relative bg-[#020617]">
         
-        <div id="dashboard" class="screen active max-w-[1200px] mx-auto">
-            <header class="mb-12 flex justify-between items-end">
-                <div>
-                    <h2 class="text-3xl font-bold mb-2">Welcome back, Mariya.</h2>
-                    <p class="text-sm text-slate-400">Your DevOps infrastructure is running smoothly.</p>
-                </div>
-                <button onclick="switchScreen('notes', document.querySelectorAll('.nav-item')[1])" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-full font-bold text-xs tracking-widest transition shadow-lg shadow-blue-500/20">+ QUICK NOTE</button>
+        <div id="dashboard" class="screen active p-6 md:p-12 max-w-[1400px] mx-auto">
+            <header class="mb-12">
+                <h2 class="text-4xl font-black mb-2">System Overview</h2>
+                <p class="text-slate-400">Welcome back. Here is your DevOps learning telemetry.</p>
             </header>
 
-            <section class="glass p-10 mb-10">
-                <h3 class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.5em] mb-10 text-center">Interactive Master Roadmap</h3>
-                <p class="text-xs text-center text-blue-400 mb-8 italic">Click on any module to open its dedicated learning page 👇</p>
+            <div class="glass p-8 mb-12 border-l-4 border-blue-500 relative overflow-hidden">
+                <div class="absolute -right-10 -top-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"></div>
+                <h3 class="text-lg font-bold mb-6 flex items-center gap-2">📈 Learning Progress Tracker</h3>
+                <div class="flex items-center gap-6 mb-2">
+                    <div class="progress-bar-bg flex-grow"><div id="mainProgressBar" class="progress-fill" style="width: 0%"></div></div>
+                    <span id="progressText" class="text-2xl font-black text-blue-400">0%</span>
+                </div>
+                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-2">Based on Vault Entries & Completed Practices</p>
                 
-                <div class="flex flex-wrap justify-center gap-10 relative">
-                    <div class="absolute h-px bg-slate-800 w-[80%] top-1/2 -z-10"></div>
+                <div class="grid grid-cols-3 gap-6 mt-8">
+                    <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Commands Vaulted</p>
+                        <p class="text-2xl font-black text-white" id="statVault">0</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Active Projects</p>
+                        <p class="text-2xl font-black text-white" id="statProjects">0</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Practices Done</p>
+                        <p class="text-2xl font-black text-white" id="statPractice">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.5em] mb-6 text-center">Your Engineering Arsenal</h3>
+            <div class="flex flex-wrap justify-center gap-6">
+                <div class="glass p-4 rounded-2xl flex flex-col items-center gap-2 cursor-pointer hover:-translate-y-2 transition border-green-500/20 w-24" onclick="switchTab('vault', document.querySelectorAll('.nav-item')[1]); filterVault('linux')">
+                    <span class="text-3xl">🐧</span><span class="text-[10px] font-bold text-green-500">LINUX</span>
+                </div>
+                <div class="glass p-4 rounded-2xl flex flex-col items-center gap-2 cursor-pointer hover:-translate-y-2 transition border-orange-500/20 w-24" onclick="switchTab('vault', document.querySelectorAll('.nav-item')[1]); filterVault('git')">
+                    <span class="text-3xl">🎋</span><span class="text-[10px] font-bold text-orange-400">GIT</span>
+                </div>
+                <div class="glass p-4 rounded-2xl flex flex-col items-center gap-2 cursor-pointer hover:-translate-y-2 transition border-blue-500/20 w-24" onclick="switchTab('vault', document.querySelectorAll('.nav-item')[1]); filterVault('docker')">
+                    <span class="text-3xl">🐋</span><span class="text-[10px] font-bold text-blue-400">DOCKER</span>
+                </div>
+                <div class="glass p-4 rounded-2xl flex flex-col items-center gap-2 cursor-pointer hover:-translate-y-2 transition border-purple-500/20 w-24" onclick="switchTab('vault', document.querySelectorAll('.nav-item')[1]); filterVault('k8s')">
+                    <span class="text-3xl">☸️</span><span class="text-[10px] font-bold text-purple-400">K8S</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="vault" class="screen p-6 md:p-12 max-w-[1400px] mx-auto">
+            <div class="flex flex-col lg:flex-row justify-between items-start gap-8 mb-10">
+                <div>
+                    <h2 class="text-4xl font-black mb-2 italic">COMMAND_VAULT</h2>
+                    <p class="text-slate-400">The secret weapon. Store and copy exact terminal commands.</p>
+                </div>
+                <div class="w-full lg:w-96">
+                    <input type="text" id="vaultSearch" onkeyup="searchVault()" placeholder="Search commands or concepts..." class="w-full bg-slate-900 border border-slate-700 rounded-full px-6 py-3 text-sm focus:border-blue-500 outline-none">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                <div class="lg:col-span-4">
+                    <div class="glass p-8 sticky top-6">
+                        <h3 class="text-lg font-bold mb-6 flex items-center gap-2">➕ Inject Command</h3>
+                        <div class="space-y-4">
+                            <select id="vCat" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm outline-none text-white focus:border-blue-500">
+                                <option value="linux">🐧 Linux OS</option>
+                                <option value="git">🎋 Git Hub/Lab</option>
+                                <option value="docker">🐋 Docker</option>
+                                <option value="k8s">☸️ Kubernetes</option>
+                                <option value="aws">☁️ AWS Cloud</option>
+                                <option value="cicd">🔄 CI/CD</option>
+                            </select>
+                            <input type="text" id="vTitle" placeholder="What does this do? (e.g., Check memory)" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm outline-none focus:border-blue-500">
+                            <textarea id="vCmd" rows="3" placeholder="Actual Command (e.g., free -m)" class="w-full bg-black border border-slate-800 rounded-xl p-3 text-sm outline-none text-green-400 font-mono focus:border-green-500"></textarea>
+                            <button onclick="saveVaultCmd()" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold text-xs tracking-widest transition shadow-lg shadow-blue-500/20 active:scale-95">SAVE TO VAULT</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8">
+                    <div class="flex gap-2 mb-6 overflow-x-auto pb-2 no-scrollbar">
+                        <button onclick="filterVault('all')" class="bg-slate-800 hover:bg-slate-700 px-4 py-1.5 rounded-full text-xs font-bold transition">All</button>
+                        <button onclick="filterVault('linux')" class="bg-green-900/30 text-green-400 border border-green-500/30 px-4 py-1.5 rounded-full text-xs font-bold">Linux</button>
+                        <button onclick="filterVault('docker')" class="bg-blue-900/30 text-blue-400 border border-blue-500/30 px-4 py-1.5 rounded-full text-xs font-bold">Docker</button>
+                        <button onclick="filterVault('git')" class="bg-orange-900/30 text-orange-400 border border-orange-500/30 px-4 py-1.5 rounded-full text-xs font-bold">Git</button>
+                    </div>
                     
-                    <div class="roadmap-node flex flex-col items-center gap-3" onclick="openModule('linux')">
-                        <div class="w-20 h-20 glass rounded-full flex items-center justify-center border-green-500 text-4xl shadow-[0_0_20px_rgba(34,197,94,0.2)]">🐧</div>
-                        <span class="text-xs font-bold text-green-500">LINUX</span>
-                    </div>
-                    
-                    <div class="roadmap-node flex flex-col items-center gap-3" onclick="openModule('git')">
-                        <div class="w-20 h-20 glass rounded-full flex items-center justify-center border-orange-500 text-4xl shadow-[0_0_20px_rgba(249,115,22,0.2)]">🎋</div>
-                        <span class="text-xs font-bold text-orange-400">GIT</span>
-                    </div>
-
-                    <div class="roadmap-node flex flex-col items-center gap-3" onclick="openModule('docker')">
-                        <div class="w-20 h-20 glass rounded-full flex items-center justify-center border-blue-400 text-4xl shadow-[0_0_20px_rgba(56,189,248,0.2)]">🐋</div>
-                        <span class="text-xs font-bold text-blue-400">DOCKER</span>
-                    </div>
-
-                    <div class="roadmap-node flex flex-col items-center gap-3 opacity-60 hover:opacity-100" onclick="openModule('aws')">
-                        <div class="w-20 h-20 glass rounded-full flex items-center justify-center border-yellow-500 text-4xl">☁️</div>
-                        <span class="text-xs font-bold text-yellow-400">AWS</span>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <div id="modulePage" class="screen max-w-[1000px] mx-auto">
-            <button onclick="switchScreen('dashboard', document.querySelectorAll('.nav-item')[0])" class="text-xs font-bold text-slate-400 hover:text-white mb-8 flex items-center gap-2">
-                ← BACK TO DASHBOARD
-            </button>
-            
-            <div class="glass p-10 flex items-center gap-8 mb-10" id="moduleHeader">
-                </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="glass p-8" id="moduleCheatSheet">
-                    </div>
-                <div class="glass p-8 border-t-4 border-blue-500">
-                    <h4 class="font-bold mb-4">Add specific note for this module:</h4>
-                    <input type="hidden" id="quickNoteCat">
-                    <input type="text" id="quickNoteTitle" placeholder="Topic..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm mb-4 outline-none text-white">
-                    <textarea id="quickNoteBody" rows="4" placeholder="Your learnings..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm mb-4 outline-none text-white"></textarea>
-                    <button onclick="saveQuickNote()" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold text-sm transition">SAVE NOTE</button>
+                    <div id="vaultGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        </div>
                 </div>
             </div>
         </div>
 
-        <div id="notes" class="screen max-w-[1200px] mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
-                <h2 class="text-3xl font-black italic">DATA_ARCHIVE</h2>
-                <input type="text" id="searchNotes" onkeyup="filterNotes()" placeholder="Search notes..." class="bg-slate-900 border border-slate-800 rounded-full px-6 py-3 text-sm outline-none focus:border-blue-500 w-72">
-            </div>
-            
-            <div class="glass p-8 mb-10 flex flex-col md:flex-row gap-4 items-start border-l-4 border-blue-500">
-                <select id="mainNoteCat" class="bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm outline-none w-full md:w-1/4">
-                    <option value="linux">🐧 Linux</option>
-                    <option value="git">🎋 Git</option>
-                    <option value="docker">🐋 Docker</option>
-                    <option value="aws">☁️ AWS</option>
-                    <option value="other">✨ Extra</option>
-                </select>
-                <input type="text" id="mainNoteTitle" placeholder="Title" class="bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm outline-none w-full md:w-1/4">
-                <input type="text" id="mainNoteBody" placeholder="Note content..." class="bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm outline-none w-full md:w-2/4">
-                <button onclick="saveMainNote()" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl font-bold transition whitespace-nowrap">ADD NOTE</button>
-            </div>
-
-            <div id="notesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="projects" class="screen p-6 md:p-12 max-w-[1400px] mx-auto">
+            <header class="mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h2 class="text-4xl font-black mb-2">Project Deployments</h2>
+                    <p class="text-slate-400">Track your live infrastructure and GitHub repos.</p>
                 </div>
+                <button onclick="document.getElementById('newProjectModal').classList.remove('hidden')" class="bg-white text-black px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-200 transition">+ NEW PROJECT</button>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="projectGrid">
+                </div>
+
+            <div id="newProjectModal" class="hidden absolute inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <div class="glass p-8 w-full max-w-md border-t-4 border-white">
+                    <h3 class="text-xl font-bold mb-6">Launch New Project</h3>
+                    <div class="space-y-4">
+                        <input type="text" id="pName" placeholder="Project Name (e.g. justweb)" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm outline-none">
+                        <select id="pStatus" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm outline-none">
+                            <option value="planning">📋 Planning / Coding</option>
+                            <option value="building">⚙️ Building Docker/CI</option>
+                            <option value="live">🟢 Live / Deployed</option>
+                        </select>
+                        <input type="text" id="pLink" placeholder="Live URL or GitHub Link" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm outline-none">
+                        <div class="flex gap-4 pt-4">
+                            <button onclick="saveProject()" class="flex-1 bg-white text-black py-3 rounded-xl font-bold text-sm">SAVE</button>
+                            <button onclick="document.getElementById('newProjectModal').classList.add('hidden')" class="flex-1 bg-slate-800 py-3 rounded-xl font-bold text-sm">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div id="terminal" class="screen max-w-[1000px] mx-auto">
-            <h2 class="text-3xl font-bold mb-8">Terminal Playground</h2>
-            <div class="glass p-6 bg-black/80 border border-slate-800 rounded-2xl h-[450px] font-mono text-sm overflow-hidden flex flex-col shadow-2xl shadow-blue-500/10 cursor-text" id="terminalArea">
-                <div class="flex gap-2 mb-4 pb-4 border-b border-slate-800">
-                    <span class="w-3 h-3 bg-red-500 rounded-full"></span>
-                    <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
-                    <span class="w-3 h-3 bg-green-500 rounded-full"></span>
-                    <span class="ml-auto text-xs text-slate-500 font-sans">root@mariya-server:~</span>
-                </div>
-                <div class="flex-grow overflow-y-auto space-y-2 text-slate-300" id="terminalLog">
-                    <p class="text-green-400">Welcome to Ubuntu 22.04 LTS (GNU/Linux 5.15.0-101-generic x86_64)</p>
-                    <p class="text-slate-500">System is up to date.</p><br>
-                    <p>root@mariya-server:~$ <span id="currentInput" class="text-white"></span><span class="animate-pulse">_</span></p>
-                </div>
-                <input type="text" id="terminalInput" class="absolute -top-[100px] opacity-0">
+        <div id="practice" class="screen p-6 md:p-12 max-w-[1000px] mx-auto">
+            <header class="mb-12 text-center">
+                <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-6 shadow-[0_0_30px_rgba(239,68,68,0.4)] animate-bounce">⚔️</div>
+                <h2 class="text-4xl font-black mb-2">The Training Ground</h2>
+                <p class="text-slate-400">Complete daily scenarios to boost your Progress Tracker.</p>
+            </header>
+
+            <div class="glass p-8 border-t-4 border-orange-500 mb-8 relative overflow-hidden">
+                <div class="absolute right-0 top-0 text-9xl opacity-5">🎯</div>
+                <h3 class="text-[10px] font-bold text-orange-400 uppercase tracking-widest mb-4">Today's Scenario</h3>
+                <p id="dailyScenario" class="text-xl font-bold text-white mb-6 leading-relaxed">Loading training data...</p>
+                <button onclick="completePractice()" class="bg-orange-600 hover:bg-orange-700 px-8 py-3 rounded-full font-bold text-sm transition shadow-lg shadow-orange-500/20">MARK SCENARIO COMPLETE</button>
             </div>
+
+            <h3 class="text-sm font-bold text-slate-400 mb-4">Past Training Log</h3>
+            <div id="practiceLog" class="space-y-3">
+                </div>
         </div>
 
     </main>
 
     <script>
-        // Data for Module Pages
-        const moduleData = {
-            linux: {
-                title: "Linux Masterclass", icon: "🐧", color: "text-green-500", border: "border-green-500",
-                desc: "The foundation of all DevOps operations. Manage servers, file permissions, and scripts.",
-                cheatsheet: `
-                    <h4 class='font-bold mb-4 text-green-400'>Essential Commands</h4>
-                    <ul class='space-y-3 text-sm text-slate-300'>
-                        <li><code class='bg-slate-900 px-2 py-1 rounded text-green-300'>ls -lah</code> : View hidden files and permissions</li>
-                        <li><code class='bg-slate-900 px-2 py-1 rounded text-green-300'>chmod 400 key.pem</code> : Secure a file (Read only)</li>
-                        <li><code class='bg-slate-900 px-2 py-1 rounded text-green-300'>grep "error" file.log</code> : Search inside logs</li>
-                    </ul>`
-            },
-            docker: {
-                title: "Docker Containerization", icon: "🐋", color: "text-blue-400", border: "border-blue-400",
-                desc: "Package your applications (like justweb) into standard boxes that run anywhere.",
-                cheatsheet: `
-                    <h4 class='font-bold mb-4 text-blue-400'>Dockerfile Basics</h4>
-                    <ul class='space-y-3 text-sm text-slate-300'>
-                        <li><code class='bg-slate-900 px-2 py-1 rounded text-blue-300'>docker build -t app .</code> : Build an image</li>
-                        <li><code class='bg-slate-900 px-2 py-1 rounded text-blue-300'>docker run -p 80:80 app</code> : Run your container</li>
-                        <li><code class='bg-slate-900 px-2 py-1 rounded text-blue-300'>docker ps</code> : Check running containers</li>
-                    </ul>`
-            },
-            git: {
-                title: "Git Version Control", icon: "🎋", color: "text-orange-400", border: "border-orange-500",
-                desc: "Track changes, collaborate with teams, and manage your GitHub repositories.",
-                cheatsheet: `
-                    <h4 class='font-bold mb-4 text-orange-400'>Daily Workflow</h4>
-                    <ul class='space-y-3 text-sm text-slate-300'>
-                        <li><code class='bg-slate-900 px-2 py-1 rounded text-orange-300'>git add .</code> : Stage changes</li>
-                        <li><code class='bg-slate-900 px-2 py-1 rounded text-orange-300'>git commit -m "update"</code> : Save snapshot</li>
-                        <li><code class='bg-slate-900 px-2 py-1 rounded text-orange-300'>git push origin main</code> : Upload to GitHub</li>
-                    </ul>`
-            },
-            aws: {
-                title: "AWS Cloud Infrastructure", icon: "☁️", color: "text-yellow-400", border: "border-yellow-500",
-                desc: "Deploy your Docker containers and Linux servers to the real internet.",
-                cheatsheet: `
-                    <h4 class='font-bold mb-4 text-yellow-400'>Core Services</h4>
-                    <ul class='space-y-3 text-sm text-slate-300'>
-                        <li><strong>EC2:</strong> Virtual Linux Servers</li>
-                        <li><strong>S3:</strong> Storage for static files/backups</li>
-                        <li><strong>IAM:</strong> User permissions and security</li>
-                    </ul>`
-            }
-        };
-
-        // Screen Switching Logic
-        function switchScreen(screenId, navElement) {
+        // --- 1. SPA Navigation Logic ---
+        function switchTab(screenId, navElement) {
             // Hide all screens
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            // Show target screen
+            // Remove active from all navs
+            document.querySelectorAll('.nav-item').forEach(n => {
+                n.classList.remove('active');
+                n.classList.remove('text-slate-300');
+                n.classList.add('text-slate-400');
+            });
+            
+            // Show target
             document.getElementById(screenId).classList.add('active');
+            navElement.classList.add('active');
+            navElement.classList.add('text-slate-300');
+            navElement.classList.remove('text-slate-400');
+
+            updateDashboardStats();
+        }
+
+        // --- 2. COMMAND VAULT LOGIC ---
+        const vaultIcons = { linux: '🐧', git: '🎋', docker: '🐋', k8s: '☸️', aws: '☁️', cicd: '🔄' };
+
+        function saveVaultCmd() {
+            const cat = document.getElementById('vCat').value;
+            const title = document.getElementById('vTitle').value.trim();
+            const cmd = document.getElementById('vCmd').value.trim();
+
+            if(!title || !cmd) return alert("Title aur Command dono likhna zaroori hai!");
+
+            const entry = { id: Date.now(), cat, title, cmd, date: new Date().toLocaleDateString() };
+            let vault = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]');
+            vault.unshift(entry);
+            localStorage.setItem('mariya_vault_v11', JSON.stringify(vault));
+
+            document.getElementById('vTitle').value = ''; document.getElementById('vCmd').value = '';
+            renderVault('all');
+            updateDashboardStats();
+            alert("Command successfully vaulted! 🔐");
+        }
+
+        function renderVault(filterCat = 'all') {
+            const grid = document.getElementById('vaultGrid');
+            let vault = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]');
             
-            // Update Sidebar colors if triggered from sidebar
-            if(navElement && navElement.classList.contains('nav-item')) {
-                document.querySelectorAll('.nav-item').forEach(n => {
-                    n.classList.remove('active');
-                    n.classList.add('text-slate-400');
-                });
-                navElement.classList.add('active');
-                navElement.classList.remove('text-slate-400');
-            }
-            if(screenId === 'notes') renderNotes();
-        }
+            if(filterCat !== 'all') vault = vault.filter(v => v.cat === filterCat);
 
-        // Module Page Dynamic Loading
-        function openModule(moduleName) {
-            const data = moduleData[moduleName];
-            if(!data) return alert("Module content coming soon!");
-
-            // Inject Header
-            document.getElementById('moduleHeader').innerHTML = `
-                <div class="w-24 h-24 rounded-full border-2 ${data.border} flex items-center justify-center text-5xl bg-slate-900/50">${data.icon}</div>
-                <div>
-                    <h2 class="text-3xl font-black ${data.color} mb-2">${data.title}</h2>
-                    <p class="text-slate-400 text-sm max-w-lg">${data.desc}</p>
-                </div>
-            `;
-            // Inject CheatSheet
-            document.getElementById('moduleCheatSheet').innerHTML = data.cheatsheet;
-            // Setup Quick Note
-            document.getElementById('quickNoteCat').value = moduleName;
-            
-            switchScreen('modulePage', null);
-            // Remove active state from sidebar
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        }
-
-        // --- Note System ---
-        function saveMainNote() {
-            processNote(document.getElementById('mainNoteTitle'), document.getElementById('mainNoteCat'), document.getElementById('mainNoteBody'));
-        }
-        function saveQuickNote() {
-            processNote(document.getElementById('quickNoteTitle'), document.getElementById('quickNoteCat'), document.getElementById('quickNoteBody'));
-            alert("Note saved to Archive!");
-            document.getElementById('quickNoteTitle').value = '';
-            document.getElementById('quickNoteBody').value = '';
-        }
-
-        function processNote(titleEl, catEl, bodyEl) {
-            const title = titleEl.value.trim();
-            const type = catEl.value;
-            const body = bodyEl.value.trim();
-            if (!title || !body) return alert("Write something to save!");
-
-            const note = { title, type, body, id: Date.now(), date: new Date().toLocaleDateString() };
-            let notes = JSON.parse(localStorage.getItem('mariya_spa_notes') || '[]');
-            notes.unshift(note);
-            localStorage.setItem('mariya_spa_notes', JSON.stringify(notes));
-
-            titleEl.value = ''; bodyEl.value = '';
-            renderNotes();
-        }
-
-        const noteIcons = { linux: '🐧', git: '🎋', docker: '🐋', aws: '☁️', other: '✨' };
-
-        function renderNotes() {
-            const grid = document.getElementById('notesGrid');
-            const notes = JSON.parse(localStorage.getItem('mariya_spa_notes') || '[]');
             grid.innerHTML = '';
-
-            if (notes.length === 0) {
-                grid.innerHTML = '<p class="col-span-full py-10 text-center text-slate-500 italic">No notes found. Add one!</p>';
+            if(vault.length === 0) {
+                grid.innerHTML = `<p class="col-span-full py-10 text-slate-500 italic">No commands found. Inject some knowledge!</p>`;
                 return;
             }
 
-            notes.forEach(n => {
+            vault.forEach(v => {
                 const div = document.createElement('div');
-                div.className = `glass p-6 card-${n.type} flex flex-col`;
+                div.className = `glass p-6 theme-${v.cat} flex flex-col`;
                 div.innerHTML = `
                     <div class="flex justify-between items-start mb-4">
-                        <span class="text-2xl">${noteIcons[n.type] || '📌'}</span>
-                        <button onclick="deleteNote(${n.id})" class="text-[10px] text-red-500 font-bold uppercase hover:underline">Delete</button>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xl">${vaultIcons[v.cat]}</span>
+                            <h4 class="font-bold text-white">${v.title}</h4>
+                        </div>
+                        <button onclick="deleteVault(${v.id})" class="text-[10px] text-slate-600 hover:text-red-500 font-bold uppercase">Purge</button>
                     </div>
-                    <h4 class="font-bold text-white mb-2">${n.title}</h4>
-                    <p class="text-xs text-slate-400 mb-6 flex-grow whitespace-pre-wrap">${n.body}</p>
-                    <div class="text-[9px] font-bold text-slate-500 uppercase">${n.date}</div>
+                    <div class="cmd-snippet mb-4 flex-grow cursor-pointer" onclick="copyText('${v.cmd.replace(/'/g, "\\'")}')" title="Click to copy">
+                        $ ${v.cmd}
+                    </div>
+                    <div class="flex justify-between items-center text-[9px] font-bold text-slate-500 uppercase">
+                        <span>${v.cat} Unit</span>
+                        <span>${v.date}</span>
+                    </div>
                 `;
                 grid.appendChild(div);
             });
         }
 
-        function deleteNote(id) {
-            let notes = JSON.parse(localStorage.getItem('mariya_spa_notes') || '[]');
-            notes = notes.filter(n => n.id !== id);
-            localStorage.setItem('mariya_spa_notes', JSON.stringify(notes));
-            renderNotes();
+        function deleteVault(id) {
+            if(!confirm("Purge command from vault?")) return;
+            let vault = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]');
+            vault = vault.filter(v => v.id !== id);
+            localStorage.setItem('mariya_vault_v11', JSON.stringify(vault));
+            renderVault('all');
+            updateDashboardStats();
         }
 
-        // --- Terminal Logic ---
-        const termInput = document.getElementById('terminalInput');
-        const currentInp = document.getElementById('currentInput');
-        const termLog = document.getElementById('terminalLog');
+        function filterVault(cat) { renderVault(cat); }
+        function searchVault() {
+            const q = document.getElementById('vaultSearch').value.toLowerCase();
+            document.querySelectorAll('#vaultGrid > div').forEach(card => {
+                card.style.display = card.innerText.toLowerCase().includes(q) ? 'flex' : 'none';
+            });
+        }
+        function copyText(txt) {
+            navigator.clipboard.writeText(txt);
+            alert("Command copied to clipboard! Ready to paste in terminal.");
+        }
 
-        document.getElementById('terminalArea').addEventListener('click', () => termInput.focus());
-        termInput.addEventListener('input', e => currentInp.innerText = e.target.value);
-        
-        termInput.addEventListener('keypress', e => {
-            if(e.key === 'Enter') {
-                const cmd = termInput.value.trim();
-                if(!cmd) return;
-                
-                // Print command
-                const p1 = document.createElement('p');
-                p1.innerHTML = `root@mariya-server:~$ ${cmd}`;
-                termLog.insertBefore(p1, currentInp.closest('p'));
+        // --- 3. PROJECT TRACKER LOGIC ---
+        const statusConfig = {
+            planning: { color: 'text-slate-400', bg: 'bg-slate-800', border: 'border-slate-600', text: 'Planning' },
+            building: { color: 'text-yellow-400', bg: 'bg-yellow-900/30', border: 'border-yellow-500', text: 'Building' },
+            live: { color: 'text-green-400', bg: 'bg-green-900/30', border: 'border-green-500', text: 'Live' }
+        };
 
-                // Print Output
-                const p2 = document.createElement('p');
-                p2.className = "text-yellow-400 pb-2";
-                if(cmd === 'ls') p2.innerText = "justweb_files  docker_images  config.yml";
-                else if(cmd === 'pwd') p2.innerText = "/home/mariya";
-                else if(cmd.includes('docker')) p2.innerText = "Docker is ready to containerize justweb.";
-                else p2.innerText = `bash: ${cmd}: command not found`;
-                
-                if(cmd !== 'clear') termLog.insertBefore(p2, currentInp.closest('p'));
-                else termLog.innerHTML = `<p>root@mariya-server:~$ <span id="currentInput" class="text-white"></span><span class="animate-pulse">_</span></p>`;
-                
-                termInput.value = ''; currentInp.innerText = '';
-                document.getElementById('terminalArea').scrollTop = document.getElementById('terminalArea').scrollHeight;
+        function saveProject() {
+            const name = document.getElementById('pName').value.trim();
+            const status = document.getElementById('pStatus').value;
+            const link = document.getElementById('pLink').value.trim();
+
+            if(!name) return alert("Project name is required!");
+
+            const proj = { id: Date.now(), name, status, link };
+            let projects = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]');
+            projects.unshift(proj);
+            localStorage.setItem('mariya_projects_v11', JSON.stringify(projects));
+
+            document.getElementById('newProjectModal').classList.add('hidden');
+            document.getElementById('pName').value = ''; document.getElementById('pLink').value = '';
+            renderProjects();
+            updateDashboardStats();
+        }
+
+        function renderProjects() {
+            const grid = document.getElementById('projectGrid');
+            const projects = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]');
+            grid.innerHTML = '';
+
+            // Dummy Project Example if empty
+            if(projects.length === 0) {
+                grid.innerHTML = `
+                    <div class="glass p-6 border-l-4 border-green-500">
+                        <h4 class="font-bold text-lg mb-1">justweb</h4>
+                        <span class="text-[10px] bg-green-900/40 text-green-400 px-2 py-1 rounded font-bold">🟢 Live</span>
+                        <p class="text-xs text-slate-400 mt-4">Demo project structure.</p>
+                    </div>`;
+                return;
             }
-        });
 
-        // Init
-        window.onload = () => { renderNotes(); };
+            projects.forEach(p => {
+                const conf = statusConfig[p.status];
+                const div = document.createElement('div');
+                div.className = `glass p-6 border-t-4 ${conf.border} flex flex-col relative group`;
+                div.innerHTML = `
+                    <button onclick="deleteProj(${p.id})" class="absolute top-4 right-4 text-[10px] text-red-500 opacity-0 group-hover:opacity-100 transition">Delete</button>
+                    <h4 class="font-bold text-xl mb-3 text-white">${p.name}</h4>
+                    <div><span class="text-[10px] ${conf.bg} ${conf.color} px-3 py-1 rounded-full font-bold tracking-widest uppercase">${conf.text}</span></div>
+                    <div class="mt-6 pt-4 border-t border-white/5">
+                        ${p.link ? `<a href="${p.link}" target="_blank" class="text-xs font-bold text-blue-400 hover:underline">Launch Link ↗</a>` : `<span class="text-xs text-slate-600">No link attached</span>`}
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function deleteProj(id) {
+            if(!confirm("Delete this project?")) return;
+            let projects = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]');
+            projects = projects.filter(p => p.id !== id);
+            localStorage.setItem('mariya_projects_v11', JSON.stringify(projects));
+            renderProjects();
+            updateDashboardStats();
+        }
+
+        // --- 4. DAILY PRACTICE LOGIC ---
+        const scenarios = [
+            "You need to make 'script.sh' executable. What command do you use?",
+            "A Docker container crashed. How do you view its logs?",
+            "You made a mistake in Git. How do you undo the last commit without losing code?",
+            "How do you check which process is using port 80 on a Linux server?",
+            "Write a command to list all running and stopped Docker containers."
+        ];
+
+        function loadPractice() {
+            const day = new Date().getDate() % scenarios.length;
+            document.getElementById('dailyScenario').innerText = scenarios[day];
+            renderPracticeLog();
+        }
+
+        function completePractice() {
+            const today = new Date().toLocaleDateString();
+            let logs = JSON.parse(localStorage.getItem('mariya_practice_v11') || '[]');
+            
+            if(logs.includes(today)) return alert("You already completed today's training! Come back tomorrow.");
+            
+            logs.unshift(today);
+            localStorage.setItem('mariya_practice_v11', JSON.stringify(logs));
+            alert("Scenario Completed! Progress Tracker updated. 🔥");
+            renderPracticeLog();
+            updateDashboardStats();
+        }
+
+        function renderPracticeLog() {
+            const div = document.getElementById('practiceLog');
+            const logs = JSON.parse(localStorage.getItem('mariya_practice_v11') || '[]');
+            div.innerHTML = '';
+            if(logs.length === 0) div.innerHTML = '<p class="text-xs text-slate-600">No training data recorded yet.</p>';
+            
+            logs.forEach(date => {
+                div.innerHTML += `<div class="p-3 bg-slate-900/50 border border-white/5 rounded-lg text-xs font-bold text-emerald-400 flex items-center gap-2"><span>✅</span> Training cleared on ${date}</div>`;
+            });
+        }
+
+        // --- 5. DASHBOARD PROGRESS TRACKER ---
+        function updateDashboardStats() {
+            const vaultCount = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]').length;
+            const projCount = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]').length;
+            const practiceCount = JSON.parse(localStorage.getItem('mariya_practice_v11') || '[]').length;
+
+            document.getElementById('statVault').innerText = vaultCount;
+            document.getElementById('statProjects').innerText = projCount;
+            document.getElementById('statPractice').innerText = practiceCount;
+
+            // Calculate overall progress (Max 100%)
+            // Formula: (Vaults * 2%) + (Practices * 5%)
+            let progress = Math.min((vaultCount * 2) + (practiceCount * 5), 100);
+            
+            document.getElementById('mainProgressBar').style.width = progress + '%';
+            
+            // Animate number
+            let current = 0;
+            let step = progress / 20;
+            let timer = setInterval(() => {
+                current += step;
+                if(current >= progress) {
+                    current = progress;
+                    clearInterval(timer);
+                }
+                document.getElementById('progressText').innerText = Math.round(current) + '%';
+            }, 30);
+        }
+
+        // --- INIT APP ---
+        window.onload = () => {
+            renderVault('all');
+            renderProjects();
+            loadPractice();
+            updateDashboardStats();
+        };
     </script>
 </body>
 </html>
