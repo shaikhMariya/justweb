@@ -1,37 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html class="dark" lang="en">
 
 <head>
-
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>DevOps Command Center</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script> dekh ye uska code hai to ek kaam kar isme js mix karde sab ek sath de
 
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+<script>
+tailwind.config = {
+darkMode:"class",
+theme:{
+extend:{
+colors:{
+primary:"#0db9f2",
+background:"#0A0E14"
+},
+fontFamily:{
+display:["Space Grotesk"]
+}
+}
+}
+}
+</script>
 
 <style>
 
 body{
 font-family:"Space Grotesk",sans-serif;
 background:#0A0E14;
-color:white;
 }
 
 .glass{
-background:rgba(255,255,255,.03);
-border:1px solid rgba(255,255,255,.08);
+background:rgba(13,185,242,.03);
+border:1px solid rgba(13,185,242,.1);
 backdrop-filter:blur(12px);
-}
-
-.page{
-display:none;
-}
-
-.active{
-display:block;
 }
 
 .chat-box{
@@ -39,81 +47,62 @@ height:200px;
 overflow:auto;
 background:#071a23;
 padding:10px;
-border-radius:8px;
 margin-bottom:10px;
+border-radius:8px;
 }
 
-.user{color:#00e1ff}
-.ai{color:#7dffb3}
+.user{color:#00e1ff;margin:6px 0;}
+.ai{color:#7dffb3;margin:6px 0;}
 
 </style>
-
 </head>
 
 
+<body class="text-slate-200">
 
-<body>
+<!-- HEADER -->
 
+<header class="glass p-4 flex justify-between items-center">
 
-
-<!-- NAVBAR -->
-
-<header class="glass p-4 flex justify-between">
-
-<h1 class="text-cyan-400 font-bold text-xl">
-DEVOPS_CMD
-</h1>
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-3xl">terminal</span>
+<h1 class="font-bold text-xl">DEVOPS_CMD</h1>
+</div>
 
 <nav class="flex gap-6 text-sm">
-
-<a onclick="showPage('dashboard')" class="cursor-pointer">COMMAND_CENTER</a>
-
-<a onclick="showPage('terminalPage')" class="cursor-pointer">TERMINAL</a>
-
-<a onclick="showPage('networkPage')" class="cursor-pointer">NETWORK_MAP</a>
-
-<a onclick="showPage('logsPage')" class="cursor-pointer">SYSTEM_LOGS</a>
-
+<a class="text-primary">COMMAND_CENTER</a>
+<a class="hover:text-primary">TERMINAL</a>
+<a class="hover:text-primary">NETWORK_MAP</a>
+<a class="hover:text-primary">SYSTEM_LOGS</a>
 </nav>
 
 </header>
 
 
 
-<!-- DASHBOARD PAGE -->
+<main class="p-6 grid grid-cols-12 gap-6">
 
-<div id="dashboard" class="page active p-6 grid grid-cols-12 gap-6">
+<!-- LEFT PANEL -->
 
+<div class="col-span-3 glass p-5 rounded-xl">
 
+<h3 class="text-primary font-bold mb-4">NOTE INJECTOR</h3>
 
-<!-- NOTES -->
+<input id="noteTitle" placeholder="Note title" class="w-full p-2 mb-3 bg-black border border-primary/20 rounded">
 
-<div class="col-span-3 glass p-5 rounded">
+<textarea id="noteContent" rows="5" placeholder="Write notes..." class="w-full p-2 mb-3 bg-black border border-primary/20 rounded"></textarea>
 
-<h3 class="text-cyan-400 mb-3">NOTE INJECTOR</h3>
-
-<input id="noteTitle" placeholder="Note title"
-class="w-full p-2 mb-3 bg-black border rounded">
-
-<textarea id="noteContent"
-rows="4"
-placeholder="Write note"
-class="w-full p-2 mb-3 bg-black border rounded"></textarea>
-
-<button onclick="saveNote()"
-class="bg-cyan-400 text-black w-full py-2 rounded">
-SAVE
-</button>
+<button id="saveBtn" class="w-full bg-primary text-black font-bold py-2 rounded">SAVE NOTE</button>
 
 </div>
 
 
 
-<!-- ARCHIVE -->
+<!-- CENTER PANEL -->
 
-<div class="col-span-6 glass p-5 rounded">
+<div class="col-span-6 glass p-5 rounded-xl">
 
-<h3 class="text-cyan-400 mb-4">DATA ARCHIVE</h3>
+<h3 class="text-primary font-bold mb-4">DATA ARCHIVE</h3>
 
 <div id="archive" class="space-y-3"></div>
 
@@ -121,236 +110,144 @@ SAVE
 
 
 
-<!-- AI -->
+<!-- RIGHT PANEL -->
 
-<div class="col-span-3 glass p-5 rounded">
+<div class="col-span-3 space-y-6">
 
-<h3 class="text-cyan-400 mb-3">DevOps AI</h3>
+<!-- DAILY TASK -->
+
+<div class="glass p-5 rounded-xl">
+
+<h3 class="text-primary font-bold mb-2">Daily Practice</h3>
+
+<p>Provision 3 node Kubernetes cluster</p>
+
+<button class="mt-3 w-full border border-primary py-2 rounded hover:bg-primary/10">START MISSION</button>
+
+</div>
+
+
+
+<!-- SKILL LEVEL -->
+
+<div class="glass p-5 rounded-xl">
+
+<h3 class="text-primary font-bold mb-4">Skill Levels</h3>
+
+<p>Linux</p>
+<div class="w-full bg-gray-800 h-2 rounded mb-3">
+<div class="bg-primary h-2 rounded" style="width:90%"></div>
+</div>
+
+<p>Docker</p>
+<div class="w-full bg-gray-800 h-2 rounded mb-3">
+<div class="bg-primary h-2 rounded" style="width:70%"></div>
+</div>
+
+<p>Kubernetes</p>
+<div class="w-full bg-gray-800 h-2 rounded">
+<div class="bg-primary h-2 rounded" style="width:50%"></div>
+</div>
+
+</div>
+
+
+
+<!-- AI ASSISTANT -->
+
+<div class="glass p-5 rounded-xl">
+
+<h3 class="text-primary font-bold mb-3">DevOps AI Assistant</h3>
 
 <div id="chatBox" class="chat-box"></div>
 
-<input id="aiInput"
-placeholder="Ask AI..."
-class="w-full p-2 bg-black border rounded">
+<input id="aiInput" placeholder="Ask DevOps AI..." class="w-full p-2 bg-black border border-primary/20 rounded">
 
-<button onclick="askAI()"
-class="mt-2 border w-full py-2">
-ASK
-</button>
+<button onclick="askAI()" class="w-full mt-2 border border-primary py-2 rounded hover:bg-primary/10">ASK</button>
 
 </div>
 
 </div>
 
-
-
-<!-- TERMINAL PAGE -->
-
-<div id="terminalPage" class="page p-6">
-
-<div class="glass p-5 rounded max-w-xl">
-
-<h2 class="text-cyan-400 mb-3">DevOps Terminal</h2>
-
-<div id="terminalOutput"
-class="bg-black p-3 h-60 overflow-auto font-mono text-green-400"></div>
-
-<input id="terminalInput"
-placeholder="type command..."
-class="w-full p-2 bg-black border mt-3">
-
-</div>
-
-</div>
+</main>
 
 
 
-<!-- NETWORK PAGE -->
+<!-- FOOTER -->
 
-<div id="networkPage" class="page p-6">
+<footer class="glass p-3 flex justify-between text-xs text-gray-400">
 
-<div class="glass p-6">
+<div>CONNECTION: SECURE</div>
+<div>LATENCY: 24MS</div>
+<div>VERSION 2.0.4</div>
 
-<h2 class="text-cyan-400 mb-4">Cloud Network Map</h2>
-
-<p>AWS → Load Balancer → Kubernetes Cluster → Pods</p>
-
-<p class="mt-2 text-gray-400 text-sm">
-(This section can later show real cloud architecture)
-</p>
-
-</div>
-
-</div>
-
-
-
-<!-- LOGS PAGE -->
-
-<div id="logsPage" class="page p-6">
-
-<div class="glass p-6">
-
-<h2 class="text-cyan-400 mb-4">System Logs</h2>
-
-<div id="logs"></div>
-
-</div>
-
-</div>
+</footer>
 
 
 
 <script>
 
+/* SAVE NOTES */
 
-
-/* PAGE SWITCH */
-
-function showPage(id){
-
-document.querySelectorAll(".page").forEach(p=>{
-p.classList.remove("active")
-})
-
-document.getElementById(id).classList.add("active")
-
-}
-
-
-
-/* NOTES SYSTEM */
-
-function loadNotes(){
-
-let notes=JSON.parse(localStorage.getItem("notes"))||[]
-
+const saveBtn=document.getElementById("saveBtn")
+const titleInput=document.getElementById("noteTitle")
+const contentInput=document.getElementById("noteContent")
 const archive=document.getElementById("archive")
 
-archive.innerHTML=""
+saveBtn.addEventListener("click",()=>{
 
-notes.forEach((note,i)=>{
+let title=titleInput.value
+let content=contentInput.value
 
-archive.innerHTML+=`
-<div class="glass p-3 rounded">
-<h4 class="text-cyan-400">${note.title}</h4>
-<p>${note.content}</p>
-<button onclick="deleteNote(${i})"
-class="text-red-400 text-xs mt-2">
-delete
-</button>
-</div>
+if(title===""||content==="") return
+
+let card=document.createElement("div")
+
+card.className="glass p-3 rounded"
+
+card.innerHTML=`
+<h4 class="text-primary font-bold">${title}</h4>
+<p class="text-sm">${content}</p>
 `
 
-})
+archive.prepend(card)
 
-}
-
-function saveNote(){
-
-let title=document.getElementById("noteTitle").value
-let content=document.getElementById("noteContent").value
-
-if(title==""||content=="")return
-
-let notes=JSON.parse(localStorage.getItem("notes"))||[]
-
-notes.push({title,content})
-
-localStorage.setItem("notes",JSON.stringify(notes))
-
-loadNotes()
-
-document.getElementById("noteTitle").value=""
-document.getElementById("noteContent").value=""
-
-log("Note saved")
-
-}
-
-function deleteNote(i){
-
-let notes=JSON.parse(localStorage.getItem("notes"))
-
-notes.splice(i,1)
-
-localStorage.setItem("notes",JSON.stringify(notes))
-
-loadNotes()
-
-log("Note deleted")
-
-}
-
-loadNotes()
-
-
-
-/* TERMINAL */
-
-const terminalInput=document.getElementById("terminalInput")
-
-terminalInput.addEventListener("keydown",function(e){
-
-if(e.key==="Enter"){
-
-let cmd=this.value
-
-let result="command not found"
-
-if(cmd==="ls")
-result="index.html dockerfile config.yaml"
-
-if(cmd==="docker ps")
-result="container nginx running"
-
-if(cmd==="kubectl get pods")
-result="pod running"
-
-if(cmd==="git status")
-result="working tree clean"
-
-const output=document.getElementById("terminalOutput")
-
-output.innerHTML+=`<div>> ${cmd}</div>`
-output.innerHTML+=`<div>${result}</div>`
-
-this.value=""
-
-log("Terminal command: "+cmd)
-
-}
+titleInput.value=""
+contentInput.value=""
 
 })
 
 
 
-/* AI */
+/* AI ASSISTANT */
 
 function askAI(){
 
 const input=document.getElementById("aiInput")
 const chat=document.getElementById("chatBox")
 
-let q=input.value.toLowerCase()
+let question=input.value.toLowerCase()
 
-if(q==="")return
+if(question==="")return
 
-chat.innerHTML+=`<div class="user">You: ${q}</div>`
+chat.innerHTML+=`<div class="user">You: ${question}</div>`
 
-let answer="I don't know"
+let answer="I don't know that yet."
 
-if(q.includes("docker"))
+if(question.includes("docker"))
 answer="docker run -d nginx"
 
-if(q.includes("kubernetes"))
+else if(question.includes("kubernetes"))
 answer="kubectl get pods"
 
-if(q.includes("terraform"))
+else if(question.includes("linux"))
+answer="ls -la"
+
+else if(question.includes("terraform"))
 answer="terraform apply"
 
-if(q.includes("linux"))
-answer="ls -la"
+else if(question.includes("ci cd"))
+answer="CI/CD automates build and deployment"
 
 chat.innerHTML+=`<div class="ai">AI: ${answer}</div>`
 
@@ -358,29 +255,10 @@ chat.scrollTop=chat.scrollHeight
 
 input.value=""
 
-log("AI question asked")
-
 }
-
-
-
-/* LOG SYSTEM */
-
-function log(text){
-
-let logs=document.getElementById("logs")
-
-logs.innerHTML+=`<div class="text-sm text-gray-400">
-${new Date().toLocaleTimeString()} → ${text}
-</div>`
-
-}
-
-
 
 </script>
 
-
-
 </body>
 </html>
+
