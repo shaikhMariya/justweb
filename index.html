@@ -1,263 +1,391 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
-
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DevOps Command Center</title>
-
-<script src="https://cdn.tailwindcss.com"></script> dekh ye uska code hai to ek kaam kar isme js mix karde sab ek sath de
-
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DevOps Academy | Master the Cloud</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
 <script>
-tailwind.config = {
-darkMode:"class",
-theme:{
-extend:{
-colors:{
-primary:"#0db9f2",
-background:"#0A0E14"
-},
-fontFamily:{
-display:["Space Grotesk"]
-}
-}
-}
-}
-</script>
-
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#2a557e",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#14191e",
+                        cyber: {
+                            blue: "#00D1FF",
+                            neon: "#39FF14",
+                            purple: "#BD00FF",
+                            card: "rgba(16, 22, 30, 0.8)"
+                        }
+                    },
+                    fontFamily: {
+                        sans: ["Inter", "sans-serif"],
+                        mono: ["JetBrains Mono", "monospace"],
+                        display: "Epilogue"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        lg: "1rem",
+                        xl: "1.5rem",
+                        full: "9999px"
+                    }
+                }
+            }
+        };
+    </script>
 <style>
-
-body{
-font-family:"Space Grotesk",sans-serif;
-background:#0A0E14;
-}
-
-.glass{
-background:rgba(13,185,242,.03);
-border:1px solid rgba(13,185,242,.1);
-backdrop-filter:blur(12px);
-}
-
-.chat-box{
-height:200px;
-overflow:auto;
-background:#071a23;
-padding:10px;
-margin-bottom:10px;
-border-radius:8px;
-}
-
-.user{color:#00e1ff;margin:6px 0;}
-.ai{color:#7dffb3;margin:6px 0;}
-
-</style>
+        .glass {
+            background: rgba(16, 22, 30, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+        .neon-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 2px #39FF14); }
+            50% { opacity: .5; filter: drop-shadow(0 0 8px #39FF14); }
+        }
+        .neon-pulse-amber {
+            animation: pulse-amber 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-amber {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 2px #facc15); }
+            50% { opacity: .5; filter: drop-shadow(0 0 8px #facc15); }
+        }
+        .terminal-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .terminal-scroll::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 10px;
+        }
+    </style>
 </head>
-
-
-<body class="text-slate-200">
-
-<!-- HEADER -->
-
-<header class="glass p-4 flex justify-between items-center">
-
-<div class="flex items-center gap-3 text-primary">
-<span class="material-symbols-outlined text-3xl">terminal</span>
-<h1 class="font-bold text-xl">DEVOPS_CMD</h1>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-sans transition-colors duration-300">
+<header class="sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-icons-round text-white">terminal</span>
 </div>
-
-<nav class="flex gap-6 text-sm">
-<a class="text-primary">COMMAND_CENTER</a>
-<a class="hover:text-primary">TERMINAL</a>
-<a class="hover:text-primary">NETWORK_MAP</a>
-<a class="hover:text-primary">SYSTEM_LOGS</a>
-</nav>
-
+<h1 class="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-cyber-blue">
+                DevOps Academy
+            </h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-icons-round absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-900 border-none rounded-full w-64 focus:ring-2 focus:ring-primary transition-all" placeholder="Search commands..." type="text"/>
+</div>
+<button class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800">
+<span class="material-icons-round">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-gradient-to-tr from-primary to-cyber-purple p-[2px]">
+<img alt="User Avatar" class="rounded-full bg-slate-900" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS9bN79KYk6GuL2vLTk5OXiOS6ffFKtJJOj291oFcrZgkzZ64cOaZwmx5fIS5LAT-w4O_xY6f9-GunMEpdtSYS2l3UZ_gOT7I5TCTNBma3siR-AP_bCKtpTFV8DvRB6NaQ60gdZnoE7KtmfYS8MSTesIKHbrNTqvwEdM4CI-lm1V4WcMmq4fTBpgPmh2S6WHAN1cKLTJtDdohIF0YdHczHu_9dhUF27As9LovpzRDCtA9sq_QDtBqq9rd2eMCuo5PLWq9cF0s3MII"/>
+</div>
+</div>
+</div>
 </header>
-
-
-
-<main class="p-6 grid grid-cols-12 gap-6">
-
-<!-- LEFT PANEL -->
-
-<div class="col-span-3 glass p-5 rounded-xl">
-
-<h3 class="text-primary font-bold mb-4">NOTE INJECTOR</h3>
-
-<input id="noteTitle" placeholder="Note title" class="w-full p-2 mb-3 bg-black border border-primary/20 rounded">
-
-<textarea id="noteContent" rows="5" placeholder="Write notes..." class="w-full p-2 mb-3 bg-black border border-primary/20 rounded"></textarea>
-
-<button id="saveBtn" class="w-full bg-primary text-black font-bold py-2 rounded">SAVE NOTE</button>
-
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+<section class="relative overflow-hidden rounded-3xl bg-slate-900 p-8 sm:p-12">
+<div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-primary/20 rounded-full blur-[100px]"></div>
+<div class="relative z-10 max-w-2xl">
+<h2 class="text-4xl font-bold text-white mb-4">Welcome back, Mariya.</h2>
+<p class="text-slate-400 text-lg mb-8">Ready to level up? You've completed 65% of the "Cloud Ninja" roadmap. Pick up where you left off.</p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold flex items-center gap-2 transition-all">
+<span class="material-icons-round">play_arrow</span>
+                    Continue Learning
+                </button>
+<button class="bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm px-6 py-3 rounded-xl font-semibold flex items-center gap-2 transition-all">
+<span class="material-icons-round">add</span>
+                    New Command
+                </button>
 </div>
-
-
-
-<!-- CENTER PANEL -->
-
-<div class="col-span-6 glass p-5 rounded-xl">
-
-<h3 class="text-primary font-bold mb-4">DATA ARCHIVE</h3>
-
-<div id="archive" class="space-y-3"></div>
-
 </div>
-
-
-
-<!-- RIGHT PANEL -->
-
-<div class="col-span-3 space-y-6">
-
-<!-- DAILY TASK -->
-
-<div class="glass p-5 rounded-xl">
-
-<h3 class="text-primary font-bold mb-2">Daily Practice</h3>
-
-<p>Provision 3 node Kubernetes cluster</p>
-
-<button class="mt-3 w-full border border-primary py-2 rounded hover:bg-primary/10">START MISSION</button>
-
+</section>
+<section>
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<span class="text-3xl">📜</span>
+<h3 class="text-2xl font-bold">Master Command List</h3>
 </div>
-
-
-
-<!-- SKILL LEVEL -->
-
-<div class="glass p-5 rounded-xl">
-
-<h3 class="text-primary font-bold mb-4">Skill Levels</h3>
-
-<p>Linux</p>
-<div class="w-full bg-gray-800 h-2 rounded mb-3">
-<div class="bg-primary h-2 rounded" style="width:90%"></div>
+<div class="flex gap-2">
+<span class="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20">All</span>
+<span class="px-4 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 text-sm font-medium">Linux</span>
+<span class="px-4 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 text-sm font-medium">Git</span>
 </div>
-
-<p>Docker</p>
-<div class="w-full bg-gray-800 h-2 rounded mb-3">
-<div class="bg-primary h-2 rounded" style="width:70%"></div>
 </div>
-
-<p>Kubernetes</p>
-<div class="w-full bg-gray-800 h-2 rounded">
-<div class="bg-primary h-2 rounded" style="width:50%"></div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="glass glow-hover rounded-2xl p-6 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] uppercase tracking-widest font-bold text-primary px-2 py-1 rounded bg-primary/10 border border-primary/20">Linux</span>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1 text-slate-400 hover:text-white"><span class="material-icons-round text-sm">edit</span></button>
+<button class="p-1 text-slate-400 hover:text-red-400"><span class="material-icons-round text-sm">delete</span></button>
 </div>
-
 </div>
-
-
-
-<!-- AI ASSISTANT -->
-
-<div class="glass p-5 rounded-xl">
-
-<h3 class="text-primary font-bold mb-3">DevOps AI Assistant</h3>
-
-<div id="chatBox" class="chat-box"></div>
-
-<input id="aiInput" placeholder="Ask DevOps AI..." class="w-full p-2 bg-black border border-primary/20 rounded">
-
-<button onclick="askAI()" class="w-full mt-2 border border-primary py-2 rounded hover:bg-primary/10">ASK</button>
-
+<div class="bg-black/40 rounded-lg p-4 mb-4 border border-slate-700/50 font-mono text-sm relative">
+<code class="text-cyber-blue"><span class="text-cyber-neon">#</span> ls -lah</code>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white">
+<span class="material-icons-round text-lg">content_copy</span>
+</button>
 </div>
-
+<p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                    List all files including hidden ones with human-readable sizes. Essential for directory inspection.
+                </p>
+<div class="flex items-center justify-between pt-4 border-t border-slate-800">
+<span class="text-xs text-slate-500 flex items-center gap-1">
+<span class="material-icons-round text-xs">history</span> 2 days ago
+                    </span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyber-neon"></div>
+<span class="ml-2 text-xs font-medium text-slate-400">Mastered</span>
+</label>
 </div>
-
+</div>
+<div class="glass glow-hover rounded-2xl p-6 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] uppercase tracking-widest font-bold text-cyber-purple px-2 py-1 rounded bg-cyber-purple/10 border border-cyber-purple/20">Git</span>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1 text-slate-400 hover:text-white"><span class="material-icons-round text-sm">edit</span></button>
+<button class="p-1 text-slate-400 hover:text-red-400"><span class="material-icons-round text-sm">delete</span></button>
+</div>
+</div>
+<div class="bg-black/40 rounded-lg p-4 mb-4 border border-slate-700/50 font-mono text-sm relative">
+<code class="text-cyber-blue"><span class="text-cyber-neon">#</span> git commit -m 'feat: login'</code>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white">
+<span class="material-icons-round text-lg">content_copy</span>
+</button>
+</div>
+<p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                    Saves your staged changes to the repository with a descriptive message of what was added.
+                </p>
+<div class="flex items-center justify-between pt-4 border-t border-slate-800">
+<span class="text-xs text-slate-500 flex items-center gap-1">
+<span class="material-icons-round text-xs">history</span> 5 hours ago
+                    </span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyber-neon"></div>
+<span class="ml-2 text-xs font-medium text-slate-400">Mastered</span>
+</label>
+</div>
+</div>
+<div class="glass glow-hover rounded-2xl p-6 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] uppercase tracking-widest font-bold text-orange-400 px-2 py-1 rounded bg-orange-400/10 border border-orange-400/20">Security</span>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1 text-slate-400 hover:text-white"><span class="material-icons-round text-sm">edit</span></button>
+<button class="p-1 text-slate-400 hover:text-red-400"><span class="material-icons-round text-sm">delete</span></button>
+</div>
+</div>
+<div class="bg-black/40 rounded-lg p-4 mb-4 border border-slate-700/50 font-mono text-sm relative">
+<code class="text-cyber-blue"><span class="text-cyber-neon">#</span> chmod 700 secret.key</code>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white">
+<span class="material-icons-round text-lg">content_copy</span>
+</button>
+</div>
+<p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                    Restrict permissions so only the owner can read, write, and execute the file.
+                </p>
+<div class="flex items-center justify-between pt-4 border-t border-slate-800">
+<span class="text-xs text-slate-500 flex items-center gap-1">
+<span class="material-icons-round text-xs">history</span> Just now
+                    </span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyber-neon"></div>
+<span class="ml-2 text-xs font-medium text-slate-400">Mastered</span>
+</label>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center gap-3 mb-8">
+<span class="text-3xl">🏆</span>
+<h3 class="text-2xl font-bold">Learning Roadmap</h3>
+</div>
+<div class="relative py-4">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-slate-800 rounded-full"></div>
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-2/3 h-1 bg-gradient-to-r from-primary to-cyber-blue rounded-full"></div>
+<div class="relative z-10 flex justify-between">
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-full bg-cyber-neon text-black flex items-center justify-center border-4 border-background-dark shadow-[0_0_15px_rgba(57,255,20,0.5)]">
+<span class="material-icons-round">check</span>
+</div>
+<p class="mt-3 text-sm font-bold text-cyber-neon">Linux Basics</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-wider">Level 1</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-full bg-cyber-neon text-black flex items-center justify-center border-4 border-background-dark shadow-[0_0_15px_rgba(57,255,20,0.5)]">
+<span class="material-icons-round">check</span>
+</div>
+<p class="mt-3 text-sm font-bold text-cyber-neon">Git Warrior</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-wider">Level 2</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center border-4 border-background-dark neon-pulse">
+<span class="material-icons-round">bolt</span>
+</div>
+<p class="mt-3 text-sm font-bold text-primary">Automation</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-wider">Level 3</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-full bg-slate-800 text-slate-500 flex items-center justify-center border-4 border-background-dark">
+<span class="material-icons-round">lock</span>
+</div>
+<p class="mt-3 text-sm font-bold text-slate-500">Cloud Ninja</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-wider">Level 4</p>
+</div>
+</div>
+</div>
+</section>
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="text-3xl">⌨️</span>
+<h3 class="text-2xl font-bold">Terminal Playground</h3>
+</div>
+<div class="bg-black rounded-2xl overflow-hidden border border-slate-800 shadow-2xl h-[350px] flex flex-col">
+<div class="bg-slate-900 px-4 py-2 flex items-center justify-between border-b border-slate-800">
+<div class="flex gap-1.5">
+<div class="w-3 h-3 rounded-full bg-red-500"></div>
+<div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+<div class="w-3 h-3 rounded-full bg-green-500"></div>
+</div>
+<span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">zsh — 80x24</span>
+<span class="material-icons-round text-sm text-slate-500">settings</span>
+</div>
+<div class="p-6 font-mono text-sm terminal-scroll overflow-y-auto flex-1">
+<div class="text-slate-400 mb-2">DevOpsOS v4.2.0 (tty1)</div>
+<div class="text-slate-500 mb-4 italic">Type 'help' to see available commands.</div>
+<div class="flex gap-2 text-cyber-neon mb-1">
+<span>mariya@academy:~$</span>
+<span class="text-white">docker ps -a</span>
+</div>
+<div class="grid grid-cols-4 gap-4 text-slate-400 text-xs mb-4">
+<span>CONTAINER ID</span>
+<span>IMAGE</span>
+<span>STATUS</span>
+<span>NAMES</span>
+<span class="text-cyber-blue">4c01db0b339c</span>
+<span>nginx:latest</span>
+<span class="text-cyber-neon">Up 2 hours</span>
+<span>web-prod</span>
+</div>
+<div class="flex gap-2 text-cyber-neon">
+<span>mariya@academy:~$</span>
+<span class="w-2 h-5 bg-cyber-neon animate-pulse"></span>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="material-icons-round text-3xl text-cyber-blue">radar</span>
+<h3 class="text-2xl font-bold">Cloud Infrastructure Status</h3>
+</div>
+<div class="glass rounded-2xl p-5 h-[350px] flex flex-col justify-between overflow-y-auto gap-4">
+<div class="bg-black/40 rounded-xl p-4 border border-slate-700/50 flex flex-col gap-3 group hover:border-cyber-blue/50 transition-colors">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="font-bold text-white text-sm">AWS Services</span>
+<span class="text-[9px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded border border-slate-700 font-mono tracking-wider">us-east-1</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs text-cyber-neon font-mono uppercase">Up</span>
+<div class="w-2.5 h-2.5 rounded-full bg-cyber-neon neon-pulse"></div>
+</div>
+</div>
+<div class="flex items-end gap-[3px] h-6 w-full opacity-80 group-hover:opacity-100 transition-opacity">
+<div class="flex-1 h-[80%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[90%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[85%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[95%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[90%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[85%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[95%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[90%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[95%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+</div>
+</div>
+<div class="bg-black/40 rounded-xl p-4 border border-slate-700/50 flex flex-col gap-3 group hover:border-yellow-400/50 transition-colors">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="font-bold text-white text-sm">Azure Cloud</span>
+<span class="text-[9px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded border border-slate-700 font-mono tracking-wider">eu-west-3</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs text-yellow-400 font-mono uppercase">Latency</span>
+<div class="w-2.5 h-2.5 rounded-full bg-yellow-400 neon-pulse-amber"></div>
+</div>
+</div>
+<div class="flex items-end gap-[3px] h-6 w-full opacity-80 group-hover:opacity-100 transition-opacity">
+<div class="flex-1 h-[90%] bg-yellow-400/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[100%] bg-yellow-400/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[40%] bg-yellow-400/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[50%] bg-yellow-400/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[30%] bg-yellow-400/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[60%] bg-yellow-400/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[80%] bg-yellow-400/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[100%] bg-yellow-400/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[70%] bg-yellow-400/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[50%] bg-yellow-400/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[40%] bg-yellow-400/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[60%] bg-yellow-400/80 rounded-t-[2px]"></div>
+</div>
+</div>
+<div class="bg-black/40 rounded-xl p-4 border border-slate-700/50 flex flex-col gap-3 group hover:border-cyber-blue/50 transition-colors">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="font-bold text-white text-sm">Google Cloud</span>
+<span class="text-[9px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded border border-slate-700 font-mono tracking-wider">asia-east1</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs text-cyber-neon font-mono uppercase">Up</span>
+<div class="w-2.5 h-2.5 rounded-full bg-cyber-neon neon-pulse"></div>
+</div>
+</div>
+<div class="flex items-end gap-[3px] h-6 w-full opacity-80 group-hover:opacity-100 transition-opacity">
+<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[95%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[90%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[95%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[95%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[90%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[95%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
 </main>
-
-
-
-<!-- FOOTER -->
-
-<footer class="glass p-3 flex justify-between text-xs text-gray-400">
-
-<div>CONNECTION: SECURE</div>
-<div>LATENCY: 24MS</div>
-<div>VERSION 2.0.4</div>
-
+<footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-slate-500 text-sm">
+<p>Mariya, har box par click karke use complete karo! 🔥</p>
+<p class="mt-2">© 2024 DevOps Academy. Engineered for Excellence.</p>
 </footer>
 
-
-
-<script>
-
-/* SAVE NOTES */
-
-const saveBtn=document.getElementById("saveBtn")
-const titleInput=document.getElementById("noteTitle")
-const contentInput=document.getElementById("noteContent")
-const archive=document.getElementById("archive")
-
-saveBtn.addEventListener("click",()=>{
-
-let title=titleInput.value
-let content=contentInput.value
-
-if(title===""||content==="") return
-
-let card=document.createElement("div")
-
-card.className="glass p-3 rounded"
-
-card.innerHTML=`
-<h4 class="text-primary font-bold">${title}</h4>
-<p class="text-sm">${content}</p>
-`
-
-archive.prepend(card)
-
-titleInput.value=""
-contentInput.value=""
-
-})
-
-
-
-/* AI ASSISTANT */
-
-function askAI(){
-
-const input=document.getElementById("aiInput")
-const chat=document.getElementById("chatBox")
-
-let question=input.value.toLowerCase()
-
-if(question==="")return
-
-chat.innerHTML+=`<div class="user">You: ${question}</div>`
-
-let answer="I don't know that yet."
-
-if(question.includes("docker"))
-answer="docker run -d nginx"
-
-else if(question.includes("kubernetes"))
-answer="kubectl get pods"
-
-else if(question.includes("linux"))
-answer="ls -la"
-
-else if(question.includes("terraform"))
-answer="terraform apply"
-
-else if(question.includes("ci cd"))
-answer="CI/CD automates build and deployment"
-
-chat.innerHTML+=`<div class="ai">AI: ${answer}</div>`
-
-chat.scrollTop=chat.scrollHeight
-
-input.value=""
-
-}
-
-</script>
-
-</body>
-</html>
+</body></html>
