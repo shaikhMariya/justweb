@@ -389,144 +389,182 @@
 </footer>
 <script>
 
-const saveBtn = document.querySelector("button")
-const titleInput = document.querySelector('input[placeholder="e.g. Chmod patterns"]')
-const contentInput = document.querySelector("textarea")
-const archive = document.querySelector(".terminal-scroll")
+/* =========================
+   NOTES SAVE SYSTEM
+========================= */
 
-saveBtn.addEventListener("click",()=>{
+const saveBtn = document.querySelector('button');
+const titleInput = document.querySelector('input[placeholder="e.g. Chmod patterns"]');
+const contentInput = document.querySelector("textarea");
+const archive = document.querySelector(".terminal-scroll");
 
-let title = titleInput.value
-let content = contentInput.value
+saveBtn.addEventListener("click", () => {
 
-if(title=="" || content=="") return
+const title = titleInput.value.trim();
+const content = contentInput.value.trim();
 
-const card = document.createElement("div")
+if (!title || !content) return;
 
-card.className="bg-white/5 p-3 rounded border border-white/5 flex justify-between items-center"
+const card = document.createElement("div");
 
-card.innerHTML=`
-<div>
+card.className =
+"bg-white/5 p-3 rounded border border-white/5 hover:border-cyber-blue/30 transition-all";
+
+card.innerHTML = `
 <h3 class="text-xs font-bold">${title}</h3>
-<p class="text-[10px] text-slate-500">${content}</p>
-</div>
-`
+<p class="text-[10px] text-slate-400">${content}</p>
+`;
 
-archive.prepend(card)
+archive.prepend(card);
 
-titleInput.value=""
-contentInput.value=""
+titleInput.value = "";
+contentInput.value = "";
 
-})
-        const terminal = document.querySelector(".terminal-scroll")
+});
+
+
+/* =========================
+   TERMINAL AUTO COMMANDS
+========================= */
+
+const terminal = document.querySelector(".terminal-scroll");
 
 const commands = [
 "docker ps",
 "kubectl get nodes",
 "terraform plan",
 "git status"
-]
+];
 
-let i=0
+let i = 0;
 
 function runTerminal(){
 
-if(i < commands.length){
+if(i >= commands.length) return;
 
-const cmd = document.createElement("div")
+const line = document.createElement("div");
 
-cmd.innerHTML = `
-<div class="flex gap-2 text-cyber-neon">
+line.className = "flex gap-2 text-cyber-neon";
+
+line.innerHTML = `
 <span>mariya@command:~$</span>
 <span class="text-white">${commands[i]}</span>
-</div>
-`
+`;
 
-terminal.appendChild(cmd)
+terminal.appendChild(line);
 
-i++
+terminal.scrollTop = terminal.scrollHeight;
 
-setTimeout(runTerminal,1500)
+i++;
+
+setTimeout(runTerminal,1500);
 
 }
 
-}
+runTerminal();
 
-runTerminal()
+
+/* =========================
+   SKILL BAR ANIMATION
+========================= */
+
 document.querySelectorAll(".h-1 > div").forEach(bar=>{
 
-let width = bar.style.width
+const width = bar.style.width;
 
-bar.style.width="0"
+bar.style.width = "0";
 
 setTimeout(()=>{
+bar.style.transition = "width 1.5s";
+bar.style.width = width;
+},300);
 
-bar.style.width=width
+});
 
-},500)
 
-})
-        const cards = document.querySelectorAll(".cursor-move")
-const columns = document.querySelectorAll(".kanban-col")
+/* =========================
+   KANBAN DRAG DROP
+========================= */
+
+const cards = document.querySelectorAll(".cursor-move");
+const columns = document.querySelectorAll(".kanban-col");
 
 cards.forEach(card=>{
 
-card.setAttribute("draggable",true)
+card.setAttribute("draggable","true");
 
 card.addEventListener("dragstart",()=>{
-card.classList.add("dragging")
-})
+card.classList.add("dragging");
+});
 
 card.addEventListener("dragend",()=>{
-card.classList.remove("dragging")
-})
+card.classList.remove("dragging");
+});
 
-})
+});
 
-columns.forEach(col=>{
+columns.forEach(column=>{
 
-col.addEventListener("dragover",(e)=>{
+column.addEventListener("dragover",(e)=>{
 
-e.preventDefault()
+e.preventDefault();
 
-const dragging = document.querySelector(".dragging")
+const dragging = document.querySelector(".dragging");
 
 if(dragging){
-col.appendChild(dragging)
+column.appendChild(dragging);
 }
 
-})
+});
 
-})
-        const modules = document.querySelectorAll(".group")
+});
+
+
+/* =========================
+   MODULE CLICK HIGHLIGHT
+========================= */
+
+const modules = document.querySelectorAll(".group");
 
 modules.forEach(module=>{
 
 module.addEventListener("click",()=>{
 
-modules.forEach(m=>m.classList.remove("ring-2","ring-cyber-blue"))
+modules.forEach(m=>{
+m.classList.remove("ring-2","ring-cyber-blue");
+});
 
-module.classList.add("ring-2","ring-cyber-blue")
+module.classList.add("ring-2","ring-cyber-blue");
 
-})
+});
 
-})
-        function askAI(question){
+});
 
-question = question.toLowerCase()
+
+/* =========================
+   DEVOPS AI ASSISTANT
+========================= */
+
+function askAI(question){
+
+question = question.toLowerCase();
 
 if(question.includes("docker"))
-return "Try: docker ps"
+return "Example: docker ps";
 
 if(question.includes("kubernetes"))
-return "Try: kubectl get pods"
+return "Example: kubectl get pods";
 
 if(question.includes("terraform"))
-return "Try: terraform apply"
+return "Example: terraform apply";
 
-return "DevOps AI: command not found"
+if(question.includes("git"))
+return "Example: git status";
+
+return "DevOps AI: command not found";
 
 }
 
 </script>
 </body></html>
+
