@@ -2,12 +2,33 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>DevOps Academy | Master the Cloud</title>
+<title>DevOps Unified Command Center</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --primary: #2a557e;
+            --cyber-blue: #00D1FF;
+            --cyber-neon: #39FF14;
+            --cyber-purple: #BD00FF;
+            --background-dark: #0a0e14;
+            --card-bg: rgba(16, 22, 30, 0.7);
+        }
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        .glow-blue { box-shadow: 0 0 15px rgba(0, 209, 255, 0.2); }
+        .glow-neon { box-shadow: 0 0 15px rgba(57, 255, 20, 0.2); }
+        .glow-purple { box-shadow: 0 0 15px rgba(189, 0, 255, 0.2); }
+        .terminal-scroll::-webkit-scrollbar { width: 4px; }
+        .terminal-scroll::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        .kanban-col { min-height: 250px; background: rgba(0,0,0,0.2); border-radius: 0.75rem; padding: 1rem; }
+    </style>
 <script>
         tailwind.config = {
             darkMode: "class",
@@ -15,418 +36,497 @@
                 extend: {
                     colors: {
                         primary: "#2a557e",
-                        "background-light": "#f6f7f8",
-                        "background-dark": "#14191e",
+                        "background-dark": "#0a0e14",
                         cyber: {
                             blue: "#00D1FF",
                             neon: "#39FF14",
-                            purple: "#BD00FF",
-                            card: "rgba(16, 22, 30, 0.8)"
+                            purple: "#BD00FF"
                         }
                     },
                     fontFamily: {
                         sans: ["Inter", "sans-serif"],
                         mono: ["JetBrains Mono", "monospace"],
-                        display: "Epilogue"
-                    },
-                    borderRadius: {
-                        DEFAULT: "0.5rem",
-                        lg: "1rem",
-                        xl: "1.5rem",
-                        full: "9999px"
+                        display: ["Epilogue", "sans-serif"]
                     }
                 }
             }
         };
     </script>
-<style>
-        .glass {
-            background: rgba(16, 22, 30, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-        .glow-hover:hover {
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
-            border-color: rgba(59, 130, 246, 0.5);
-        }
-        .neon-pulse {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; filter: drop-shadow(0 0 2px #39FF14); }
-            50% { opacity: .5; filter: drop-shadow(0 0 8px #39FF14); }
-        }
-        .neon-pulse-amber {
-            animation: pulse-amber 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse-amber {
-            0%, 100% { opacity: 1; filter: drop-shadow(0 0 2px #facc15); }
-            50% { opacity: .5; filter: drop-shadow(0 0 8px #facc15); }
-        }
-        .terminal-scroll::-webkit-scrollbar {
-            width: 4px;
-        }
-        .terminal-scroll::-webkit-scrollbar-thumb {
-            background: #1e293b;
-            border-radius: 10px;
-        }
-    </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-sans transition-colors duration-300">
-<header class="sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-<div class="flex items-center gap-2">
-<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-<span class="material-icons-round text-white">terminal</span>
+<body class="bg-background-dark text-slate-100 font-sans min-h-screen overflow-x-hidden">
+<header class="border-b border-slate-800 bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+<div class="max-w-[1600px] mx-auto px-4 py-3 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-xl">terminal</span>
 </div>
-<h1 class="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-cyber-blue">
-                DevOps Academy
+<h1 class="text-xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-cyber-blue to-cyber-purple">
+                ENGINEER_COMMAND_CENTER v2.4
             </h1>
 </div>
-<div class="flex items-center gap-4">
-<div class="relative group">
-<span class="material-icons-round absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-<input class="pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-900 border-none rounded-full w-64 focus:ring-2 focus:ring-primary transition-all" placeholder="Search commands..." type="text"/>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-xs font-mono">
+<span class="text-slate-500">SYSTEM_LOAD:</span>
+<span class="text-cyber-neon">NORMAL</span>
+<div class="w-2 h-2 rounded-full bg-cyber-neon animate-pulse"></div>
 </div>
-<button class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800">
-<span class="material-icons-round">notifications</span>
-</button>
-<div class="w-10 h-10 rounded-full bg-gradient-to-tr from-primary to-cyber-purple p-[2px]">
-<img alt="User Avatar" class="rounded-full bg-slate-900" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS9bN79KYk6GuL2vLTk5OXiOS6ffFKtJJOj291oFcrZgkzZ64cOaZwmx5fIS5LAT-w4O_xY6f9-GunMEpdtSYS2l3UZ_gOT7I5TCTNBma3siR-AP_bCKtpTFV8DvRB6NaQ60gdZnoE7KtmfYS8MSTesIKHbrNTqvwEdM4CI-lm1V4WcMmq4fTBpgPmh2S6WHAN1cKLTJtDdohIF0YdHczHu_9dhUF27As9LovpzRDCtA9sq_QDtBqq9rd2eMCuo5PLWq9cF0s3MII"/>
+<div class="flex items-center gap-3 border-l border-slate-800 pl-6">
+<img alt="User Avatar" class="w-8 h-8 rounded-full border border-cyber-blue" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS9bN79KYk6GuL2vLTk5OXiOS6ffFKtJJOj291oFcrZgkzZ64cOaZwmx5fIS5LAT-w4O_xY6f9-GunMEpdtSYS2l3UZ_gOT7I5TCTNBma3siR-AP_bCKtpTFV8DvRB6NaQ60gdZnoE7KtmfYS8MSTesIKHbrNTqvwEdM4CI-lm1V4WcMmq4fTBpgPmh2S6WHAN1cKLTJtDdohIF0YdHczHu_9dhUF27As9LovpzRDCtA9sq_QDtBqq9rd2eMCuo5PLWq9cF0s3MII"/>
+<span class="text-sm font-medium">MARIYA_S</span>
 </div>
 </div>
 </div>
 </header>
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-<section class="relative overflow-hidden rounded-3xl bg-slate-900 p-8 sm:p-12">
-<div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-primary/20 rounded-full blur-[100px]"></div>
-<div class="relative z-10 max-w-2xl">
-<h2 class="text-4xl font-bold text-white mb-4">Welcome back, Mariya.</h2>
-<p class="text-slate-400 text-lg mb-8">Ready to level up? You've completed 65% of the "Cloud Ninja" roadmap. Pick up where you left off.</p>
-<div class="flex flex-wrap gap-4">
-<button class="bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold flex items-center gap-2 transition-all">
-<span class="material-icons-round">play_arrow</span>
-                    Continue Learning
-                </button>
-<button class="bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm px-6 py-3 rounded-xl font-semibold flex items-center gap-2 transition-all">
-<span class="material-icons-round">add</span>
-                    New Command
-                </button>
-</div>
-</div>
-</section>
-<section>
-<div class="flex items-center justify-between mb-8">
+<main class="max-w-[1600px] mx-auto p-4 space-y-4">
+<section class="flex gap-4 overflow-x-auto pb-2 no-scrollbar">
+<div class="flex-none w-48 glass p-4 rounded-xl border-l-4 border-l-cyber-blue glow-blue group cursor-pointer hover:bg-white/5 transition-all">
 <div class="flex items-center gap-3">
-<span class="text-3xl">📜</span>
-<h3 class="text-2xl font-bold">Master Command List</h3>
-</div>
-<div class="flex gap-2">
-<span class="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20">All</span>
-<span class="px-4 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 text-sm font-medium">Linux</span>
-<span class="px-4 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 text-sm font-medium">Git</span>
+<span class="material-symbols-outlined text-cyber-blue">terminal</span>
+<div>
+<p class="text-[10px] text-slate-500 font-mono">MODULE_01</p>
+<p class="text-sm font-bold">Linux Basics</p>
 </div>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-<div class="glass glow-hover rounded-2xl p-6 transition-all group">
-<div class="flex justify-between items-start mb-4">
-<span class="text-[10px] uppercase tracking-widest font-bold text-primary px-2 py-1 rounded bg-primary/10 border border-primary/20">Linux</span>
-<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="p-1 text-slate-400 hover:text-white"><span class="material-icons-round text-sm">edit</span></button>
-<button class="p-1 text-slate-400 hover:text-red-400"><span class="material-icons-round text-sm">delete</span></button>
+</div>
+<div class="flex-none w-48 glass p-4 rounded-xl border-l-4 border-l-cyber-neon glow-neon group cursor-pointer hover:bg-white/5 transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-cyber-neon">account_tree</span>
+<div>
+<p class="text-[10px] text-slate-500 font-mono">MODULE_02</p>
+<p class="text-sm font-bold">Git Warrior</p>
 </div>
 </div>
-<div class="bg-black/40 rounded-lg p-4 mb-4 border border-slate-700/50 font-mono text-sm relative">
-<code class="text-cyber-blue"><span class="text-cyber-neon">#</span> ls -lah</code>
-<button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white">
-<span class="material-icons-round text-lg">content_copy</span>
-</button>
 </div>
-<p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                    List all files including hidden ones with human-readable sizes. Essential for directory inspection.
-                </p>
-<div class="flex items-center justify-between pt-4 border-t border-slate-800">
-<span class="text-xs text-slate-500 flex items-center gap-1">
-<span class="material-icons-round text-xs">history</span> 2 days ago
-                    </span>
-<label class="relative inline-flex items-center cursor-pointer">
-<input checked="" class="sr-only peer" type="checkbox" value=""/>
-<div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyber-neon"></div>
-<span class="ml-2 text-xs font-medium text-slate-400">Mastered</span>
-</label>
+<div class="flex-none w-48 glass p-4 rounded-xl border-l-4 border-l-cyber-purple glow-purple group cursor-pointer hover:bg-white/5 transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-cyber-purple">bolt</span>
+<div>
+<p class="text-[10px] text-slate-500 font-mono">MODULE_03</p>
+<p class="text-sm font-bold">Automation</p>
 </div>
 </div>
-<div class="glass glow-hover rounded-2xl p-6 transition-all group">
-<div class="flex justify-between items-start mb-4">
-<span class="text-[10px] uppercase tracking-widest font-bold text-cyber-purple px-2 py-1 rounded bg-cyber-purple/10 border border-cyber-purple/20">Git</span>
-<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="p-1 text-slate-400 hover:text-white"><span class="material-icons-round text-sm">edit</span></button>
-<button class="p-1 text-slate-400 hover:text-red-400"><span class="material-icons-round text-sm">delete</span></button>
+</div>
+<div class="flex-none w-48 glass p-4 rounded-xl border-l-4 border-l-orange-500 group cursor-pointer hover:bg-white/5 transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-orange-500">cloud</span>
+<div>
+<p class="text-[10px] text-slate-500 font-mono">MODULE_04</p>
+<p class="text-sm font-bold">Cloud Ninja</p>
 </div>
 </div>
-<div class="bg-black/40 rounded-lg p-4 mb-4 border border-slate-700/50 font-mono text-sm relative">
-<code class="text-cyber-blue"><span class="text-cyber-neon">#</span> git commit -m 'feat: login'</code>
-<button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white">
-<span class="material-icons-round text-lg">content_copy</span>
-</button>
 </div>
-<p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                    Saves your staged changes to the repository with a descriptive message of what was added.
-                </p>
-<div class="flex items-center justify-between pt-4 border-t border-slate-800">
-<span class="text-xs text-slate-500 flex items-center gap-1">
-<span class="material-icons-round text-xs">history</span> 5 hours ago
-                    </span>
-<label class="relative inline-flex items-center cursor-pointer">
-<input class="sr-only peer" type="checkbox" value=""/>
-<div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyber-neon"></div>
-<span class="ml-2 text-xs font-medium text-slate-400">Mastered</span>
-</label>
-</div>
-</div>
-<div class="glass glow-hover rounded-2xl p-6 transition-all group">
-<div class="flex justify-between items-start mb-4">
-<span class="text-[10px] uppercase tracking-widest font-bold text-orange-400 px-2 py-1 rounded bg-orange-400/10 border border-orange-400/20">Security</span>
-<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="p-1 text-slate-400 hover:text-white"><span class="material-icons-round text-sm">edit</span></button>
-<button class="p-1 text-slate-400 hover:text-red-400"><span class="material-icons-round text-sm">delete</span></button>
-</div>
-</div>
-<div class="bg-black/40 rounded-lg p-4 mb-4 border border-slate-700/50 font-mono text-sm relative">
-<code class="text-cyber-blue"><span class="text-cyber-neon">#</span> chmod 700 secret.key</code>
-<button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white">
-<span class="material-icons-round text-lg">content_copy</span>
-</button>
-</div>
-<p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                    Restrict permissions so only the owner can read, write, and execute the file.
-                </p>
-<div class="flex items-center justify-between pt-4 border-t border-slate-800">
-<span class="text-xs text-slate-500 flex items-center gap-1">
-<span class="material-icons-round text-xs">history</span> Just now
-                    </span>
-<label class="relative inline-flex items-center cursor-pointer">
-<input class="sr-only peer" type="checkbox" value=""/>
-<div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyber-neon"></div>
-<span class="ml-2 text-xs font-medium text-slate-400">Mastered</span>
-</label>
+<div class="flex-none w-48 glass p-4 rounded-xl border-l-4 border-l-red-500 opacity-60 grayscale group cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-red-500">security</span>
+<div>
+<p class="text-[10px] text-slate-500 font-mono">MODULE_05</p>
+<p class="text-sm font-bold">Hardening</p>
 </div>
 </div>
 </div>
 </section>
-<section>
-<div class="flex items-center gap-3 mb-8">
-<span class="text-3xl">🏆</span>
-<h3 class="text-2xl font-bold">Learning Roadmap</h3>
+<div class="grid grid-cols-12 gap-4">
+<aside class="col-span-12 lg:col-span-3 space-y-4">
+<div class="glass rounded-xl p-5 border border-slate-700/50">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-cyber-blue">edit_note</span>
+<h2 class="text-sm font-bold uppercase tracking-widest text-cyber-blue">Note Injector</h2>
 </div>
-<div class="relative py-4">
-<div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-slate-800 rounded-full"></div>
-<div class="absolute left-0 top-1/2 -translate-y-1/2 w-2/3 h-1 bg-gradient-to-r from-primary to-cyber-blue rounded-full"></div>
-<div class="relative z-10 flex justify-between">
-<div class="flex flex-col items-center">
-<div class="w-12 h-12 rounded-full bg-cyber-neon text-black flex items-center justify-center border-4 border-background-dark shadow-[0_0_15px_rgba(57,255,20,0.5)]">
-<span class="material-icons-round">check</span>
-</div>
-<p class="mt-3 text-sm font-bold text-cyber-neon">Linux Basics</p>
-<p class="text-[10px] text-slate-500 uppercase tracking-wider">Level 1</p>
-</div>
-<div class="flex flex-col items-center">
-<div class="w-12 h-12 rounded-full bg-cyber-neon text-black flex items-center justify-center border-4 border-background-dark shadow-[0_0_15px_rgba(57,255,20,0.5)]">
-<span class="material-icons-round">check</span>
-</div>
-<p class="mt-3 text-sm font-bold text-cyber-neon">Git Warrior</p>
-<p class="text-[10px] text-slate-500 uppercase tracking-wider">Level 2</p>
-</div>
-<div class="flex flex-col items-center">
-<div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center border-4 border-background-dark neon-pulse">
-<span class="material-icons-round">bolt</span>
-</div>
-<p class="mt-3 text-sm font-bold text-primary">Automation</p>
-<p class="text-[10px] text-slate-500 uppercase tracking-wider">Level 3</p>
-</div>
-<div class="flex flex-col items-center">
-<div class="w-12 h-12 rounded-full bg-slate-800 text-slate-500 flex items-center justify-center border-4 border-background-dark">
-<span class="material-icons-round">lock</span>
-</div>
-<p class="mt-3 text-sm font-bold text-slate-500">Cloud Ninja</p>
-<p class="text-[10px] text-slate-500 uppercase tracking-wider">Level 4</p>
-</div>
-</div>
-</div>
-</section>
-<section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 <div class="space-y-4">
-<div class="flex items-center gap-3">
-<span class="text-3xl">⌨️</span>
-<h3 class="text-2xl font-bold">Terminal Playground</h3>
+<div>
+<label class="block text-[10px] font-mono text-slate-500 mb-1 uppercase">Target Module</label>
+<select class="w-full bg-black/40 border-slate-700 rounded text-sm focus:ring-cyber-blue">
+<option>Linux Basics</option>
+<option>Git Warrior</option>
+<option>Automation</option>
+</select>
 </div>
-<div class="bg-black rounded-2xl overflow-hidden border border-slate-800 shadow-2xl h-[350px] flex flex-col">
-<div class="bg-slate-900 px-4 py-2 flex items-center justify-between border-b border-slate-800">
+<div>
+<label class="block text-[10px] font-mono text-slate-500 mb-1 uppercase">Note Title</label>
+<input class="w-full bg-black/40 border-slate-700 rounded text-sm focus:ring-cyber-blue" placeholder="e.g. Chmod patterns" type="text"/>
+</div>
+<div>
+<label class="block text-[10px] font-mono text-slate-500 mb-1 uppercase">Learning Content</label>
+<textarea class="w-full bg-black/40 border-slate-700 rounded text-sm focus:ring-cyber-blue" placeholder="Execute 'chmod 755' to..." rows="6"></textarea>
+</div>
+<button class="w-full py-2.5 bg-cyber-blue/10 border border-cyber-blue/30 text-cyber-blue hover:bg-cyber-blue/20 rounded font-bold text-xs uppercase transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">save</span>
+                        Save Note
+                    </button>
+</div>
+</div>
+</aside>
+<section class="col-span-12 lg:col-span-6 space-y-4">
+<div class="bg-black rounded-xl border border-slate-800 shadow-2xl overflow-hidden flex flex-col h-[350px]">
+<div class="bg-slate-900/80 px-4 py-2 flex items-center justify-between border-b border-slate-800">
 <div class="flex gap-1.5">
-<div class="w-3 h-3 rounded-full bg-red-500"></div>
-<div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-<div class="w-3 h-3 rounded-full bg-green-500"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-green-500/50"></div>
 </div>
-<span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">zsh — 80x24</span>
-<span class="material-icons-round text-sm text-slate-500">settings</span>
+<span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">playground.sh — 80x24</span>
+<span class="material-symbols-outlined text-sm text-slate-500">settings</span>
 </div>
-<div class="p-6 font-mono text-sm terminal-scroll overflow-y-auto flex-1">
-<div class="text-slate-400 mb-2">DevOpsOS v4.2.0 (tty1)</div>
-<div class="text-slate-500 mb-4 italic">Type 'help' to see available commands.</div>
-<div class="flex gap-2 text-cyber-neon mb-1">
-<span>mariya@academy:~$</span>
-<span class="text-white">docker ps -a</span>
-</div>
-<div class="grid grid-cols-4 gap-4 text-slate-400 text-xs mb-4">
-<span>CONTAINER ID</span>
-<span>IMAGE</span>
-<span>STATUS</span>
-<span>NAMES</span>
-<span class="text-cyber-blue">4c01db0b339c</span>
-<span>nginx:latest</span>
-<span class="text-cyber-neon">Up 2 hours</span>
-<span>web-prod</span>
-</div>
+<div class="p-4 font-mono text-xs terminal-scroll overflow-y-auto flex-1 space-y-2">
+<div class="text-slate-500 italic mb-2">Initialize workspace... success.</div>
 <div class="flex gap-2 text-cyber-neon">
-<span>mariya@academy:~$</span>
-<span class="w-2 h-5 bg-cyber-neon animate-pulse"></span>
+<span class="shrink-0">mariya@command:~$</span>
+<span class="text-white">kubectl get pods --all-namespaces</span>
+</div>
+<div class="grid grid-cols-4 gap-4 text-slate-500 text-[10px] py-1 border-b border-white/5">
+<span>NAMESPACE</span>
+<span>NAME</span>
+<span>STATUS</span>
+<span>AGE</span>
+</div>
+<div class="grid grid-cols-4 gap-4 text-white text-[10px]">
+<span class="text-cyber-blue">kube-system</span>
+<span>core-dns-84</span>
+<span class="text-cyber-neon">Running</span>
+<span>14d</span>
+</div>
+<div class="flex gap-2 text-cyber-neon mt-2">
+<span class="shrink-0">mariya@command:~$</span>
+<span class="w-1.5 h-4 bg-cyber-neon animate-pulse"></span>
 </div>
 </div>
 </div>
+<div class="glass rounded-xl p-5 border border-slate-700/50 flex flex-col h-[280px]">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-cyber-purple">database</span>
+<h2 class="text-sm font-bold uppercase tracking-widest text-cyber-purple">Data_Archive</h2>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 text-sm">search</span>
+<input class="pl-8 py-1 bg-black/40 border-slate-700 rounded-full text-xs w-48" placeholder="Filter nodes..." type="text"/>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto space-y-2 pr-2 terminal-scroll">
+<div class="bg-white/5 p-3 rounded border border-white/5 hover:border-cyber-purple/30 transition-all flex justify-between items-center group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-600">description</span>
+<div>
+<h3 class="text-xs font-bold">Nginx Reverse Proxy Config</h3>
+<p class="text-[10px] text-slate-500">MODULE: Automation • 2h ago</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-600 opacity-0 group-hover:opacity-100 cursor-pointer hover:text-white">open_in_new</span>
+</div>
+<div class="bg-white/5 p-3 rounded border border-white/5 hover:border-cyber-purple/30 transition-all flex justify-between items-center group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-600">description</span>
+<div>
+<h3 class="text-xs font-bold">SSH Tunneling Basics</h3>
+<p class="text-[10px] text-slate-500">MODULE: Linux Basics • 1d ago</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-600 opacity-0 group-hover:opacity-100 cursor-pointer hover:text-white">open_in_new</span>
+</div>
+<div class="bg-white/5 p-3 rounded border border-white/5 hover:border-cyber-purple/30 transition-all flex justify-between items-center group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-600">description</span>
+<div>
+<h3 class="text-xs font-bold">Git Rebase Flow</h3>
+<p class="text-[10px] text-slate-500">MODULE: Git Warrior • 3d ago</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-600 opacity-0 group-hover:opacity-100 cursor-pointer hover:text-white">open_in_new</span>
+</div>
+</div>
+</div>
+</section>
+<aside class="col-span-12 lg:col-span-3 space-y-4">
+<div class="glass rounded-xl p-5 border border-slate-700/50">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-cyber-blue">radar</span>
+<h2 class="text-sm font-bold uppercase tracking-widest text-cyber-blue">Live Cloud Status</h2>
 </div>
 <div class="space-y-4">
+<div class="bg-black/30 p-3 rounded border border-slate-800">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-mono">AWS</span>
+<span class="text-[10px] px-1.5 bg-slate-800 text-slate-400 rounded">us-east-1</span>
+</div>
 <div class="flex items-center gap-3">
-<span class="material-icons-round text-3xl text-cyber-blue">radar</span>
-<h3 class="text-2xl font-bold">Cloud Infrastructure Status</h3>
+<div class="w-2 h-2 rounded-full bg-cyber-neon glow-neon animate-pulse"></div>
+<div class="flex-1 flex items-end gap-[1px] h-4">
+<div class="w-1 h-3 bg-cyber-neon/40"></div>
+<div class="w-1 h-4 bg-cyber-neon/40"></div>
+<div class="w-1 h-2 bg-cyber-neon/40"></div>
+<div class="w-1 h-3 bg-cyber-neon/40"></div>
+<div class="w-1 h-4 bg-cyber-neon"></div>
 </div>
-<div class="glass rounded-2xl p-5 h-[350px] flex flex-col justify-between overflow-y-auto gap-4">
-<div class="bg-black/40 rounded-xl p-4 border border-slate-700/50 flex flex-col gap-3 group hover:border-cyber-blue/50 transition-colors">
+<span class="text-[10px] font-mono text-cyber-neon">UP</span>
+</div>
+</div>
+<div class="bg-black/30 p-3 rounded border border-slate-800">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-mono">AZURE</span>
+<span class="text-[10px] px-1.5 bg-slate-800 text-slate-400 rounded">eu-west-1</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></div>
+<div class="flex-1 flex items-end gap-[1px] h-4">
+<div class="w-1 h-1 bg-yellow-400/40"></div>
+<div class="w-1 h-2 bg-yellow-400/40"></div>
+<div class="w-1 h-3 bg-yellow-400/40"></div>
+<div class="w-1 h-1 bg-yellow-400/40"></div>
+<div class="w-1 h-2 bg-yellow-400"></div>
+</div>
+<span class="text-[10px] font-mono text-yellow-400">LATENCY</span>
+</div>
+</div>
+</div>
+</div>
+<div class="glass rounded-xl p-5 border border-slate-700/50">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-orange-500">local_fire_department</span>
+<h2 class="text-sm font-bold uppercase tracking-widest text-orange-500">Dev_Activity</h2>
+</div>
+<div class="space-y-4">
 <div class="flex justify-between items-center">
-<div class="flex items-center gap-2">
-<span class="font-bold text-white text-sm">AWS Services</span>
-<span class="text-[9px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded border border-slate-700 font-mono tracking-wider">us-east-1</span>
+<span class="text-xs text-slate-400">Current Streak</span>
+<span class="text-xl font-bold text-orange-500">12 Days</span>
 </div>
-<div class="flex items-center gap-2">
-<span class="text-xs text-cyber-neon font-mono uppercase">Up</span>
-<div class="w-2.5 h-2.5 rounded-full bg-cyber-neon neon-pulse"></div>
+<div class="space-y-3 pt-2">
+<div>
+<div class="flex justify-between text-[10px] mb-1">
+<span class="text-slate-400">LINUX_SKILL</span>
+<span class="text-cyber-blue">88%</span>
 </div>
-</div>
-<div class="flex items-end gap-[3px] h-6 w-full opacity-80 group-hover:opacity-100 transition-opacity">
-<div class="flex-1 h-[80%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[90%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[85%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[95%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[90%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[85%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[95%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[90%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[95%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+<div class="h-1 bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-cyber-blue w-[88%]"></div>
 </div>
 </div>
-<div class="bg-black/40 rounded-xl p-4 border border-slate-700/50 flex flex-col gap-3 group hover:border-yellow-400/50 transition-colors">
-<div class="flex justify-between items-center">
-<div class="flex items-center gap-2">
-<span class="font-bold text-white text-sm">Azure Cloud</span>
-<span class="text-[9px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded border border-slate-700 font-mono tracking-wider">eu-west-3</span>
+<div>
+<div class="flex justify-between text-[10px] mb-1">
+<span class="text-slate-400">DOCKER_MASTERY</span>
+<span class="text-cyber-neon">62%</span>
 </div>
-<div class="flex items-center gap-2">
-<span class="text-xs text-yellow-400 font-mono uppercase">Latency</span>
-<div class="w-2.5 h-2.5 rounded-full bg-yellow-400 neon-pulse-amber"></div>
+<div class="h-1 bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-cyber-neon w-[62%]"></div>
 </div>
 </div>
-<div class="flex items-end gap-[3px] h-6 w-full opacity-80 group-hover:opacity-100 transition-opacity">
-<div class="flex-1 h-[90%] bg-yellow-400/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[100%] bg-yellow-400/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[40%] bg-yellow-400/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[50%] bg-yellow-400/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[30%] bg-yellow-400/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[60%] bg-yellow-400/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[80%] bg-yellow-400/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[100%] bg-yellow-400/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[70%] bg-yellow-400/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[50%] bg-yellow-400/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[40%] bg-yellow-400/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[60%] bg-yellow-400/80 rounded-t-[2px]"></div>
+<div>
+<div class="flex justify-between text-[10px] mb-1">
+<span class="text-slate-400">TERRAFORM_OPS</span>
+<span class="text-cyber-purple">45%</span>
+</div>
+<div class="h-1 bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-cyber-purple w-[45%]"></div>
 </div>
 </div>
-<div class="bg-black/40 rounded-xl p-4 border border-slate-700/50 flex flex-col gap-3 group hover:border-cyber-blue/50 transition-colors">
-<div class="flex justify-between items-center">
-<div class="flex items-center gap-2">
-<span class="font-bold text-white text-sm">Google Cloud</span>
-<span class="text-[9px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded border border-slate-700 font-mono tracking-wider">asia-east1</span>
-</div>
-<div class="flex items-center gap-2">
-<span class="text-xs text-cyber-neon font-mono uppercase">Up</span>
-<div class="w-2.5 h-2.5 rounded-full bg-cyber-neon neon-pulse"></div>
 </div>
 </div>
-<div class="flex items-end gap-[3px] h-6 w-full opacity-80 group-hover:opacity-100 transition-opacity">
-<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[95%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[90%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[95%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[95%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[90%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[95%] bg-cyber-neon/80 rounded-t-[2px]"></div>
-<div class="flex-1 h-[100%] bg-cyber-neon/80 rounded-t-[2px]"></div>
+</div>
+</aside>
+<section class="col-span-12">
+<div class="glass rounded-xl p-6 border border-slate-700/50">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-cyber-neon">view_kanban</span>
+<h2 class="text-lg font-bold">DevOps Project Tracker</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="kanban-col border border-slate-800/50">
+<div class="flex items-center justify-between mb-4 px-2">
+<h3 class="text-xs font-mono font-bold text-slate-400">TO_LEARN [04]</h3>
+<span class="material-symbols-outlined text-slate-600 text-sm">add</span>
+</div>
+<div class="space-y-3">
+<div class="bg-slate-900/50 border border-slate-800 p-3 rounded-lg shadow-sm hover:border-cyber-blue transition-colors cursor-move">
+<p class="text-xs font-semibold mb-2">Kubernetes ingress controllers</p>
+<div class="flex gap-2">
+<span class="text-[9px] bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded border border-blue-500/20">K8S</span>
+</div>
+</div>
+<div class="bg-slate-900/50 border border-slate-800 p-3 rounded-lg shadow-sm hover:border-cyber-blue transition-colors cursor-move">
+<p class="text-xs font-semibold mb-2">Advanced Prometheus queries</p>
+<div class="flex gap-2">
+<span class="text-[9px] bg-red-500/10 text-red-400 px-2 py-0.5 rounded border border-red-500/20">Monitor</span>
+</div>
+</div>
+</div>
+</div>
+<div class="kanban-col border border-cyber-blue/20 bg-cyber-blue/5">
+<div class="flex items-center justify-between mb-4 px-2">
+<h3 class="text-xs font-mono font-bold text-cyber-blue">LEARNING [02]</h3>
+<div class="w-1.5 h-1.5 rounded-full bg-cyber-blue animate-pulse"></div>
+</div>
+<div class="space-y-3">
+<div class="bg-slate-900 border border-cyber-blue/30 p-3 rounded-lg shadow-sm cursor-move">
+<p class="text-xs font-semibold mb-2">Terraform State Management</p>
+<div class="flex items-center justify-between">
+<span class="text-[9px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded border border-purple-500/20">IaC</span>
+<span class="text-[9px] text-slate-500">65% Done</span>
+</div>
+</div>
+</div>
+</div>
+<div class="kanban-col border border-cyber-neon/20">
+<div class="flex items-center justify-between mb-4 px-2">
+<h3 class="text-xs font-mono font-bold text-cyber-neon">COMPLETED [18]</h3>
+<span class="material-symbols-outlined text-cyber-neon text-sm">check_circle</span>
+</div>
+<div class="space-y-3 opacity-70">
+<div class="bg-slate-900/30 border border-slate-800 p-3 rounded-lg shadow-sm cursor-move line-through text-slate-500">
+<p class="text-xs font-semibold mb-1">GitHub Actions CI Pipeline</p>
+<p class="text-[9px]">Finished: Oct 12</p>
+</div>
+<div class="bg-slate-900/30 border border-slate-800 p-3 rounded-lg shadow-sm cursor-move line-through text-slate-500">
+<p class="text-xs font-semibold mb-1">Docker Multi-stage Builds</p>
+<p class="text-[9px]">Finished: Oct 08</p>
+</div>
 </div>
 </div>
 </div>
 </div>
 </section>
+</div>
 </main>
-<footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-slate-500 text-sm">
-<p>Mariya, har box par click karke use complete karo! 🔥</p>
-<p class="mt-2">© 2024 DevOps Academy. Engineered for Excellence.</p>
+<footer class="max-w-[1600px] mx-auto p-8 text-center border-t border-slate-800 mt-8">
+<p class="text-slate-500 text-xs font-mono tracking-widest uppercase">System Operational • Latency: 14ms • Last Sync: Just Now</p>
 </footer>
-        <style>
-.card{
-background:rgba(255,255,255,0.03);
-border:1px solid rgba(0,255,255,0.2);
-border-radius:14px;
-transition:0.3s;
-}
+<script>
 
-.card:hover{
-transform:translateY(-6px);
-box-shadow:0 0 20px rgba(0,255,255,0.4);
-}
-                .module{
-transition:0.3s;
-cursor:pointer;
-}
+const saveBtn = document.querySelector("button")
+const titleInput = document.querySelector('input[placeholder="e.g. Chmod patterns"]')
+const contentInput = document.querySelector("textarea")
+const archive = document.querySelector(".terminal-scroll")
 
-.module:hover{
-transform:scale(1.05);
-box-shadow:0 0 15px #00eaff;
-}
-                </style>
-        <script> const text="Initializing DevOps System..."
+saveBtn.addEventListener("click",()=>{
+
+let title = titleInput.value
+let content = contentInput.value
+
+if(title=="" || content=="") return
+
+const card = document.createElement("div")
+
+card.className="bg-white/5 p-3 rounded border border-white/5 flex justify-between items-center"
+
+card.innerHTML=`
+<div>
+<h3 class="text-xs font-bold">${title}</h3>
+<p class="text-[10px] text-slate-500">${content}</p>
+</div>
+`
+
+archive.prepend(card)
+
+titleInput.value=""
+contentInput.value=""
+
+})
+        const terminal = document.querySelector(".terminal-scroll")
+
+const commands = [
+"docker ps",
+"kubectl get nodes",
+"terraform plan",
+"git status"
+]
 
 let i=0
 
-function typing(){
+function runTerminal(){
 
-if(i<text.length){
+if(i < commands.length){
 
-document.getElementById("terminal").innerHTML+=text.charAt(i)
+const cmd = document.createElement("div")
+
+cmd.innerHTML = `
+<div class="flex gap-2 text-cyber-neon">
+<span>mariya@command:~$</span>
+<span class="text-white">${commands[i]}</span>
+</div>
+`
+
+terminal.appendChild(cmd)
 
 i++
 
-setTimeout(typing,40)
+setTimeout(runTerminal,1500)
 
 }
 
 }
 
-typing()</script>
+runTerminal()
+document.querySelectorAll(".h-1 > div").forEach(bar=>{
+
+let width = bar.style.width
+
+bar.style.width="0"
+
+setTimeout(()=>{
+
+bar.style.width=width
+
+},500)
+
+})
+        const cards = document.querySelectorAll(".cursor-move")
+const columns = document.querySelectorAll(".kanban-col")
+
+cards.forEach(card=>{
+
+card.setAttribute("draggable",true)
+
+card.addEventListener("dragstart",()=>{
+card.classList.add("dragging")
+})
+
+card.addEventListener("dragend",()=>{
+card.classList.remove("dragging")
+})
+
+})
+
+columns.forEach(col=>{
+
+col.addEventListener("dragover",(e)=>{
+
+e.preventDefault()
+
+const dragging = document.querySelector(".dragging")
+
+if(dragging){
+col.appendChild(dragging)
+}
+
+})
+
+})
+        const modules = document.querySelectorAll(".group")
+
+modules.forEach(module=>{
+
+module.addEventListener("click",()=>{
+
+modules.forEach(m=>m.classList.remove("ring-2","ring-cyber-blue"))
+
+module.classList.add("ring-2","ring-cyber-blue")
+
+})
+
+})
+        function askAI(question){
+
+question = question.toLowerCase()
+
+if(question.includes("docker"))
+return "Try: docker ps"
+
+if(question.includes("kubernetes"))
+return "Try: kubectl get pods"
+
+if(question.includes("terraform"))
+return "Try: terraform apply"
+
+return "DevOps AI: command not found"
+
+}
+
+</script>
 </body></html>
-
