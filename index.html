@@ -10,15 +10,18 @@
         :root { --bg: #020617; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #f8fafc; overflow: hidden; }
         .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; transition: all 0.3s ease; }
-        .glass:hover { border-color: rgba(59, 130, 246, 0.3); }
-        .screen { display: none; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-        .screen.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Fixed Screen Switching Logic */
+        .screen { display: none; opacity: 0; transform: translateY(10px); transition: all 0.4s ease; }
+        .screen.active { display: block; opacity: 1; transform: translateY(0); }
+
         .nav-item { transition: all 0.3s; cursor: pointer; border-left: 3px solid transparent; }
         .nav-item.active { background: linear-gradient(90deg, rgba(59, 130, 246, 0.15), transparent); border-left: 3px solid #3b82f6; color: #60a5fa; }
+        
         .theme-linux { border-top: 4px solid #10b981; }
         .theme-git { border-top: 4px solid #f97316; }
         .theme-docker { border-top: 4px solid #38bdf8; }
+        
         .cmd-snippet { font-family: 'Courier New', monospace; background: #000; color: #4ade80; padding: 10px; border-radius: 8px; border: 1px solid #1f2937; font-size: 12px; }
         .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 13px; margin-bottom: 10px; }
         .ai-msg { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); align-self: flex-start; }
@@ -32,65 +35,61 @@
     <aside class="w-64 bg-[#050b14] border-r border-slate-800 flex flex-col h-full flex-shrink-0 hidden md:flex">
         <div class="p-8">
             <h1 class="text-2xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">DEVOPS.OS</h1>
-            <p class="text-[9px] font-bold text-slate-500 uppercase tracking-[0.3em] mt-1">v13.1 • FIXED MASTER</p>
+            <p class="text-[9px] font-bold text-slate-500 uppercase tracking-[0.3em] mt-1">v13.2 • STABLE VERSION</p>
         </div>
         
         <nav class="flex-grow flex flex-col gap-1 px-4 mt-4 overflow-y-auto">
-            <div class="nav-item active p-4 rounded-xl font-bold text-sm flex items-center gap-3" onclick="switchTab('dashboard', this)"><span class="text-lg">📊</span> Dashboard</div>
-            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('ai', this)"><span class="text-lg">🤖</span> AI Assistant</div>
-            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('vault', this)"><span class="text-lg">🔐</span> Command Vault</div>
-            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('library', this)"><span class="text-lg">📚</span> PDF Library</div>
-            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('projects', this)"><span class="text-lg">🚀</span> Projects</div>
-            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('practice', this)"><span class="text-lg">⚔️</span> Practice</div>
+            <div class="nav-item active p-4 rounded-xl font-bold text-sm flex items-center gap-3" onclick="switchTab('dashboard', this)"><span>📊</span> Dashboard</div>
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('ai', this)"><span>🤖</span> AI Assistant</div>
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('vault', this)"><span>🔐</span> Command Vault</div>
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('library', this)"><span>📚</span> PDF Library</div>
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('projects', this)"><span>🚀</span> Projects</div>
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchTab('practice', this)"><span>⚔️</span> Practice</div>
         </nav>
 
-        <div class="p-4 mx-4 mb-4 bg-blue-900/10 border border-blue-500/10 rounded-xl text-center">
-            <button onclick="exportData()" class="w-full bg-blue-600/20 text-blue-400 text-[10px] py-2 rounded font-bold hover:bg-blue-600 hover:text-white transition">DOWNLOAD BACKUP</button>
+        <div class="p-4 mx-4 mb-4 bg-blue-900/10 border border-blue-500/10 rounded-xl">
+            <button onclick="exportData()" class="w-full bg-blue-600/20 text-blue-400 text-[10px] py-2 rounded font-bold hover:bg-blue-600 hover:text-white transition">BACKUP DATA</button>
         </div>
     </aside>
 
-    <main class="flex-grow h-full overflow-y-auto bg-[#020617]">
+    <main class="flex-grow h-full overflow-y-auto bg-[#020617] relative">
         
-        <div id="dashboard" class="screen active p-10 max-w-[1400px] mx-auto">
-            <h2 class="text-4xl font-black mb-8 italic">Telemetry Dashboard</h2>
+        <div id="dashboard" class="screen active p-10 max-w-[1200px] mx-auto">
+            <h2 class="text-4xl font-black mb-8 italic">Telemetry Dash</h2>
             <div class="glass p-8 border-l-4 border-blue-500 mb-8">
-                <div class="flex justify-between mb-4"><h3 class="font-bold">Learning Progress</h3><span id="progressText" class="font-black text-blue-400">0%</span></div>
+                <div class="flex justify-between mb-4"><h3 class="font-bold">Total Learning Progress</h3><span id="progressText" class="font-black text-blue-400">0%</span></div>
                 <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden"><div id="mainProgressBar" class="h-full bg-blue-500 transition-all duration-1000" style="width: 0%"></div></div>
                 <div class="grid grid-cols-4 gap-4 mt-8">
-                    <div class="text-center p-4 bg-slate-900/50 rounded-xl"><p class="text-[10px] text-slate-500 uppercase font-bold">Vault</p><p id="statVault" class="text-2xl font-black">0</p></div>
-                    <div class="text-center p-4 bg-slate-900/50 rounded-xl"><p class="text-[10px] text-slate-500 uppercase font-bold">PDFs</p><p id="statLibrary" class="text-2xl font-black">0</p></div>
-                    <div class="text-center p-4 bg-slate-900/50 rounded-xl"><p class="text-[10px] text-slate-500 uppercase font-bold">Projects</p><p id="statProjects" class="text-2xl font-black">0</p></div>
-                    <div class="text-center p-4 bg-slate-900/50 rounded-xl"><p class="text-[10px] text-slate-500 uppercase font-bold">Practices</p><p id="statPractice" class="text-2xl font-black">0</p></div>
+                    <div class="text-center p-4 bg-slate-900/50 rounded-xl"><p class="text-[9px] text-slate-500 font-bold uppercase">Vault</p><p id="statVault" class="text-xl font-black">0</p></div>
+                    <div class="text-center p-4 bg-slate-900/50 rounded-xl"><p class="text-[9px] text-slate-500 font-bold uppercase">Books</p><p id="statLibrary" class="text-xl font-black">0</p></div>
+                    <div class="text-center p-4 bg-slate-900/50 rounded-xl"><p class="text-[9px] text-slate-500 font-bold uppercase">Projects</p><p id="statProjects" class="text-xl font-black">0</p></div>
+                    <div class="text-center p-4 bg-slate-900/50 rounded-xl"><p class="text-[9px] text-slate-500 font-bold uppercase">Training</p><p id="statPractice" class="text-xl font-black">0</p></div>
                 </div>
             </div>
         </div>
 
-        <div id="ai" class="screen p-10 max-w-[1000px] mx-auto h-full flex flex-col">
+        <div id="ai" class="screen p-10 max-w-[900px] mx-auto h-full flex flex-col">
             <h2 class="text-3xl font-black mb-6 italic">DEVOPS_AI</h2>
             <div class="flex-grow glass p-6 mb-4 flex flex-col overflow-hidden">
-                <div id="chatBox" class="flex-grow overflow-y-auto space-y-4 pr-2">
-                    <div class="chat-bubble ai-msg">Hello Mariya! Ask me anything about Linux, Git, or Docker.</div>
+                <div id="chatBox" class="flex-grow overflow-y-auto space-y-4 pr-2 flex flex-col">
+                    <div class="chat-bubble ai-msg">Hello Mariya! Ready to build? Ask me about Docker, Git, or Linux.</div>
                 </div>
             </div>
             <div class="flex gap-2 bg-slate-900 p-2 rounded-2xl border border-white/10">
-                <input type="text" id="aiInput" placeholder="How to delete a docker container?" class="flex-grow bg-transparent px-4 text-sm outline-none" onkeypress="if(event.key==='Enter') askAI()">
-                <button onclick="askAI()" class="bg-blue-600 p-3 rounded-xl font-bold">SEND</button>
+                <input type="text" id="aiInput" placeholder="How to delete a docker container?" class="flex-grow bg-transparent px-4 text-sm outline-none">
+                <button onclick="askAI()" class="bg-blue-600 px-6 py-2 rounded-xl font-bold">ASK</button>
             </div>
         </div>
 
         <div id="vault" class="screen p-10 max-w-[1400px] mx-auto">
-            <div class="flex justify-between items-start mb-10">
-                <h2 class="text-3xl font-black italic">COMMAND_VAULT</h2>
-                <input type="text" onkeyup="searchVault(this.value)" placeholder="Search vault..." class="bg-slate-900 border border-slate-700 px-6 py-2 rounded-full text-xs outline-none">
-            </div>
+            <h2 class="text-3xl font-black mb-10 italic">COMMAND_VAULT</h2>
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 <div class="lg:col-span-4 glass p-8 h-fit sticky top-10">
-                    <h3 class="font-bold mb-6 italic">Inject Knowledge</h3>
                     <div class="space-y-4">
-                        <select id="vCat" class="w-full bg-slate-900 p-3 rounded-xl text-xs outline-none border border-slate-700"><option value="linux">Linux</option><option value="git">Git</option><option value="docker">Docker</option></select>
-                        <input type="text" id="vTitle" placeholder="Title (e.g. Check Ports)" class="w-full bg-slate-900 p-3 rounded-xl text-xs outline-none border border-slate-700">
-                        <textarea id="vCmd" placeholder="Command (e.g. netstat -tuln)" class="w-full bg-black p-3 rounded-xl text-xs outline-none text-green-400 font-mono"></textarea>
-                        <button onclick="saveVaultCmd()" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-xs">SAVE COMMAND</button>
+                        <select id="vCat" class="w-full bg-slate-900 p-3 rounded-xl text-xs border border-slate-700"><option value="linux">Linux</option><option value="git">Git</option><option value="docker">Docker</option></select>
+                        <input type="text" id="vTitle" placeholder="Title" class="w-full bg-slate-900 p-3 rounded-xl text-xs border border-slate-700">
+                        <textarea id="vCmd" placeholder="Command" class="w-full bg-black p-3 rounded-xl text-xs text-green-400 font-mono"></textarea>
+                        <button onclick="saveVaultCmd()" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-xs">SAVE RECORD</button>
                     </div>
                 </div>
                 <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4" id="vaultGrid"></div>
@@ -104,50 +103,76 @@
 
         <div id="projects" class="screen p-10 max-w-[1400px] mx-auto">
             <div class="flex justify-between mb-8">
-                <h2 class="text-3xl font-black italic">PROJECT_TRACKER</h2>
-                <button onclick="addProject()" class="bg-white text-black px-6 py-2 rounded-xl font-bold text-xs">+ ADD PROJECT</button>
+                <h2 class="text-3xl font-black italic">PROJECTS</h2>
+                <button onclick="addProject()" class="bg-white text-black px-6 py-2 rounded-xl font-bold text-xs">+ NEW</button>
             </div>
             <div id="projectGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
         </div>
 
-        <div id="practice" class="screen p-10 max-w-[1000px] mx-auto">
-            <h2 class="text-3xl font-black mb-10 italic text-orange-500 text-center">TRAINING_GROUND</h2>
-            <div class="glass p-10 border-t-4 border-orange-500 text-center">
-                <h3 class="text-xs font-bold text-slate-500 uppercase mb-4 tracking-widest">Today's Mission</h3>
-                <p id="dailyScenario" class="text-xl font-bold mb-8">Loading Mission...</p>
-                <button onclick="completePractice()" class="bg-orange-600 px-8 py-3 rounded-full font-bold">MISSION COMPLETE</button>
+        <div id="practice" class="screen p-10 max-w-[800px] mx-auto">
+            <h2 class="text-3xl font-black mb-10 italic text-orange-500 text-center">TRAINING</h2>
+            <div class="glass p-10 text-center border-t-4 border-orange-500">
+                <p id="dailyScenario" class="text-xl font-bold mb-8">Mission Loading...</p>
+                <button onclick="completePractice()" class="bg-orange-600 px-8 py-3 rounded-full font-bold">DONE</button>
             </div>
-            <div id="practiceLog" class="mt-10 space-y-2"></div>
+            <div id="practiceLog" class="mt-8 space-y-2"></div>
         </div>
 
     </main>
 
     <script>
-        // --- DATA & INIT ---
-        const icons = { linux: '🐧', git: '🎋', docker: '🐋', k8s: '☸️' };
-        
-        window.onload = () => {
-            if (!localStorage.getItem('mariya_library_v12')) {
-                const books = [
-                    { id: 1, cat: 'linux', title: 'The Linux Command Line', link: 'https://www.kea.nu/files/textbooks/humblesec/thelinuxcommandline.pdf' },
-                    { id: 2, cat: 'docker', title: 'KodeKloud Docker Notes', link: 'https://kodekloud.com/wp-content/uploads/2021/10/Docker-for-Beginners-Mumshad-Mannambeth.pdf' },
-                    { id: 3, cat: 'git', title: 'How to Git Guide', link: 'https://groundwater.usu.edu/assets/pdf/How_to_Git.pdf' }
-                ];
-                localStorage.setItem('mariya_library_v12', JSON.stringify(books));
-            }
-            renderAll();
-            document.getElementById('dailyScenario').innerText = "Check Linux file permissions with 'ls -l'";
-        };
-
+        // --- Core Switching Logic (FIXED) ---
         function switchTab(id, el) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+            // 1. Hide all screens
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(s => {
+                s.classList.remove('active');
+                s.style.display = 'none'; // Force hide
+            });
+
+            // 2. Show the selected screen
+            const target = document.getElementById(id);
+            target.style.display = 'block';
+            setTimeout(() => target.classList.add('active'), 10);
+
+            // 3. Update Sidebar
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active', 'text-slate-300'));
             el.classList.add('active', 'text-slate-300');
-            renderAll();
+            
+            refreshUI();
         }
 
-        function renderAll() {
+        // --- AI Logic (IMPROVED) ---
+        const aiDatabase = {
+            "docker delete": "Use: <code class='cmd-snippet'>docker rm -f $(docker ps -aq)</code> to wipe all containers.",
+            "docker ps": "Use <code class='cmd-snippet'>docker ps</code> for running, or <code class='cmd-snippet'>docker ps -a</code> for all.",
+            "linux perm": "Use <code class='cmd-snippet'>chmod 400 file</code> for read-only private access.",
+            "git undo": "Use <code class='cmd-snippet'>git reset --soft HEAD~1</code> to undo last commit.",
+            "status": "System Online. Mariya is 100% focused!"
+        };
+
+        function askAI() {
+            const input = document.getElementById('aiInput');
+            const box = document.getElementById('chatBox');
+            const val = input.value.trim().toLowerCase();
+            if(!val) return;
+
+            box.innerHTML += `<div class="chat-bubble user-msg">${input.value}</div>`;
+            
+            let reply = "I'm still learning that. Ask about Docker commands or Linux permissions!";
+            for(let key in aiDatabase) {
+                if(val.includes(key)) { reply = aiDatabase[key]; break; }
+            }
+
+            setTimeout(() => {
+                box.innerHTML += `<div class="chat-bubble ai-msg">${reply}</div>`;
+                box.scrollTop = box.scrollHeight;
+            }, 400);
+            input.value = '';
+        }
+
+        // --- Data Management ---
+        function refreshUI() {
             renderVault();
             renderLibrary();
             renderProjects();
@@ -155,108 +180,114 @@
             updateStats();
         }
 
-        // --- COMMAND VAULT ---
-        function saveVaultCmd() {
-            const title = document.getElementById('vTitle').value;
-            const cmd = document.getElementById('vCmd').value;
-            const cat = document.getElementById('vCat').value;
-            if(!title || !cmd) return;
-            let vault = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]');
-            vault.unshift({ id: Date.now(), title, cmd, cat, date: new Date().toLocaleDateString() });
-            localStorage.setItem('mariya_vault_v11', JSON.stringify(vault));
-            document.getElementById('vTitle').value = ''; document.getElementById('vCmd').value = '';
-            renderVault(); updateStats();
-        }
-
         function renderVault() {
-            const grid = document.getElementById('vaultGrid');
             const vault = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]');
-            grid.innerHTML = vault.map(v => `
+            document.getElementById('vaultGrid').innerHTML = vault.map(v => `
                 <div class="glass p-5 theme-${v.cat}">
-                    <div class="flex justify-between mb-4"><span class="font-bold text-xs uppercase">${icons[v.cat]} ${v.title}</span><button onclick="delVault(${v.id})" class="text-red-500 text-[10px]">DEL</button></div>
-                    <div class="cmd-snippet cursor-pointer" onclick="navigator.clipboard.writeText('${v.cmd}'); alert('Copied!');">$ ${v.cmd}</div>
+                    <div class="flex justify-between mb-3"><span class="font-bold text-[10px] uppercase">${v.cat}: ${v.title}</span><button onclick="delVault(${v.id})" class="text-red-500 text-[10px]">DEL</button></div>
+                    <div class="cmd-snippet cursor-pointer" onclick="navigator.clipboard.writeText('${v.cmd}'); alert('Copied!')">$ ${v.cmd}</div>
                 </div>
             `).join('');
         }
-        function delVault(id) {
-            let vault = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]');
-            localStorage.setItem('mariya_vault_v11', JSON.stringify(vault.filter(v => v.id !== id)));
+
+        function saveVaultCmd() {
+            const t = document.getElementById('vTitle').value;
+            const c = document.getElementById('vCmd').value;
+            const cat = document.getElementById('vCat').value;
+            if(!t || !c) return;
+            let v = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]');
+            v.unshift({id: Date.now(), title: t, cmd: c, cat});
+            localStorage.setItem('mariya_vault_v11', JSON.stringify(v));
+            document.getElementById('vTitle').value=''; document.getElementById('vCmd').value='';
             renderVault(); updateStats();
         }
-        function searchVault(q) {
-            document.querySelectorAll('#vaultGrid > div').forEach(d => d.style.display = d.innerText.toLowerCase().includes(q.toLowerCase()) ? 'block' : 'none');
+
+        function delVault(id) {
+            let v = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]');
+            localStorage.setItem('mariya_vault_v11', JSON.stringify(v.filter(x => x.id !== id)));
+            renderVault(); updateStats();
         }
 
-        // --- LIBRARY ---
         function renderLibrary() {
-            const grid = document.getElementById('libraryGrid');
             const books = JSON.parse(localStorage.getItem('mariya_library_v12') || '[]');
-            grid.innerHTML = books.map(b => `
+            document.getElementById('libraryGrid').innerHTML = books.map(b => `
                 <div class="glass p-6 text-center theme-${b.cat}">
-                    <div class="text-4xl mb-4">${icons[b.cat]}</div>
-                    <h4 class="text-xs font-bold mb-4 h-8 overflow-hidden">${b.title}</h4>
-                    <a href="${b.link}" target="_blank" class="block bg-blue-600/20 text-blue-400 py-2 rounded text-[10px] font-bold hover:bg-blue-600 hover:text-white transition">OPEN PDF</a>
+                    <h4 class="text-[11px] font-bold mb-4">${b.title}</h4>
+                    <a href="${b.link}" target="_blank" class="block bg-blue-600/20 text-blue-400 py-2 rounded text-[10px] font-bold">READ PDF</a>
                 </div>
             `).join('');
         }
 
-        // --- PROJECTS ---
         function addProject() {
-            const name = prompt("Project Name?");
-            if(!name) return;
-            let projects = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]');
-            projects.unshift({ id: Date.now(), name, status: 'planning' });
-            localStorage.setItem('mariya_projects_v11', JSON.stringify(projects));
+            const n = prompt("Project Name?");
+            if(!n) return;
+            let p = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]');
+            p.unshift({id: Date.now(), name: n, status: 'Active'});
+            localStorage.setItem('mariya_projects_v11', JSON.stringify(p));
             renderProjects(); updateStats();
         }
+
         function renderProjects() {
-            const grid = document.getElementById('projectGrid');
-            const projects = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]');
-            grid.innerHTML = projects.map(p => `<div class="glass p-6 border-l-4 border-slate-600"><h4 class="font-bold">${p.name}</h4><p class="text-[10px] uppercase text-slate-500 mt-2">${p.status}</p></div>`).join('');
+            const p = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]');
+            document.getElementById('projectGrid').innerHTML = p.map(x => `<div class="glass p-6 border-l-4 border-blue-500"><h4 class="font-bold">${x.name}</h4><p class="text-[10px] text-slate-500 mt-2 uppercase">${x.status}</p></div>`).join('');
         }
 
-        // --- PRACTICE ---
-        function completePractice() {
-            let logs = JSON.parse(localStorage.getItem('mariya_practice_v11') || '[]');
-            const today = new Date().toLocaleDateString();
-            if(logs.includes(today)) return alert("Already done today!");
-            logs.unshift(today);
-            localStorage.setItem('mariya_practice_v11', JSON.stringify(logs));
-            renderPractice(); updateStats();
-        }
         function renderPractice() {
             const log = JSON.parse(localStorage.getItem('mariya_practice_v11') || '[]');
-            document.getElementById('practiceLog').innerHTML = log.map(d => `<div class="p-3 bg-slate-900 rounded text-[10px] text-green-500 font-bold">✅ Completed on ${d}</div>`).join('');
+            document.getElementById('practiceLog').innerHTML = log.map(d => `<div class="p-3 bg-slate-900 rounded text-[10px] text-green-500">✅ Completed on ${d}</div>`).join('');
         }
 
-        // --- AI ASSISTANT ---
-        function askAI() {
-            const input = document.getElementById('aiInput');
-            const box = document.getElementById('chatBox');
-            if(!input.value) return;
-            box.innerHTML += `<div class="chat-bubble user-msg">${input.value}</div>`;
-            const q = input.value.toLowerCase();
-            let res = "I'm still learning that. Try asking about Docker, Linux permissions, or Git.";
-            if(q.includes('docker')) res = "To see all containers, use: <code class='cmd-snippet'>docker ps -a</code>";
-            if(q.includes('linux')) res = "To change permissions, use <code class='cmd-snippet'>chmod</code>. e.g., <code class='cmd-snippet'>chmod 400 key.pem</code>";
-            setTimeout(() => { box.innerHTML += `<div class="chat-bubble ai-msg">${res}</div>`; box.scrollTop = box.scrollHeight; }, 500);
-            input.value = '';
+        function completePractice() {
+            let log = JSON.parse(localStorage.getItem('mariya_practice_v11') || '[]');
+            const d = new Date().toLocaleDateString();
+            if(log.includes(d)) return alert("Already done today!");
+            log.unshift(d);
+            localStorage.setItem('mariya_practice_v11', JSON.stringify(log));
+            renderPractice(); updateStats();
         }
 
-        // --- STATS ---
         function updateStats() {
             const v = JSON.parse(localStorage.getItem('mariya_vault_v11') || '[]').length;
             const l = JSON.parse(localStorage.getItem('mariya_library_v12') || '[]').length;
             const p = JSON.parse(localStorage.getItem('mariya_projects_v11') || '[]').length;
             const pr = JSON.parse(localStorage.getItem('mariya_practice_v11') || '[]').length;
+            
             document.getElementById('statVault').innerText = v;
             document.getElementById('statLibrary').innerText = l;
             document.getElementById('statProjects').innerText = p;
             document.getElementById('statPractice').innerText = pr;
+
             const prog = Math.min((v * 2) + (pr * 5) + (l * 10), 100);
             document.getElementById('mainProgressBar').style.width = prog + '%';
             document.getElementById('progressText').innerText = prog + '%';
         }
+
+        function exportData() {
+            const data = {
+                vault: localStorage.getItem('mariya_vault_v11'),
+                library: localStorage.getItem('mariya_library_v12'),
+                projects: localStorage.getItem('mariya_projects_v11'),
+                practice: localStorage.getItem('mariya_practice_v11')
+            };
+            const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = 'mariya_backup.json'; a.click();
+        }
+
+        window.onload = () => {
+            if (!localStorage.getItem('mariya_library_v12')) {
+                const b = [
+                    { id: 1, cat: 'linux', title: 'The Linux Command Line', link: 'https://www.kea.nu/files/textbooks/humblesec/thelinuxcommandline.pdf' },
+                    { id: 2, cat: 'docker', title: 'KodeKloud Docker Notes', link: 'https://kodekloud.com/wp-content/uploads/2021/10/Docker-for-Beginners-Mumshad-Mannambeth.pdf' },
+                    { id: 3, cat: 'git', title: 'How to Git Guide', link: 'https://groundwater.usu.edu/assets/pdf/How_to_Git.pdf' }
+                ];
+                localStorage.setItem('mariya_library_v12', JSON.stringify(b));
+            }
+            document.getElementById('dailyScenario').innerText = "Simulate: Create a Dockerfile for Nginx.";
+            refreshUI();
+            // Start at Dashboard
+            switchTab('dashboard', document.querySelector('.nav-item'));
+        };
     </script>
 </body>
 </html>
