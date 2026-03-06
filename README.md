@@ -1,2 +1,2 @@
-# justweb
-its demo web for practice
+# devops platform
+its devops dashbaord web
