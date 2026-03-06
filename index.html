@@ -7,311 +7,351 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: #f8fafc; scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: #f8fafc; overflow-x: hidden; }
+        .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; transition: 0.3s; }
+        .glass:hover { border-color: rgba(59, 130, 246, 0.4); }
         
-        /* Premium Glassmorphism styling */
-        .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; transition: all 0.4s ease; }
-        .glass:hover { border-color: rgba(59, 130, 246, 0.5); transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        /* Sidebar Active State */
+        .nav-item { transition: all 0.3s; cursor: pointer; }
+        .nav-item.active { background: rgba(59, 130, 246, 0.1); border-right: 4px solid #3b82f6; color: #60a5fa; }
+        .nav-item:hover:not(.active) { background: rgba(255, 255, 255, 0.05); }
 
         /* Dynamic Theme Colors for Notes */
-        .card-linux { border-left: 5px solid #22c55e; background: linear-gradient(135deg, rgba(34,197,94,0.05), transparent); }
-        .card-git { border-left: 5px solid #f97316; background: linear-gradient(135deg, rgba(249,115,22,0.05), transparent); }
-        .card-docker { border-left: 5px solid #0ea5e9; background: linear-gradient(135deg, rgba(14,165,233,0.05), transparent); }
-        .card-aws { border-left: 5px solid #ff9900; background: linear-gradient(135deg, rgba(255,153,0,0.05), transparent); }
-        .card-cicd { border-left: 5px solid #a855f7; background: linear-gradient(135deg, rgba(168,85,247,0.05), transparent); }
-        .card-other { border-left: 5px solid #64748b; background: linear-gradient(135deg, rgba(100,116,139,0.05), transparent); }
+        .card-linux { border-top: 4px solid #22c55e; background: linear-gradient(to bottom, rgba(34,197,94,0.05), transparent); }
+        .card-git { border-top: 4px solid #f97316; background: linear-gradient(to bottom, rgba(249,115,22,0.05), transparent); }
+        .card-docker { border-top: 4px solid #0ea5e9; background: linear-gradient(to bottom, rgba(14,165,233,0.05), transparent); }
+        .card-aws { border-top: 4px solid #ff9900; background: linear-gradient(to bottom, rgba(255,153,0,0.05), transparent); }
 
-        /* Roadmap Node Animation */
-        .roadmap-node { transition: all 0.3s; cursor: pointer; }
-        .roadmap-node:hover { transform: scale(1.1); filter: brightness(1.2); }
-        .roadmap-node.active { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); border-color: #3b82f6; }
+        .roadmap-node { cursor: pointer; transition: 0.3s; }
+        .roadmap-node:hover { transform: translateY(-5px) scale(1.05); filter: brightness(1.2); }
+        
+        /* Hide screens */
+        .screen { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .screen.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="p-4 md:p-10 max-w-[1500px] mx-auto">
+<body class="flex h-screen overflow-hidden">
 
-    <header class="flex justify-between items-center mb-12">
-        <div class="flex flex-col">
-            <h1 class="text-3xl font-black italic tracking-tighter text-blue-500">DEVOPS.ELITE</h1>
-            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.5em]">Mariya's Workspace v10.0</p>
+    <aside class="w-64 bg-[#090e1a] border-r border-slate-800 flex flex-col hidden md:flex h-full">
+        <div class="p-8">
+            <h1 class="text-2xl font-black italic tracking-tighter text-blue-500">DEVOPS.CORE</h1>
+            <p class="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em]">Mariya's Platform</p>
         </div>
-        <div class="glass px-6 py-3 flex items-center gap-4 border-white/5">
-            <div class="text-right">
+        <nav class="flex-grow flex flex-col gap-2 px-4">
+            <div class="nav-item active p-4 rounded-xl font-bold text-sm flex items-center gap-3" onclick="switchScreen('dashboard', this)">
+                <span>🏠</span> Dashboard
+            </div>
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchScreen('notes', this)">
+                <span>📝</span> My Notes Archive
+            </div>
+            <div class="nav-item p-4 rounded-xl font-bold text-sm flex items-center gap-3 text-slate-400" onclick="switchScreen('terminal', this)">
+                <span>💻</span> Terminal Lab
+            </div>
+        </nav>
+        <div class="p-6 border-t border-slate-800 flex items-center gap-4 cursor-pointer hover:bg-white/5 transition">
+            <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-xl">👩‍🚀</div>
+            <div>
                 <p class="text-xs font-bold text-white">Mariya</p>
-                <p class="text-[9px] text-green-500 font-mono">Status: LEARNING</p>
-            </div>
-            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-purple-600 p-0.5" id="profileCircle">
-                <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-xl">👩‍🚀</div>
+                <p class="text-[10px] text-green-500">Online</p>
             </div>
         </div>
-    </header>
+    </aside>
 
-    <section class="mb-16">
-        <h3 class="text-center text-[10px] font-bold text-slate-500 uppercase tracking-[0.6em] mb-10">Learning Path A to Z</h3>
-        <div class="flex flex-wrap justify-center gap-8 relative px-10">
-            <div class="absolute h-px bg-slate-800 w-[90%] top-8 -z-10"></div>
-            <div class="roadmap-node flex flex-col items-center gap-3 active" onclick="roadmapClick(this, 'Linux')">
-                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-green-500 text-3xl">🐧</div>
-                <span class="text-[10px] font-bold text-green-500">LINUX</span>
-            </div>
-            <div class="roadmap-node flex flex-col items-center gap-3" onclick="roadmapClick(this, 'Git')">
-                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-orange-500 text-3xl">🎋</div>
-                <span class="text-[10px] font-bold text-orange-400">GIT</span>
-            </div>
-            <div class="roadmap-node flex flex-col items-center gap-3" onclick="roadmapClick(this, 'Docker')">
-                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-blue-400 text-3xl animate-pulse">🐋</div>
-                <span class="text-[10px] font-bold text-blue-400">DOCKER</span>
-            </div>
-            <div class="roadmap-node flex flex-col items-center gap-3 opacity-50" onclick="roadmapClick(this, 'CI/CD')">
-                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-purple-500 text-3xl">🔄</div>
-                <span class="text-[10px] font-bold text-purple-400">CI/CD</span>
-            </div>
-            <div class="roadmap-node flex flex-col items-center gap-3 opacity-50" onclick="roadmapClick(this, 'AWS Cloud')">
-                <div class="w-16 h-16 glass rounded-2xl flex items-center justify-center border-yellow-500 text-3xl">☁️</div>
-                <span class="text-[10px] font-bold text-yellow-400">AWS</span>
-            </div>
-        </div>
-    </section>
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-12">
-        <div class="lg:col-span-5">
-            <div class="flex items-center gap-2 mb-4">
-                <span class="text-slate-500 text-xs font-bold uppercase tracking-widest">Interactive Terminal</span>
-            </div>
-            <div class="glass p-5 bg-black/50 border border-slate-800 rounded-2xl h-[330px] font-mono text-sm overflow-hidden flex flex-col cursor-text" id="terminalArea">
-                <div class="flex gap-2 mb-4 pb-2 border-b border-slate-800">
-                    <span class="w-2.5 h-2.5 bg-red-500 rounded-full"></span>
-                    <span class="w-2.5 h-2.5 bg-yellow-500 rounded-full"></span>
-                    <span class="w-2.5 h-2.5 bg-green-500 rounded-full"></span>
-                    <span class="ml-auto text-[10px] text-slate-600 font-sans">bash — 80x24</span>
+    <main class="flex-grow h-full overflow-y-auto p-6 md:p-10 relative">
+        
+        <div id="dashboard" class="screen active max-w-[1200px] mx-auto">
+            <header class="mb-12 flex justify-between items-end">
+                <div>
+                    <h2 class="text-3xl font-bold mb-2">Welcome back, Mariya.</h2>
+                    <p class="text-sm text-slate-400">Your DevOps infrastructure is running smoothly.</p>
                 </div>
-                <div class="flex-grow overflow-y-auto space-y-1" id="terminalLog">
-                    <p class="text-blue-400"># Welcome Mariya. Start practicing DevOps commands below.</p>
-                    <p class="text-slate-500">mariya@elite:~$ <span id="currentInput" class="text-white"></span><span class="animate-pulse">|</span></p>
+                <button onclick="switchScreen('notes', document.querySelectorAll('.nav-item')[1])" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-full font-bold text-xs tracking-widest transition shadow-lg shadow-blue-500/20">+ QUICK NOTE</button>
+            </header>
+
+            <section class="glass p-10 mb-10">
+                <h3 class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.5em] mb-10 text-center">Interactive Master Roadmap</h3>
+                <p class="text-xs text-center text-blue-400 mb-8 italic">Click on any module to open its dedicated learning page 👇</p>
+                
+                <div class="flex flex-wrap justify-center gap-10 relative">
+                    <div class="absolute h-px bg-slate-800 w-[80%] top-1/2 -z-10"></div>
+                    
+                    <div class="roadmap-node flex flex-col items-center gap-3" onclick="openModule('linux')">
+                        <div class="w-20 h-20 glass rounded-full flex items-center justify-center border-green-500 text-4xl shadow-[0_0_20px_rgba(34,197,94,0.2)]">🐧</div>
+                        <span class="text-xs font-bold text-green-500">LINUX</span>
+                    </div>
+                    
+                    <div class="roadmap-node flex flex-col items-center gap-3" onclick="openModule('git')">
+                        <div class="w-20 h-20 glass rounded-full flex items-center justify-center border-orange-500 text-4xl shadow-[0_0_20px_rgba(249,115,22,0.2)]">🎋</div>
+                        <span class="text-xs font-bold text-orange-400">GIT</span>
+                    </div>
+
+                    <div class="roadmap-node flex flex-col items-center gap-3" onclick="openModule('docker')">
+                        <div class="w-20 h-20 glass rounded-full flex items-center justify-center border-blue-400 text-4xl shadow-[0_0_20px_rgba(56,189,248,0.2)]">🐋</div>
+                        <span class="text-xs font-bold text-blue-400">DOCKER</span>
+                    </div>
+
+                    <div class="roadmap-node flex flex-col items-center gap-3 opacity-60 hover:opacity-100" onclick="openModule('aws')">
+                        <div class="w-20 h-20 glass rounded-full flex items-center justify-center border-yellow-500 text-4xl">☁️</div>
+                        <span class="text-xs font-bold text-yellow-400">AWS</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="modulePage" class="screen max-w-[1000px] mx-auto">
+            <button onclick="switchScreen('dashboard', document.querySelectorAll('.nav-item')[0])" class="text-xs font-bold text-slate-400 hover:text-white mb-8 flex items-center gap-2">
+                ← BACK TO DASHBOARD
+            </button>
+            
+            <div class="glass p-10 flex items-center gap-8 mb-10" id="moduleHeader">
+                </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="glass p-8" id="moduleCheatSheet">
+                    </div>
+                <div class="glass p-8 border-t-4 border-blue-500">
+                    <h4 class="font-bold mb-4">Add specific note for this module:</h4>
+                    <input type="hidden" id="quickNoteCat">
+                    <input type="text" id="quickNoteTitle" placeholder="Topic..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm mb-4 outline-none text-white">
+                    <textarea id="quickNoteBody" rows="4" placeholder="Your learnings..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm mb-4 outline-none text-white"></textarea>
+                    <button onclick="saveQuickNote()" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold text-sm transition">SAVE NOTE</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="notes" class="screen max-w-[1200px] mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
+                <h2 class="text-3xl font-black italic">DATA_ARCHIVE</h2>
+                <input type="text" id="searchNotes" onkeyup="filterNotes()" placeholder="Search notes..." class="bg-slate-900 border border-slate-800 rounded-full px-6 py-3 text-sm outline-none focus:border-blue-500 w-72">
+            </div>
+            
+            <div class="glass p-8 mb-10 flex flex-col md:flex-row gap-4 items-start border-l-4 border-blue-500">
+                <select id="mainNoteCat" class="bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm outline-none w-full md:w-1/4">
+                    <option value="linux">🐧 Linux</option>
+                    <option value="git">🎋 Git</option>
+                    <option value="docker">🐋 Docker</option>
+                    <option value="aws">☁️ AWS</option>
+                    <option value="other">✨ Extra</option>
+                </select>
+                <input type="text" id="mainNoteTitle" placeholder="Title" class="bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm outline-none w-full md:w-1/4">
+                <input type="text" id="mainNoteBody" placeholder="Note content..." class="bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm outline-none w-full md:w-2/4">
+                <button onclick="saveMainNote()" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl font-bold transition whitespace-nowrap">ADD NOTE</button>
+            </div>
+
+            <div id="notesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+        </div>
+
+        <div id="terminal" class="screen max-w-[1000px] mx-auto">
+            <h2 class="text-3xl font-bold mb-8">Terminal Playground</h2>
+            <div class="glass p-6 bg-black/80 border border-slate-800 rounded-2xl h-[450px] font-mono text-sm overflow-hidden flex flex-col shadow-2xl shadow-blue-500/10 cursor-text" id="terminalArea">
+                <div class="flex gap-2 mb-4 pb-4 border-b border-slate-800">
+                    <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+                    <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
+                    <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                    <span class="ml-auto text-xs text-slate-500 font-sans">root@mariya-server:~</span>
+                </div>
+                <div class="flex-grow overflow-y-auto space-y-2 text-slate-300" id="terminalLog">
+                    <p class="text-green-400">Welcome to Ubuntu 22.04 LTS (GNU/Linux 5.15.0-101-generic x86_64)</p>
+                    <p class="text-slate-500">System is up to date.</p><br>
+                    <p>root@mariya-server:~$ <span id="currentInput" class="text-white"></span><span class="animate-pulse">_</span></p>
                 </div>
                 <input type="text" id="terminalInput" class="absolute -top-[100px] opacity-0">
             </div>
         </div>
 
-        <div class="lg:col-span-7">
-            <div class="glass p-8 border-t-4 border-blue-600 space-y-5">
-                <h3 class="text-xl font-bold flex items-center gap-3">✍️ Smart Note Maker</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input type="text" id="noteTitle" placeholder="Topic: e.g. Docker Volumes" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm focus:border-blue-500 outline-none transition-all">
-                    <select id="noteCat" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm focus:border-blue-500 outline-none cursor-pointer">
-                        <option value="linux">🐧 Linux Fundamentals</option>
-                        <option value="git">🎋 Git Version Control</option>
-                        <option value="docker">🐋 Docker Containers</option>
-                        <option value="cicd">🔄 CI/CD Pipelines</option>
-                        <option value="aws">☁️ AWS Cloud Services</option>
-                        <option value="other">✨ Other / Custom Note</option>
-                    </select>
-                </div>
-                <textarea id="noteBody" rows="4" placeholder="Commands, steps or theory you learned..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm focus:border-blue-500 outline-none resize-none"></textarea>
-                <button onclick="saveNote()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 py-3 rounded-xl font-bold text-xs tracking-[0.2em] shadow-lg shadow-blue-500/20 active:scale-95 transition-all">COMMIT TO KNOWLEDGE BASE</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="mb-10">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-            <h3 class="text-2xl font-black italic tracking-tighter">DATA_ARCHIVE</h3>
-            <div class="relative">
-                <input type="text" id="searchNotes" onkeyup="filterNotes()" placeholder="Filter neural records..." class="bg-white/5 border border-white/10 rounded-full px-6 py-2 text-xs outline-none focus:border-blue-500 w-72">
-            </div>
-        </div>
-        <div id="notesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="col-span-full py-16 text-center opacity-30 text-lg font-black tracking-widest italic" id="emptyState">Database is empty. Add your first note!</div>
-        </div>
-    </div>
-
-    <footer class="glass p-6 text-center border-slate-800 mt-12">
-        <p class="text-[10px] text-slate-600 font-bold mb-4 uppercase tracking-widest">Mariya, continue your engineering path! 🔥</p>
-        <div class="flex justify-center gap-3">
-            <button onclick="alert('Continuing your Roadmap to Automation level!')" class="bg-slate-800 text-[10px] font-bold px-4 py-1.5 rounded-full hover:bg-slate-700">Continue Roadmap</button>
-            <button onclick="alert('Opening new connection suggestions...')" class="bg-slate-800 text-[10px] font-bold px-4 py-1.5 rounded-full hover:bg-slate-700">New Connection</button>
-        </div>
-    </footer>
+    </main>
 
     <script>
-        // Store notes in LocalStorage
-        const STORAGE_KEY = 'mariya_devops_lab_v10';
-        const icons = { linux: '🐧', git: '🎋', docker: '🐋', cicd: '🔄', aws: '☁️', other: '✨' };
+        // Data for Module Pages
+        const moduleData = {
+            linux: {
+                title: "Linux Masterclass", icon: "🐧", color: "text-green-500", border: "border-green-500",
+                desc: "The foundation of all DevOps operations. Manage servers, file permissions, and scripts.",
+                cheatsheet: `
+                    <h4 class='font-bold mb-4 text-green-400'>Essential Commands</h4>
+                    <ul class='space-y-3 text-sm text-slate-300'>
+                        <li><code class='bg-slate-900 px-2 py-1 rounded text-green-300'>ls -lah</code> : View hidden files and permissions</li>
+                        <li><code class='bg-slate-900 px-2 py-1 rounded text-green-300'>chmod 400 key.pem</code> : Secure a file (Read only)</li>
+                        <li><code class='bg-slate-900 px-2 py-1 rounded text-green-300'>grep "error" file.log</code> : Search inside logs</li>
+                    </ul>`
+            },
+            docker: {
+                title: "Docker Containerization", icon: "🐋", color: "text-blue-400", border: "border-blue-400",
+                desc: "Package your applications (like justweb) into standard boxes that run anywhere.",
+                cheatsheet: `
+                    <h4 class='font-bold mb-4 text-blue-400'>Dockerfile Basics</h4>
+                    <ul class='space-y-3 text-sm text-slate-300'>
+                        <li><code class='bg-slate-900 px-2 py-1 rounded text-blue-300'>docker build -t app .</code> : Build an image</li>
+                        <li><code class='bg-slate-900 px-2 py-1 rounded text-blue-300'>docker run -p 80:80 app</code> : Run your container</li>
+                        <li><code class='bg-slate-900 px-2 py-1 rounded text-blue-300'>docker ps</code> : Check running containers</li>
+                    </ul>`
+            },
+            git: {
+                title: "Git Version Control", icon: "🎋", color: "text-orange-400", border: "border-orange-500",
+                desc: "Track changes, collaborate with teams, and manage your GitHub repositories.",
+                cheatsheet: `
+                    <h4 class='font-bold mb-4 text-orange-400'>Daily Workflow</h4>
+                    <ul class='space-y-3 text-sm text-slate-300'>
+                        <li><code class='bg-slate-900 px-2 py-1 rounded text-orange-300'>git add .</code> : Stage changes</li>
+                        <li><code class='bg-slate-900 px-2 py-1 rounded text-orange-300'>git commit -m "update"</code> : Save snapshot</li>
+                        <li><code class='bg-slate-900 px-2 py-1 rounded text-orange-300'>git push origin main</code> : Upload to GitHub</li>
+                    </ul>`
+            },
+            aws: {
+                title: "AWS Cloud Infrastructure", icon: "☁️", color: "text-yellow-400", border: "border-yellow-500",
+                desc: "Deploy your Docker containers and Linux servers to the real internet.",
+                cheatsheet: `
+                    <h4 class='font-bold mb-4 text-yellow-400'>Core Services</h4>
+                    <ul class='space-y-3 text-sm text-slate-300'>
+                        <li><strong>EC2:</strong> Virtual Linux Servers</li>
+                        <li><strong>S3:</strong> Storage for static files/backups</li>
+                        <li><strong>IAM:</strong> User permissions and security</li>
+                    </ul>`
+            }
+        };
 
-        // DOM Elements
-        const terminalArea = document.getElementById('terminalArea');
-        const terminalLog = document.getElementById('terminalLog');
-        const terminalInput = document.getElementById('terminalInput');
-        const currentInputDisp = document.getElementById('currentInput');
-        const notesGrid = document.getElementById('notesGrid');
-        const emptyState = document.getElementById('emptyState');
-
-        // Initial Load
-        function init() {
-            renderNotes();
-            // Header Search Interaction dummy
-            document.querySelector('input[placeholder="Search knowledge..."]').addEventListener('keypress', (e) => {
-                if(e.key === 'Enter') alert('Searching database...');
-            });
-            // Profile Interaction dummy
-            document.getElementById('profileCircle').addEventListener('click', () => {
-                alert('Mariya Engineer | Progress: 35%');
-            });
-        }
-
-        // --- Core Utility: Note Making ---
-        function saveNote() {
-            const title = document.getElementById('noteTitle').value.trim();
-            const type = document.getElementById('noteCat').value;
-            const body = document.getElementById('noteBody').value.trim();
-
-            if (!title || !body) return alert("Pehle Topic aur Content toh likh lo bhai!");
-
-            const note = {
-                title, type, body,
-                id: Date.now(),
-                date: new Date().toLocaleDateString('en-GB') // Format: dd/mm/yyyy
-            };
-
-            let notes = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            notes.unshift(note); // Add new note to top
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
-
-            // Reset inputs
-            document.getElementById('noteTitle').value = '';
-            document.getElementById('noteBody').value = '';
+        // Screen Switching Logic
+        function switchScreen(screenId, navElement) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            // Show target screen
+            document.getElementById(screenId).classList.add('active');
             
-            alert("Note successfully committed to Neural Database!");
+            // Update Sidebar colors if triggered from sidebar
+            if(navElement && navElement.classList.contains('nav-item')) {
+                document.querySelectorAll('.nav-item').forEach(n => {
+                    n.classList.remove('active');
+                    n.classList.add('text-slate-400');
+                });
+                navElement.classList.add('active');
+                navElement.classList.remove('text-slate-400');
+            }
+            if(screenId === 'notes') renderNotes();
+        }
+
+        // Module Page Dynamic Loading
+        function openModule(moduleName) {
+            const data = moduleData[moduleName];
+            if(!data) return alert("Module content coming soon!");
+
+            // Inject Header
+            document.getElementById('moduleHeader').innerHTML = `
+                <div class="w-24 h-24 rounded-full border-2 ${data.border} flex items-center justify-center text-5xl bg-slate-900/50">${data.icon}</div>
+                <div>
+                    <h2 class="text-3xl font-black ${data.color} mb-2">${data.title}</h2>
+                    <p class="text-slate-400 text-sm max-w-lg">${data.desc}</p>
+                </div>
+            `;
+            // Inject CheatSheet
+            document.getElementById('moduleCheatSheet').innerHTML = data.cheatsheet;
+            // Setup Quick Note
+            document.getElementById('quickNoteCat').value = moduleName;
+            
+            switchScreen('modulePage', null);
+            // Remove active state from sidebar
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        }
+
+        // --- Note System ---
+        function saveMainNote() {
+            processNote(document.getElementById('mainNoteTitle'), document.getElementById('mainNoteCat'), document.getElementById('mainNoteBody'));
+        }
+        function saveQuickNote() {
+            processNote(document.getElementById('quickNoteTitle'), document.getElementById('quickNoteCat'), document.getElementById('quickNoteBody'));
+            alert("Note saved to Archive!");
+            document.getElementById('quickNoteTitle').value = '';
+            document.getElementById('quickNoteBody').value = '';
+        }
+
+        function processNote(titleEl, catEl, bodyEl) {
+            const title = titleEl.value.trim();
+            const type = catEl.value;
+            const body = bodyEl.value.trim();
+            if (!title || !body) return alert("Write something to save!");
+
+            const note = { title, type, body, id: Date.now(), date: new Date().toLocaleDateString() };
+            let notes = JSON.parse(localStorage.getItem('mariya_spa_notes') || '[]');
+            notes.unshift(note);
+            localStorage.setItem('mariya_spa_notes', JSON.stringify(notes));
+
+            titleEl.value = ''; bodyEl.value = '';
             renderNotes();
         }
+
+        const noteIcons = { linux: '🐧', git: '🎋', docker: '🐋', aws: '☁️', other: '✨' };
 
         function renderNotes() {
-            const notes = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            notesGrid.innerHTML = '';
+            const grid = document.getElementById('notesGrid');
+            const notes = JSON.parse(localStorage.getItem('mariya_spa_notes') || '[]');
+            grid.innerHTML = '';
 
             if (notes.length === 0) {
-                notesGrid.appendChild(emptyState);
+                grid.innerHTML = '<p class="col-span-full py-10 text-center text-slate-500 italic">No notes found. Add one!</p>';
                 return;
             }
 
             notes.forEach(n => {
                 const div = document.createElement('div');
-                // Dynamic styling based on category
-                div.className = `glass p-6 card-${n.type} flex flex-col group transition-all`;
+                div.className = `glass p-6 card-${n.type} flex flex-col`;
                 div.innerHTML = `
-                    <div class="flex justify-between items-start mb-6">
-                        <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">${n.date}</span>
-                        <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition">
-                            <button onclick="copyContent('${n.body.replace(/'/g, "\\'")}')" class="text-[9px] font-bold text-slate-500 hover:text-white uppercase">Copy</button>
-                            <button onclick="deleteNote(${n.id})" class="text-[9px] font-bold text-slate-500 hover:text-red-500 uppercase">Purge</button>
-                        </div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-2xl">${noteIcons[n.type] || '📌'}</span>
+                        <button onclick="deleteNote(${n.id})" class="text-[10px] text-red-500 font-bold uppercase hover:underline">Delete</button>
                     </div>
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="text-2xl opacity-80">${icons[n.type]}</span>
-                        <h4 class="font-bold text-white text-md tracking-tight uppercase">${n.title}</h4>
-                    </div>
-                    <p class="text-xs text-slate-400 leading-relaxed flex-grow italic opacity-70 whitespace-pre-wrap">${n.body}</p>
-                    <div class="flex justify-between items-center mt-auto pt-4 border-t border-white/5">
-                        <span class="text-[9px] font-black text-blue-500/60 uppercase tracking-widest">${n.type} Unit</span>
-                        <span class="text-[10px] bg-slate-900 text-blue-400 px-2 py-0.5 rounded border border-slate-700">v1.0</span>
-                    </div>
+                    <h4 class="font-bold text-white mb-2">${n.title}</h4>
+                    <p class="text-xs text-slate-400 mb-6 flex-grow whitespace-pre-wrap">${n.body}</p>
+                    <div class="text-[9px] font-bold text-slate-500 uppercase">${n.date}</div>
                 `;
-                notesGrid.appendChild(div);
+                grid.appendChild(div);
             });
         }
 
         function deleteNote(id) {
-            if (!confirm("Are you sure? Data will be purged from Local Storage.")) return;
-            let notes = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            let notes = JSON.parse(localStorage.getItem('mariya_spa_notes') || '[]');
             notes = notes.filter(n => n.id !== id);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+            localStorage.setItem('mariya_spa_notes', JSON.stringify(notes));
             renderNotes();
         }
 
-        function copyContent(text) {
-            navigator.clipboard.writeText(text);
-            alert("Note content extracted to clipboard! 📋");
-        }
+        // --- Terminal Logic ---
+        const termInput = document.getElementById('terminalInput');
+        const currentInp = document.getElementById('currentInput');
+        const termLog = document.getElementById('terminalLog');
 
-        function filterNotes() {
-            const query = document.getElementById('searchNotes').value.toLowerCase();
-            const cards = notesGrid.querySelectorAll('div[class^="glass p-6"]');
-            
-            cards.forEach(card => {
-                const isVisible = card.innerText.toLowerCase().includes(query);
-                card.style.display = isVisible ? 'flex' : 'none';
-            });
-        }
-
-        // --- Interactive Terminal Simulation ---
-        terminalArea.addEventListener('click', () => terminalInput.focus());
-
-        terminalInput.addEventListener('input', (e) => {
-            currentInputDisp.innerText = e.target.value;
-        });
-
-        terminalInput.addEventListener('keypress', (e) => {
+        document.getElementById('terminalArea').addEventListener('click', () => termInput.focus());
+        termInput.addEventListener('input', e => currentInp.innerText = e.target.value);
+        
+        termInput.addEventListener('keypress', e => {
             if(e.key === 'Enter') {
-                const cmd = terminalInput.value.trim().toLowerCase();
-                if(cmd === '') return;
-
-                // Log the command
-                const pCmd = document.createElement('p');
-                pCmd.innerHTML = `<span class="text-slate-500">mariya@elite:~$</span> ${terminalInput.value}`;
-                terminalLog.insertBefore(pCmd, currentInputDisp.closest('p'));
-
-                // Log dummy output
-                const pOut = document.createElement('p');
-                pOut.className = "text-yellow-400 text-xs pl-2 border-l border-slate-700";
+                const cmd = termInput.value.trim();
+                if(!cmd) return;
                 
-                if (cmd === 'ls') pOut.innerText = "linux/ git/ dockerfile README.md";
-                else if (cmd === 'pwd') pOut.innerText = "/home/mariya/workspace";
-                else if (cmd.startsWith('docker')) pOut.innerText = "Error: Docker daemon not running. (Practice only)";
-                else if (cmd === 'clear') {
-                    // Specific logic for clear
-                    terminalLog.innerHTML = `<p class="text-slate-500">mariya@elite:~$ <span id="currentInput" class="text-white"></span><span class="animate-pulse">|</span></p>`;
-                    terminalInput.value = '';
-                    // Re-assign currentInput element
-                    currentInputDisp = document.getElementById('currentInput');
-                    return;
-                }
-                else pOut.innerText = `Command '${cmd}' recognized but not implemented (Simulator).`;
+                // Print command
+                const p1 = document.createElement('p');
+                p1.innerHTML = `root@mariya-server:~$ ${cmd}`;
+                termLog.insertBefore(p1, currentInp.closest('p'));
 
-                terminalLog.insertBefore(pOut, currentInputDisp.closest('p'));
-
-                // Reset inputs
-                terminalInput.value = '';
-                currentInputDisp.innerText = '';
-                // Autoscroll terminal
-                terminalLog.parentElement.scrollTop = terminalLog.parentElement.scrollHeight;
+                // Print Output
+                const p2 = document.createElement('p');
+                p2.className = "text-yellow-400 pb-2";
+                if(cmd === 'ls') p2.innerText = "justweb_files  docker_images  config.yml";
+                else if(cmd === 'pwd') p2.innerText = "/home/mariya";
+                else if(cmd.includes('docker')) p2.innerText = "Docker is ready to containerize justweb.";
+                else p2.innerText = `bash: ${cmd}: command not found`;
+                
+                if(cmd !== 'clear') termLog.insertBefore(p2, currentInp.closest('p'));
+                else termLog.innerHTML = `<p>root@mariya-server:~$ <span id="currentInput" class="text-white"></span><span class="animate-pulse">_</span></p>`;
+                
+                termInput.value = ''; currentInp.innerText = '';
+                document.getElementById('terminalArea').scrollTop = document.getElementById('terminalArea').scrollHeight;
             }
         });
 
-        // --- Dummy Roadmap Interaction ---
-        function roadmapClick(el, topic) {
-            alert(`Opening knowledge base for: ${topic}`);
-            // Toggle active visual
-            document.querySelectorAll('.roadmap-node').forEach(node => node.classList.remove('active'));
-            el.classList.add('active');
-        }
-
-        // --- Dynamic Note Maker Category Styling ---
-        const catSelect = document.getElementById('noteCat');
-        catSelect.addEventListener('change', (e) => {
-            const cat = e.target.value;
-            const editorDiv = e.target.closest('div.glass');
-            // Remove previous theme border
-            editorDiv.className = editorDiv.className.replace(/\bborder-t-4 border-\w+-\d+/g, '');
-            // Add new theme border
-            if (cat === 'linux') editorDiv.classList.add('border-t-4', 'border-green-600');
-            else if (cat === 'git') editorDiv.classList.add('border-t-4', 'border-orange-600');
-            else if (cat === 'docker') editorDiv.classList.add('border-t-4', 'border-blue-600');
-            else if (cat === 'cicd') editorDiv.classList.add('border-t-4', 'border-purple-600');
-            else if (cat === 'aws') editorDiv.classList.add('border-t-4', 'border-yellow-600');
-            else editorDiv.classList.add('border-t-4', 'border-slate-600');
-        });
-
-        // Run Init on load
-        window.onload = init;
+        // Init
+        window.onload = () => { renderNotes(); };
     </script>
 </body>
 </html>
