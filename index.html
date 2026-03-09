@@ -1,183 +1,347 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Ultimate OS | Mariya</title>
+    <title>DevOps Elite OS | Mariya</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #020617; --accent: #3b82f6; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #f8fafc; overflow: hidden; }
-        .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; }
-        .screen { display: none; }
-        .screen.active { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .nav-item { cursor: pointer; transition: 0.3s; border-radius: 12px; margin-bottom: 4px; color: #94a3b8; }
-        .nav-item.active { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-left: 4px solid #3b82f6; }
-        .cmd-snippet { font-family: 'Courier New', monospace; background: #000; color: #4ade80; padding: 10px; border-radius: 8px; font-size: 12px; }
         
-        /* Engineer Animation */
-        .typing-box { width: 100%; height: 60px; background: #0f172a; border-radius: 12px; position: relative; overflow: hidden; border: 1px solid #1e293b; }
-        .typing-text { font-family: monospace; font-size: 8px; color: #10b981; position: absolute; white-space: nowrap; animation: typing 3s steps(40) infinite; }
-        @keyframes typing { from { top: 0; } to { top: -100px; } }
+        /* Glass Effect */
+        .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; }
+        
+        /* Bulletproof Screen Switching */
+        .screen { display: none; opacity: 0; height: 0; overflow: hidden; }
+        .screen.active { display: flex !important; flex-direction: column; opacity: 1; height: 100%; overflow-y: auto; animation: fadeIn 0.4s ease forwards; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Sidebar Styling */
+        .nav-item { cursor: pointer; transition: 0.3s; color: #94a3b8; border-left: 3px solid transparent; }
+        .nav-item.active { background: rgba(59, 130, 246, 0.1); color: #60a5fa; border-left: 3px solid #3b82f6; font-weight: 700; }
+        .nav-item:hover:not(.active) { background: rgba(255, 255, 255, 0.03); color: white; }
+
+        /* Engineer Console Animation */
+        .console-box { background: #000; border: 1px solid #1e293b; border-radius: 10px; padding: 10px; font-family: monospace; font-size: 9px; color: #4ade80; height: 80px; overflow: hidden; position: relative; }
+        .console-lines { position: absolute; animation: scrollUp 5s linear infinite; width: 100%; }
+        @keyframes scrollUp { from { top: 100%; } to { top: -150%; } }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
     </style>
 </head>
-<body class="flex h-screen">
+<body class="flex h-screen w-full">
 
-    <aside class="w-64 bg-[#050b14] border-r border-slate-800 flex flex-col p-6 h-full">
+    <aside class="w-72 bg-[#050b14] border-r border-slate-800 flex flex-col p-6 h-full z-50">
         <div class="mb-10">
-            <h1 class="text-xl font-black italic text-blue-500 tracking-tighter">DEVOPS.OS</h1>
-            <p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest mt-1">Mariya Pro v18</p>
+            <h1 class="text-2xl font-black italic tracking-tighter text-blue-500">DEVOPS.ELITE</h1>
+            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Mariya Pro v19.0</p>
         </div>
         
-        <nav class="flex-grow space-y-1">
-            <div class="nav-item active p-3 text-sm flex items-center gap-3" onclick="switchTab('dashboard', this)"><span>📊</span> Dashboard</div>
-            <div class="nav-item p-3 text-sm flex items-center gap-3" onclick="switchTab('ai', this)"><span>🤖</span> AI Assistant</div>
-            <div class="nav-item p-3 text-sm flex items-center gap-3" onclick="switchTab('vault', this)"><span>🔐</span> Command Vault</div>
-            <div class="nav-item p-3 text-sm flex items-center gap-3" onclick="switchTab('library', this)"><span>📚</span> My PDFs</div>
+        <nav class="flex-grow space-y-2">
+            <div class="nav-item active p-4 rounded-xl text-sm flex items-center gap-3" onclick="switchTab('dashboard', this)"><span>📊</span> Dashboard</div>
+            <div class="nav-item p-4 rounded-xl text-sm flex items-center gap-3" onclick="switchTab('ai', this)"><span>🤖</span> AI Assistant</div>
+            <div class="nav-item p-4 rounded-xl text-sm flex items-center gap-3" onclick="switchTab('vault', this)"><span>🔐</span> Command Vault</div>
+            <div class="nav-item p-4 rounded-xl text-sm flex items-center gap-3" onclick="switchTab('library', this)"><span>📚</span> My Study PDFs</div>
         </nav>
 
-        <div class="mt-auto pt-6 border-t border-slate-800">
-            <p class="text-[8px] font-bold text-slate-500 uppercase mb-2">DevOps Engineer Status</p>
-            <div class="typing-box p-2">
-                <div class="typing-text">
-                    git commit -m "fix"<br>docker build .<br>kubectl apply -f...<br>aws ec2 deploy<br>npm install...<br>chmod 700 key<br>systemctl restart
+        <div class="mt-auto">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="text-[10px] font-bold text-slate-400 uppercase">Live Console</span>
+            </div>
+            <div class="console-box">
+                <div class="console-lines">
+                    root@mariya:~$ docker ps<br>
+                    CONTAINER ID: 8ccf82...<br>
+                    root@mariya:~$ git push<br>
+                    Everything up-to-date<br>
+                    root@mariya:~$ ls -la<br>
+                    drwxr-xr-x  2 mariya<br>
+                    root@mariya:~$ kubectl apply<br>
+                    deployment.apps created<br>
+                    root@mariya:~$ aws s3 sync<br>
+                    upload: ./justweb to s3
                 </div>
             </div>
         </div>
     </aside>
 
-    <main class="flex-grow p-10 overflow-y-auto bg-[#020617]">
+    <main class="flex-grow bg-[#020617] h-full relative overflow-hidden flex flex-col">
         
-        <div id="dashboard" class="screen active">
-            <div class="flex justify-between items-end mb-8">
-                <h2 class="text-3xl font-black italic">TELEMETRY_CENTER</h2>
+        <header class="h-16 border-b border-slate-800 flex items-center justify-between px-10 flex-shrink-0">
+            <div class="flex items-center gap-4">
+                <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span class="text-xs text-slate-500 font-mono ml-4 tracking-widest">SYSTEM_STATUS: OPTIMAL</span>
+            </div>
+            <div class="flex items-center gap-6">
                 <div class="text-right">
-                    <p id="timerDisplay" class="text-2xl font-mono font-black text-blue-500">25:00</p>
-                    <button onclick="toggleTimer()" id="timerBtn" class="text-[10px] bg-blue-600/10 text-blue-400 px-3 py-1 rounded-full font-bold">START SESSION</button>
+                    <p id="timerDisplay" class="text-xl font-mono font-black text-blue-400">25:00</p>
+                    <button onclick="toggleTimer()" id="timerBtn" class="text-[9px] font-bold text-slate-500 hover:text-white uppercase tracking-tighter">Start Session</button>
                 </div>
             </div>
+        </header>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-2 glass p-6 border-l-4 border-emerald-500">
-                    <h3 class="text-xs font-bold text-slate-500 uppercase mb-4">Daily Auto-Mission</h3>
-                    <div id="dailyProject" class="p-4 bg-slate-900/50 rounded-xl border border-white/5">
-                        <p class="text-lg font-bold text-emerald-400" id="missionTitle">Loading...</p>
-                        <p class="text-xs text-slate-400 mt-2" id="missionDesc">Your automated DevOps challenge is being prepared.</p>
+        <div class="flex-grow relative p-10 overflow-hidden">
+            
+            <div id="dashboard" class="screen active">
+                <h2 class="text-4xl font-black mb-10 italic">Telemetry Dashboard</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
+                    <div class="lg:col-span-2 glass p-8 border-l-4 border-blue-500">
+                        <div class="flex justify-between mb-4"><h3 class="font-bold text-xs uppercase text-slate-400 tracking-widest">Overall Progress</h3><span id="progressText" class="font-black text-blue-400 text-3xl">0%</span></div>
+                        <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden"><div id="progressBar" class="h-full bg-blue-500 transition-all duration-1000 shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div></div>
+                        
+                        <div class="grid grid-cols-3 gap-6 mt-12">
+                            <div class="bg-slate-900/50 p-6 rounded-2xl border border-white/5 text-center">
+                                <p id="statVault" class="text-3xl font-black text-white">0</p>
+                                <p class="text-[10px] text-slate-500 font-bold uppercase mt-2 tracking-widest">Commands</p>
+                            </div>
+                            <div class="bg-slate-900/50 p-6 rounded-2xl border border-white/5 text-center">
+                                <p id="statPDF" class="text-3xl font-black text-white">0</p>
+                                <p class="text-[10px] text-slate-500 font-bold uppercase mt-2 tracking-widest">Study PDFs</p>
+                            </div>
+                            <div class="bg-slate-900/50 p-6 rounded-2xl border border-white/5 text-center">
+                                <p id="statSession" class="text-3xl font-black text-white">0</p>
+                                <p class="text-[10px] text-slate-500 font-bold uppercase mt-2 tracking-widest">Sessions</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass p-8 border-t-4 border-emerald-500">
+                        <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-6">Daily DevOps Mission</h3>
+                        <div class="p-4 bg-emerald-500/5 rounded-xl border border-emerald-500/20">
+                            <p id="missionTitle" class="text-lg font-bold text-white mb-2">Build Nginx Image</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">Practice writing a multi-stage Dockerfile for a production-ready Nginx server.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="glass p-6 border-t-4 border-blue-500">
-                    <h3 class="text-xs font-bold text-slate-500 uppercase mb-4">Total Progress</h3>
-                    <p id="progressText" class="text-4xl font-black text-white">0%</p>
-                    <div class="w-full bg-slate-800 h-1.5 rounded-full mt-4"><div id="progressBar" class="h-full bg-blue-500 w-0 transition-all duration-1000"></div></div>
+            </div>
+
+            <div id="ai" class="screen">
+                <div class="flex flex-col h-full max-w-4xl mx-auto">
+                    <h2 class="text-3xl font-black mb-6 italic tracking-tight">ENGINEER_AI_BOT</h2>
+                    <div class="flex-grow glass p-8 mb-6 flex flex-col overflow-hidden border-white/5">
+                        <div id="chatBox" class="flex-grow overflow-y-auto space-y-4 pr-4 flex flex-col">
+                            <div class="bg-blue-600/10 border border-blue-500/20 p-4 rounded-2xl self-start max-w-[80%] text-sm leading-relaxed">
+                                Hello Mariya! I am your updated AI. I can explain Linux permissions, Docker containerization, or Git branching. How can I help you build today?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 p-2 bg-slate-900/80 rounded-2xl border border-white/10 shadow-2xl">
+                        <input type="text" id="aiInput" placeholder="Ask e.g. 'How to delete docker images?'" class="flex-grow bg-transparent px-6 py-4 text-sm outline-none" onkeypress="if(event.key==='Enter') askAI()">
+                        <button onclick="askAI()" class="bg-blue-600 hover:bg-blue-700 px-10 rounded-xl font-bold transition">SEND</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div id="ai" class="screen h-full flex flex-col">
-            <h2 class="text-2xl font-black mb-6 italic text-blue-400">ENGINEER_AI_BOT</h2>
-            <div id="chatBox" class="flex-grow glass p-6 overflow-y-auto mb-4 space-y-4"></div>
-            <div class="flex gap-3">
-                <input type="text" id="aiInput" placeholder="Ask about Linux, Docker, Git..." class="flex-grow bg-slate-900 border border-white/10 p-4 rounded-2xl outline-none" onkeypress="if(event.key==='Enter') askAI()">
-                <button onclick="askAI()" class="bg-blue-600 px-8 rounded-2xl font-bold">SEND</button>
-            </div>
-        </div>
-
-        <div id="vault" class="screen">
-            <h2 class="text-2xl font-black mb-8 italic">COMMAND_VAULT</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <div class="lg:col-span-4 glass p-6 h-fit">
-                    <input type="text" id="vTitle" placeholder="Title" class="w-full bg-slate-900 p-3 rounded-lg mb-3 border border-slate-700 text-xs">
-                    <textarea id="vCmd" placeholder="Command..." class="w-full bg-black p-3 rounded-lg text-emerald-400 font-mono text-xs mb-3"></textarea>
-                    <button onclick="saveVault()" class="w-full bg-blue-600 py-3 rounded-lg font-bold text-xs uppercase">Store Command</button>
+            <div id="vault" class="screen">
+                <h2 class="text-3xl font-black mb-10 italic">COMMAND_VAULT</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                    <div class="lg:col-span-4 glass p-8 h-fit sticky top-0">
+                        <h4 class="font-bold text-sm mb-6 uppercase tracking-widest text-slate-400">Store New Code</h4>
+                        <div class="space-y-4">
+                            <input type="text" id="vTitle" placeholder="Command Title" class="w-full bg-slate-900 border border-slate-700 p-4 rounded-xl text-xs outline-none focus:border-blue-500">
+                            <textarea id="vCmd" rows="4" placeholder="Code snippet..." class="w-full bg-black border border-slate-700 p-4 rounded-xl text-emerald-400 font-mono text-xs outline-none focus:border-green-500"></textarea>
+                            <button onclick="saveVault()" class="w-full bg-blue-600 py-4 rounded-xl font-bold text-xs uppercase tracking-[0.2em] shadow-lg">Commit to Vault</button>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6" id="vaultGrid"></div>
                 </div>
-                <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4" id="vaultGrid"></div>
             </div>
-        </div>
 
-        <div id="library" class="screen">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl font-black italic text-purple-400">PDF_LIBRARY</h2>
-                <button onclick="addPDF()" class="bg-purple-600 px-4 py-2 rounded-lg text-xs font-bold">+ ADD MY PDF</button>
+            <div id="library" class="screen">
+                <div class="flex justify-between items-center mb-10">
+                    <h2 class="text-3xl font-black italic text-purple-400">STUDY_ARCHIVE</h2>
+                    <button onclick="document.getElementById('pdfModal').classList.remove('hidden')" class="bg-purple-600/20 text-purple-400 border border-purple-500/30 px-6 py-2 rounded-xl text-xs font-bold hover:bg-purple-600 hover:text-white transition">+ ADD CUSTOM PDF</button>
+                </div>
+                <div id="pdfGrid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8"></div>
+                
+                <div id="pdfModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center">
+                    <div class="glass p-10 w-full max-w-md border-t-4 border-purple-500">
+                        <h3 class="text-xl font-bold mb-6">Add Learning Resource</h3>
+                        <div class="space-y-4">
+                            <input type="text" id="pdfName" placeholder="Resource Name" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm">
+                            <input type="text" id="pdfLink" placeholder="PDF URL / Drive Link" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm">
+                            <div class="flex gap-4 pt-4">
+                                <button onclick="savePDF()" class="flex-1 bg-purple-600 py-3 rounded-xl font-bold">SAVE</button>
+                                <button onclick="document.getElementById('pdfModal').classList.add('hidden')" class="flex-1 bg-slate-800 py-3 rounded-xl font-bold">CANCEL</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="pdfGrid" class="grid grid-cols-1 md:grid-cols-4 gap-6"></div>
-        </div>
 
+        </div>
     </main>
 
     <script>
-        // --- Navigation ---
+        // --- 1. CORE NAVIGATION (FIXED) ---
         function switchTab(id, el) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+            // Forcefully hide all screens
+            const allScreens = document.querySelectorAll('.screen');
+            allScreens.forEach(s => {
+                s.style.display = 'none';
+                s.classList.remove('active');
+            });
+
+            // Show selected screen
+            const target = document.getElementById(id);
+            if(target) {
+                target.style.display = 'flex';
+                setTimeout(() => target.classList.add('active'), 10);
+            }
+
+            // Update Nav styling
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             el.classList.add('active');
+
             refreshUI();
         }
 
-        // --- Daily Mission Generator ---
-        const missions = [
-            { t: "Docker Image Optimization", d: "Try to reduce a Node.js image size using multi-stage builds." },
-            { t: "Linux Bash Scripting", d: "Write a script that backups a folder and compresses it into a .tar.gz file." },
-            { t: "GitHub Workflow", d: "Create a project with 3 branches and resolve a manual merge conflict." },
-            { t: "Network Debugging", d: "Use netstat and telnet to check if a specific port is open on your machine." }
-        ];
-
-        // --- Core Functions ---
+        // --- 2. DATA MANAGEMENT ---
         function refreshUI() {
-            const vault = JSON.parse(localStorage.getItem('m_vault_v18') || '[]');
-            const pdfs = JSON.parse(localStorage.getItem('m_pdf_v18') || '[]');
+            const vault = JSON.parse(localStorage.getItem('m_vault_v19') || '[]');
+            const pdfs = JSON.parse(localStorage.getItem('m_pdf_v19') || '[]');
             
-            document.getElementById('vaultGrid').innerHTML = vault.map(v => `<div class="glass p-4"><p class="text-[10px] font-bold text-slate-500 uppercase mb-2">${v.title}</p><div class="cmd-snippet">$ ${v.cmd}</div></div>`).join('');
-            document.getElementById('pdfGrid').innerHTML = pdfs.map(p => `<div class="glass p-6 text-center border-b-4 border-purple-500/30"><h4 class="text-xs font-bold mb-4">${p.title}</h4><a href="${p.link}" target="_blank" class="block bg-purple-600/20 text-purple-400 py-2 rounded-lg text-[10px] font-bold">OPEN PDF</a></div>`).join('');
-            
-            const progress = Math.min(vault.length * 5 + pdfs.length * 10, 100);
-            document.getElementById('progressBar').style.width = progress + '%';
-            document.getElementById('progressText').innerText = progress + '%';
+            // Render Vault
+            const vaultGrid = document.getElementById('vaultGrid');
+            vaultGrid.innerHTML = vault.length ? vault.map(v => `
+                <div class="glass p-6 border-t-2 border-blue-500/20 group">
+                    <div class="flex justify-between mb-4">
+                        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">${v.title}</span>
+                        <button onclick="deleteVault(${v.id})" class="text-[10px] text-red-500 opacity-0 group-hover:opacity-100 transition">PURGE</button>
+                    </div>
+                    <div class="cmd-snippet" onclick="copyText('${v.cmd}')">$ ${v.cmd}</div>
+                </div>
+            `).join('') : '<p class="text-slate-600 italic">No commands saved yet.</p>';
+
+            // Render PDFs
+            const pdfGrid = document.getElementById('pdfGrid');
+            pdfGrid.innerHTML = pdfs.map(p => `
+                <div class="glass p-8 text-center border-b-4 border-purple-500/30 group relative">
+                    <button onclick="deletePDF(${p.id})" class="absolute top-4 right-4 text-[10px] text-red-500 opacity-0 group-hover:opacity-100 transition">×</button>
+                    <div class="text-4xl mb-4">📚</div>
+                    <h4 class="text-sm font-bold text-white mb-6 h-10 overflow-hidden leading-tight">${p.title}</h4>
+                    <a href="${p.link}" target="_blank" class="block w-full bg-purple-600/20 text-purple-400 hover:bg-purple-600 hover:text-white py-3 rounded-xl text-xs font-bold transition">READ RESOURCE ↗</a>
+                </div>
+            `).join('');
+
+            // Update Stats
+            document.getElementById('statVault').innerText = vault.length;
+            document.getElementById('statPDF').innerText = pdfs.length;
+            const prog = Math.min((vault.length * 5) + (pdfs.length * 10), 100);
+            document.getElementById('progressBar').style.width = prog + '%';
+            document.getElementById('progressText').innerText = prog + '%';
         }
 
         function saveVault() {
-            const t = document.getElementById('vTitle').value; const c = document.getElementById('vCmd').value;
-            if(!t || !c) return;
-            let v = JSON.parse(localStorage.getItem('m_vault_v18') || '[]');
-            v.unshift({title: t, cmd: c});
-            localStorage.setItem('m_vault_v18', JSON.stringify(v));
-            document.getElementById('vTitle').value=''; document.getElementById('vCmd').value=''; refreshUI();
-        }
-
-        function addPDF() {
-            const t = prompt("PDF Title?"); const l = prompt("PDF Link (URL)?");
-            if(!t || !l) return;
-            let p = JSON.parse(localStorage.getItem('m_pdf_v18') || '[]');
-            p.unshift({title: t, link: l});
-            localStorage.setItem('m_pdf_v18', JSON.stringify(p));
+            const t = document.getElementById('vTitle').value; 
+            const c = document.getElementById('vCmd').value;
+            if(!t || !c) return alert("Write something!");
+            let v = JSON.parse(localStorage.getItem('m_vault_v19') || '[]');
+            v.unshift({id: Date.now(), title: t, cmd: c});
+            localStorage.setItem('m_vault_v19', JSON.stringify(v));
+            document.getElementById('vTitle').value=''; document.getElementById('vCmd').value='';
             refreshUI();
         }
+
+        function savePDF() {
+            const t = document.getElementById('pdfName').value; 
+            const l = document.getElementById('pdfLink').value;
+            if(!t || !l) return;
+            let p = JSON.parse(localStorage.getItem('m_pdf_v19') || '[]');
+            p.unshift({id: Date.now(), title: t, link: l});
+            localStorage.setItem('m_pdf_v19', JSON.stringify(p));
+            document.getElementById('pdfModal').classList.add('hidden');
+            refreshUI();
+        }
+
+        function deleteVault(id) {
+            let v = JSON.parse(localStorage.getItem('m_vault_v19') || '[]');
+            localStorage.setItem('m_vault_v19', JSON.stringify(v.filter(x => x.id !== id)));
+            refreshUI();
+        }
+
+        function deletePDF(id) {
+            let p = JSON.parse(localStorage.getItem('m_pdf_v19') || '[]');
+            localStorage.setItem('m_pdf_v19', JSON.stringify(p.filter(x => x.id !== id)));
+            refreshUI();
+        }
+
+        function copyText(txt) {
+            navigator.clipboard.writeText(txt);
+            alert("Copied to clipboard! 📋");
+        }
+
+        // --- 3. AI ENGINE (v2.0) ---
+        const brain = {
+            "what is linux": "Linux is an open-source OS kernel. It is the heart of DevOps, managing hardware and software resources.",
+            "what is docker": "Docker packages applications into 'containers'. It ensures your code runs the same on your laptop and in production.",
+            "chmod": "Use <code class='text-green-400'>chmod</code> to change permissions. Example: <code class='text-green-400'>chmod 400 key.pem</code> protects private keys.",
+            "git commit": "To save changes locally, use <code class='text-green-400'>git commit -m 'message'</code>.",
+            "status": "System Online. Mariya is 100% operational.",
+            "hi": "Hi Mariya! Ready to build something epic today?"
+        };
 
         function askAI() {
-            const i = document.getElementById('aiInput'); const b = document.getElementById('chatBox');
-            if(!i.value.trim()) return;
-            b.innerHTML += `<div class="p-4 bg-white/5 rounded-2xl text-sm self-end ml-12 border border-white/10">${i.value}</div>`;
-            let r = "Mariya, focusing on DevOps! Ask me about Linux commands or Docker builds.";
-            if(i.value.toLowerCase().includes('docker')) r = "Docker containers allow you to package apps. Use 'docker build' to start.";
-            if(i.value.toLowerCase().includes('linux')) r = "Linux is the heart of DevOps. 'chmod' is key for security.";
-            setTimeout(() => { b.innerHTML += `<div class="p-4 bg-blue-600/10 rounded-2xl text-sm self-start mr-12 border border-blue-600/20 text-blue-300">🤖 ${r}</div>`; b.scrollTop = b.scrollHeight; }, 500);
-            i.value = '';
+            const input = document.getElementById('aiInput');
+            const box = document.getElementById('chatBox');
+            if(!input.value.trim()) return;
+
+            box.innerHTML += `<div class="bg-white/5 border border-white/10 p-4 rounded-2xl self-end max-w-[80%] text-sm">${input.value}</div>`;
+            
+            const q = input.value.toLowerCase();
+            let res = "Interesting! Ask me about Linux permissions, Docker builds, or Git workflows.";
+            
+            for(let key in brain) {
+                if(q.includes(key)) { res = brain[key]; break; }
+            }
+
+            setTimeout(() => {
+                box.innerHTML += `<div class="bg-blue-600/10 border border-blue-500/20 p-4 rounded-2xl self-start max-w-[80%] text-sm text-blue-300">🤖 ${res}</div>`;
+                box.scrollTop = box.scrollHeight;
+            }, 500);
+            input.value = '';
         }
 
+        // --- 4. TIMER ---
         let tSec = 1500; let tInt;
         function toggleTimer() {
-            if(tInt) { clearInterval(tInt); tInt=null; document.getElementById('timerBtn').innerText='START SESSION'; }
-            else { tInt = setInterval(() => { tSec--; let m=Math.floor(tSec/60), s=tSec%60; document.getElementById('timerDisplay').innerText=`${m}:${s<10?'0':''}${s}`; }, 1000); document.getElementById('timerBtn').innerText='STOP'; }
+            const btn = document.getElementById('timerBtn');
+            if(tInt) { 
+                clearInterval(tInt); tInt=null; btn.innerText='START SESSION'; 
+            } else { 
+                tInt = setInterval(() => { 
+                    tSec--; 
+                    let m=Math.floor(tSec/60), s=tSec%60; 
+                    document.getElementById('timerDisplay').innerText=`${m}:${s<10?'0':''}${s}`; 
+                    if(tSec <= 0) { clearInterval(tInt); alert("Focus time over!"); }
+                }, 1000); 
+                btn.innerText='STOP FOCUS'; 
+            }
         }
 
+        // --- 5. INITIALIZE ---
         window.onload = () => {
-            const m = missions[Math.floor(Math.random()*missions.length)];
-            document.getElementById('missionTitle').innerText = m.t;
-            document.getElementById('missionDesc').innerText = m.d;
+            // Pre-load your specific PDF links if not present
+            if (!localStorage.getItem('m_pdf_v19')) {
+                const defaults = [
+                    { id: 1, title: 'The Linux Command Line (Keanu)', link: 'https://www.kea.nu/files/textbooks/humblesec/thelinuxcommandline.pdf' },
+                    { id: 2, title: 'Docker beginners (KodeKloud)', link: 'https://kodekloud.com/wp-content/uploads/2021/10/Docker-for-Beginners-Mumshad-Mannambeth.pdf' },
+                    { id: 3, title: 'How to Git Guide (Official)', link: 'https://groundwater.usu.edu/assets/pdf/How_to_Git.pdf' }
+                ];
+                localStorage.setItem('m_pdf_v19', JSON.stringify(defaults));
+            }
             refreshUI();
+            switchTab('dashboard', document.querySelector('.nav-item'));
         };
     </script>
 </body>
-</html>
+</html>s
