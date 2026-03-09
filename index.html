@@ -1,41 +1,39 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Elite OS v20 | Mariya</title>
+    <title>DevOps Elite OS v21 | Mariya</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #020617; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #f8fafc; overflow: hidden; }
-        
         .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; }
         
-        /* Bulletproof Switching */
-        .screen { display: none; opacity: 0; height: 0; overflow: hidden; }
-        .screen.active { display: flex !important; flex-direction: column; opacity: 1; height: 100%; overflow-y: auto; animation: fadeIn 0.4s ease forwards; }
-        
+        /* Screen Switching */
+        .screen { display: none; opacity: 0; }
+        .screen.active { display: flex !important; flex-direction: column; opacity: 1; animation: fadeIn 0.4s ease forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Sidebar Nav */
         .nav-item { cursor: pointer; transition: 0.3s; color: #94a3b8; border-left: 3px solid transparent; }
         .nav-item.active { background: rgba(59, 130, 246, 0.1); color: #60a5fa; border-left: 3px solid #3b82f6; font-weight: 700; }
 
-        /* Dynamic Colors for Tool Cards */
-        .card-linux { border-top: 4px solid #22c55e; background: linear-gradient(180deg, rgba(34, 197, 94, 0.1) 0%, transparent 100%); }
-        .card-docker { border-top: 4px solid #0ea5e9; background: linear-gradient(180deg, rgba(14, 165, 233, 0.1) 0%, transparent 100%); }
-        .card-git { border-top: 4px solid #f97316; background: linear-gradient(180deg, rgba(249, 115, 22, 0.1) 0%, transparent 100%); }
-        .card-aws { border-top: 4px solid #ff9900; background: linear-gradient(180deg, rgba(255, 153, 0, 0.1) 0%, transparent 100%); }
-        .card-k8s { border-top: 4px solid #326ce5; background: linear-gradient(180deg, rgba(50, 108, 229, 0.1) 0%, transparent 100%); }
-        .card-jenkins { border-top: 4px solid #d24939; background: linear-gradient(180deg, rgba(210, 73, 57, 0.1) 0%, transparent 100%); }
+        /* Dynamic Tool Colors */
+        .card-linux { border-top: 4px solid #22c55e; background: linear-gradient(180deg, rgba(34, 197, 94, 0.1), transparent); }
+        .card-docker { border-top: 4px solid #0ea5e9; background: linear-gradient(180deg, rgba(14, 165, 233, 0.1), transparent); }
+        .card-git { border-top: 4px solid #f97316; background: linear-gradient(180deg, rgba(249, 115, 22, 0.1), transparent); }
+        .card-aws { border-top: 4px solid #ff9900; background: linear-gradient(180deg, rgba(255, 153, 0, 0.1), transparent); }
+        .card-k8s { border-top: 4px solid #326ce5; background: linear-gradient(180deg, rgba(50, 108, 229, 0.1), transparent); }
 
         .cmd-snippet { font-family: 'Courier New', monospace; background: #000; color: #4ade80; padding: 12px; border-radius: 12px; border: 1px solid #1f2937; font-size: 12px; display: block; }
         
-        /* Engineer Console */
-        .console-box { background: #000; border: 1px solid #1e293b; border-radius: 10px; padding: 10px; font-family: monospace; font-size: 8px; color: #4ade80; height: 80px; overflow: hidden; position: relative; }
-        .console-lines { position: absolute; animation: scrollUp 6s linear infinite; width: 100%; }
-        @keyframes scrollUp { from { top: 100%; } to { top: -200%; } }
+        /* Live Console Animation */
+        .console-box { background: #000; border: 1px solid #1e293b; border-radius: 10px; padding: 10px; font-family: monospace; font-size: 8px; color: #4ade80; height: 100px; overflow: hidden; position: relative; }
+        .console-lines { position: absolute; animation: scrollUp 8s linear infinite; width: 100%; }
+        @keyframes scrollUp { from { top: 100%; } to { top: -250%; } }
     </style>
 </head>
 <body class="flex h-screen w-full">
@@ -43,7 +41,7 @@
     <aside class="w-72 bg-[#050b14] border-r border-slate-800 flex flex-col p-6 h-full z-50">
         <div class="mb-10">
             <h1 class="text-2xl font-black italic tracking-tighter text-blue-500">DEVOPS.ELITE</h1>
-            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Mariya v20.0</p>
+            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Mariya v21.0 • MASTER</p>
         </div>
         
         <nav class="flex-grow space-y-2">
@@ -55,14 +53,15 @@
 
         <div class="mt-auto">
             <div class="console-box">
-                <div class="console-lines">
-                    $ docker build -t justweb .<br>
-                    $ git push origin main<br>
-                    $ kubectl get pods<br>
-                    $ aws s3 sync ./dist s3://web<br>
-                    $ chmod +x deploy.sh<br>
-                    $ systemctl status nginx<br>
-                    $ terraform apply --auto-approve
+                <div class="console-lines" id="consoleCode">
+                    $ docker build -t elite-app .<br>
+                    $ git commit -m "feat: upgrade ui"<br>
+                    $ kubectl get nodes -o wide<br>
+                    $ aws s3 cp ./data s3://mariya-bucket<br>
+                    $ chmod +x startup.sh<br>
+                    $ sudo systemctl restart nginx<br>
+                    $ terraform plan -out=main.plan<br>
+                    $ ansible-playbook site.yml
                 </div>
             </div>
         </div>
@@ -71,71 +70,87 @@
     <main class="flex-grow bg-[#020617] h-full flex flex-col relative overflow-hidden">
         
         <header class="h-16 border-b border-slate-800 flex items-center justify-between px-10 flex-shrink-0">
-            <div class="flex gap-2">
-                <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-                <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+            <div class="flex items-center gap-4">
+                <div class="flex gap-1.5">
+                    <div class="w-3 h-3 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.5)]"></div>
+                    <div class="w-3 h-3 bg-yellow-500 rounded-full shadow-[0_0_8px_rgba(234,179,8,0.5)]"></div>
+                    <div class="w-3 h-3 bg-green-500 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.5)]"></div>
+                </div>
+                <span class="text-[10px] text-slate-500 font-mono ml-4 uppercase tracking-[0.2em]">System Status: Optimal</span>
             </div>
-            <div class="text-right">
-                <p id="timerDisplay" class="text-xl font-mono font-black text-blue-400">25:00</p>
-                <button onclick="toggleTimer()" id="timerBtn" class="text-[9px] font-bold text-slate-500 hover:text-white uppercase tracking-tighter">Start Timer</button>
+            <div class="flex items-center gap-8">
+                <div class="text-right">
+                    <p id="timerDisplay" class="text-xl font-mono font-black text-blue-400">25:00</p>
+                    <button onclick="toggleTimer()" id="timerBtn" class="text-[9px] font-bold text-slate-500 hover:text-white uppercase tracking-tighter">Start Session</button>
+                </div>
             </div>
         </header>
 
         <div class="flex-grow p-10 overflow-hidden relative">
             
             <div id="dashboard" class="screen active">
-                <h2 class="text-4xl font-black mb-10 italic">Telemetry Dashboard</h2>
+                <h2 class="text-4xl font-black mb-10 italic">Telemetry Center</h2>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div class="lg:col-span-2 glass p-8 border-l-4 border-blue-500">
-                        <div class="flex justify-between mb-4"><h3 class="font-bold text-xs uppercase text-slate-400">Overall Progress</h3><span id="progressText" class="font-black text-blue-400 text-3xl">0%</span></div>
-                        <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden"><div id="progressBar" class="h-full bg-blue-500 transition-all duration-1000"></div></div>
+                        <div class="flex justify-between mb-4"><h3 class="font-bold text-xs uppercase text-slate-400 tracking-widest text-[10px]">Mastery Analytics</h3><span id="progressText" class="font-black text-blue-400 text-3xl">0%</span></div>
+                        <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden"><div id="progressBar" class="h-full bg-blue-500 transition-all duration-1000 shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div></div>
                         <div class="grid grid-cols-3 gap-6 mt-12">
-                            <div class="bg-slate-900/50 p-6 rounded-2xl border border-white/5 text-center"><p id="statVault" class="text-3xl font-black">0</p><p class="text-[10px] text-slate-500 font-bold uppercase mt-2">Commands</p></div>
-                            <div class="bg-slate-900/50 p-6 rounded-2xl border border-white/5 text-center"><p id="statPDF" class="text-3xl font-black">0</p><p class="text-[10px] text-slate-500 font-bold uppercase mt-2">PDFs</p></div>
-                            <div class="bg-slate-900/50 p-6 rounded-2xl border border-white/5 text-center"><p id="statSession" class="text-3xl font-black">0</p><p class="text-[10px] text-slate-500 font-bold uppercase mt-2">Sessions</p></div>
+                            <div class="bg-slate-900/50 p-6 rounded-2xl border border-white/5 text-center">
+                                <p id="statVault" class="text-3xl font-black">0</p>
+                                <p class="text-[10px] text-slate-500 font-bold uppercase mt-2">Vaulted</p>
+                            </div>
+                            <div class="bg-slate-900/50 p-6 rounded-2xl border border-white/5 text-center">
+                                <p id="statPDF" class="text-3xl font-black">0</p>
+                                <p class="text-[10px] text-slate-500 font-bold uppercase mt-2">Library</p>
+                            </div>
+                            <div class="bg-slate-900/50 p-6 rounded-2xl border border-white/5 text-center">
+                                <p id="statPractice" class="text-3xl font-black">0</p>
+                                <p class="text-[10px] text-slate-500 font-bold uppercase mt-2">Cleared</p>
+                            </div>
                         </div>
                     </div>
                     <div class="glass p-8 border-t-4 border-emerald-500">
-                        <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-6">Daily Mission</h3>
-                        <p class="text-lg font-bold text-white mb-2" id="missionTitle">Build Docker Image</p>
-                        <p class="text-xs text-slate-400 leading-relaxed">Optimization challenge: Reduce the footprint of your Linux-based Docker image.</p>
+                        <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-6">Daily Auto-Mission</h3>
+                        <div class="p-5 bg-emerald-500/5 rounded-2xl border border-emerald-500/20">
+                            <p id="missionTitle" class="text-lg font-bold text-white mb-2">Generating...</p>
+                            <p id="missionDesc" class="text-xs text-slate-400 leading-relaxed italic">Standby for your next DevOps challenge.</p>
+                        </div>
+                        <button onclick="completePractice()" class="w-full mt-6 bg-emerald-600/20 text-emerald-400 py-3 rounded-xl text-[10px] font-bold border border-emerald-600/30 hover:bg-emerald-600 hover:text-white transition">VERIFY COMPLETION</button>
                     </div>
                 </div>
             </div>
 
-            <div id="ai" class="screen">
-                <div class="flex flex-col h-full max-w-4xl mx-auto">
-                    <h2 class="text-3xl font-black mb-6 italic">DEVOPS_AI</h2>
-                    <div class="flex-grow glass p-8 mb-6 overflow-y-auto space-y-4" id="chatBox">
-                        <div class="bg-blue-600/10 border border-blue-500/20 p-4 rounded-2xl self-start max-w-[80%] text-sm">Hi Mariya! Ready to build? Ask me anything about Linux, Docker, or Git.</div>
+            <div id="ai" class="screen h-full flex flex-col">
+                <div class="max-w-4xl mx-auto w-full h-full flex flex-col">
+                    <h2 class="text-2xl font-black mb-6 italic text-blue-400">CORE_AI_SUPPORT</h2>
+                    <div class="flex-grow glass p-8 mb-6 overflow-y-auto space-y-4 flex flex-col" id="chatBox">
+                        <div class="bg-blue-600/10 border border-blue-500/20 p-4 rounded-2xl self-start max-w-[85%] text-sm leading-relaxed text-blue-200">
+                            Hello Mariya! Ask me anything about DevOps architecture, Linux shell, or Docker compose.
+                        </div>
                     </div>
-                    <div class="flex gap-4 p-2 bg-slate-900/80 rounded-2xl border border-white/10">
-                        <input type="text" id="aiInput" placeholder="Ask e.g. 'How to push to GitHub?'" class="flex-grow bg-transparent px-6 py-4 text-sm outline-none" onkeypress="if(event.key==='Enter') askAI()">
-                        <button onclick="askAI()" class="bg-blue-600 hover:bg-blue-700 px-10 rounded-xl font-bold transition">ASK</button>
+                    <div class="flex gap-4 p-2 bg-slate-900/80 rounded-2xl border border-white/10 shadow-2xl">
+                        <input type="text" id="aiInput" placeholder="Ask e.g. 'Explain Kubernetes Pods'" class="flex-grow bg-transparent px-6 py-4 text-sm outline-none" onkeypress="if(event.key==='Enter') askAI()">
+                        <button onclick="askAI()" class="bg-blue-600 hover:bg-blue-700 px-10 rounded-xl font-bold transition">SEND</button>
                     </div>
                 </div>
             </div>
 
             <div id="vault" class="screen">
-                <div class="flex justify-between items-center mb-10">
-                    <h2 class="text-3xl font-black italic">COMMAND_VAULT</h2>
-                </div>
+                <h2 class="text-3xl font-black mb-10 italic">COMMAND_VAULT</h2>
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                    <div class="lg:col-span-4 glass p-8 h-fit">
-                        <h4 class="font-bold text-xs uppercase text-slate-400 mb-6">Store New Record</h4>
+                    <div class="lg:col-span-4 glass p-8 h-fit sticky top-0">
+                        <h4 class="font-bold text-[10px] uppercase text-slate-400 mb-6 tracking-widest">Inject Knowledge</h4>
                         <div class="space-y-4">
-                            <select id="vTool" class="w-full bg-slate-900 border border-slate-700 p-4 rounded-xl text-xs outline-none">
+                            <select id="vTool" class="w-full bg-slate-900 border border-slate-700 p-4 rounded-xl text-xs outline-none focus:border-blue-500">
                                 <option value="linux">🐧 Linux</option>
                                 <option value="docker">🐋 Docker</option>
                                 <option value="git">🎋 Git</option>
-                                <option value="aws">☁️ AWS</option>
+                                <option value="aws">☁️ AWS Cloud</option>
                                 <option value="k8s">☸️ Kubernetes</option>
-                                <option value="jenkins">🏗️ Jenkins</option>
                             </select>
-                            <input type="text" id="vTitle" placeholder="What does it do?" class="w-full bg-slate-900 border border-slate-700 p-4 rounded-xl text-xs outline-none">
-                            <textarea id="vCmd" rows="4" placeholder="Code snippet..." class="w-full bg-black border border-slate-700 p-4 rounded-xl text-emerald-400 font-mono text-xs outline-none"></textarea>
-                            <button onclick="saveVault()" class="w-full bg-blue-600 py-4 rounded-xl font-bold text-xs uppercase tracking-widest">Commit Knowledge</button>
+                            <input type="text" id="vTitle" placeholder="What does this do?" class="w-full bg-slate-900 border border-slate-700 p-4 rounded-xl text-xs outline-none focus:border-blue-500">
+                            <textarea id="vCmd" rows="4" placeholder="Enter Command..." class="w-full bg-black border border-slate-700 p-4 rounded-xl text-emerald-400 font-mono text-xs outline-none focus:border-green-500"></textarea>
+                            <button onclick="saveVault()" class="w-full bg-blue-600 py-4 rounded-xl font-bold text-xs uppercase tracking-[0.2em] shadow-lg">Store in Records</button>
                         </div>
                     </div>
                     <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6" id="vaultGrid"></div>
@@ -143,103 +158,166 @@
             </div>
 
             <div id="library" class="screen">
-                <h2 class="text-3xl font-black mb-10 italic text-purple-400">STUDY_ARCHIVE</h2>
-                <div id="pdfGrid" class="grid grid-cols-1 md:grid-cols-4 gap-8"></div>
+                <div class="flex justify-between items-center mb-10">
+                    <h2 class="text-3xl font-black italic text-purple-400">STUDY_ARCHIVE</h2>
+                    <button onclick="document.getElementById('pdfModal').classList.remove('hidden')" class="bg-purple-600/20 text-purple-400 border border-purple-500/30 px-6 py-2 rounded-xl text-[10px] font-bold hover:bg-purple-600 hover:text-white transition">ADD STUDY RESOURCE</button>
+                </div>
+                <div id="pdfGrid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8"></div>
+                
+                <div id="pdfModal" class="hidden fixed inset-0 bg-black/90 backdrop-blur-sm z-[100] flex items-center justify-center p-6">
+                    <div class="glass p-10 w-full max-w-md border-t-4 border-purple-500 shadow-2xl">
+                        <h3 class="text-xl font-bold mb-6 italic">Save New Study Resource</h3>
+                        <div class="space-y-4">
+                            <select id="pdfTool" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm">
+                                <option value="linux">🐧 Linux</option><option value="docker">🐋 Docker</option>
+                                <option value="git">🎋 Git</option><option value="aws">☁️ AWS</option>
+                            </select>
+                            <input type="text" id="pdfName" placeholder="Book/Notes Title" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm">
+                            <input type="text" id="pdfLink" placeholder="Link (URL)" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm">
+                            <div class="flex gap-4 pt-4">
+                                <button onclick="savePDF()" class="flex-1 bg-purple-600 py-3 rounded-xl font-bold text-sm">SAVE</button>
+                                <button onclick="document.getElementById('pdfModal').classList.add('hidden')" class="flex-1 bg-slate-800 py-3 rounded-xl font-bold text-sm">CANCEL</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
     </main>
 
     <script>
-        // --- 1. THEMING & DATA ---
-        const toolIcons = { linux: '🐧', docker: '🐋', git: '🎋', aws: '☁️', k8s: '☸️', jenkins: '🏗️' };
+        const toolIcons = { linux: '🐧', docker: '🐋', git: '🎋', aws: '☁️', k8s: '☸️' };
 
+        // --- 1. NAVIGATION ---
         function switchTab(id, el) {
             document.querySelectorAll('.screen').forEach(s => { s.style.display = 'none'; s.classList.remove('active'); });
             const target = document.getElementById(id);
-            target.style.display = 'flex';
-            setTimeout(() => target.classList.add('active'), 10);
+            if(target) { target.style.display = 'flex'; setTimeout(() => target.classList.add('active'), 10); }
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             el.classList.add('active');
             refreshUI();
         }
 
+        // --- 2. DATA RENDERING ---
         function refreshUI() {
-            const vault = JSON.parse(localStorage.getItem('m_vault_v20') || '[]');
-            const pdfs = JSON.parse(localStorage.getItem('m_pdf_v20') || '[]');
-            
-            // Vault Rendering with Dynamic Colors
-            document.getElementById('vaultGrid').innerHTML = vault.map(v => `
-                <div class="glass p-6 card-${v.tool} group relative">
-                    <button onclick="deleteVault(${v.id})" class="absolute top-4 right-4 text-[10px] text-red-500 opacity-0 group-hover:opacity-100 transition">×</button>
+            const vault = JSON.parse(localStorage.getItem('m_vault_v21') || '[]');
+            const pdfs = JSON.parse(localStorage.getItem('m_pdf_v21') || '[]');
+            const practiceCount = JSON.parse(localStorage.getItem('m_practice_v21') || '0');
+
+            // Vault Render with Theming
+            document.getElementById('vaultGrid').innerHTML = vault.length ? vault.map(v => `
+                <div class="glass p-6 card-${v.tool} group relative border-white/5 border">
+                    <button onclick="deleteVault(${v.id})" class="absolute top-4 right-4 text-[10px] text-red-500 opacity-0 group-hover:opacity-100 transition">PURGE</button>
                     <div class="flex items-center gap-3 mb-4">
-                        <span class="text-xl">${toolIcons[v.tool]}</span>
-                        <span class="text-[10px] font-bold text-white uppercase tracking-widest">${v.tool}: ${v.title}</span>
+                        <span class="text-xl">${toolIcons[v.tool] || '🚀'}</span>
+                        <span class="text-[10px] font-bold text-slate-300 uppercase tracking-widest">${v.title}</span>
                     </div>
-                    <div class="cmd-snippet" onclick="navigator.clipboard.writeText('${v.cmd}'); alert('Copied!')">$ ${v.cmd}</div>
+                    <div class="cmd-snippet" onclick="copyText('${v.cmd}')">$ ${v.cmd}</div>
                 </div>
-            `).join('');
+            `).join('') : '<p class="text-slate-600 italic text-sm">No records in the vault.</p>';
 
+            // Library Render
             document.getElementById('pdfGrid').innerHTML = pdfs.map(p => `
-                <div class="glass p-8 text-center border-b-4 border-purple-500/30">
-                    <div class="text-4xl mb-4">📚</div>
-                    <h4 class="text-sm font-bold text-white mb-6">${p.title}</h4>
-                    <a href="${p.link}" target="_blank" class="block bg-purple-600/20 text-purple-400 py-3 rounded-xl text-xs font-bold">OPEN PDF</a>
+                <div class="glass p-8 text-center card-${p.tool} group relative flex flex-col items-center">
+                    <button onclick="deletePDF(${p.id})" class="absolute top-4 right-4 text-[10px] text-red-500 opacity-0 group-hover:opacity-100 transition">×</button>
+                    <div class="text-5xl mb-4">${toolIcons[p.tool] || '📚'}</div>
+                    <h4 class="text-sm font-bold text-white mb-6 h-10 overflow-hidden leading-tight">${p.title}</h4>
+                    <a href="${p.link}" target="_blank" class="w-full bg-slate-900/50 text-slate-300 hover:text-white border border-white/10 py-3 rounded-xl text-[10px] font-bold transition">LAUNCH RESOURCE ↗</a>
                 </div>
             `).join('');
 
+            // Stats Update
             document.getElementById('statVault').innerText = vault.length;
             document.getElementById('statPDF').innerText = pdfs.length;
-            const prog = Math.min((vault.length * 5) + (pdfs.length * 10), 100);
+            document.getElementById('statPractice').innerText = practiceCount;
+            
+            const prog = Math.min((vault.length * 5) + (pdfs.length * 10) + (practiceCount * 2), 100);
             document.getElementById('progressBar').style.width = prog + '%';
             document.getElementById('progressText').innerText = prog + '%';
         }
 
+        // --- 3. ACTIONS ---
         function saveVault() {
-            const t = document.getElementById('vTitle').value; 
-            const c = document.getElementById('vCmd').value;
-            const tool = document.getElementById('vTool').value;
-            if(!t || !c) return;
-            let v = JSON.parse(localStorage.getItem('m_vault_v20') || '[]');
-            v.unshift({id: Date.now(), title: t, cmd: c, tool: tool});
-            localStorage.setItem('m_vault_v20', JSON.stringify(v));
+            const t = document.getElementById('vTitle').value, c = document.getElementById('vCmd').value, tool = document.getElementById('vTool').value;
+            if(!t || !c) return alert("Write details first!");
+            let v = JSON.parse(localStorage.getItem('m_vault_v21') || '[]');
+            v.unshift({id: Date.now(), title: t, cmd: c, tool});
+            localStorage.setItem('m_vault_v21', JSON.stringify(v));
             document.getElementById('vTitle').value=''; document.getElementById('vCmd').value='';
             refreshUI();
         }
 
-        function deleteVault(id) {
-            let v = JSON.parse(localStorage.getItem('m_vault_v20') || '[]');
-            localStorage.setItem('m_vault_v20', JSON.stringify(v.filter(x => x.id !== id)));
+        function savePDF() {
+            const t = document.getElementById('pdfName').value, l = document.getElementById('pdfLink').value, tool = document.getElementById('pdfTool').value;
+            if(!t || !l) return;
+            let p = JSON.parse(localStorage.getItem('m_pdf_v21') || '[]');
+            p.unshift({id: Date.now(), title: t, link: l, tool});
+            localStorage.setItem('m_pdf_v21', JSON.stringify(p));
+            document.getElementById('pdfModal').classList.add('hidden');
             refreshUI();
         }
 
-        function askAI() {
-            const i = document.getElementById('aiInput'); const b = document.getElementById('chatBox');
-            if(!i.value.trim()) return;
-            b.innerHTML += `<div class="bg-white/5 p-4 rounded-2xl self-end max-w-[80%] text-sm ml-10">${i.value}</div>`;
-            const q = i.value.toLowerCase();
-            let res = "Try asking about 'docker ps' or 'linux chmod'.";
-            if(q.includes('linux')) res = "Linux is the foundation. Use <code class='cmd-snippet'>chmod</code> to fix permissions.";
-            if(q.includes('docker')) res = "Docker packages apps. Use <code class='cmd-snippet'>docker build</code> to create an image.";
-            setTimeout(() => { b.innerHTML += `<div class="bg-blue-600/10 p-4 rounded-2xl self-start max-w-[80%] text-sm text-blue-300 mr-10">🤖 ${res}</div>`; b.scrollTop = b.scrollHeight; }, 400);
-            i.value = '';
+        function deleteVault(id) { let v = JSON.parse(localStorage.getItem('m_vault_v21') || '[]'); localStorage.setItem('m_vault_v21', JSON.stringify(v.filter(x => x.id !== id))); refreshUI(); }
+        function deletePDF(id) { let p = JSON.parse(localStorage.getItem('m_pdf_v21') || '[]'); localStorage.setItem('m_pdf_v21', JSON.stringify(p.filter(x => x.id !== id))); refreshUI(); }
+        function copyText(txt) { navigator.clipboard.writeText(txt); alert("Copied! 📋"); }
+
+        function completePractice() {
+            let count = parseInt(localStorage.getItem('m_practice_v21') || '0');
+            localStorage.setItem('m_practice_v21', count + 1);
+            alert("Mission Accomplished! Telemetry updated.");
+            refreshUI();
         }
 
+        // --- 4. AI LOGIC ---
+        const brain = {
+            "what is linux": "Linux is the heart of DevOps. It is an open-source OS kernel that manages memory and hardware.",
+            "chmod": "Change permissions. Example: <code class='text-green-400'>chmod 700 key.pem</code> protects your SSH key.",
+            "docker images": "Use <code class='text-green-400'>docker images</code> to list images. Use <code class='text-green-400'>docker build -t app .</code> to create one.",
+            "git push": "Command: <code class='text-green-400'>git push origin branch_name</code>. It uploads local changes to the cloud.",
+            "pods": "In Kubernetes, a Pod is the smallest deployable unit that can be created and managed.",
+            "hi": "Hi Mariya! Ready to automate the world today?"
+        };
+
+        function askAI() {
+            const input = document.getElementById('aiInput'), box = document.getElementById('chatBox');
+            if(!input.value.trim()) return;
+            box.innerHTML += `<div class="bg-white/5 border border-white/10 p-4 rounded-2xl self-end max-w-[80%] text-sm">${input.value}</div>`;
+            const q = input.value.toLowerCase();
+            let res = "Interesting question! Try asking about Linux permissions or Docker commands.";
+            for(let key in brain) { if(q.includes(key)) { res = brain[key]; break; } }
+            setTimeout(() => { box.innerHTML += `<div class="bg-blue-600/10 border border-blue-500/20 p-4 rounded-2xl self-start max-w-[80%] text-sm text-blue-300">🤖 ${res}</div>`; box.scrollTop = box.scrollHeight; }, 400);
+            input.value = '';
+        }
+
+        // --- 5. TIMER ---
         let tSec = 1500; let tInt;
         function toggleTimer() {
-            if(tInt) { clearInterval(tInt); tInt=null; document.getElementById('timerBtn').innerText='START TIMER'; }
-            else { tInt = setInterval(() => { tSec--; let m=Math.floor(tSec/60), s=tSec%60; document.getElementById('timerDisplay').innerText=`${m}:${s<10?'0':''}${s}`; }, 1000); document.getElementById('timerBtn').innerText='STOP'; }
+            const btn = document.getElementById('timerBtn');
+            if(tInt) { clearInterval(tInt); tInt=null; btn.innerText='START SESSION'; } 
+            else { tInt = setInterval(() => { tSec--; let m=Math.floor(tSec/60), s=tSec%60; document.getElementById('timerDisplay').innerText=`${m}:${s<10?'0':''}${s}`; }, 1000); btn.innerText='STOP'; }
         }
 
+        // --- 6. MISSION GENERATOR ---
+        const missions = [
+            { t: "Docker Mastery", d: "Optimize a Node.js image to be under 100MB using Alpine base." },
+            { t: "Git Conflict", d: "Simulate a merge conflict between two branches and resolve it manually." },
+            { t: "Linux Security", d: "Change permissions of a folder so only the owner can read/write and group can only read." },
+            { t: "Cloud Config", d: "Write a small shell script to automatically update system packages every 24 hours." }
+        ];
+
         window.onload = () => {
-            if (!localStorage.getItem('m_pdf_v20')) {
+            if (!localStorage.getItem('m_pdf_v21')) {
                 const defaults = [
-                    { id: 1, title: 'Linux Command Line', link: 'https://www.kea.nu/files/textbooks/humblesec/thelinuxcommandline.pdf' },
-                    { id: 2, title: 'Docker Guide', link: 'https://kodekloud.com/wp-content/uploads/2021/10/Docker-for-Beginners-Mumshad-Mannambeth.pdf' },
-                    { id: 3, title: 'Git Official', link: 'https://groundwater.usu.edu/assets/pdf/How_to_Git.pdf' }
+                    { id: 1, tool: 'linux', title: 'The Linux Command Line', link: 'https://www.kea.nu/files/textbooks/humblesec/thelinuxcommandline.pdf' },
+                    { id: 2, tool: 'docker', title: 'Docker KodeKloud Notes', link: 'https://kodekloud.com/wp-content/uploads/2021/10/Docker-for-Beginners-Mumshad-Mannambeth.pdf' },
+                    { id: 3, tool: 'git', title: 'Official Git Guide', link: 'https://groundwater.usu.edu/assets/pdf/How_to_Git.pdf' }
                 ];
-                localStorage.setItem('m_pdf_v20', JSON.stringify(defaults));
+                localStorage.setItem('m_pdf_v21', JSON.stringify(defaults));
             }
+            const m = missions[Math.floor(Math.random()*missions.length)];
+            document.getElementById('missionTitle').innerText = m.t;
+            document.getElementById('missionDesc').innerText = m.d;
             refreshUI();
             switchTab('dashboard', document.querySelector('.nav-item'));
         };
