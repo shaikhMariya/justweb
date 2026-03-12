@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps CMD - Command Center</title>
+    <title>DevOps CMD - Command Center (Dark Mode v1.0)</title>
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script>
         tailwind.config = {
@@ -15,14 +15,24 @@
                     },
                     colors: {
                         brand: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1', // Indigo primary
+                            50: '#1a1f3c', // Dark brand tint
+                            100: '#252d5e',
+                            500: '#6366f1', // Indigo primary (remains same)
                             600: '#4f46e5',
+                            700: '#4338ca',
                             900: '#312e81',
                         },
+                        ui: {
+                            bg: '#020617', //slate-950
+                            card: '#0f172a', //slate-900
+                            cardBorder: '#1e293b', //slate-800
+                            inputBg: '#1e293b', //slate-800
+                            inputBorder: '#334155', //slate-700
+                            textMain: '#f1f5f9', //slate-100
+                            textMuted: '#94a3b8', //slate-400
+                        },
                         terminal: {
-                            bg: '#0f172a', // slate-900
+                            bg: '#0a0d17',
                             text: '#4ade80', // green-400
                         }
                     }
@@ -33,20 +43,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background-color: #f8fafc; }
+        body { background-color: var(--ui-bg); color: var(--ui-textMain); }
         
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
 
         /* Hide contenteditable outline */
         [contenteditable]:focus { outline: none; }
 
         /* Kanban Column Highlight on Drag Over */
         .column.drag-over {
-            background-color: #e0e7ff; /* brand-100 */
+            background-color: #1e1b4b; /* brand-tint */
             border-color: #6366f1; /* brand-500 */
             border-style: dashed;
         }
@@ -54,80 +64,85 @@
         /* Task dragging style */
         .task.dragging {
             opacity: 0.5;
-            transform: scale(1.05);
+            transform: scale(1.05) rotate(2deg);
             cursor: grabbing;
         }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden antialiased selection:bg-brand-100 selection:text-brand-900">
+<body class="flex h-screen overflow-hidden antialiased selection:bg-brand-100 selection:text-brand-900 ui-bg text-ui-textMain">
 
-    <aside id="sidebar" class="w-72 bg-white border-r border-slate-200 h-full flex-col hidden lg:flex shrink-0 z-20 shadow-sm relative">
-        <div class="h-16 flex items-center px-6 border-b border-slate-100">
+    <aside id="sidebar" class="w-72 bg-ui-card border-r border-ui-cardBorder h-full flex-col hidden lg:flex shrink-0 z-20 shadow-xl relative">
+        <div class="h-16 flex items-center px-6 border-b border-ui-cardBorder">
             <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center mr-3 shadow-md shadow-brand-200">
                 <i class="fa-solid fa-terminal text-sm"></i>
             </div>
-            <span class="font-bold text-slate-800 tracking-tight text-lg">DevOps CMD</span>
+            <span class="font-bold tracking-tight text-lg text-ui-textMain">DevOps CMD</span>
         </div>
         
         <div class="flex-1 overflow-y-auto py-6 px-4">
-            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 px-3">Navigation</h3>
+            <h3 class="text-xs font-bold text-ui-textMuted uppercase tracking-wider mb-3 px-3">Navigation</h3>
             <nav class="space-y-1">
-                <a href="#control-panel" class="flex items-center px-3 py-2 text-sm font-medium text-brand-600 bg-brand-50 rounded-md transition-colors group">
-                    <i class="fa-solid fa-gauge-high w-5 text-brand-500"></i> Control Panel
+                <a href="#control-panel" class="nav-item flex items-center px-3 py-2 text-sm font-medium text-brand-500 bg-brand-50 rounded-md transition-colors group">
+                    <i class="fa-solid fa-gauge-high w-5"></i> Control Panel
                 </a>
-                <a href="#project-tracker" class="flex items-center px-3 py-2 text-sm font-medium text-slate-600 rounded-md hover:bg-slate-50 hover:text-brand-600 transition-colors group">
-                    <i class="fa-solid fa-list-check w-5 text-slate-400 group-hover:text-brand-500"></i> Project Tracker
+                <a href="#project-tracker" class="nav-item flex items-center px-3 py-2 text-sm font-medium text-ui-textMuted rounded-md hover:bg-slate-800 hover:text-brand-500 transition-colors group">
+                    <i class="fa-solid fa-list-check w-5 text-slate-600 group-hover:text-brand-500"></i> Project Tracker
                 </a>
             </nav>
 
-            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 px-3 mt-8">Quick Filters</h3>
+            <h3 class="text-xs font-bold text-ui-textMuted uppercase tracking-wider mb-3 px-3 mt-8">Quick Filters</h3>
             <nav class="space-y-1" id="module-filters">
-                <button data-module="all" class="w-full flex items-center px-3 py-2 text-sm font-medium text-slate-700 rounded-md hover:bg-slate-100 transition-colors group">
-                    <i class="fa-solid fa-layer-group w-5 text-slate-400"></i> All Modules
+                <button data-module="all" class="w-full filter-item flex items-center px-3 py-2 text-sm font-medium text-brand-500 bg-brand-50 rounded-md transition-colors group">
+                    <i class="fa-solid fa-layer-group w-5"></i> All Modules
                 </button>
-                <button data-module="linux" class="w-full flex items-center px-3 py-2 text-sm font-medium text-slate-600 rounded-md hover:bg-slate-50 hover:text-brand-600 transition-colors group">
-                    <i class="fa-brands fa-linux w-5 text-slate-400 group-hover:text-brand-500"></i> Linux
+                <button data-module="linux" class="w-full filter-item flex items-center px-3 py-2 text-sm font-medium text-ui-textMuted rounded-md hover:bg-slate-800 hover:text-brand-500 transition-colors group">
+                    <i class="fa-brands fa-linux w-5 text-slate-600 group-hover:text-brand-500"></i> Linux
+                    <span class="ml-auto text-xs font-bold bg-slate-800 text-slate-500 px-2 py-0.5 rounded-full count">0</span>
                 </button>
-                <button data-module="git" class="w-full flex items-center px-3 py-2 text-sm font-medium text-slate-600 rounded-md hover:bg-slate-50 hover:text-brand-600 transition-colors group">
-                    <i class="fa-brands fa-git-alt w-5 text-slate-400 group-hover:text-brand-500"></i> Git
+                <button data-module="git" class="w-full filter-item flex items-center px-3 py-2 text-sm font-medium text-ui-textMuted rounded-md hover:bg-slate-800 hover:text-brand-500 transition-colors group">
+                    <i class="fa-brands fa-git-alt w-5 text-slate-600 group-hover:text-brand-500"></i> Git
+                    <span class="ml-auto text-xs font-bold bg-slate-800 text-slate-500 px-2 py-0.5 rounded-full count">0</span>
                 </button>
-                <button data-module="docker" class="w-full flex items-center px-3 py-2 text-sm font-medium text-slate-600 rounded-md hover:bg-slate-50 hover:text-brand-600 transition-colors group">
-                    <i class="fa-brands fa-docker w-5 text-slate-400 group-hover:text-brand-500"></i> Docker
+                <button data-module="docker" class="w-full filter-item flex items-center px-3 py-2 text-sm font-medium text-ui-textMuted rounded-md hover:bg-slate-800 hover:text-brand-500 transition-colors group">
+                    <i class="fa-brands fa-docker w-5 text-slate-600 group-hover:text-brand-500"></i> Docker
+                    <span class="ml-auto text-xs font-bold bg-slate-800 text-slate-500 px-2 py-0.5 rounded-full count">0</span>
                 </button>
-                <button data-module="k8s" class="w-full flex items-center px-3 py-2 text-sm font-medium text-slate-600 rounded-md hover:bg-slate-50 hover:text-brand-600 transition-colors group">
-                    <i class="fa-solid fa-dharmachakra w-5 text-slate-400 group-hover:text-brand-500"></i> Kubernetes
+                <button data-module="k8s" class="w-full filter-item flex items-center px-3 py-2 text-sm font-medium text-ui-textMuted rounded-md hover:bg-slate-800 hover:text-brand-500 transition-colors group">
+                    <i class="fa-solid fa-dharmachakra w-5 text-slate-600 group-hover:text-brand-500"></i> Kubernetes
+                    <span class="ml-auto text-xs font-bold bg-slate-800 text-slate-500 px-2 py-0.5 rounded-full count">0</span>
                 </button>
-                <button data-module="aws" class="w-full flex items-center px-3 py-2 text-sm font-medium text-slate-600 rounded-md hover:bg-slate-50 hover:text-brand-600 transition-colors group">
-                    <i class="fa-brands fa-aws w-5 text-slate-400 group-hover:text-brand-500"></i> AWS
+                <button data-module="aws" class="w-full filter-item flex items-center px-3 py-2 text-sm font-medium text-ui-textMuted rounded-md hover:bg-slate-800 hover:text-brand-500 transition-colors group">
+                    <i class="fa-brands fa-aws w-5 text-slate-600 group-hover:text-brand-500"></i> AWS
+                    <span class="ml-auto text-xs font-bold bg-slate-800 text-slate-500 px-2 py-0.5 rounded-full count">0</span>
                 </button>
             </nav>
         </div>
         
-        <div class="p-4 border-t border-slate-100 bg-slate-50/50">
-            <div class="flex items-center text-xs text-slate-500">
-                <i class="fa-solid fa-server text-brand-500 mr-2"></i> Core v1.0 Active
+        <div class="p-4 border-t border-ui-cardBorder">
+            <div class="flex items-center text-xs text-ui-textMuted">
+                <i class="fa-solid fa-server text-brand-500 mr-2"></i> Core v1.0 Active (Local)
             </div>
         </div>
     </aside>
 
     <div class="flex-1 flex flex-col h-full relative" id="main-content">
         
-        <header id="header" class="h-16 bg-white/80 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-4 sm:px-8 sticky top-0 z-10 shrink-0">
+        <header id="header" class="h-16 bg-ui-card border-b border-ui-cardBorder flex items-center justify-between px-4 sm:px-8 sticky top-0 z-10 shrink-0">
             <div class="flex items-center">
-                <button class="lg:hidden mr-4 text-slate-500 hover:text-slate-800">
+                <button class="lg:hidden mr-4 text-ui-textMuted hover:text-ui-textMain">
                     <i class="fa-solid fa-bars text-lg"></i>
                 </button>
-                <div class="flex items-center text-sm font-medium text-slate-500 breadcrumbs">
+                <div class="flex items-center text-sm font-medium text-ui-textMuted breadcrumbs">
                     <span>Workspace</span>
-                    <i class="fa-solid fa-chevron-right text-[10px] mx-2 text-slate-300"></i>
-                    <span class="text-brand-600 bg-brand-50 px-2 py-1 rounded-md">Command Center</span>
+                    <i class="fa-solid fa-chevron-right text-[10px] mx-2 text-slate-600"></i>
+                    <span class="text-brand-500 bg-brand-50 px-2 py-1 rounded-md">Command Center</span>
                 </div>
             </div>
             
             <div class="flex items-center space-x-3">
                 <div class="relative">
-                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <input type="search" id="search-archive" placeholder="Search notes..." class="bg-slate-100 rounded-lg pl-9 pr-3 py-2 text-sm w-40 sm:w-60 focus:bg-white focus:ring-2 focus:ring-brand-200 outline-none transition-all border border-transparent focus:border-slate-200">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+                    <input type="search" id="search-archive" placeholder="Search saved notes..." class="bg-ui-inputBg rounded-lg pl-9 pr-3 py-2 text-sm w-40 sm:w-60 focus:ring-2 focus:ring-brand-200 outline-none transition-all border border-ui-inputBorder focus:border-slate-500 text-ui-textMain placeholder:text-slate-600">
                 </div>
             </div>
         </header>
@@ -135,110 +150,110 @@
         <div class="flex-1 overflow-y-auto p-4 sm:p-8 space-y-8 scroll-smooth" id="scroll-area">
             
             <section id="control-panel">
-                <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight mb-8">DevOps Control Panel</h1>
+                <h1 class="text-3xl font-extrabold text-ui-textMain tracking-tight mb-8">DevOps Control Panel</h1>
                 
                 <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
                     
-                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm col-span-1 xl:col-span-1">
-                        <h3 class="text-lg font-semibold text-slate-800 mb-5 flex items-center">
+                    <div class="bg-ui-card p-6 rounded-2xl border border-ui-cardBorder shadow-lg col-span-1 xl:col-span-1">
+                        <h3 class="text-lg font-semibold text-ui-textMain mb-5 flex items-center">
                             <i class="fa-solid fa-pen-to-square mr-2.5 text-brand-500"></i>Note Injector
                         </h3>
                         <div class="space-y-4">
-                            <select id="module-select" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:ring-2 focus:ring-brand-100 focus:border-brand-300 outline-none transition">
+                            <select id="module-select" class="w-full px-4 py-2.5 rounded-xl border border-ui-inputBorder bg-ui-inputBg text-ui-textMain text-sm focus:ring-2 focus:ring-brand-200 focus:border-brand-500 outline-none transition">
                                 <option value="linux">Linux</option>
                                 <option value="git">Git</option>
                                 <option value="docker">Docker</option>
                                 <option value="k8s">Kubernetes</option>
                                 <option value="aws">AWS</option>
                             </select>
-                            <input type="text" id="note-title" placeholder="Note title (e.g., Nginx Setup)" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-brand-100 focus:border-brand-300 outline-none transition">
-                            <textarea id="note-content" rows="5" placeholder="Write learning notes or commands..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-brand-100 focus:border-brand-300 outline-none transition resize-none"></textarea>
-                            <button id="save-btn" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-3 rounded-xl text-sm transition shadow-sm shadow-brand-100 flex items-center justify-center">
-                                <i class="fa-solid fa-cloud-arrow-up mr-2 text-xs opacity-80"></i> SAVE DATA
+                            <input type="text" id="note-title" placeholder="Note title (e.g., Nginx Setup)" class="w-full px-4 py-2.5 rounded-xl border border-ui-inputBorder bg-ui-inputBg text-ui-textMain text-sm focus:ring-2 focus:ring-brand-200 focus:border-brand-500 outline-none transition placeholder:text-slate-600">
+                            <textarea id="note-content" rows="5" placeholder="Write learning notes or commands..." class="w-full px-4 py-2.5 rounded-xl border border-ui-inputBorder bg-ui-inputBg text-ui-textMain text-sm focus:ring-2 focus:ring-brand-200 focus:border-brand-500 outline-none transition resize-none placeholder:text-slate-600"></textarea>
+                            <button id="save-btn" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-3 rounded-xl text-sm transition shadow-sm flex items-center justify-center">
+                                <i class="fa-solid fa-cloud-arrow-up mr-2 text-xs opacity-80"></i> SAVE DATA (LOCAL)
                             </button>
                         </div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm col-span-1 xl:col-span-1 flex flex-col">
-                        <h3 class="text-lg font-semibold text-slate-800 mb-5 flex items-center">
+                    <div class="bg-ui-card p-6 rounded-2xl border border-ui-cardBorder shadow-lg col-span-1 xl:col-span-1 flex flex-col">
+                        <h3 class="text-lg font-semibold text-ui-textMain mb-5 flex items-center">
                             <i class="fa-solid fa-box-archive mr-2.5 text-amber-500"></i>Data Archive
                         </h3>
                         <div id="archive-list" class="flex-1 space-y-3 overflow-y-auto pr-2 min-h-[300px] max-h-[380px]">
-                            <div class="text-center text-slate-400 pt-10 text-sm">No notes saved yet. Use Injector.</div>
+                            <div id="archive-placeholder" class="text-center text-slate-600 pt-10 text-sm">No notes saved. Use Injector.</div>
                         </div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm col-span-1 xl:col-span-1">
-                        <h3 class="text-lg font-semibold text-slate-800 mb-5 flex items-center">
+                    <div class="bg-ui-card p-6 rounded-2xl border border-ui-cardBorder shadow-lg col-span-1 xl:col-span-1">
+                        <h3 class="text-lg font-semibold text-ui-textMain mb-5 flex items-center">
                             <i class="fa-solid fa-chart-line mr-2.5 text-emerald-500"></i>Skill Levels
                         </h3>
                         <div class="space-y-4 mb-8 text-sm">
                             <div class="skill-item">
-                                <div class="flex justify-between mb-1 font-medium text-slate-600"><span>Linux</span><span>90%</span></div>
-                                <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 rounded-full" style="width: 90%"></div></div>
+                                <div class="flex justify-between mb-1 font-medium text-ui-textMuted"><span>Linux</span><span>90%</span></div>
+                                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 rounded-full" style="width: 90%"></div></div>
                             </div>
                             <div class="skill-item">
-                                <div class="flex justify-between mb-1 font-medium text-slate-600"><span>Docker</span><span>60%</span></div>
-                                <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-brand-500 rounded-full" style="width: 60%"></div></div>
+                                <div class="flex justify-between mb-1 font-medium text-ui-textMuted"><span>Docker</span><span>60%</span></div>
+                                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-brand-500 rounded-full" style="width: 60%"></div></div>
                             </div>
                             <div class="skill-item">
-                                <div class="flex justify-between mb-1 font-medium text-slate-600"><span>Kubernetes</span><span>30%</span></div>
-                                <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-amber-500 rounded-full" style="width: 30%"></div></div>
+                                <div class="flex justify-between mb-1 font-medium text-ui-textMuted"><span>Kubernetes</span><span>30%</span></div>
+                                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-amber-500 rounded-full" style="width: 30%"></div></div>
                             </div>
                         </div>
 
-                        <h3 class="text-lg font-semibold text-slate-800 mb-3 flex items-center">
+                        <h3 class="text-lg font-semibold text-ui-textMain mb-3 flex items-center">
                             <i class="fa-solid fa-rectangle-list mr-2.5 text-slate-500"></i>System Terminal
                         </h3>
-                        <div class="bg-terminal-bg text-terminal-text p-4 rounded-xl font-mono text-xs shadow-inner h-32 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700" id="terminal-text">
-                            <span class="text-slate-500">root@devops-cmd:~#</span> <span id="typing-content"></span>
+                        <div class="bg-terminal-bg text-terminal-text p-4 rounded-xl font-mono text-xs shadow-inner h-32 overflow-y-auto" id="terminal-text">
+                            <span class="text-slate-600">root@devops-cmd:~#</span> <span id="typing-content"></span>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="project-tracker" class="pt-4 pb-16">
-                <h2 class="text-2xl font-bold text-slate-900 tracking-tight mb-6 flex items-center">
+            <section id="project-tracker" class="pt-4 pb-16 border-t border-ui-cardBorder">
+                <h2 class="text-2xl font-bold text-ui-textMain tracking-tight mb-6 flex items-center mt-6">
                     <i class="fa-solid fa-list-check mr-3 text-brand-600"></i>DevOps Project Tracker
                 </h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 Kanban-board">
-                    <div class="column bg-white p-5 rounded-2xl border-2 border-slate-100 shadow-sm transition-all duration-200" id="todo">
+                    <div class="column bg-ui-card p-5 rounded-2xl border border-ui-cardBorder shadow-lg transition-all duration-200" id="todo">
                         <h4 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4 px-1 flex items-center justify-between">
-                            To Learn <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-full count">2</span>
+                            To Learn <span class="bg-slate-800 text-slate-400 text-xs px-2.5 py-1 rounded-full count">2</span>
                         </h4>
-                        <div class="space-y-3 min-h-[150px] task-container">
-                            <div class="task bg-slate-50 p-4 rounded-xl border border-slate-100 cursor-grab hover:border-brand-200 hover:bg-white hover:shadow-sm transition active:cursor-grabbing" draggable="true">
-                                <p class="text-sm font-semibold text-slate-800">Kubernetes Pods Config</p>
-                                <span class="text-xs bg-amber-50 text-amber-700 px-2 py-0.5 rounded font-medium mt-1 inline-block">K8s</span>
+                        <div class="space-y-3 min-h-[200px] task-container">
+                            <div class="task bg-slate-800 p-4 rounded-xl border border-ui-cardBorder cursor-grab hover:border-brand-200 hover:bg-slate-700 hover:shadow-lg transition active:cursor-grabbing" draggable="true">
+                                <p class="text-sm font-semibold text-ui-textMain">Kubernetes Pods Config</p>
+                                <span class="text-xs bg-amber-900/50 text-amber-300 px-2 py-0.5 rounded font-medium mt-1 inline-block">K8s</span>
                             </div>
-                            <div class="task bg-slate-50 p-4 rounded-xl border border-slate-100 cursor-grab hover:border-brand-200 hover:bg-white hover:shadow-sm transition active:cursor-grabbing" draggable="true">
-                                <p class="text-sm font-semibold text-slate-800">Terraform Fundamentals</p>
-                                <span class="text-xs bg-purple-50 text-purple-700 px-2 py-0.5 rounded font-medium mt-1 inline-block">IaC</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column bg-white p-5 rounded-2xl border-2 border-slate-100 shadow-sm transition-all duration-200" id="learning">
-                        <h4 class="text-sm font-bold text-brand-600 uppercase tracking-wider mb-4 px-1 flex items-center justify-between">
-                            Learning <span class="bg-brand-50 text-brand-700 text-xs px-2.5 py-1 rounded-full count">1</span>
-                        </h4>
-                        <div class="space-y-3 min-h-[150px] task-container">
-                            <div class="task bg-slate-50 p-4 rounded-xl border border-slate-100 cursor-grab hover:border-brand-200 hover:bg-white hover:shadow-sm transition active:cursor-grabbing" draggable="true">
-                                <p class="text-sm font-semibold text-slate-800">Docker Volumes & Networking</p>
-                                <span class="text-xs bg-brand-50 text-brand-700 px-2 py-0.5 rounded font-medium mt-1 inline-block">Docker</span>
+                            <div class="task bg-slate-800 p-4 rounded-xl border border-ui-cardBorder cursor-grab hover:border-brand-200 hover:bg-slate-700 hover:shadow-lg transition active:cursor-grabbing" draggable="true">
+                                <p class="text-sm font-semibold text-ui-textMain">Terraform Fundamentals</p>
+                                <span class="text-xs bg-purple-900/50 text-purple-300 px-2 py-0.5 rounded font-medium mt-1 inline-block">IaC</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="column bg-white p-5 rounded-2xl border-2 border-slate-100 shadow-sm transition-all duration-200" id="done">
-                        <h4 class="text-sm font-bold text-emerald-600 uppercase tracking-wider mb-4 px-1 flex items-center justify-between">
-                            Completed <span class="bg-emerald-50 text-emerald-700 text-xs px-2.5 py-1 rounded-full count">1</span>
+                    <div class="column bg-ui-card p-5 rounded-2xl border border-ui-cardBorder shadow-lg transition-all duration-200" id="learning">
+                        <h4 class="text-sm font-bold text-brand-500 uppercase tracking-wider mb-4 px-1 flex items-center justify-between">
+                            Learning <span class="bg-brand-900/50 text-brand-300 text-xs px-2.5 py-1 rounded-full count">1</span>
                         </h4>
-                        <div class="space-y-3 min-h-[150px] task-container">
-                            <div class="task bg-slate-50 p-4 rounded-xl border border-slate-100 cursor-grab hover:border-brand-200 hover:bg-white hover:shadow-sm transition active:cursor-grabbing" draggable="true">
-                                <p class="text-sm font-semibold text-slate-800 text-slate-500 line-through">Basic Linux Commands</p>
-                                <span class="text-xs bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-medium mt-1 inline-block">Linux</span>
+                        <div class="space-y-3 min-h-[200px] task-container">
+                            <div class="task bg-slate-800 p-4 rounded-xl border border-ui-cardBorder cursor-grab hover:border-brand-200 hover:bg-slate-700 hover:shadow-lg transition active:cursor-grabbing" draggable="true">
+                                <p class="text-sm font-semibold text-ui-textMain">Docker Volumes & Networking</p>
+                                <span class="text-xs bg-brand-900/50 text-brand-300 px-2 py-0.5 rounded font-medium mt-1 inline-block">Docker</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column bg-ui-card p-5 rounded-2xl border border-ui-cardBorder shadow-lg transition-all duration-200" id="done">
+                        <h4 class="text-sm font-bold text-emerald-500 uppercase tracking-wider mb-4 px-1 flex items-center justify-between">
+                            Completed <span class="bg-emerald-900/50 text-emerald-300 text-xs px-2.5 py-1 rounded-full count">1</span>
+                        </h4>
+                        <div class="space-y-3 min-h-[200px] task-container">
+                            <div class="task bg-slate-800 p-4 rounded-xl border border-ui-cardBorder cursor-grab hover:border-brand-200 hover:bg-slate-700 hover:shadow-lg transition active:cursor-grabbing" draggable="true">
+                                <p class="text-sm font-semibold text-slate-500 line-through">Basic Linux Commands</p>
+                                <span class="text-xs bg-emerald-900/50 text-emerald-300 px-2 py-0.5 rounded font-medium mt-1 inline-block">Linux</span>
                             </div>
                         </div>
                     </div>
@@ -248,128 +263,244 @@
     </div>
 
     <script>
-        // --- Core Functionality ---
+        // --- Configuration ---
+        const badgeColors = {
+            linux: 'bg-emerald-900/70 text-emerald-200',
+            git: 'bg-orange-900/70 text-orange-200',
+            docker: 'bg-brand-900/70 text-brand-200',
+            k8s: 'bg-amber-900/70 text-amber-200',
+            aws: 'bg-sky-900/70 text-sky-200'
+        };
 
-        // 1. Note Injector & Archive
+        // --- Core Functionality (Working Website) ---
+
+        // Local Data Handling (Persistence)
+        const getLocalStorageNotes = () => JSON.parse(localStorage.getItem('devopsCMDNotes')) || [];
+        const setLocalStorageNotes = (notes) => localStorage.setItem('devopsCMDNotes', JSON.stringify(notes));
+
+        // Note Handling
         const saveBtn = document.getElementById('save-btn');
         const titleInput = document.getElementById('note-title');
         const contentInput = document.getElementById('note-content');
         const moduleSelect = document.getElementById('module-select');
         const archiveList = document.getElementById('archive-list');
+        const archivePlaceholder = document.getElementById('archive-placeholder');
         const searchInput = document.getElementById('search-archive');
 
+        // Function to render notes from data
+        const renderNotes = (notesToRender) => {
+            // Remove existing notes
+            const existingNotes = archiveList.querySelectorAll('.archive-card');
+            existingNotes.forEach(note => note.remove());
+
+            if (notesToRender.length > 0) {
+                archivePlaceholder.style.display = 'none';
+                notesToRender.forEach(noteData => createNoteCard(noteData, false)); // Add to end (since data is already sorted)
+            } else {
+                archivePlaceholder.style.display = 'block';
+            }
+        };
+
+        // Create HTML for a note card and append/prepend it
+        const createNoteCard = (data, prepend = true) => {
+            const card = document.createElement('div');
+            card.classList.add('archive-card', 'bg-slate-800', 'p-4', 'rounded-xl', 'border', 'border-ui-cardBorder', 'relative', 'group', 'transition-all', 'hover:border-slate-500', 'hover:bg-slate-700');
+            card.dataset.module = data.module;
+            card.dataset.id = data.id;
+
+            const badgeClass = badgeColors[data.module] || 'bg-slate-700 text-slate-300';
+
+            card.innerHTML = `
+                <div class="flex justify-between items-start mb-2">
+                    <h4 class="text-sm font-semibold text-ui-textMain pr-8">${data.title}</h4>
+                    <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${badgeClass}">${data.module}</span>
+                </div>
+                <p class="text-xs text-ui-textMuted leading-relaxed">${data.content}</p>
+                <button class="delete-note absolute top-3 right-3 text-slate-600 opacity-0 group-hover:opacity-100 hover:text-red-400 transition-all text-xs">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            `;
+
+            if (prepend) {
+                archiveList.prepend(card);
+            } else {
+                archiveList.appendChild(card);
+            }
+
+            // Attach Delete Listener immediately to the new button
+            card.querySelector('.delete-note').addEventListener('click', () => {
+                deleteNote(data.id);
+            });
+        };
+
+        // Function to delete a note by ID
+        const deleteNote = (noteId) => {
+            const notes = getLocalStorageNotes();
+            const updatedNotes = notes.filter(n => n.id != noteId);
+            setLocalStorageNotes(updatedNotes);
+            
+            // Re-render based on current filter state
+            const activeFilter = document.querySelector('#module-filters button.bg-brand-50').dataset.module;
+            applyModuleFilter(activeFilter); 
+
+            // Update Counts in Sidebar
+            updateSidebarCounts();
+        };
+
+        // Update counts next to sidebar modules
+        const updateSidebarCounts = () => {
+            const notes = getLocalStorageNotes();
+            const moduleCounts = { linux: 0, git: 0, docker: 0, k8s: 0, aws: 0 };
+            
+            notes.forEach(note => {
+                if (moduleCounts[note.module] !== undefined) {
+                    moduleCounts[note.module]++;
+                }
+            });
+
+            const sidebarFilterItems = document.querySelectorAll('#module-filters .filter-item');
+            sidebarFilterItems.forEach(item => {
+                const module = item.dataset.module;
+                const countSpan = item.querySelector('.count');
+                if (countSpan) {
+                    const count = moduleCounts[module];
+                    countSpan.innerText = count;
+                    if (count > 0) {
+                        countSpan.classList.remove('bg-slate-800', 'text-slate-500');
+                        countSpan.classList.add('bg-brand-500', 'text-brand-50');
+                    } else {
+                        countSpan.classList.remove('bg-brand-500', 'text-brand-50');
+                        countSpan.classList.add('bg-slate-800', 'text-slate-500');
+                    }
+                }
+            });
+        };
+
+
+        // Function to apply filters to the archive
+        const applyFilters = (activeModuleFilter, searchTerm) => {
+            const allNotes = getLocalStorageNotes();
+            let filteredNotes = allNotes;
+
+            // Apply Module Filter
+            if (activeModuleFilter !== 'all') {
+                filteredNotes = filteredNotes.filter(note => note.module === activeModuleFilter);
+            }
+
+            // Apply Search Filter
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                filteredNotes = filteredNotes.filter(note => 
+                    note.title.toLowerCase().includes(term) || 
+                    note.content.toLowerCase().includes(term)
+                );
+            }
+
+            // Render result
+            renderNotes(filteredNotes);
+        };
+
+        // Helper to get active module filter
+        const getActiveModule = () => document.querySelector('#module-filters button.bg-brand-50').dataset.module;
+
+        // Function dedicated to filtering module (invoked by sidebar clicks and deletes)
+        const applyModuleFilter = (moduleFilter) => {
+             // 1. Update active state in sidebar UI
+            const filterButtons = document.querySelectorAll('#module-filters .filter-item');
+            filterButtons.forEach(b => {
+                b.classList.remove('bg-brand-50', 'text-brand-500');
+                b.classList.add('text-ui-textMuted');
+                b.querySelector('i').classList.remove('text-brand-500');
+                b.querySelector('i').classList.add('text-slate-600');
+            });
+            const clickedBtn = document.querySelector(`#module-filters button[data-module="${moduleFilter}"]`);
+            clickedBtn.classList.remove('text-ui-textMuted');
+            clickedBtn.classList.add('bg-brand-50', 'text-brand-500');
+            clickedBtn.querySelector('i').classList.remove('text-slate-600');
+            clickedBtn.querySelector('i').classList.add('text-brand-500');
+
+            // 2. Clear search input when changing module filter
+            searchInput.value = ''; 
+
+            // 3. Render
+            const notes = getLocalStorageNotes();
+            const filteredNotes = moduleFilter === 'all' ? notes : notes.filter(n => n.module === moduleFilter);
+            renderNotes(filteredNotes);
+        };
+
+
+
+        // --- Event Listeners ---
+
+        // Initial Load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderNotes(getLocalStorageNotes());
+            updateSidebarCounts();
+        });
+
+        // 1. Injector Form Save
         saveBtn.addEventListener('click', () => {
             const title = titleInput.value.trim();
             const content = contentInput.value.trim();
             const module = moduleSelect.value;
 
             if (!title || !content) {
-                alert("Please fill in both Title and Content.");
+                alert("Pura bharona! Title aur Content fill karein.");
                 return;
             }
 
-            // Create modern archive card
-            const card = document.createElement('div');
-            card.classList.add('archive-card', 'bg-slate-50', 'p-4', 'rounded-xl', 'border', 'border-slate-100', 'relative', 'group', 'transition-all', 'hover:border-slate-200', 'hover:bg-white');
-            card.dataset.module = module;
-
-            // Module specific badge colors
-            const badgeColors = {
-                linux: 'bg-emerald-50 text-emerald-700',
-                git: 'bg-orange-50 text-orange-700',
-                docker: 'bg-brand-50 text-brand-700',
-                k8s: 'bg-amber-50 text-amber-700',
-                aws: 'bg-sky-50 text-sky-700'
+            const newNoteData = {
+                id: Date.now(), // Simple unique ID
+                module: module,
+                title: title,
+                content: content,
+                dateAdded: new Date()
             };
-            const badgeClass = badgeColors[module] || 'bg-slate-100 text-slate-700';
 
-            card.innerHTML = `
-                <div class="flex justify-between items-start mb-2">
-                    <h4 class="text-sm font-semibold text-slate-800 pr-6">${title}</h4>
-                    <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${badgeClass}">${module}</span>
-                </div>
-                <p class="text-xs text-slate-600 leading-relaxed">${content}</p>
-                <button class="delete-note absolute top-3 right-3 text-slate-400 opacity-0 group-hover:opacity-100 hover:text-red-500 transition-all text-xs">
-                    <i class="fa-solid fa-trash-can"></i>
-                </button>
-            `;
+            // Save to LocalStorage
+            const notes = getLocalStorageNotes();
+            notes.unshift(newNoteData); // Add to beginning
+            setLocalStorageNotes(notes);
 
-            // Remove placeholder if exists
-            if (archiveList.querySelector('.text-center')) {
-                archiveList.innerHTML = '';
-            }
-
-            archiveList.prepend(card);
+            // Re-render with new data (keep current filter)
+            applyFilters(getActiveModule(), searchInput.value.trim());
 
             // Clear inputs
             titleInput.value = '';
             contentInput.value = '';
 
-            // Add delete functionality to new button
-            card.querySelector('.delete-note').addEventListener('click', () => {
-                card.remove();
-                if (archiveList.children.length === 0) {
-                    archiveList.innerHTML = '<div class="text-center text-slate-400 pt-10 text-sm">No notes saved yet. Use Injector.</div>';
-                }
-            });
+            // Update Counts in Sidebar
+            updateSidebarCounts();
         });
 
         // 2. Archive Search
         searchInput.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            const notes = archiveList.querySelectorAll('.archive-card');
-
-            notes.forEach(note => {
-                const title = note.querySelector('h4').innerText.toLowerCase();
-                const content = note.querySelector('p').innerText.toLowerCase();
-                if (title.includes(term) || content.includes(term)) {
-                    note.style.display = 'block';
-                } else {
-                    note.style.display = 'none';
-                }
-            });
+            const term = e.target.value.trim();
+            const currentModule = getActiveModule();
+            applyFilters(currentModule, term);
         });
 
-        // 3. Quick Filters (Sidebar)
-        const filterButtons = document.querySelectorAll('#module-filters button');
+        // 3. Quick Filters (Sidebar Module Clicks)
+        const filterButtons = document.querySelectorAll('#module-filters .filter-item');
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Update active state in sidebar
-                filterButtons.forEach(b => {
-                    b.classList.remove('bg-brand-50', 'text-brand-600');
-                    b.classList.add('text-slate-600');
-                    b.querySelector('i').classList.remove('text-brand-500');
-                    b.querySelector('i').classList.add('text-slate-400');
-                });
-                btn.classList.remove('text-slate-600');
-                btn.classList.add('bg-brand-50', 'text-brand-600');
-                btn.querySelector('i').classList.remove('text-slate-400');
-                btn.querySelector('i').classList.add('text-brand-500');
-
-                // Filter Archive
-                const module = btn.dataset.module;
-                const notes = archiveList.querySelectorAll('.archive-card');
-
-                notes.forEach(note => {
-                    if (module === 'all' || note.dataset.module === module) {
-                        note.style.display = 'block';
-                    } else {
-                        note.style.display = 'none';
-                    }
-                });
+                applyModuleFilter(btn.dataset.module);
             });
         });
 
 
         // 4. Terminal Typing Effect
-        const text = "Initializing DevOps Command Center v1.0... Authorized Access Only... Loading Modules... Linux [OK] Docker [OK] K8s [OK] AWS [OK] System Ready.";
+        const text = "root@devops-cmd:~# ./initialize.sh v1.0...\nAuthorized Access Only...\nLoading Modules... Linux [OK] Docker [OK] K8s [OK] AWS [OK]\nSystem Ready. Standing by for local note injection.";
         const typingContent = document.getElementById('typing-content');
-        let i = 0;
+        let typeIdx = 0;
         function typing() {
-            if (i < text.length) {
-                typingContent.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(typing, 30); // Slightly faster
+            if (typeIdx < text.length) {
+                typingContent.innerHTML += text.charAt(typeIdx);
+                typeIdx++;
+                setTimeout(typing, 25); // Fast typing
+            } else {
+                // Keep cursor at end
+                typingContent.innerHTML += "<span class='inline-block w-2 h-3 bg-terminal-text ml-1 animate-pulse'></span>"
             }
         }
         typing();
@@ -379,6 +510,23 @@
         const tasks = document.querySelectorAll('.task');
         const columns = document.querySelectorAll('.column');
 
+        const updateColumnCounts = () => {
+            columns.forEach(col => {
+                const countSpan = col.querySelector('.count');
+                const taskCount = col.querySelector('.task-container').children.length;
+                countSpan.innerText = taskCount;
+                
+                // Colorize counts if they have tasks
+                if (col.id === 'done') {
+                    if (taskCount > 0) countSpan.className = "bg-emerald-900/50 text-emerald-300 text-xs px-2.5 py-1 rounded-full count";
+                    else countSpan.className = "bg-slate-800 text-slate-500 text-xs px-2.5 py-1 rounded-full count";
+                } else if (col.id === 'learning') {
+                     if (taskCount > 0) countSpan.className = "bg-brand-900/50 text-brand-300 text-xs px-2.5 py-1 rounded-full count";
+                    else countSpan.className = "bg-slate-800 text-slate-500 text-xs px-2.5 py-1 rounded-full count";
+                }
+            });
+        };
+
         tasks.forEach(task => {
             task.addEventListener('dragstart', () => {
                 task.classList.add('dragging');
@@ -386,7 +534,7 @@
 
             task.addEventListener('dragend', () => {
                 task.classList.remove('dragging');
-                updateCounts();
+                updateColumnCounts();
             });
         });
 
@@ -398,8 +546,10 @@
                 col.classList.add('drag-over');
                 
                 const draggingTask = document.querySelector('.dragging');
-                // Basic append (modern look handles spacing)
-                container.appendChild(draggingTask);
+                if (draggingTask) {
+                    // Just append; spacing is handled by card styling
+                    container.appendChild(draggingTask);
+                }
             });
 
             col.addEventListener('dragleave', () => {
@@ -410,23 +560,16 @@
                 col.classList.remove('drag-over');
                 // Special handling for 'done' column styling
                 const draggingTask = document.querySelector('.dragging');
-                const taskText = draggingTask.querySelector('p');
-                if (col.id === 'done') {
-                    taskText.classList.add('text-slate-500', 'line-through');
-                } else {
-                    taskText.classList.remove('text-slate-500', 'line-through');
+                if (draggingTask) {
+                    const taskText = draggingTask.querySelector('p');
+                    if (col.id === 'done') {
+                        taskText.classList.add('text-slate-500', 'line-through');
+                    } else {
+                        taskText.classList.remove('text-slate-500', 'line-through');
+                    }
                 }
             });
         });
-
-        // Helper to update column counts
-        function updateCounts() {
-            columns.forEach(col => {
-                const countSpan = col.querySelector('.count');
-                const taskCount = col.querySelector('.task-container').children.length;
-                countSpan.innerText = taskCount;
-            });
-        }
 
     </script>
 </body>
