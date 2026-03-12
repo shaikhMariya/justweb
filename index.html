@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps CMD - Command Center (Dark Mode v1.0)</title>
+    <title>DevOps CMD - Command Center (Dark Mode v1.1)</title>
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script>
         tailwind.config = {
@@ -120,7 +120,7 @@
         
         <div class="p-4 border-t border-ui-cardBorder">
             <div class="flex items-center text-xs text-ui-textMuted">
-                <i class="fa-solid fa-server text-brand-500 mr-2"></i> Core v1.0 Active (Local)
+                <i class="fa-solid fa-server text-brand-500 mr-2"></i> Core v1.1 Active (Local + Preload)
             </div>
         </div>
     </aside>
@@ -179,7 +179,7 @@
                             <i class="fa-solid fa-box-archive mr-2.5 text-amber-500"></i>Data Archive
                         </h3>
                         <div id="archive-list" class="flex-1 space-y-3 overflow-y-auto pr-2 min-h-[300px] max-h-[380px]">
-                            <div id="archive-placeholder" class="text-center text-slate-600 pt-10 text-sm">No notes saved. Use Injector.</div>
+                            <div id="archive-placeholder" class="text-center text-slate-600 pt-10 text-sm hidden">No notes saved. Use Injector.</div>
                         </div>
                     </div>
 
@@ -272,11 +272,58 @@
             aws: 'bg-sky-900/70 text-sky-200'
         };
 
+        // --- PRELOADED DATA (Linux & GitHub Notes) ---
+        const initialNotes = [
+            {
+                id: 101,
+                module: 'linux',
+                title: 'Basic File Permissions (chmod)',
+                content: 'chmod 755 filename sets read/write/execute for owner, read/execute for group/others.',
+                dateAdded: new Date('2024-03-10')
+            },
+            {
+                id: 102,
+                module: 'linux',
+                title: 'System Monitoring (htop)',
+                content: 'Use htop for an interactive, real-time view of running processes and resource usage.',
+                dateAdded: new Date('2024-03-11')
+            },
+            {
+                id: 201,
+                module: 'git',
+                title: 'Git Push (Main Branch)',
+                content: 'git push origin main pushes local commits to the remote main branch.',
+                dateAdded: new Date('2024-03-11')
+            },
+             {
+                id: 202,
+                module: 'git',
+                title: 'Resolving Merge Conflicts',
+                content: 'Error: failed to push refs... main -> main (fetch first). Resolve conflicts, then git add, commit, and push again.',
+                dateAdded: new Date('2024-03-12')
+            },
+            {
+                id: 103,
+                module: 'linux',
+                title: 'SSH Key Generation',
+                content: 'Use ssh-keygen -t ed25519 for modern, secure SSH keys.',
+                dateAdded: new Date('2024-03-12')
+            }
+        ];
+
+
         // --- Core Functionality (Working Website) ---
 
         // Local Data Handling (Persistence)
-        const getLocalStorageNotes = () => JSON.parse(localStorage.getItem('devopsCMDNotes')) || [];
-        const setLocalStorageNotes = (notes) => localStorage.setItem('devopsCMDNotes', JSON.stringify(notes));
+        const getLocalStorageNotes = () => {
+            const stored = localStorage.getItem('devopsCMDNotes_v1.1');
+            if (stored) return JSON.parse(stored);
+            
+            // If nothing stored, use preloaded data and save it immediately
+            localStorage.setItem('devopsCMDNotes_v1.1', JSON.stringify(initialNotes));
+            return initialNotes;
+        };
+        const setLocalStorageNotes = (notes) => localStorage.setItem('devopsCMDNotes_v1.1', JSON.stringify(notes));
 
         // Note Handling
         const saveBtn = document.getElementById('save-btn');
@@ -340,7 +387,8 @@
             setLocalStorageNotes(updatedNotes);
             
             // Re-render based on current filter state
-            const activeFilter = document.querySelector('#module-filters button.bg-brand-50').dataset.module;
+            const activeFilterItem = document.querySelector('#module-filters button.bg-brand-50');
+            const activeFilter = activeFilterItem ? activeFilterItem.dataset.module : 'all';
             applyModuleFilter(activeFilter); 
 
             // Update Counts in Sidebar
@@ -401,7 +449,10 @@
         };
 
         // Helper to get active module filter
-        const getActiveModule = () => document.querySelector('#module-filters button.bg-brand-50').dataset.module;
+        const getActiveModule = () => {
+            const activeItem = document.querySelector('#module-filters button.bg-brand-50');
+            return activeItem ? activeItem.dataset.module : 'all';
+        }
 
         // Function dedicated to filtering module (invoked by sidebar clicks and deletes)
         const applyModuleFilter = (moduleFilter) => {
@@ -414,10 +465,12 @@
                 b.querySelector('i').classList.add('text-slate-600');
             });
             const clickedBtn = document.querySelector(`#module-filters button[data-module="${moduleFilter}"]`);
-            clickedBtn.classList.remove('text-ui-textMuted');
-            clickedBtn.classList.add('bg-brand-50', 'text-brand-500');
-            clickedBtn.querySelector('i').classList.remove('text-slate-600');
-            clickedBtn.querySelector('i').classList.add('text-brand-500');
+            if (clickedBtn) {
+                clickedBtn.classList.remove('text-ui-textMuted');
+                clickedBtn.classList.add('bg-brand-50', 'text-brand-500');
+                clickedBtn.querySelector('i').classList.remove('text-slate-600');
+                clickedBtn.querySelector('i').classList.add('text-brand-500');
+            }
 
             // 2. Clear search input when changing module filter
             searchInput.value = ''; 
@@ -490,7 +543,7 @@
 
 
         // 4. Terminal Typing Effect
-        const text = "root@devops-cmd:~# ./initialize.sh v1.0...\nAuthorized Access Only...\nLoading Modules... Linux [OK] Docker [OK] K8s [OK] AWS [OK]\nSystem Ready. Standing by for local note injection.";
+        const text = "root@devops-cmd:~# ./initialize.sh v1.1...\nAuthorized Access Only...\nLoading Modules... Linux [OK] Docker [OK] K8s [OK] AWS [OK]\nLoading preloaded note vectors...\nSystem Ready. Standing by for local note injection.";
         const typingContent = document.getElementById('typing-content');
         let typeIdx = 0;
         function typing() {
