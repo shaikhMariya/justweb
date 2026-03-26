@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><title>MariyaNotesHub</title></title>
-  
+    <title>Mariya's Dev Notes: DevOps Masterclass</title>
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -98,10 +101,61 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
+        /* AI Output Markdown Styles */
+        .ai-output p { margin-bottom: 0.75rem; line-height: 1.6; }
+        .ai-output pre { background: #0f172a; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1rem; border: 1px solid #1e293b; }
+        .ai-output code { font-family: 'Fira Code', monospace; color: #10b981; font-size: 0.9rem; }
+        .ai-output h1, .ai-output h2, .ai-output h3 { font-weight: bold; margin-bottom: 0.5rem; color: #fbbf24; }
+        .ai-output ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; }
+        .ai-output li { margin-bottom: 0.25rem; }
+        
         mark { background-color: #fde047; color: #1e3a8a; border-radius: 2px; padding: 0 2px; }
         .dark mark { background-color: #b45309; color: #fef3c7; }
         .point-list { list-style-type: disc; margin-left: 1.25rem; margin-top: 0.5rem; margin-bottom: 1rem; }
         .point-list li { margin-bottom: 0.5rem; }
+
+        /* =========================================
+           CUSTOM THEMES OVERRIDES (The Magic!)
+           ========================================= */
+           
+        /* 🌌 Midnight Theme */
+        html[data-theme="midnight"] body { background-color: #020617; }
+        html[data-theme="midnight"] .dark\:bg-slate-900, 
+        html[data-theme="midnight"] .dark\:bg-slate-950, 
+        html[data-theme="midnight"] .dark\:bg-black { background-color: #020617 !important; }
+        html[data-theme="midnight"] .dark\:bg-slate-800 { background-color: #0f172a !important; border-color: #1e293b !important; }
+        html[data-theme="midnight"] .glass-card { background-color: rgba(2, 6, 23, 0.95) !important; border-color: #1e293b !important; }
+        html[data-theme="midnight"] .bg-gradient-to-r, html[data-theme="midnight"] .bg-gradient-to-br { background-image: linear-gradient(to bottom right, #1e3a8a, #3b82f6) !important; }
+        html[data-theme="midnight"] .tab-btn.active { background-color: #172554 !important; color: #60a5fa !important; border-right-color: #3b82f6 !important; }
+        html[data-theme="midnight"] [class*="text-amber-"], html[data-theme="midnight"] [class*="text-orange-"] { color: #38bdf8 !important; }
+        
+        /* 💻 Hacker Theme */
+        html[data-theme="hacker"] body { background-color: #000000; color: #10b981; }
+        html[data-theme="hacker"] .dark\:bg-slate-900, 
+        html[data-theme="hacker"] .dark\:bg-slate-950, 
+        html[data-theme="hacker"] .dark\:bg-black { background-color: #000000 !important; }
+        html[data-theme="hacker"] .dark\:bg-slate-800 { background-color: #0a0a0a !important; border-color: #065f46 !important; }
+        html[data-theme="hacker"] .dark\:text-white { color: #34d399 !important; }
+        html[data-theme="hacker"] .dark\:text-slate-200, 
+        html[data-theme="hacker"] .dark\:text-slate-300, 
+        html[data-theme="hacker"] .dark\:text-slate-400 { color: #10b981 !important; }
+        html[data-theme="hacker"] .dark\:border-slate-800, 
+        html[data-theme="hacker"] .dark\:border-slate-700 { border-color: #065f46 !important; }
+        html[data-theme="hacker"] .glass-card { background-color: rgba(0, 0, 0, 0.95) !important; border-color: #065f46 !important; }
+        html[data-theme="hacker"] .bg-gradient-to-r, html[data-theme="hacker"] .bg-gradient-to-br { background-image: linear-gradient(to bottom right, #064e3b, #065f46) !important; }
+        html[data-theme="hacker"] .tab-btn.active { background-color: #064e3b !important; color: #34d399 !important; border-right-color: #10b981 !important; }
+        html[data-theme="hacker"] [class*="text-amber-"], html[data-theme="hacker"] [class*="text-orange-"] { color: #10b981 !important; }
+        
+        /* 🌆 Cyberpunk Theme */
+        html[data-theme="cyberpunk"] body { background-color: #2a0a2a; }
+        html[data-theme="cyberpunk"] .dark\:bg-slate-900, 
+        html[data-theme="cyberpunk"] .dark\:bg-slate-950, 
+        html[data-theme="cyberpunk"] .dark\:bg-black { background-color: #2a0a2a !important; }
+        html[data-theme="cyberpunk"] .dark\:bg-slate-800 { background-color: #3d0c3d !important; border-color: #701a70 !important; }
+        html[data-theme="cyberpunk"] .glass-card { background-color: rgba(42, 10, 42, 0.95) !important; border-color: #701a70 !important; }
+        html[data-theme="cyberpunk"] .bg-gradient-to-r, html[data-theme="cyberpunk"] .bg-gradient-to-br { background-image: linear-gradient(to bottom right, #db2777, #9333ea) !important; }
+        html[data-theme="cyberpunk"] .tab-btn.active { background-color: #831843 !important; color: #f472b6 !important; border-right-color: #ec4899 !important; }
+        html[data-theme="cyberpunk"] [class*="text-amber-"], html[data-theme="cyberpunk"] [class*="text-orange-"] { color: #f472b6 !important; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200 antialiased selection:bg-amber-200 selection:text-amber-900 dark:selection:bg-amber-900 dark:selection:text-amber-100 transition-colors duration-200 text-base">
@@ -115,10 +169,20 @@
             <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-100 dark:to-slate-300">DevOps Masterclass</h1>
         </div>
         <div class="flex gap-3 items-center">
-            <button id="mobileThemeToggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-                <svg class="w-6 h-6 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                <svg class="w-6 h-6 hidden dark:block text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-            </button>
+            <!-- Mobile Theme Dropdown -->
+            <div class="relative">
+                <button id="mobileThemeBtn" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-inner flex items-center gap-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                </button>
+                <div id="mobileThemeMenu" class="absolute right-0 mt-2 w-44 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 hidden flex-col py-2 z-50 font-sans">
+                    <button onclick="setTheme('light')" class="text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-3"><span class="text-lg">☀️</span> Light</button>
+                    <button onclick="setTheme('dark')" class="text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-3"><span class="text-lg">🌙</span> Dark Slate</button>
+                    <button onclick="setTheme('midnight')" class="text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-3"><span class="text-lg">🌌</span> Midnight</button>
+                    <button onclick="setTheme('hacker')" class="text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-3"><span class="text-lg">💻</span> Hacker</button>
+                    <button onclick="setTheme('cyberpunk')" class="text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-3"><span class="text-lg">🌆</span> Cyberpunk</button>
+                </div>
+            </div>
+            
             <button id="mobileMenuBtn" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
@@ -137,10 +201,20 @@
                         </div>
                         <h1 class="text-xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-100 dark:to-slate-300 tracking-tight">DevOps Track</h1>
                     </div>
-                    <button id="themeToggle" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors">
-                        <svg class="w-6 h-6 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                        <svg class="w-6 h-6 hidden dark:block text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    </button>
+                    
+                    <!-- Desktop Theme Dropdown -->
+                    <div class="relative">
+                        <button id="desktopThemeBtn" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                        </button>
+                        <div id="desktopThemeMenu" class="absolute left-0 md:right-0 md:left-auto mt-2 w-44 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 hidden flex-col py-2 z-50 font-sans">
+                            <button onclick="setTheme('light')" class="text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-3"><span class="text-lg">☀️</span> Light</button>
+                            <button onclick="setTheme('dark')" class="text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-3"><span class="text-lg">🌙</span> Dark Slate</button>
+                            <button onclick="setTheme('midnight')" class="text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-3"><span class="text-lg">🌌</span> Midnight</button>
+                            <button onclick="setTheme('hacker')" class="text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-3"><span class="text-lg">💻</span> Hacker</button>
+                            <button onclick="setTheme('cyberpunk')" class="text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-3"><span class="text-lg">🌆</span> Cyberpunk</button>
+                        </div>
+                    </div>
                 </div>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 hidden md:block">Created by Mariya</p>
             </div>
@@ -169,11 +243,16 @@
                     <span class="font-medium">4. CI/CD Pipelines</span>
                 </button>
 
+                <button class="tab-btn w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left" data-target="tab-interview">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span class="font-medium">5. Interview Q&A</span>
+                </button>
+
                 <div class="my-4 border-t border-slate-200 dark:border-slate-800"></div>
                 
-                <button class="tab-btn w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left bg-orange-50/50 dark:bg-orange-900/10 text-orange-700 dark:text-orange-400" data-target="tab-interview">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span class="font-bold">5. Interview Q&A</span>
+                <button class="tab-btn w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left bg-indigo-50/50 dark:bg-indigo-900/10 text-indigo-700 dark:text-indigo-400" data-target="tab-ai">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    <span class="font-bold">6. AI Assistant ✨</span>
                 </button>
             </nav>
         </aside>
@@ -186,17 +265,21 @@
             
             <!-- Header -->
             <header class="mb-10 pb-8 border-b border-slate-200 dark:border-slate-800">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 text-sm font-semibold tracking-wide uppercase mb-6 border border-brand-100 dark:border-brand-800">
+                    <span class="w-2.5 h-2.5 rounded-full bg-brand-500 animate-pulse"></span>
+                    DevOps & Server Admin
+                </div>
                 <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4 leading-tight">
-                    DevOps & Server Admin <br>
+                    Linux, Git & Docker <br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-500 text-2xl md:text-4xl">(Complete Guide by Mariya)</span>
                 </h1>
-                <p class="text-lg text-slate-600 dark:text-slate-400">The DevOps Engineer.</p>
+                <p class="text-lg text-slate-600 dark:text-slate-400">Sidebar se topic select karein. Har ek technology ke basic se advanced commands aur concepts yahan cover kiye gaye hain.</p>
             </header>
 
             <!-- TABS CONTAINER -->
             <div id="main-content">
                 
-                <!-- TAB 1: LINQ (LINUX) -->
+                <!-- TAB 1: LINUX -->
                 <div id="tab-linux" class="tab-section fade-in block">
                     <div class="flex items-center gap-3 mb-8">
                         <div class="p-3 bg-amber-100 dark:bg-amber-900/30 rounded-xl text-amber-600 dark:text-amber-400">
@@ -276,6 +359,20 @@
 <span class="prompt">$</span> grep -i "failed" mylog.txt        <span class="comment"># -i for case-insensitive search</span></code></pre>
                         </div></div>
                     </div>
+
+                    <!-- My Personal Notes Section (Linux) -->
+                    <div class="mt-10 bg-amber-50 dark:bg-amber-900/10 rounded-2xl shadow-sm border border-amber-200 dark:border-amber-800/50 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-700 dark:text-amber-400 flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            My Personal Notes (Linux)
+                        </h3>
+                        <p class="text-sm text-amber-600/80 dark:text-amber-400/80 mb-3">Yahan aap apne khud ke notes add kar sakte hain (Yeh aapke browser mein safe rahenge).</p>
+                        <textarea id="notes-linux" class="w-full h-40 p-4 rounded-xl bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-700/50 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-slate-700 dark:text-slate-300 resize-y" placeholder="Type your personal Linux notes, commands, or hints here..."></textarea>
+                        <div class="mt-4 flex justify-end items-center gap-4">
+                            <span id="msg-linux" class="text-emerald-600 dark:text-emerald-400 text-sm font-bold opacity-0 transition-opacity duration-300">Saved successfully! ✓</span>
+                            <button onclick="saveNotes('linux')" class="px-6 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Save Notes</button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- TAB 2: GIT & GITHUB -->
@@ -330,6 +427,19 @@
 <span class="comment"># Aakhri commit aur files me kiye hue changes sab uday dena (DANGER)</span>
 <span class="prompt">$</span> git reset --hard HEAD~1</code></pre>
                         </div></div>
+                    </div>
+
+                    <!-- My Personal Notes Section (Git) -->
+                    <div class="mt-10 bg-red-50 dark:bg-red-900/10 rounded-2xl shadow-sm border border-red-200 dark:border-red-800/50 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-red-700 dark:text-red-400 flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            My Personal Notes (Git)
+                        </h3>
+                        <textarea id="notes-git" class="w-full h-40 p-4 rounded-xl bg-white dark:bg-slate-900 border border-red-200 dark:border-red-700/50 focus:ring-2 focus:ring-red-500 focus:border-red-500 text-slate-700 dark:text-slate-300 resize-y" placeholder="Type your personal Git notes or cheat-sheet here..."></textarea>
+                        <div class="mt-4 flex justify-end items-center gap-4">
+                            <span id="msg-git" class="text-emerald-600 dark:text-emerald-400 text-sm font-bold opacity-0 transition-opacity duration-300">Saved successfully! ✓</span>
+                            <button onclick="saveNotes('git')" class="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Save Notes</button>
+                        </div>
                     </div>
                 </div>
 
@@ -389,6 +499,19 @@ CMD ["node", "app.js"]</code></pre>
 <span class="prompt">$</span> docker build -t my_node_app:latest .</code></pre>
                         </div></div>
                     </div>
+
+                    <!-- My Personal Notes Section (Docker) -->
+                    <div class="mt-10 bg-blue-50 dark:bg-blue-900/10 rounded-2xl shadow-sm border border-blue-200 dark:border-blue-800/50 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-700 dark:text-blue-400 flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            My Personal Notes (Docker)
+                        </h3>
+                        <textarea id="notes-docker" class="w-full h-40 p-4 rounded-xl bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-700/50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-700 dark:text-slate-300 resize-y" placeholder="Type your personal Docker notes here..."></textarea>
+                        <div class="mt-4 flex justify-end items-center gap-4">
+                            <span id="msg-docker" class="text-emerald-600 dark:text-emerald-400 text-sm font-bold opacity-0 transition-opacity duration-300">Saved successfully! ✓</span>
+                            <button onclick="saveNotes('docker')" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Save Notes</button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- TAB 4: CI/CD -->
@@ -434,6 +557,19 @@ jobs:
     - name: Deploy to Server (Fake step via SSH)
       run: echo "Deploying to production server..."</code></pre>
                         </div></div>
+                    </div>
+
+                    <!-- My Personal Notes Section (CI/CD) -->
+                    <div class="mt-10 bg-emerald-50 dark:bg-emerald-900/10 rounded-2xl shadow-sm border border-emerald-200 dark:border-emerald-800/50 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-emerald-700 dark:text-emerald-400 flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            My Personal Notes (CI/CD)
+                        </h3>
+                        <textarea id="notes-cicd" class="w-full h-40 p-4 rounded-xl bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-700/50 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-700 dark:text-slate-300 resize-y" placeholder="Type your personal CI/CD or Pipeline notes here..."></textarea>
+                        <div class="mt-4 flex justify-end items-center gap-4">
+                            <span id="msg-cicd" class="text-emerald-600 dark:text-emerald-400 text-sm font-bold opacity-0 transition-opacity duration-300">Saved successfully! ✓</span>
+                            <button onclick="saveNotes('cicd')" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Save Notes</button>
+                        </div>
                     </div>
                 </div>
 
@@ -503,6 +639,93 @@ jobs:
 
                         </div>
                     </div>
+
+                    <!-- My Personal Notes Section (Interview) -->
+                    <div class="mt-10 bg-orange-50 dark:bg-orange-900/10 rounded-2xl shadow-sm border border-orange-200 dark:border-orange-800/50 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-orange-700 dark:text-orange-400 flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            My Personal Notes (Interview Q&A)
+                        </h3>
+                        <textarea id="notes-interview" class="w-full h-40 p-4 rounded-xl bg-white dark:bg-slate-900 border border-orange-200 dark:border-orange-700/50 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-slate-700 dark:text-slate-300 resize-y" placeholder="Any extra interview questions you found? Type them here..."></textarea>
+                        <div class="mt-4 flex justify-end items-center gap-4">
+                            <span id="msg-interview" class="text-emerald-600 dark:text-emerald-400 text-sm font-bold opacity-0 transition-opacity duration-300">Saved successfully! ✓</span>
+                            <button onclick="saveNotes('interview')" class="px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Save Notes</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 6: AI ASSISTANT -->
+                <div id="tab-ai" class="tab-section fade-in hidden">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="p-3 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl text-indigo-600 dark:text-indigo-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-slate-800 dark:text-white">DevOps AI Assistant</h2>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
+                            Gemini AI se directly help lein. Aap command generate karwa sakte hain, config files banwa sakte hain, ya error logs analyze karwa sakte hain.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 gap-8">
+                            
+                            <!-- Tool 1: Command Generator -->
+                            <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                                <h3 class="text-xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">1. Command Helper</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Aapko kya karna hai describe karein (jaise: "delete all stopped docker containers"):</p>
+                                <textarea id="ai-cmd-input" class="w-full h-24 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-300 resize-y mb-4" placeholder="Mujhe ek command batao jo..."></textarea>
+                                <button id="ai-cmd-btn" onclick="handleAIGenerate('cmd')" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Generate Command ✨</button>
+                                
+                                <!-- Output Area -->
+                                <div id="ai-cmd-output" class="mt-6 hidden ai-output text-slate-700 dark:text-slate-300 p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800"></div>
+                            </div>
+
+                            <!-- Tool 2: Config Generator -->
+                            <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                                <h3 class="text-xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">2. Config File Generator</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Dockerfile, docker-compose, Nginx ya CI/CD YAML file banwayein:</p>
+                                <textarea id="ai-config-input" class="w-full h-24 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-300 resize-y mb-4" placeholder="Jaise: 'Ek Node.js app ke liye basic Dockerfile banao...'"></textarea>
+                                <button id="ai-config-btn" onclick="handleAIGenerate('config')" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Generate Config ✨</button>
+                                
+                                <!-- Output Area -->
+                                <div id="ai-config-output" class="mt-6 hidden ai-output text-slate-700 dark:text-slate-300 p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800"></div>
+                            </div>
+
+                            <!-- Tool 3: Log Analyzer -->
+                            <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                                <h3 class="text-xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">3. Error Log Analyzer</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Apna server ya terminal error paste karein:</p>
+                                <textarea id="ai-log-input" class="w-full h-32 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-300 resize-y mb-4" placeholder="Error logs yahan paste karein..."></textarea>
+                                <button id="ai-log-btn" onclick="handleAIGenerate('log')" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Analyze Log ✨</button>
+                                
+                                <!-- Output Area -->
+                                <div id="ai-log-output" class="mt-6 hidden ai-output text-slate-700 dark:text-slate-300 p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800"></div>
+                            </div>
+
+                            <!-- Tool 4: Script Generator -->
+                            <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                                <h3 class="text-xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">4. Automation Script Generator</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Apna automation task describe karein (Bash ya Python script ke liye):</p>
+                                <textarea id="ai-script-input" class="w-full h-24 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-300 resize-y mb-4" placeholder="Jaise: 'Ek bash script banao jo /var/log se 7 din purani files delete kar de...'"></textarea>
+                                <button id="ai-script-btn" onclick="handleAIGenerate('script')" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Generate Script ✨</button>
+                                
+                                <!-- Output Area -->
+                                <div id="ai-script-output" class="mt-6 hidden ai-output text-slate-700 dark:text-slate-300 p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800"></div>
+                            </div>
+
+                            <!-- Tool 5: Command Explainer -->
+                            <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                                <h3 class="text-xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">5. Command Explainer</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Koi bhi complex terminal command yahan paste karein aur uska matlab samjhein:</p>
+                                <textarea id="ai-explain-input" class="w-full h-24 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-300 resize-y mb-4" placeholder="Jaise: 'find . -type f -name \'*.log\' -exec rm -f {} +'"></textarea>
+                                <button id="ai-explain-btn" onclick="handleAIGenerate('explain')" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Explain Command ✨</button>
+                                
+                                <!-- Output Area -->
+                                <div id="ai-explain-output" class="mt-6 hidden ai-output text-slate-700 dark:text-slate-300 p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div> <!-- End Main Content Container -->
@@ -513,7 +736,7 @@ jobs:
         </main>
     </div>
 
-    <!-- Script for Tab Switching & Sidebar Menu -->
+    <!-- Script for Tab Switching, Sidebar Menu, and Notes Local Storage -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -536,26 +759,67 @@ jobs:
             mobileMenuBtn.addEventListener('click', toggleMenu);
             sidebarOverlay.addEventListener('click', toggleMenu);
 
-            // --- Theme Toggle Logic ---
-            const themeToggleBtns = document.querySelectorAll('#themeToggle, #mobileThemeToggle');
-            
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-
-            themeToggleBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    if (document.documentElement.classList.contains('dark')) {
-                        document.documentElement.classList.remove('dark');
-                        localStorage.theme = 'light';
-                    } else {
-                        document.documentElement.classList.add('dark');
-                        localStorage.theme = 'dark';
-                    }
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 768) toggleMenu();
                 });
             });
+
+            // --- Theme Toggle Logic with Dropdown ---
+            const desktopThemeBtn = document.getElementById('desktopThemeBtn');
+            const desktopThemeMenu = document.getElementById('desktopThemeMenu');
+            const mobileThemeBtn = document.getElementById('mobileThemeBtn');
+            const mobileThemeMenu = document.getElementById('mobileThemeMenu');
+
+            // Handle Desktop Menu
+            desktopThemeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                desktopThemeMenu.classList.toggle('hidden');
+                if (mobileThemeMenu) mobileThemeMenu.classList.add('hidden');
+            });
+
+            // Handle Mobile Menu
+            if (mobileThemeBtn) {
+                mobileThemeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mobileThemeMenu.classList.toggle('hidden');
+                    desktopThemeMenu.classList.add('hidden');
+                });
+            }
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', () => {
+                desktopThemeMenu.classList.add('hidden');
+                if (mobileThemeMenu) mobileThemeMenu.classList.add('hidden');
+            });
+
+            // Theme Setting Logic
+            window.setTheme = function(themeName) {
+                localStorage.theme = themeName;
+                applyTheme(themeName);
+            };
+
+            function applyTheme(themeName) {
+                const html = document.documentElement;
+                
+                // Handle Tailwind's dark mode class
+                if (themeName === 'light') {
+                    html.classList.remove('dark');
+                    html.removeAttribute('data-theme');
+                } else {
+                    html.classList.add('dark');
+                    if (themeName === 'dark') {
+                        html.removeAttribute('data-theme');
+                    } else {
+                        html.setAttribute('data-theme', themeName);
+                    }
+                }
+            }
+
+            // Check initial theme
+            const savedTheme = localStorage.theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            applyTheme(savedTheme);
+
 
             // --- TABS LOGIC (Switching Main Topics) ---
             const tabBtns = document.querySelectorAll('.tab-btn');
@@ -566,8 +830,8 @@ jobs:
                     // 1. Remove Active states from all buttons
                     tabBtns.forEach(b => {
                         b.classList.remove('active');
-                        // Remove specific active background classes depending on standard vs orange button
-                        if(!b.classList.contains('text-orange-700')) {
+                        // Remove specific active background classes depending on standard vs indigo button
+                        if(!b.classList.contains('text-indigo-700')) {
                             b.classList.remove('bg-amber-100', 'dark:bg-amber-900/30');
                         }
                     });
@@ -580,7 +844,7 @@ jobs:
 
                     // 3. Add Active state to clicked button
                     btn.classList.add('active');
-                    if(!btn.classList.contains('text-orange-700')) {
+                    if(!btn.classList.contains('text-indigo-700')) {
                         btn.classList.add('bg-amber-100', 'dark:bg-amber-900/30');
                     }
 
@@ -601,7 +865,115 @@ jobs:
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
             });
+
+            // --- PERSONAL NOTES LOGIC (Local Storage) ---
+            const tabsWithNotes = ['linux', 'git', 'docker', 'cicd', 'interview'];
+            
+            // Load saved notes when page opens
+            tabsWithNotes.forEach(tab => {
+                const savedNote = localStorage.getItem('mariya_notes_' + tab);
+                const textArea = document.getElementById('notes-' + tab);
+                if(savedNote && textArea) {
+                    textArea.value = savedNote;
+                }
+            });
         });
+
+        // Save Notes Function (Called by the Save button)
+        function saveNotes(tabName) {
+            const textArea = document.getElementById('notes-' + tabName);
+            if(textArea) {
+                // Save to local storage
+                localStorage.setItem('mariya_notes_' + tabName, textArea.value);
+                
+                // Show success message briefly
+                const msgSpan = document.getElementById('msg-' + tabName);
+                if(msgSpan) {
+                    msgSpan.style.opacity = '1';
+                    setTimeout(() => {
+                        msgSpan.style.opacity = '0';
+                    }, 2500); // Hide after 2.5 seconds
+                }
+            }
+        }
+
+        // --- GEMINI API INTEGRATION LOGIC ---
+        const apiKey = ""; // Environment variables will populate this
+        
+        async function fetchWithRetry(url, options, retries = 5) {
+            const delays = [1000, 2000, 4000, 8000, 16000];
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return await response.json();
+                } catch (e) {
+                    if (i === retries - 1) throw e;
+                    await new Promise(resolve => setTimeout(resolve, delays[i]));
+                }
+            }
+        }
+
+        async function callGemini(promptText, systemInstructionText) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: promptText }] }],
+                systemInstruction: { parts: [{ text: systemInstructionText }] }
+            };
+            const options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            };
+
+            const data = await fetchWithRetry(url, options);
+            return data.candidates?.[0]?.content?.parts?.[0]?.text || "Koi result nahi mila, dobara try karein.";
+        }
+
+        async function handleAIGenerate(type) {
+            let inputId, outputId, btnId, sysInstruction, btnText;
+            
+            if (type === 'cmd') {
+                inputId = 'ai-cmd-input'; outputId = 'ai-cmd-output'; btnId = 'ai-cmd-btn'; btnText = 'Generate Command ✨';
+                sysInstruction = "Aap ek expert DevOps engineer hain. User aapse ek task poochega, aur aapko uske liye exact Linux/Git/Docker command deni hai. Hinglish (Hindi in Latin script) mein ek choti si line ka explanation bhi dena hai. Markdown format me code snippet return karein.";
+            } else if (type === 'log') {
+                inputId = 'ai-log-input'; outputId = 'ai-log-output'; btnId = 'ai-log-btn'; btnText = 'Analyze Log ✨';
+                sysInstruction = "Aap ek expert DevOps engineer hain. User aapko ek error log ya stack trace dega. Aapko us log ko deeply analyze karke root cause batana hai, aur Hinglish (Hindi in Latin script) mein usko theek karne ka step-by-step solution dena hai. Markdown ka ache se use karein.";
+            } else if (type === 'config') {
+                inputId = 'ai-config-input'; outputId = 'ai-config-output'; btnId = 'ai-config-btn'; btnText = 'Generate Config ✨';
+                sysInstruction = "Aap ek expert DevOps engineer hain. User aapko configuration (jaise Dockerfile, Nginx config, docker-compose, CI/CD YAML) banane ke liye bolega. Aapko best-practice ke sath wo config file banani hai aur Hinglish (Hindi in Latin script) mein step-by-step explain karna hai. Markdown ka use karein aur code block zaroor dein.";
+            } else if (type === 'script') {
+                inputId = 'ai-script-input'; outputId = 'ai-script-output'; btnId = 'ai-script-btn'; btnText = 'Generate Script ✨';
+                sysInstruction = "Aap ek expert DevOps engineer hain. User aapko ek automation task dega. Aapko ek robust Bash ya Python script likhni hai. Script well-commented honi chahiye. Hinglish (Hindi in Latin script) mein samjhayein ki script kaise kaam karti hai. Markdown ka use karein.";
+            } else if (type === 'explain') {
+                inputId = 'ai-explain-input'; outputId = 'ai-explain-output'; btnId = 'ai-explain-btn'; btnText = 'Explain Command ✨';
+                sysInstruction = "Aap ek expert Linux/DevOps engineer hain. User aapko ek complex bash, docker, ya git command dega. Aapko us command ke har ek part/flag ko break down karke aasan Hinglish (Hindi in Latin script) mein samjhana hai ki wo kya karta hai.";
+            }
+
+            const input = document.getElementById(inputId).value;
+            const outputDiv = document.getElementById(outputId);
+            const btn = document.getElementById(btnId);
+
+            if (!input.trim()) return;
+
+            btn.disabled = true;
+            btn.innerHTML = `<span class="animate-pulse">Soch raha hu...</span>`;
+            outputDiv.innerHTML = `<div class="text-center text-slate-500"><span class="animate-pulse">Gemini AI response generate kar raha hai...</span></div>`;
+            outputDiv.classList.remove('hidden');
+
+            try {
+                const responseText = await callGemini(input, sysInstruction);
+                // Use Marked.js to safely render Markdown if loaded, otherwise fallback to plain text
+                const formattedHtml = typeof marked !== 'undefined' ? marked.parse(responseText) : `<pre class="whitespace-pre-wrap">${responseText}</pre>`;
+                outputDiv.innerHTML = formattedHtml;
+            } catch (error) {
+                console.error("Gemini API Error:", error);
+                outputDiv.innerHTML = `<div class="text-red-500">Error: API call fail ho gayi. Ya toh API key set nahi hai ya network issue hai. Thodi der baad try karein.</div>`;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = btnText;
+            }
+        }
     </script>
 </body>
 </html>
