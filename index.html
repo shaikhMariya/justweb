@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linux Notes: Complete Guide (Commands, Permissions, DevOps)</title>
+    <title>Mariya's Dev Notes: DevOps Masterclass</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,46 +72,52 @@
         }
         .code-block { padding: 1.5rem; overflow-x: auto; }
         .code-block pre { margin: 0; }
-        .code-block code { font-family: 'Fira Code', monospace; color: #10b981; /* Terminal Green */ font-size: 0.95rem; line-height: 1.6; }
-        .comment { color: #64748b; } /* Slate 500 for comments */
-        .prompt { color: #38bdf8; user-select: none; } /* Sky 400 for root prompt like [root@server~]# */
+        .code-block code { font-family: 'Fira Code', monospace; color: #10b981; font-size: 0.95rem; line-height: 1.6; }
+        .comment { color: #64748b; }
+        .prompt { color: #fbbf24; user-select: none; } 
 
-        /* Sidebar active link */
-        .sidebar-link.active {
-            background-color: #fffbeb; color: #d97706; font-weight: 600; border-right: 3px solid #f59e0b;
+        /* Tab Active State */
+        .tab-btn.active {
+            background-color: #fffbeb; 
+            color: #d97706; 
+            font-weight: 700; 
+            border-right: 4px solid #f59e0b;
         }
-        .dark .sidebar-link.active {
-            background-color: rgba(245, 158, 11, 0.15); color: #fbbf24; border-right-color: #fbbf24;
+        .dark .tab-btn.active {
+            background-color: rgba(245, 158, 11, 0.15); 
+            color: #fbbf24; 
+            border-right-color: #fbbf24;
         }
 
-        /* Base Data Table Styling */
-        .data-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 1rem; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .data-table th { background-color: #f1f5f9; color: #334155; font-weight: 600; text-align: left; padding: 0.85rem 1rem; border-bottom: 1px solid #e2e8f0; }
-        .data-table td { padding: 0.85rem 1rem; border-bottom: 1px solid #e2e8f0; color: #475569; background-color: #ffffff; }
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         
-        .dark .data-table th { background-color: #1e293b; color: #e2e8f0; border-bottom-color: #334155; }
-        .dark .data-table td { background-color: #0f172a; color: #cbd5e1; border-bottom-color: #1e293b; }
-
         mark { background-color: #fde047; color: #1e3a8a; border-radius: 2px; padding: 0 2px; }
         .dark mark { background-color: #b45309; color: #fef3c7; }
         .point-list { list-style-type: disc; margin-left: 1.25rem; margin-top: 0.5rem; margin-bottom: 1rem; }
         .point-list li { margin-bottom: 0.5rem; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200 antialiased selection:bg-brand-200 selection:text-brand-900 dark:selection:bg-brand-900 dark:selection:text-brand-100 transition-colors duration-200 text-base">
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200 antialiased selection:bg-amber-200 selection:text-amber-900 dark:selection:bg-amber-900 dark:selection:text-amber-100 transition-colors duration-200 text-base">
 
     <!-- Mobile Header -->
-    <div class="md:hidden sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 p-4 flex justify-between items-center">
+    <div class="md:hidden sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 p-4 flex justify-between items-center shadow-sm">
         <div class="flex items-center gap-2">
-            <div class="bg-gradient-to-br from-amber-500 to-orange-600 p-1.5 rounded-lg">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M4 17h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            <div class="bg-gradient-to-br from-amber-500 to-orange-600 p-1.5 rounded-lg shadow-md">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
             </div>
-            <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-100 dark:to-slate-300">Linux Notes</h1>
+            <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-100 dark:to-slate-300">DevOps Masterclass</h1>
         </div>
         <div class="flex gap-3 items-center">
             <button id="mobileThemeToggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
                 <svg class="w-6 h-6 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                <svg class="w-6 h-6 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <svg class="w-6 h-6 hidden dark:block text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
             </button>
             <button id="mobileMenuBtn" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -121,415 +127,397 @@
 
     <div class="flex flex-col md:flex-row min-h-screen">
         
-        <!-- Sidebar -->
-        <aside id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 w-72 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-r border-slate-200 dark:border-slate-800 shadow-xl md:shadow-none h-screen z-40 flex flex-col transition-transform duration-300 ease-in-out">
+        <!-- Sidebar (Tab Menu) -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 w-72 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-r border-slate-200 dark:border-slate-800 shadow-2xl md:shadow-none h-screen z-40 flex flex-col transition-transform duration-300 ease-in-out">
             <div class="p-5 border-b border-slate-100 dark:border-slate-800 flex-shrink-0">
-                <div class="hidden md:flex items-center justify-between mb-6">
+                <div class="hidden md:flex items-center justify-between mb-2">
                     <div class="flex items-center gap-3">
-                        <div class="bg-gradient-to-br from-amber-500 to-orange-600 p-2 rounded-xl shadow-lg shadow-brand-500/30">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M4 17h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        <div class="bg-gradient-to-br from-amber-500 to-orange-600 p-2 rounded-xl shadow-lg shadow-orange-500/30">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
                         </div>
-                        <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-100 dark:to-slate-300 tracking-tight">Linux Docs</h1>
+                        <h1 class="text-xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-100 dark:to-slate-300 tracking-tight">DevOps Track</h1>
                     </div>
                     <button id="themeToggle" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors">
                         <svg class="w-6 h-6 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                        <svg class="w-6 h-6 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg class="w-6 h-6 hidden dark:block text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     </button>
                 </div>
-                <div class="relative group mt-4 md:mt-0">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="w-5 h-5 text-slate-400 group-focus-within:text-brand-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </div>
-                    <input type="text" id="searchInput" placeholder="Search topics..." 
-                        class="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all placeholder-slate-400 text-slate-700 dark:text-slate-200">
-                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 hidden md:block">Created by Mariya</p>
             </div>
 
-            <nav class="flex-1 overflow-y-auto p-3">
-                <ul class="space-y-1 text-sm md:text-base font-medium" id="nav-list">
-                    <li><a href="#basics" class="sidebar-link block px-4 py-2.5 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">1. Basic File & Dir Commands</a></li>
-                    <li><a href="#permissions" class="sidebar-link block px-4 py-2.5 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">2. Permissions & Ownership</a></li>
-                    <li><a href="#processes" class="sidebar-link block px-4 py-2.5 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">3. Process Management</a></li>
-                    <li><a href="#text-proc" class="sidebar-link block px-4 py-2.5 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">4. Search, Grep, Find & Logs</a></li>
-                    <li><a href="#networking" class="sidebar-link block px-4 py-2.5 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">5. Networking & Ports</a></li>
-                    <li><a href="#services" class="sidebar-link block px-4 py-2.5 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">6. Systemd (Services)</a></li>
-                    <li><a href="#remote" class="sidebar-link block px-4 py-2.5 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">7. SSH & SCP (Remote)</a></li>
-                    <li><a href="#storage" class="sidebar-link block px-4 py-2.5 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">8. Storage & Archiving (Tar)</a></li>
-                    <li><a href="#interview" class="sidebar-link block px-4 py-2.5 mt-4 rounded-lg bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 font-bold hover:bg-orange-100 dark:hover:bg-orange-900/40 transition-colors">9. Interview Q&A (DevOps)</a></li>
-                </ul>
-                <div id="noResults" class="hidden text-center py-8 text-slate-400 text-base">No topics found.</div>
+            <!-- Tab Buttons -->
+            <nav class="flex-1 overflow-y-auto p-3 space-y-2 mt-2">
+                <p class="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 mt-2">Core Technologies</p>
+                
+                <button class="tab-btn active w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left" data-target="tab-linux">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M4 17h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    <span class="font-medium">1. Linux Master</span>
+                </button>
+                
+                <button class="tab-btn w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left" data-target="tab-git">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                    <span class="font-medium">2. Git & GitHub</span>
+                </button>
+
+                <button class="tab-btn w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left" data-target="tab-docker">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                    <span class="font-medium">3. Docker Concepts</span>
+                </button>
+
+                <button class="tab-btn w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left" data-target="tab-cicd">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span class="font-medium">4. CI/CD Pipelines</span>
+                </button>
+
+                <div class="my-4 border-t border-slate-200 dark:border-slate-800"></div>
+                
+                <button class="tab-btn w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left bg-orange-50/50 dark:bg-orange-900/10 text-orange-700 dark:text-orange-400" data-target="tab-interview">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span class="font-bold">5. Interview Q&A</span>
+                </button>
             </nav>
         </aside>
 
         <!-- Overlay for mobile sidebar -->
-        <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 hidden md:hidden transition-opacity"></div>
+        <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-30 hidden md:hidden transition-opacity"></div>
 
-        <!-- Main Content -->
+        <!-- Main Content Area -->
         <main class="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-8 py-8 md:py-12 overflow-x-hidden">
             
-            <header class="mb-14 pb-10 border-b border-slate-200 dark:border-slate-800">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 text-sm font-semibold tracking-wide uppercase mb-6 border border-brand-100 dark:border-brand-800">
-                    <span class="w-2.5 h-2.5 rounded-full bg-brand-500 animate-pulse"></span>
-                    DevOps & Server Admin
-                </div>
-                <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6 leading-tight">
-                    Linux Important Notes <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-orange-500 dark:from-brand-400 dark:to-orange-400">(Hinglish & Commands)</span>
+            <!-- Header -->
+            <header class="mb-10 pb-8 border-b border-slate-200 dark:border-slate-800">
+                <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4 leading-tight">
+                    DevOps & Server Admin <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-500 text-2xl md:text-4xl">(Complete Guide by Mariya)</span>
                 </h1>
-                <p class="text-lg text-slate-600 dark:text-slate-400">Deployments, Server Troubleshooting, File Permissions aur DevOps ke liye sabhi zaroori Linux commands with real examples.</p>
+                <p class="text-lg text-slate-600 dark:text-slate-400">Sidebar se topic select karein. Har ek technology ke basic se advanced commands aur concepts yahan cover kiye gaye hain.</p>
             </header>
 
-            <div id="content-container">
+            <!-- TABS CONTAINER -->
+            <div id="main-content">
                 
-                <!-- Section 1: Basics -->
-                <section id="basics" class="mb-20 scroll-mt-28 content-section">
-                    <h2 class="text-3xl font-bold mb-6 text-slate-800 dark:text-white flex items-center gap-3">
-                        <span class="text-brand-500">1.</span> Basic File & Directory Commands
-                    </h2>
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
-                        <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
-                            Server par navigate karne aur files/folders manage karne ke liye basic terminal commands aana sabse zyada zaroori hai.
-                        </p>
+                <!-- TAB 1: LINQ (LINUX) -->
+                <div id="tab-linux" class="tab-section fade-in block">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="p-3 bg-amber-100 dark:bg-amber-900/30 rounded-xl text-amber-600 dark:text-amber-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M4 17h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-slate-800 dark:text-white">Linux Master Guide</h2>
+                    </div>
 
-                        <div class="space-y-4">
-                            <div class="code-wrapper mt-0">
-                                <div class="code-badge">Terminal (Bash)</div>
-                                <div class="code-block py-4">
-<pre><code><span class="comment"># 1. Main kahan hu? (Print Working Directory)</span>
+                    <!-- Linux Basics -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">1. Files & Directories (Navigation)</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Terminal par apna raasta dhundna aur files manage karna.</p>
+                        <div class="code-wrapper mt-0"><div class="code-badge">Bash</div><div class="code-block py-4">
+<pre><code><span class="comment"># Main kahan hu? (Print Working Directory)</span>
 <span class="prompt">$</span> pwd
 /var/www/html
 
-<span class="comment"># 2. Is folder me kya kya hai? (List files with details and hidden files)</span>
+<span class="comment"># Is folder me kya hai? (Hidden files aur details ke sath)</span>
 <span class="prompt">$</span> ls -la
 
-<span class="comment"># 3. Folder change karna (Change Directory)</span>
+<span class="comment"># Folder change karna</span>
 <span class="prompt">$</span> cd /etc/nginx    <span class="comment"># Specific folder me jana</span>
-<span class="prompt">$</span> cd ..            <span class="comment"># Ek step piche jana</span>
-<span class="prompt">$</span> cd ~             <span class="comment"># Home directory me jana</span>
+<span class="prompt">$</span> cd ~             <span class="comment"># Home directory me wapas aana</span>
 
-<span class="comment"># 4. Naya folder banana</span>
-<span class="prompt">$</span> mkdir my_project
-<span class="prompt">$</span> mkdir -p /var/log/myapp/errors  <span class="comment"># -p se parent folders bhi sath ban jate hain agar exist nahi karte</span>
+<span class="comment"># File copy, move (cut) aur rename karna</span>
+<span class="prompt">$</span> cp config.json config_bak.json   <span class="comment"># Copy file</span>
+<span class="prompt">$</span> cp -r my_app/ backup/            <span class="comment"># Folder copy (-r recursive)</span>
+<span class="prompt">$</span> mv old_name.txt new_name.txt     <span class="comment"># Rename ya Move karna</span>
 
-<span class="comment"># 5. File copy aur move (cut) karna</span>
-<span class="prompt">$</span> cp config.json config_backup.json      <span class="comment"># File copy</span>
-<span class="prompt">$</span> cp -r my_folder/ backup_folder/        <span class="comment"># Pura folder copy (-r for recursive)</span>
-<span class="prompt">$</span> mv old_name.txt new_name.txt           <span class="comment"># Rename karna</span>
-<span class="prompt">$</span> mv my_app.zip /var/www/                <span class="comment"># Move karna</span>
-
-<span class="comment"># 6. Delete karna (CAREFUL: Recycle bin nahi hota idhar!)</span>
-<span class="prompt">$</span> rm test.txt                            <span class="comment"># File delete</span>
-<span class="prompt">$</span> rm -rf old_folder/                     <span class="comment"># Pura folder forcefully delete (-r recursive, -f force)</span></code></pre>
-                                </div>
-                            </div>
-                        </div>
+<span class="comment"># Delete karna (Danger: Recycle bin nahi hota!)</span>
+<span class="prompt">$</span> rm -rf folder_name/              <span class="comment"># Forcefully pura folder delete</span></code></pre>
+                        </div></div>
                     </div>
-                </section>
 
-                <!-- Section 2: Permissions -->
-                <section id="permissions" class="mb-20 scroll-mt-28 content-section">
-                    <h2 class="text-3xl font-bold mb-6 text-slate-800 dark:text-white flex items-center gap-3">
-                        <span class="text-brand-500">2.</span> File Permissions & Ownership
-                    </h2>
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
+                    <!-- Permissions -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">2. Permissions & Ownership</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Security aur "Access Denied" errors fix karne ke liye.</p>
+                        <div class="code-wrapper mt-0"><div class="code-badge">chmod & chown</div><div class="code-block py-4">
+<pre><code><span class="comment"># chmod: Permissions badalna (Read=4, Write=2, Execute=1)</span>
+<span class="prompt">$</span> chmod 755 script.sh       <span class="comment"># Owner ko sab allowed, baakiyo ko sirf padhna aur run karna</span>
+<span class="prompt">$</span> chmod +x script.sh        <span class="comment"># Shortcut: Execute permission dena</span>
+<span class="prompt">$</span> chmod -R 755 /var/www     <span class="comment"># Pura folder aur uski files ki permission set karna (-R)</span>
+
+<span class="comment"># chown: Owner badalna (chown user:group filename)</span>
+<span class="prompt">[root@server]#</span> chown mariya:developers index.html
+<span class="prompt">[root@server]#</span> chown -R www-data:www-data /var/www/html  <span class="comment"># Web server ko access dena</span></code></pre>
+                        </div></div>
+                    </div>
+
+                    <!-- Process Management -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">3. Process & Resources (Task Manager)</h3>
+                        <div class="code-wrapper mt-0"><div class="code-badge">ps, top, kill</div><div class="code-block py-4">
+<pre><code><span class="comment"># RAM aur CPU kitna use ho raha hai?</span>
+<span class="prompt">$</span> top          <span class="comment"># Live monitor (press 'q' to exit)</span>
+<span class="prompt">$</span> htop         <span class="comment"># Colorful & better (install karna padta hai)</span>
+
+<span class="comment"># Running programs dekhna</span>
+<span class="prompt">$</span> ps aux | grep "node"    <span class="comment"># Sirf node.js ke processes filter karke dikhao</span>
+
+<span class="comment"># Program band (Kill) karna</span>
+<span class="prompt">$</span> kill 1234               <span class="comment"># Normal kill (using Process ID)</span>
+<span class="prompt">$</span> kill -9 1234            <span class="comment"># Force kill (Ziddi program ke liye)</span></code></pre>
+                        </div></div>
+                    </div>
+
+                    <!-- Logs and Grep -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">4. Reading Logs & Searching Text</h3>
+                        <div class="code-wrapper mt-0"><div class="code-badge">tail & grep</div><div class="code-block py-4">
+<pre><code><span class="comment"># Live logs padhna (Jaise hi error aayega screen pe dikhega)</span>
+<span class="prompt">$</span> tail -f /var/log/nginx/error.log
+
+<span class="comment"># File ke andar koi word dhundna (Grep)</span>
+<span class="prompt">$</span> grep "Exception" error.log        <span class="comment"># Sirf wo lines layega jisme 'Exception' hai</span>
+<span class="prompt">$</span> grep -i "failed" mylog.txt        <span class="comment"># -i for case-insensitive search</span></code></pre>
+                        </div></div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: GIT & GITHUB -->
+                <div id="tab-git" class="tab-section fade-in hidden">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="p-3 bg-red-100 dark:bg-red-900/30 rounded-xl text-red-600 dark:text-red-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-slate-800 dark:text-white">Git & GitHub Guide</h2>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-red-500">1. Basic Workflow (Daily Use)</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Code local PC se GitHub tak pohchane ki lifecycle.</p>
+                        <div class="code-wrapper mt-0"><div class="code-badge">Git Core</div><div class="code-block py-4">
+<pre><code><span class="comment"># Naya project start karna</span>
+<span class="prompt">$</span> git init
+
+<span class="comment"># The Holy Trinity (Add, Commit, Push)</span>
+<span class="prompt">$</span> git status              <span class="comment"># Dekho kya change hua hai</span>
+<span class="prompt">$</span> git add .               <span class="comment"># Saare changes staging area me dalo</span>
+<span class="prompt">$</span> git commit -m "Fixed login bug"  <span class="comment"># Changes save karo message ke sath</span>
+<span class="prompt">$</span> git push origin main    <span class="comment"># Code cloud (GitHub) par upload karo</span>
+
+<span class="comment"># Team ka latest code apne laptop me lana</span>
+<span class="prompt">$</span> git pull origin main</code></pre>
+                        </div></div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-red-500">2. Branching (Isolation)</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Naya feature banate waqt main code ko safe rakhne ke liye branch use karte hain.</p>
+                        <div class="code-wrapper mt-0"><div class="code-badge">Branches</div><div class="code-block py-4">
+<pre><code><span class="prompt">$</span> git branch                      <span class="comment"># Saari branches dekho</span>
+<span class="prompt">$</span> git checkout -b "feature-payment" <span class="comment"># Nayi branch banao aur usme chale jao</span>
+
+<span class="comment"># Kaam complete hone ke baad merge karna</span>
+<span class="prompt">$</span> git checkout main               <span class="comment"># Pehle main me aao</span>
+<span class="prompt">$</span> git merge feature-payment       <span class="comment"># Naye feature ko main branch me mila lo</span></code></pre>
+                        </div></div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-red-500">3. Undoing Mistakes (Galtiyan Theek Karna)</h3>
+                        <div class="code-wrapper mt-0"><div class="code-badge">Git Reset / Revert</div><div class="code-block py-4">
+<pre><code><span class="comment"># File modify kardi par ab wapas pehle jaisi karni hai</span>
+<span class="prompt">$</span> git restore index.html
+
+<span class="comment"># Aakhri commit delete karna hai (Par code files me safe rahega)</span>
+<span class="prompt">$</span> git reset --soft HEAD~1
+
+<span class="comment"># Aakhri commit aur files me kiye hue changes sab uday dena (DANGER)</span>
+<span class="prompt">$</span> git reset --hard HEAD~1</code></pre>
+                        </div></div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: DOCKER -->
+                <div id="tab-docker" class="tab-section fade-in hidden">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-blue-600 dark:text-blue-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-slate-800 dark:text-white">Docker & Containers</h2>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
                         <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
-                            Linux mein security sabse badi cheez hai. Har file ke permissions 3 hisso me hote hain: <strong>User (u), Group (g), Others (o)</strong>. Inme Read (r=4), Write (w=2), Execute (x=1) ka access diya jata hai.
+                            Docker aapki app aur uske environment (Node, C#, DB) ko ek dambe (Container) me pack kar deta hai. Uske baad wo app kisi bhi laptop ya server par seamlessly chalegi.
                         </p>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                            <div class="border border-slate-200 dark:border-slate-700 p-6 rounded-xl bg-slate-50 dark:bg-slate-800/50">
-                                <h3 class="font-bold text-xl text-emerald-600 dark:text-emerald-400 mb-3">chmod (Change Mode/Permissions)</h3>
-                                <ul class="point-list text-slate-600 dark:text-slate-400 text-sm mb-4">
-                                    <li><code>777</code>: Sabko sab allowed (DANGER!) [4+2+1, 4+2+1, 4+2+1]</li>
-                                    <li><code>755</code>: Owner can do anything. Others can only read & execute. (Directories ke liye normal)</li>
-                                    <li><code>644</code>: Owner can read/write. Others can only read. (Files ke liye normal)</li>
-                                </ul>
-                            </div>
-                            <div class="border border-slate-200 dark:border-slate-700 p-6 rounded-xl bg-slate-50 dark:bg-slate-800/50">
-                                <h3 class="font-bold text-xl text-blue-600 dark:text-blue-400 mb-3">chown (Change Owner)</h3>
-                                <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
-                                    Jab aap root user se koi file banate ho to dusra normal user ya (www-data / nginx) usko access nahi kar pata. Wahan <code>chown</code> kaam aata hai.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="code-wrapper mt-0">
-                            <div class="code-badge">Permissions Examples</div>
-                            <div class="code-block py-4">
-<pre><code><span class="comment"># Permission badalna (Read, Write, Execute dena)</span>
-<span class="prompt">$</span> chmod 755 script.sh       <span class="comment"># Ab is file ko koi bhi execute (run) kar sakta hai</span>
-<span class="prompt">$</span> chmod +x script.sh        <span class="comment"># Shortcut: Sabko execute permission de do</span>
-<span class="prompt">$</span> chmod -R 755 /var/www     <span class="comment"># -R (Recursive) pure folder aur uske andar ki saari files ke liye</span>
-
-<span class="comment"># Owner badalna (chown user:group filename)</span>
-<span class="prompt">[root@server]#</span> chown zayan:developers index.html
-<span class="prompt">[root@server]#</span> chown -R www-data:www-data /var/www/html/laravel_app  <span class="comment"># Web server ko permission dena (Very Common in Deployments)</span></code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Section 3: Processes -->
-                <section id="processes" class="mb-20 scroll-mt-28 content-section">
-                    <h2 class="text-3xl font-bold mb-6 text-slate-800 dark:text-white flex items-center gap-3">
-                        <span class="text-brand-500">3.</span> Process & Resource Management
-                    </h2>
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
-                        <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
-                            Server slow kyu chal raha hai? Kaunsa app RAM kha raha hai? Koi atka hua program band karna ho? Ye sab yahan hoga.
-                        </p>
-
-                        <div class="code-wrapper mt-0">
-                            <div class="code-badge">Process Monitoring</div>
-                            <div class="code-block py-4">
-<pre><code><span class="comment"># 1. Real-time CPU/RAM usage dekhna (Windows Task Manager jaisa)</span>
-<span class="prompt">$</span> top          <span class="comment"># Basic built-in tool (Press 'q' to quit)</span>
-<span class="prompt">$</span> htop         <span class="comment"># Colorful aur interactive tool (Install karna padta hai: apt install htop)</span>
-
-<span class="comment"># 2. Running processes ki list nikalna</span>
-<span class="prompt">$</span> ps aux       <span class="comment"># Saare processes detailed view me</span>
-<span class="prompt">$</span> ps -ef | grep dotnet  <span class="comment"># Sirf '.net' wale processes ko dhundna (Filter karna)</span>
-
-<span class="comment"># 3. Kisi atke huye process ko band (kill) karna</span>
-<span class="prompt">$</span> kill 1234    <span class="comment"># Gently kill karna (PID 1234)</span>
-<span class="prompt">$</span> kill -9 1234 <span class="comment"># Forcefully kill karna (Jab normal kill se kaam na ho)</span>
-<span class="prompt">$</span> killall node <span class="comment"># Naam se kill karna (Saare node.js processes uday dega)</span></code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Section 4: Text Processing & Logs -->
-                <section id="text-proc" class="mb-20 scroll-mt-28 content-section">
-                    <h2 class="text-3xl font-bold mb-6 text-slate-800 dark:text-white flex items-center gap-3">
-                        <span class="text-brand-500">4.</span> Search, Grep & Log Reading
-                    </h2>
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
-                        <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
-                            Ek DevOps engineer ka aadha din log files padhne mein jata hai. Files ko edit kiye bina CLI par padhne ke tools aane chahiye.
-                        </p>
-
-                        <div class="space-y-6">
-                            <div class="border-l-4 border-amber-500 bg-slate-50 dark:bg-slate-800/50 p-6 rounded-r-xl">
-                                <h3 class="font-bold text-xl text-slate-800 dark:text-white mb-2">Logs dekhna (cat, tail, less)</h3>
-                                <div class="code-wrapper mt-2"><div class="code-block py-2"><pre><code><span class="prompt">$</span> cat error.log        <span class="comment"># Puri file ka text ek sath print kar dega</span>
-<span class="prompt">$</span> less error.log       <span class="comment"># Badi file ko page-by-page padhne ke liye (Arrow keys work karengi, 'q' se quit)</span>
-
-<span class="comment"># Sabse Important: Live Logs (Real time me naye errors dekhna)</span>
-<span class="prompt">$</span> tail -n 50 error.log <span class="comment"># Last ki 50 lines dikhayega</span>
-<span class="prompt">$</span> tail -f error.log    <span class="comment"># '-f' (follow) live output dikhata rahega (Ctrl+C to stop)</span></code></pre></div></div>
-                            </div>
-                            
-                            <div class="border-l-4 border-rose-500 bg-slate-50 dark:bg-slate-800/50 p-6 rounded-r-xl">
-                                <h3 class="font-bold text-xl text-slate-800 dark:text-white mb-2">Find & Grep (Dhundna)</h3>
-                                <div class="code-wrapper mt-2"><div class="code-block py-2"><pre><code><span class="comment"># FIND: File ka naam dhundna</span>
-<span class="prompt">$</span> find /var/www -name "config.js"   <span class="comment"># /var/www folder me config.js kahan hai dhundo</span>
-
-<span class="comment"># GREP: File ke ANDAR ka text dhundna</span>
-<span class="prompt">$</span> grep "Exception" error.log        <span class="comment"># error.log me jahan bhi "Exception" likha hai wo line print karo</span>
-<span class="prompt">$</span> grep -i "failed" syslog           <span class="comment"># -i case-insensitive search ke liye (Failed, failed dono aayega)</span>
-<span class="prompt">$</span> grep -r "DB_PASSWORD" /etc/       <span class="comment"># /etc folder ki har file me DB_PASSWORD dhundo</span></code></pre></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Section 5: Networking -->
-                <section id="networking" class="mb-20 scroll-mt-28 content-section">
-                    <h2 class="text-3xl font-bold mb-6 text-slate-800 dark:text-white flex items-center gap-3">
-                        <span class="text-brand-500">5.</span> Networking & Ports Checking
-                    </h2>
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
-                        <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
-                            App start nahi ho rahi? "Port already in use" ka error aaya hai? Server ka internet check karna hai? Use these:
-                        </p>
-
-                        <div class="code-wrapper mt-0">
-                            <div class="code-badge">Network Commands</div>
-                            <div class="code-block py-4">
-<pre><code><span class="comment"># 1. API ya URL se data / files download karna</span>
-<span class="prompt">$</span> curl http://localhost:5000/api/health   <span class="comment"># CLI se API hit karne ke liye (Postman jaisa)</span>
-<span class="prompt">$</span> curl -I https://google.com              <span class="comment"># Sirf HTTP Headers aur Status Code (200 OK) check karne ke liye</span>
-<span class="prompt">$</span> wget https://example.com/file.zip       <span class="comment"># Direct file download karne ke liye</span>
-
-<span class="comment"># 2. Port Checking (Mera app kis port pe chal raha hai?)</span>
-<span class="prompt">$</span> netstat -tulpn | grep LISTEN    <span class="comment"># Saare open/listening ports dikhayega (Older systems)</span>
-<span class="prompt">$</span> ss -tuln                        <span class="comment"># Modern fast alternative to netstat</span>
-<span class="prompt">$</span> lsof -i :8080                   <span class="comment"># Port 8080 kon use kar raha hai? (App ka naam aur PID dega)</span>
-
-<span class="comment"># 3. Connection check karna</span>
-<span class="prompt">$</span> ping google.com                 <span class="comment"># Internet check karne ke liye</span>
-<span class="prompt">$</span> telnet 192.168.1.5 3306         <span class="comment"># Database (3306 port) is server se access ho raha hai ya firewall block kar rahi hai?</span></code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Section 6: Systemd Services -->
-                <section id="services" class="mb-20 scroll-mt-28 content-section">
-                    <h2 class="text-3xl font-bold mb-6 text-slate-800 dark:text-white flex items-center gap-3">
-                        <span class="text-brand-500">6.</span> Systemd Services (systemctl)
-                    </h2>
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
-                        <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
-                            Jab aap production server par .NET ya Node app chalate ho, to aap chahte ho ki server restart hone par app khud start ho jaye, aur agar crash ho to automatically restart ho. Iske liye hum us app ki ek <strong>Service (Daemon)</strong> banate hain.
-                        </p>
-
-                        <div class="code-wrapper mt-0">
-                            <div class="code-badge">Service Management</div>
-                            <div class="code-block py-4">
-<pre><code><span class="comment"># Nginx (Web Server) ya kisi custom app ko manage karna:</span>
-
-<span class="prompt">$</span> systemctl status nginx    <span class="comment"># Service abhi chal rahi hai (Active) ya band hai (Dead)?</span>
-<span class="prompt">$</span> systemctl start nginx     <span class="comment"># Service start karna</span>
-<span class="prompt">$</span> systemctl stop nginx      <span class="comment"># Service band karna</span>
-<span class="prompt">$</span> systemctl restart nginx   <span class="comment"># Restart karna (Downtime hoga)</span>
-<span class="prompt">$</span> systemctl reload nginx    <span class="comment"># Bina downtime ke naya config apply karna (Best for Nginx!)</span>
-
-<span class="comment"># Server boot par auto-start enable karna:</span>
-<span class="prompt">$</span> systemctl enable nginx    <span class="comment"># Server restart hone pe Nginx khud start hoga</span>
-<span class="prompt">$</span> systemctl disable nginx   <span class="comment"># Auto-start band karna</span>
-
-<span class="comment"># Custom app ke logs dekhna (systemd wale apps ke liye)</span>
-<span class="prompt">$</span> journalctl -u kestrel-myapp.service -f   <span class="comment"># .NET service ke live logs dekhne ke liye</span></code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Section 7: SSH & SCP -->
-                <section id="remote" class="mb-20 scroll-mt-28 content-section">
-                    <h2 class="text-3xl font-bold mb-6 text-slate-800 dark:text-white flex items-center gap-3">
-                        <span class="text-brand-500">7.</span> Remote Access (SSH & SCP)
-                    </h2>
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
                         
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="p-6 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
-                                <h3 class="font-bold text-xl text-brand-600 dark:text-brand-400 mb-3">SSH (Secure Shell)</h3>
-                                <p class="text-slate-600 dark:text-slate-400 mb-3 text-sm">Apne laptop (Windows/Mac) se AWS/Azure ke cloud server ka terminal access karna.</p>
-                                <div class="code-wrapper mt-0"><div class="code-block py-2"><pre><code><span class="comment"># Password se login</span>
-<span class="prompt">$</span> ssh root@192.168.1.10
+                        <h3 class="text-2xl font-bold mb-4 text-blue-500">1. Basic Docker Commands</h3>
+                        <div class="code-wrapper mt-0"><div class="code-badge">Docker CLI</div><div class="code-block py-4">
+<pre><code><span class="comment"># 1. Image Download karna (e.g. Nginx web server)</span>
+<span class="prompt">$</span> docker pull nginx
 
-<span class="comment"># Private key (Pem/Key file) se login</span>
-<span class="prompt">$</span> ssh -i "mykey.pem" ubuntu@amazon-ip</code></pre></div></div>
-                            </div>
-                            
-                            <div class="p-6 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
-                                <h3 class="font-bold text-xl text-brand-600 dark:text-brand-400 mb-3">SCP (Secure Copy)</h3>
-                                <p class="text-slate-600 dark:text-slate-400 mb-3 text-sm">Apne laptop se files/builds seedha server par securely bhejna bina FTP clients ke.</p>
-                                <div class="code-wrapper mt-0"><div class="code-block py-2"><pre><code><span class="comment"># Local file ko server par bhejna</span>
-<span class="prompt">$</span> scp app.zip user@ip:/var/www/
+<span class="comment"># 2. Image ko Run karke Container banana (-d = background, -p = port mapping)</span>
+<span class="prompt">$</span> docker run -d -p 8080:80 --name my_website nginx
 
-<span class="comment"># Pura folder bhejna (-r)</span>
-<span class="prompt">$</span> scp -r build/ user@ip:/home/user/</code></pre></div></div>
-                            </div>
-                        </div>
+<span class="comment"># 3. Chalte hue containers dekhna</span>
+<span class="prompt">$</span> docker ps
+
+<span class="comment"># 4. Container ko band aur delete karna</span>
+<span class="prompt">$</span> docker stop my_website
+<span class="prompt">$</span> docker rm my_website</code></pre>
+                        </div></div>
                     </div>
-                </section>
 
-                <!-- Section 8: Storage -->
-                <section id="storage" class="mb-20 scroll-mt-28 content-section">
-                    <h2 class="text-3xl font-bold mb-6 text-slate-800 dark:text-white flex items-center gap-3">
-                        <span class="text-brand-500">8.</span> Storage & Tar Archives
-                    </h2>
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-500">2. Dockerfile (Custom Image Banana)</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Apne khud ke code ki image banane ke liye hum project me ek `Dockerfile` rakhte hain.</p>
+                        <div class="code-wrapper mt-0"><div class="code-badge">Dockerfile</div><div class="code-block py-4">
+<pre><code><span class="comment"># Base image set karo</span>
+FROM node:18-alpine
+
+<span class="comment"># Container ke andar ek folder banao aur wahan jao</span>
+WORKDIR /app
+
+<span class="comment"># Dependencies ki file copy karke install karo</span>
+COPY package.json ./
+RUN npm install
+
+<span class="comment"># Apne saare code ko copy karo</span>
+COPY . .
+
+<span class="comment"># Container run hone par ye command chalegi</span>
+CMD ["node", "app.js"]</code></pre>
+                        </div></div>
+                        <div class="code-wrapper mt-4"><div class="code-badge">Build Command</div><div class="code-block py-2">
+<pre><code><span class="comment"># Upar wale file se nayi image banegi (Dot '.' mtlb isi folder me)</span>
+<span class="prompt">$</span> docker build -t my_node_app:latest .</code></pre>
+                        </div></div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: CI/CD -->
+                <div id="tab-cicd" class="tab-section fade-in hidden">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="p-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl text-emerald-600 dark:text-emerald-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-slate-800 dark:text-white">CI/CD Pipelines</h2>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
                         <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
-                            Server ki memory full hone wali hai? Backup compress karna hai?
+                            CI/CD ka matlab hai <strong>Continuous Integration & Continuous Deployment</strong>. Jab bhi developer GitHub par naya code push kare, to ek automated script chalegi jo code ko Test karegi, Build karegi, aur directly Production Server par Deploy kar degi. (Tools: GitHub Actions, Jenkins).
                         </p>
+                        
+                        <h3 class="text-2xl font-bold mb-4 text-emerald-500">GitHub Actions (Basic Workflow)</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Project me `.github/workflows/main.yml` file banti hai.</p>
+                        <div class="code-wrapper mt-0"><div class="code-badge">main.yml</div><div class="code-block py-4">
+<pre><code>name: Node.js CI/CD Pipeline
 
-                        <div class="code-wrapper mt-0">
-                            <div class="code-badge">Disk & Zip Commands</div>
-                            <div class="code-block py-4">
-<pre><code><span class="comment"># 1. Disk Space Check karna</span>
-<span class="prompt">$</span> df -h            <span class="comment"># Puri hard drive ka space dikhayega (Human readable - GB/MB me)</span>
-<span class="prompt">$</span> du -sh /var/log  <span class="comment"># Specific folder kitna size le raha hai check karna</span>
+on:
+  push:
+    branches: [ "main" ] <span class="comment"># Jab main branch pe code aaye, tabhi run hoga</span>
 
-<span class="comment"># 2. Tar (Tape Archive) - Linux ka default zipping tool</span>
-<span class="comment"># Create (Compress) - Folder ko tar.gz me badalna</span>
-<span class="prompt">$</span> tar -czvf myapp_backup.tar.gz /var/www/myapp/   <span class="comment"># (c=create, z=zip(gzip), v=verbose, f=file)</span>
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
 
-<span class="comment"># Extract (Unzip) - Tar file ko kholna</span>
-<span class="prompt">$</span> tar -xzvf myapp_backup.tar.gz                   <span class="comment"># (x=extract)</span>
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
 
-<span class="comment"># Normal Unzip</span>
-<span class="prompt">$</span> unzip package.zip -d /target/folder/</code></pre>
-                            </div>
-                        </div>
+    - name: Install Packages & Test
+      run: |
+        npm install
+        npm test
+
+    - name: Deploy to Server (Fake step via SSH)
+      run: echo "Deploying to production server..."</code></pre>
+                        </div></div>
                     </div>
-                </section>
+                </div>
 
-                <!-- Section 9: Interview Q&A -->
-                <section id="interview" class="mb-20 scroll-mt-28 content-section">
+                <!-- TAB 5: INTERVIEW Q&A -->
+                <div id="tab-interview" class="tab-section fade-in hidden">
                     <div class="bg-slate-900 dark:bg-black rounded-3xl p-8 md:p-12 text-slate-300 shadow-xl border border-slate-800">
                         <h2 class="text-3xl font-bold mb-8 flex items-center gap-4 text-white border-b border-slate-800 pb-6">
                             <svg class="w-10 h-10 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            DevOps / Linux Interview Q&A
+                            DevOps Interview Q&A
                         </h2>
                         
                         <div class="space-y-10 text-base md:text-lg">
                             
                             <div class="pb-6 border-b border-slate-800/50">
-                                <h3 class="text-white font-bold text-xl mb-3 text-orange-300">Q1: Hard Link aur Soft Link (Symlink) me kya difference hai?</h3>
+                                <h3 class="text-white font-bold text-xl mb-3 text-orange-300">Q1: Git Pull aur Git Fetch mein kya difference hai?</h3>
                                 <p class="mb-2"><strong>Answer:</strong></p>
                                 <ul class="point-list">
-                                    <li><strong>Soft Link (Symlink):</strong> Windows ke "Shortcut" ki tarah hota hai. Ye sirf original file ka path (rasta) point karta hai. Agar original file delete ho jaye, to soft link bekar (broken) ho jata hai. (Create: <code>ln -s original.txt link.txt</code>)</li>
-                                    <li><strong>Hard Link:</strong> Ye original file ke hard-disk memory address (inode) ko directly point karta hai. Agar original file delete bhi ho jaye, to Hard link wali file zinda rehti hai aur data safe rehta hai. (Create: <code>ln original.txt link.txt</code>)</li>
+                                    <li><strong>Git Fetch:</strong> Ye sirf remote repository (GitHub) se latest changes ko download karta hai, par aapki local working branch me merge nahi karta. (Safe hai check karne ke liye).</li>
+                                    <li><strong>Git Pull:</strong> Ye pehle <code>fetch</code> karta hai aur phir automatically aapke current branch mein us code ko <code>merge</code> kar deta hai.</li>
                                 </ul>
                             </div>
 
                             <div class="pb-6 border-b border-slate-800/50">
-                                <h3 class="text-white font-bold text-xl mb-3 text-orange-300">Q2: "Zombie Process" aur "Orphan Process" kya hota hai?</h3>
+                                <h3 class="text-white font-bold text-xl mb-3 text-orange-300">Q2: Docker Image aur Docker Container me kya fark hai?</h3>
                                 <p class="mb-2"><strong>Answer:</strong></p>
                                 <ul class="point-list">
-                                    <li><strong>Zombie Process:</strong> Ye wo process hai jo apna kaam complete karke band (dead) ho chuka hai, par iska Parent process abhi tak OS ko bata nahi paya hai ki child dead hai. Ye process table me "Z" ya "defunct" status se dikhta hai. (Ise directly kill nahi kar sakte, parent ko kill karna padta hai).</li>
-                                    <li><strong>Orphan Process:</strong> Agar Parent process pehle hi kill/crash ho jaye, par uska child process abhi tak background me chal raha ho, to child anath (Orphan) ho jata hai. OS ka "init/systemd" (PID 1) process isko adopt kar leta hai.</li>
+                                    <li><strong>Image:</strong> Ye ek read-only template ya blueprint hota hai jisme aapka OS, code, libraries sab pack hoti hai. (Jaise Object-Oriented me 'Class').</li>
+                                    <li><strong>Container:</strong> Jab aap ek Image ko Run karte ho, to wo ek active (running) instance ban jata hai jisko Container kehte hain. (Jaise Class ka 'Object').</li>
                                 </ul>
                             </div>
 
                             <div class="pb-6 border-b border-slate-800/50">
-                                <h3 class="text-white font-bold text-xl mb-3 text-orange-300">Q3: chmod 777 ka matlab kya hai?</h3>
-                                <p class="mb-2"><strong>Answer:</strong> <code>chmod</code> se file permissions change hoti hai. 777 ek octal representation hai.</p>
-                                <ul class="point-list text-sm">
-                                    <li>4 = Read (r), 2 = Write (w), 1 = Execute (x). Inka total = 7.</li>
-                                    <li>Pehla '7' User (Owner) ke liye hai (All access).</li>
-                                    <li>Dusra '7' Group ke liye hai.</li>
-                                    <li>Teesra '7' Others (Duniya bhar ka koi bhi user) ke liye hai.</li>
+                                <h3 class="text-white font-bold text-xl mb-3 text-orange-300">Q3: Hard Link aur Soft Link (Symlink) me kya difference hai (Linux)?</h3>
+                                <p class="mb-2"><strong>Answer:</strong></p>
+                                <ul class="point-list">
+                                    <li><strong>Soft Link (Symlink):</strong> Windows ke "Shortcut" ki tarah hota hai. Ye sirf original file ka path (rasta) point karta hai. Agar original file delete ho jaye, to soft link broken ho jata hai.</li>
+                                    <li><strong>Hard Link:</strong> Ye original file ke hard-disk memory address ko directly point karta hai. Agar original file delete bhi ho jaye, to Hard link wali file zinda rehti hai.</li>
                                 </ul>
-                                <p>Ye permission security ke liye bohot khatarnaak hai, production me kabhi use nahi karna chahiye.</p>
                             </div>
 
                             <div class="pb-6 border-b border-slate-800/50">
-                                <h3 class="text-white font-bold text-xl mb-3 text-orange-300">Q4: Cron Jobs kya hote hain?</h3>
-                                <p class="mb-2"><strong>Answer:</strong> Linux mein task scheduling ke liye <strong>cron</strong> ka use hota hai. Agar humein koi script (jaise DB Backup ya email sending) roz raat 12 baje automatically chalani hai, to hum crontab file me entry add karte hain. (Command: <code>crontab -e</code>).</p>
-                                <pre class="bg-slate-800 p-3 rounded-lg text-emerald-400 font-mono text-sm mt-2"># Format: Minute Hour Day Month DayOfWeek Command
-0 0 * * * /path/to/backup_script.sh</pre>
+                                <h3 class="text-white font-bold text-xl mb-3 text-orange-300">Q4: "Zombie Process" aur "Orphan Process" kya hota hai?</h3>
+                                <p class="mb-2"><strong>Answer:</strong></p>
+                                <ul class="point-list">
+                                    <li><strong>Zombie Process:</strong> Process dead ho chuka hai, par parent process ne usko table se clear nahi kiya. Ye "Z" status me dikhta hai.</li>
+                                    <li><strong>Orphan Process:</strong> Parent process crash ho gaya par child abhi tak chal raha hai. OS ka root process (PID 1) isko adopt kar leta hai.</li>
+                                </ul>
+                            </div>
+
+                            <div class="pb-6 border-b border-slate-800/50">
+                                <h3 class="text-white font-bold text-xl mb-3 text-orange-300">Q5: Merge aur Rebase me kya difference hai (Git)?</h3>
+                                <p class="mb-2"><strong>Answer:</strong> Dono branch ko jodne ke kaam aate hain.</p>
+                                <ul class="point-list">
+                                    <li><strong>Merge:</strong> Ye dono branches ki history combine karke ek naya "merge commit" banata hai. History non-linear ho sakti hai.</li>
+                                    <li><strong>Rebase:</strong> Ye aapke local commits ko temporary hata deta hai, main branch ke latest code ko lata hai, aur phir aapke commits ko uske aage set kar deta hai. Isse history bilkul straight (linear) dikhti hai.</li>
+                                </ul>
                             </div>
 
                             <div class="pb-6">
-                                <h3 class="text-white font-bold text-xl mb-3 text-orange-300">Q5: Ek file me text search karke usko count kaise karein?</h3>
-                                <p class="mb-2"><strong>Answer:</strong> Grep ko pipe (<code>|</code>) aur word count (<code>wc</code>) ke sath combine karke.</p>
-                                <pre class="bg-slate-800 p-3 rounded-lg text-emerald-400 font-mono text-sm mt-2">$ grep "ERROR" mylog.txt | wc -l
-# Ya direct grep se:
-$ grep -c "ERROR" mylog.txt</pre>
+                                <h3 class="text-white font-bold text-xl mb-3 text-orange-300">Q6: Dockerfile me COPY aur ADD command me kya difference hai?</h3>
+                                <p class="mb-2"><strong>Answer:</strong></p>
+                                <ul class="point-list">
+                                    <li><code>COPY</code>: Sirf normal files/folders ko local machine se container me copy karta hai. (Best practice).</li>
+                                    <li><code>ADD</code>: Isme extra features hain. Ye URL se direct download kar sakta hai, aur .tar ya .zip file ko automatically extract (unzip) karke copy karta hai.</li>
+                                </ul>
                             </div>
 
                         </div>
                     </div>
-                </section>
-            </div>
+                </div>
+
+            </div> <!-- End Main Content Container -->
             
             <footer class="mt-16 text-center text-slate-500 dark:text-slate-400 text-lg border-t border-slate-200 dark:border-slate-800 pt-10 pb-10">
-                <p>Written by Zayan Shaikh.</p>
+                <p>Designed & Developed with ❤️ by Mariya.</p>
             </footer>
         </main>
     </div>
 
-    <!-- Script for Sidebar, Theme, and Scroll Spy -->
+    <!-- Script for Tab Switching & Sidebar Menu -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- Mobile Menu Toggle ---
+            // --- Mobile Sidebar Toggle ---
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const sidebar = document.getElementById('sidebar');
             const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -548,15 +536,8 @@ $ grep -c "ERROR" mylog.txt</pre>
             mobileMenuBtn.addEventListener('click', toggleMenu);
             sidebarOverlay.addEventListener('click', toggleMenu);
 
-            document.querySelectorAll('.sidebar-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (window.innerWidth < 768) toggleMenu();
-                });
-            });
-
             // --- Theme Toggle Logic ---
-            const themeToggleBtn = document.getElementById('themeToggle');
-            const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+            const themeToggleBtns = document.querySelectorAll('#themeToggle, #mobileThemeToggle');
             
             if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add('dark');
@@ -564,90 +545,62 @@ $ grep -c "ERROR" mylog.txt</pre>
                 document.documentElement.classList.remove('dark');
             }
 
-            function toggleTheme() {
-                if (document.documentElement.classList.contains('dark')) {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.theme = 'light';
-                } else {
-                    document.documentElement.classList.add('dark');
-                    localStorage.theme = 'dark';
-                }
-            }
-
-            themeToggleBtn.addEventListener('click', toggleTheme);
-            mobileThemeToggle.addEventListener('click', toggleTheme);
-
-            // --- Smooth Scrolling & Active State ---
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    
-                    if (targetSection) {
-                        targetSection.scrollIntoView({ behavior: 'smooth' });
-                        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-                        this.classList.add('active');
+            themeToggleBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (document.documentElement.classList.contains('dark')) {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.theme = 'light';
+                    } else {
+                        document.documentElement.classList.add('dark');
+                        localStorage.theme = 'dark';
                     }
                 });
             });
 
-            const sections = document.querySelectorAll('section.content-section');
-            const navLinks = document.querySelectorAll('.sidebar-link');
-            
-            const observerOptions = {
-                root: null,
-                rootMargin: '-20% 0px -60% 0px',
-                threshold: 0
-            };
+            // --- TABS LOGIC (Switching Main Topics) ---
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabSections = document.querySelectorAll('.tab-section');
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        navLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href') === `#${id}`) {
-                                link.classList.add('active');
-                            }
-                        });
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // 1. Remove Active states from all buttons
+                    tabBtns.forEach(b => {
+                        b.classList.remove('active');
+                        // Remove specific active background classes depending on standard vs orange button
+                        if(!b.classList.contains('text-orange-700')) {
+                            b.classList.remove('bg-amber-100', 'dark:bg-amber-900/30');
+                        }
+                    });
+
+                    // 2. Hide all sections
+                    tabSections.forEach(sec => {
+                        sec.classList.remove('block');
+                        sec.classList.add('hidden');
+                    });
+
+                    // 3. Add Active state to clicked button
+                    btn.classList.add('active');
+                    if(!btn.classList.contains('text-orange-700')) {
+                        btn.classList.add('bg-amber-100', 'dark:bg-amber-900/30');
                     }
-                });
-            }, observerOptions);
 
-            sections.forEach(sec => observer.observe(sec));
-
-            // --- Search Functionality ---
-            const searchInput = document.getElementById('searchInput');
-            const noResultsMsg = document.getElementById('noResults');
-
-            const performSearch = (query) => {
-                query = query.toLowerCase().trim();
-                let hasResults = false;
-
-                sections.forEach(section => {
-                    const id = section.getAttribute('id');
-                    const link = document.querySelector(`.sidebar-link[href="#${id}"]`);
-                    const sectionText = section.innerText.toLowerCase();
-
-                    if (sectionText.includes(query) || query === '') {
-                        section.style.display = 'block';
-                        if(link) link.parentElement.style.display = 'block';
-                        hasResults = true;
-                    } else {
-                        section.style.display = 'none';
-                        if(link) link.parentElement.style.display = 'none';
+                    // 4. Show Target Section
+                    const targetId = btn.getAttribute('data-target');
+                    const targetSec = document.getElementById(targetId);
+                    if(targetSec) {
+                        targetSec.classList.remove('hidden');
+                        targetSec.classList.add('block');
                     }
+
+                    // 5. If mobile view, close sidebar after clicking
+                    if (window.innerWidth < 768) {
+                        toggleMenu();
+                    }
+
+                    // 6. Scroll to top for fresh reading
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
-
-                if(!hasResults && query !== '') {
-                    noResultsMsg.classList.remove('hidden');
-                } else {
-                    noResultsMsg.classList.add('hidden');
-                }
-            };
-
-            searchInput.addEventListener('input', (e) => performSearch(e.target.value));
+            });
         });
     </script>
 </body>
