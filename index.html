@@ -369,6 +369,36 @@
                         </div></div>
                     </div>
 
+                    <!-- Process Management -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">3. Process & Resources (Task Manager)</h3>
+                        <div class="code-wrapper mt-0"><div class="code-badge">ps, top, kill</div><div class="code-block py-4">
+<pre><code><span class="comment"># RAM aur CPU kitna use ho raha hai?</span>
+<span class="prompt">$</span> top          <span class="comment"># Live monitor (press 'q' to exit)</span>
+<span class="prompt">$</span> htop         <span class="comment"># Colorful & better (install karna padta hai)</span>
+
+<span class="comment"># Running programs dekhna</span>
+<span class="prompt">$</span> ps aux | grep "node"    <span class="comment"># Sirf node.js ke processes filter karke dikhao</span>
+
+<span class="comment"># Program band (Kill) karna</span>
+<span class="prompt">$</span> kill 1234               <span class="comment"># Normal kill (using Process ID)</span>
+<span class="prompt">$</span> kill -9 1234            <span class="comment"># Force kill (Ziddi program ke liye)</span></code></pre>
+                        </div></div>
+                    </div>
+
+                    <!-- Logs and Grep -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">4. Reading Logs & Searching Text</h3>
+                        <div class="code-wrapper mt-0"><div class="code-badge">tail & grep</div><div class="code-block py-4">
+<pre><code><span class="comment"># Live logs padhna (Jaise hi error aayega screen pe dikhega)</span>
+<span class="prompt">$</span> tail -f /var/log/nginx/error.log
+
+<span class="comment"># File ke andar koi word dhundna (Grep)</span>
+<span class="prompt">$</span> grep "Exception" error.log        <span class="comment"># Sirf wo lines layega jisme 'Exception' hai</span>
+<span class="prompt">$</span> grep -i "failed" mylog.txt        <span class="comment"># -i for case-insensitive search</span></code></pre>
+                        </div></div>
+                    </div>
+
                     <!-- Dynamic Notes Section (Linux) -->
                     <div class="mt-10 bg-amber-50 dark:bg-amber-900/10 rounded-2xl shadow-sm border border-amber-200 dark:border-amber-800/50 p-6 md:p-8 mb-10">
                         <h3 class="text-2xl font-bold mb-4 text-amber-700 dark:text-amber-400 flex items-center gap-2">
@@ -646,6 +676,18 @@ jobs:
                     </div>
 
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        
+                        <!-- NEW: API Key Input Box (For Local Usage) -->
+                        <div class="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-xl border border-amber-200 dark:border-amber-700/50 mb-8 flex flex-col md:flex-row items-center gap-4">
+                            <div class="flex-1">
+                                <h4 class="font-bold text-amber-800 dark:text-amber-400">🔑 API Key (Local PC ke liye)</h4>
+                                <p class="text-sm text-amber-700 dark:text-amber-500">Agar aap is app ko download karke chala rahe hain, toh yahan apni Gemini API key daalein.</p>
+                            </div>
+                            <div class="w-full md:w-1/2">
+                                <input type="password" id="user-api-key" placeholder="AIzaSy..." class="w-full p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-amber-300 dark:border-amber-700 focus:ring-2 focus:ring-amber-500 text-slate-800 dark:text-slate-200">
+                            </div>
+                        </div>
+
                         <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
                             Gemini AI se directly help lein. Aap command generate karwa sakte hain, config files banwa sakte hain, ya error logs analyze karwa sakte hain.
                         </p>
@@ -694,6 +736,24 @@ jobs:
                                 <textarea id="ai-security-input" class="w-full h-32 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-300 resize-y mb-4" placeholder="Paste your config here to scan for security risks (e.g. running as root, exposed secrets)..."></textarea>
                                 <button id="ai-security-btn" onclick="handleAIGenerate('security')" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Scan Config ✨</button>
                                 <div id="ai-security-output" class="mt-6 hidden ai-output text-slate-700 dark:text-slate-300 p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800"></div>
+                            </div>
+
+                            <!-- Tool 6: Script Generator -->
+                            <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                                <h3 class="text-xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">6. Automation Script Generator</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Apna automation task describe karein (Bash ya Python script ke liye):</p>
+                                <textarea id="ai-script-input" class="w-full h-24 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-300 resize-y mb-4" placeholder="Jaise: 'Ek bash script banao jo /var/log se 7 din purani files delete kar de...'"></textarea>
+                                <button id="ai-script-btn" onclick="handleAIGenerate('script')" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Generate Script ✨</button>
+                                <div id="ai-script-output" class="mt-6 hidden ai-output text-slate-700 dark:text-slate-300 p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800"></div>
+                            </div>
+
+                            <!-- Tool 7: Command Explainer -->
+                            <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                                <h3 class="text-xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">7. Command Explainer</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Koi bhi complex terminal command yahan paste karein aur uska matlab samjhein:</p>
+                                <textarea id="ai-explain-input" class="w-full h-24 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-300 resize-y mb-4" placeholder="Jaise: 'find . -type f -name \'*.log\' -exec rm -f {} +'"></textarea>
+                                <button id="ai-explain-btn" onclick="handleAIGenerate('explain')" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Explain Command ✨</button>
+                                <div id="ai-explain-output" class="mt-6 hidden ai-output text-slate-700 dark:text-slate-300 p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800"></div>
                             </div>
                         </div>
                     </div>
@@ -913,7 +973,10 @@ jobs:
         }
 
         async function callGemini(promptText, systemInstructionText) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const userKeyInput = document.getElementById('user-api-key');
+            const activeKey = (userKeyInput && userKeyInput.value.trim() !== "") ? userKeyInput.value.trim() : apiKey;
+            
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${activeKey}`;
             const payload = {
                 contents: [{ parts: [{ text: promptText }] }],
                 systemInstruction: { parts: [{ text: systemInstructionText }] }
@@ -946,6 +1009,12 @@ jobs:
             } else if (type === 'security') {
                 inputId = 'ai-security-input'; outputId = 'ai-security-output'; btnId = 'ai-security-btn'; btnText = 'Scan Config ✨';
                 sysInstruction = "Aap ek expert DevSecOps engineer hain. User aapko ek Dockerfile, Kubernetes YAML, ya bash script dega. Aapko usme security flaws, vulnerabilities, ya bad practices find karni hain (jaise hardcoded secrets, root user, etc.) aur unko theek karne ka secure code example dena hai. Hinglish (Hindi in Latin script) mein explain karein. Markdown format ka use karein.";
+            } else if (type === 'script') {
+                inputId = 'ai-script-input'; outputId = 'ai-script-output'; btnId = 'ai-script-btn'; btnText = 'Generate Script ✨';
+                sysInstruction = "Aap ek expert DevOps engineer hain. User aapko ek automation task dega. Aapko ek robust Bash ya Python script likhni hai. Script well-commented honi chahiye. Hinglish (Hindi in Latin script) mein samjhayein ki script kaise kaam karti hai. Markdown ka use karein.";
+            } else if (type === 'explain') {
+                inputId = 'ai-explain-input'; outputId = 'ai-explain-output'; btnId = 'ai-explain-btn'; btnText = 'Explain Command ✨';
+                sysInstruction = "Aap ek expert Linux/DevOps engineer hain. User aapko ek complex bash, docker, ya git command dega. Aapko us command ke har ek part/flag ko break down karke aasan Hinglish (Hindi in Latin script) mein samjhana hai ki wo kya karta hai.";
             }
 
             const input = document.getElementById(inputId).value;
@@ -965,7 +1034,7 @@ jobs:
                 outputDiv.innerHTML = formattedHtml;
             } catch (error) {
                 console.error("Gemini API Error:", error);
-                outputDiv.innerHTML = `<div class="text-red-500">Error: API call fail ho gayi. Ya toh API key set nahi hai ya network issue hai. Thodi der baad try karein.</div>`;
+                outputDiv.innerHTML = `<div class="text-red-500">Error: API call fail ho gayi. Ya toh API key set nahi hai ya network issue hai. Kripya check karein.</div>`;
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = btnText;
