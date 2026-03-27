@@ -711,49 +711,13 @@ jobs:
                                 <div id="ai-config-output" class="mt-6 hidden ai-output text-slate-700 dark:text-slate-300 p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800"></div>
                             </div>
 
-                            <!-- Tool 3: Cron Generator -->
+                            <!-- Tool 3: Log Analyzer -->
                             <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
-                                <h3 class="text-xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">3. Cron Job Generator</h3>
-                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Batayein ki task kab run karna hai (jaise: "Har Monday subah 9 baje"):</p>
-                                <textarea id="ai-cron-input" class="w-full h-24 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-300 resize-y mb-4" placeholder="Jaise: 'Har mahine ki 1 tarikh ko raat 12 baje...'"></textarea>
-                                <button id="ai-cron-btn" onclick="handleAIGenerate('cron')" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Generate Cron ✨</button>
-                                <div id="ai-cron-output" class="mt-6 hidden ai-output text-slate-700 dark:text-slate-300 p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800"></div>
-                            </div>
-
-                            <!-- Tool 4: Git Commit Message Generator -->
-                            <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
-                                <h3 class="text-xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">4. Git Commit Message Generator</h3>
-                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Apne code changes (git diff) ya brief explanation yahan paste karein:</p>
-                                <textarea id="ai-gitcommit-input" class="w-full h-24 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-300 resize-y mb-4" placeholder="Jaise: 'Added login API and fixed JWT token expiration bug...'"></textarea>
-                                <button id="ai-gitcommit-btn" onclick="handleAIGenerate('gitcommit')" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Generate Commit Message ✨</button>
-                                <div id="ai-gitcommit-output" class="mt-6 hidden ai-output text-slate-700 dark:text-slate-300 p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800"></div>
-                            </div>
-
-                            <!-- Tool 5: Security & Best Practices Scanner -->
-                            <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
-                                <h3 class="text-xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">5. Security & Best Practices Scanner</h3>
-                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Apna Dockerfile, YAML, ya bash script yahan paste karein aur security check lagayein:</p>
-                                <textarea id="ai-security-input" class="w-full h-32 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-300 resize-y mb-4" placeholder="Paste your config here to scan for security risks (e.g. running as root, exposed secrets)..."></textarea>
-                                <button id="ai-security-btn" onclick="handleAIGenerate('security')" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Scan Config ✨</button>
-                                <div id="ai-security-output" class="mt-6 hidden ai-output text-slate-700 dark:text-slate-300 p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800"></div>
-                            </div>
-
-                            <!-- Tool 6: Script Generator -->
-                            <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
-                                <h3 class="text-xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">6. Automation Script Generator</h3>
-                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Apna automation task describe karein (Bash ya Python script ke liye):</p>
-                                <textarea id="ai-script-input" class="w-full h-24 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-300 resize-y mb-4" placeholder="Jaise: 'Ek bash script banao jo /var/log se 7 din purani files delete kar de...'"></textarea>
-                                <button id="ai-script-btn" onclick="handleAIGenerate('script')" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Generate Script ✨</button>
-                                <div id="ai-script-output" class="mt-6 hidden ai-output text-slate-700 dark:text-slate-300 p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800"></div>
-                            </div>
-
-                            <!-- Tool 7: Command Explainer -->
-                            <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
-                                <h3 class="text-xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">7. Command Explainer</h3>
-                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Koi bhi complex terminal command yahan paste karein aur uska matlab samjhein:</p>
-                                <textarea id="ai-explain-input" class="w-full h-24 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-300 resize-y mb-4" placeholder="Jaise: 'find . -type f -name \'*.log\' -exec rm -f {} +'"></textarea>
-                                <button id="ai-explain-btn" onclick="handleAIGenerate('explain')" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Explain Command ✨</button>
-                                <div id="ai-explain-output" class="mt-6 hidden ai-output text-slate-700 dark:text-slate-300 p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800"></div>
+                                <h3 class="text-xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">3. Error Log Analyzer</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Apna server ya terminal error paste karein:</p>
+                                <textarea id="ai-log-input" class="w-full h-32 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-300 resize-y mb-4" placeholder="Error logs yahan paste karein..."></textarea>
+                                <button id="ai-log-btn" onclick="handleAIGenerate('log')" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg">Analyze Log ✨</button>
+                                <div id="ai-log-output" class="mt-6 hidden ai-output text-slate-700 dark:text-slate-300 p-6 bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800"></div>
                             </div>
                         </div>
                     </div>
@@ -963,9 +927,19 @@ jobs:
             for (let i = 0; i < retries; i++) {
                 try {
                     const response = await fetch(url, options);
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    if (!response.ok) {
+                        const errorData = await response.json().catch(() => ({}));
+                        const errorMessage = errorData.error?.message || `HTTP error! status: ${response.status}`;
+                        const err = new Error(errorMessage);
+                        err.status = response.status;
+                        throw err;
+                    }
                     return await response.json();
                 } catch (e) {
+                    // Client errors (like invalid API key) par retry mat karo
+                    if (e.status >= 400 && e.status < 500 && e.status !== 429) {
+                        throw e; 
+                    }
                     if (i === retries - 1) throw e;
                     await new Promise(resolve => setTimeout(resolve, delays[i]));
                 }
@@ -974,9 +948,18 @@ jobs:
 
         async function callGemini(promptText, systemInstructionText) {
             const userKeyInput = document.getElementById('user-api-key');
-            const activeKey = (userKeyInput && userKeyInput.value.trim() !== "") ? userKeyInput.value.trim() : apiKey;
+            const isCustomKey = (userKeyInput && userKeyInput.value.trim() !== "");
+            const activeKey = isCustomKey ? userKeyInput.value.trim() : apiKey;
             
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${activeKey}`;
+            if (!activeKey) {
+                throw new Error("API_KEY_MISSING");
+            }
+            
+            // Agar user apni public key use kar raha hai, toh public model (1.5-flash) use karein
+            // Agar system ki internal key hai, toh preview model use karein
+            const modelName = isCustomKey ? "gemini-1.5-flash" : "gemini-2.5-flash-preview-09-2025";
+            
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${activeKey}`;
             const payload = {
                 contents: [{ parts: [{ text: promptText }] }],
                 systemInstruction: { parts: [{ text: systemInstructionText }] }
@@ -1000,21 +983,9 @@ jobs:
             } else if (type === 'config') {
                 inputId = 'ai-config-input'; outputId = 'ai-config-output'; btnId = 'ai-config-btn'; btnText = 'Generate Config ✨';
                 sysInstruction = "Aap ek expert DevOps engineer hain. User aapko configuration (jaise Dockerfile, Nginx config, docker-compose) banane ke liye bolega. Aapko best-practice ke sath wo config file banani hai aur Hinglish mein samjhana hai. Markdown ka use karein.";
-            } else if (type === 'cron') {
-                inputId = 'ai-cron-input'; outputId = 'ai-cron-output'; btnId = 'ai-cron-btn'; btnText = 'Generate Cron ✨';
-                sysInstruction = "Aap ek expert DevOps engineer hain. User ek time description dega, aur aapko uska exact standard Cron expression (5 fields) batana hai. Phir Hinglish mein samjhana hai ki har field ka kya matlab hai.";
-            } else if (type === 'gitcommit') {
-                inputId = 'ai-gitcommit-input'; outputId = 'ai-gitcommit-output'; btnId = 'ai-gitcommit-btn'; btnText = 'Generate Commit Message ✨';
-                sysInstruction = "Aap ek expert developer hain. User aapko apne code changes ya 'git diff' dega. Aapko ek professional, conventional Git commit message (feat:, fix:, docs:, etc.) generate karni hai. Hinglish (Hindi in Latin script) mein samjhayein ki ye message kyun accha hai aur iska format kya represent karta hai.";
-            } else if (type === 'security') {
-                inputId = 'ai-security-input'; outputId = 'ai-security-output'; btnId = 'ai-security-btn'; btnText = 'Scan Config ✨';
-                sysInstruction = "Aap ek expert DevSecOps engineer hain. User aapko ek Dockerfile, Kubernetes YAML, ya bash script dega. Aapko usme security flaws, vulnerabilities, ya bad practices find karni hain (jaise hardcoded secrets, root user, etc.) aur unko theek karne ka secure code example dena hai. Hinglish (Hindi in Latin script) mein explain karein. Markdown format ka use karein.";
-            } else if (type === 'script') {
-                inputId = 'ai-script-input'; outputId = 'ai-script-output'; btnId = 'ai-script-btn'; btnText = 'Generate Script ✨';
-                sysInstruction = "Aap ek expert DevOps engineer hain. User aapko ek automation task dega. Aapko ek robust Bash ya Python script likhni hai. Script well-commented honi chahiye. Hinglish (Hindi in Latin script) mein samjhayein ki script kaise kaam karti hai. Markdown ka use karein.";
-            } else if (type === 'explain') {
-                inputId = 'ai-explain-input'; outputId = 'ai-explain-output'; btnId = 'ai-explain-btn'; btnText = 'Explain Command ✨';
-                sysInstruction = "Aap ek expert Linux/DevOps engineer hain. User aapko ek complex bash, docker, ya git command dega. Aapko us command ke har ek part/flag ko break down karke aasan Hinglish (Hindi in Latin script) mein samjhana hai ki wo kya karta hai.";
+            } else if (type === 'log') {
+                inputId = 'ai-log-input'; outputId = 'ai-log-output'; btnId = 'ai-log-btn'; btnText = 'Analyze Log ✨';
+                sysInstruction = "Aap ek expert DevOps engineer hain. User aapko ek error log ya stack trace dega. Aapko us log ko deeply analyze karke root cause batana hai, aur Hinglish (Hindi in Latin script) mein usko theek karne ka step-by-step solution dena hai. Markdown ka ache se use karein.";
             }
 
             const input = document.getElementById(inputId).value;
@@ -1034,7 +1005,11 @@ jobs:
                 outputDiv.innerHTML = formattedHtml;
             } catch (error) {
                 console.error("Gemini API Error:", error);
-                outputDiv.innerHTML = `<div class="text-red-500">Error: API call fail ho gayi. Ya toh API key set nahi hai ya network issue hai. Kripya check karein.</div>`;
+                if (error.message === "API_KEY_MISSING") {
+                    outputDiv.innerHTML = `<div class="text-amber-600 font-bold bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-800">⚠️ API Key missing! Upar diye gaye box mein apni Gemini API key daalein.</div>`;
+                } else {
+                    outputDiv.innerHTML = `<div class="text-red-500 font-bold bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800">❌ Error: ${error.message}</div>`;
+                }
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = btnText;
