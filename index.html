@@ -91,6 +91,20 @@
             color: #fbbf24; 
             border-right-color: #fbbf24;
         }
+        
+        /* Locked Tab styling */
+        .tab-btn.locked {
+            opacity: 0.7;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tab-btn.locked:hover {
+            opacity: 1;
+            background-color: #f1f5f9;
+        }
+        .dark .tab-btn.locked:hover {
+            background-color: rgba(30, 41, 59, 0.5);
+        }
 
         /* Animations */
         .fade-in {
@@ -229,14 +243,15 @@
             </div>
 
             <!-- Tab Buttons -->
-            <nav class="flex-1 overflow-y-auto p-3 space-y-2 mt-2">
+            <nav class="flex-1 overflow-y-auto p-3 space-y-1.5 mt-2 pb-20">
                 
                 <button class="tab-btn active w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left" data-target="tab-dashboard">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                     <span class="font-medium">🏠 Dashboard</span>
                 </button>
                 
-                <p class="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 mt-4">Core Technologies</p>
+                <div class="my-4 border-t border-slate-200 dark:border-slate-800/60"></div>
+                <p class="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Core Technologies</p>
 
                 <button class="tab-btn w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left" data-target="tab-linux">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M4 17h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
@@ -263,16 +278,46 @@
                     <span class="font-medium">5. Networking Deep Dive</span>
                 </button>
 
-                <button class="tab-btn w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left" data-target="tab-interview">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span class="font-medium">6. Interview Q&A</span>
+                <div class="my-4 border-t border-slate-200 dark:border-slate-800/60"></div>
+                <p class="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Advanced Roadmap 🚀</p>
+
+                <!-- Locked Tabs -->
+                <button class="tab-btn locked w-full flex items-center gap-3 px-4 py-2.5 text-slate-500 dark:text-slate-400 rounded-xl text-left" data-target="tab-locked" data-title="Docker Compose">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    <span class="font-medium">6. Docker Compose</span>
                 </button>
 
-                <div class="my-4 border-t border-slate-200 dark:border-slate-800"></div>
-                
-                <button class="tab-btn w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left bg-indigo-50/50 dark:bg-indigo-900/10 text-indigo-700 dark:text-indigo-400" data-target="tab-ai">
+                <button class="tab-btn locked w-full flex items-center gap-3 px-4 py-2.5 text-slate-500 dark:text-slate-400 rounded-xl text-left" data-target="tab-locked" data-title="Kubernetes (K8s)">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    <span class="font-medium">7. Kubernetes (K8s)</span>
+                </button>
+
+                <button class="tab-btn locked w-full flex items-center gap-3 px-4 py-2.5 text-slate-500 dark:text-slate-400 rounded-xl text-left" data-target="tab-locked" data-title="Terraform + Ansible">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    <span class="font-medium">8. Terraform + Ansible</span>
+                </button>
+
+                <button class="tab-btn locked w-full flex items-center gap-3 px-4 py-2.5 text-slate-500 dark:text-slate-400 rounded-xl text-left" data-target="tab-locked" data-title="AWS Cloud">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    <span class="font-medium">9. AWS Cloud</span>
+                </button>
+
+                <button class="tab-btn locked w-full flex items-center gap-3 px-4 py-2.5 text-slate-500 dark:text-slate-400 rounded-xl text-left" data-target="tab-locked" data-title="Prometheus & DevSecOps">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    <span class="font-medium">10. DevSecOps & ArgoCD</span>
+                </button>
+
+                <div class="my-4 border-t border-slate-200 dark:border-slate-800/60"></div>
+                <p class="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Extras</p>
+
+                <button class="tab-btn w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left" data-target="tab-interview">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span class="font-medium">Interview Q&A</span>
+                </button>
+
+                <button class="tab-btn w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left bg-indigo-50/50 dark:bg-indigo-900/10 text-indigo-700 dark:text-indigo-400 mt-2" data-target="tab-ai">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                    <span class="font-bold">7. AI Assistant ✨</span>
+                    <span class="font-bold">AI Assistant ✨</span>
                 </button>
             </nav>
         </aside>
@@ -339,6 +384,22 @@
                     </div>
                 </div>
 
+                <!-- TAB: LOCKED STATE -->
+                <div id="tab-locked" class="tab-section fade-in hidden h-full flex flex-col items-center justify-center min-h-[60vh] py-10">
+                    <div class="text-center bg-white/50 dark:bg-slate-800/50 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl max-w-lg mx-auto w-full">
+                        <div class="w-20 h-20 md:w-24 md:h-24 bg-slate-100 dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner border border-slate-200 dark:border-slate-700">
+                            <svg class="w-10 h-10 md:w-12 md:h-12 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        </div>
+                        <h2 id="locked-title" class="text-2xl md:text-3xl font-extrabold text-slate-800 dark:text-white mb-4">Topic Locked 🔒</h2>
+                        <p class="text-base text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                            Aapne abhi tak roadmap mein yeh module start nahi kiya hai. Pehle basic tools master karein, aur phir jab ise seekhna shuru karein, toh ise unlock karke apne saare notes yahan daalein!
+                        </p>
+                        <button onclick="document.querySelector('[data-target=\'tab-dashboard\']').click()" class="px-6 py-3 bg-slate-800 hover:bg-slate-900 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold rounded-xl transition-all shadow-md w-full sm:w-auto">
+                            Go Back to Dashboard
+                        </button>
+                    </div>
+                </div>
+
                 <!-- TAB 1: LINUX -->
                 <div id="tab-linux" class="tab-section fade-in hidden">
                     <div class="flex items-center gap-3 mb-8 pb-6 border-b border-slate-200 dark:border-slate-800">
@@ -347,6 +408,136 @@
                         </div>
                         <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-white">Linux Master Guide</h2>
                     </div>
+
+                    <!-- Linux Basics -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">1. Files & Directories (Navigation)</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Terminal par apna raasta dhundna aur files manage karna.</p>
+                        <div class="code-wrapper mt-0"><div class="code-badge">Bash</div><div class="code-block py-4">
+<pre><code><span class="comment"># Main kahan hu? (Print Working Directory)</span>
+<span class="prompt">$</span> pwd
+/var/www/html
+
+<span class="comment"># Is folder me kya hai? (Hidden files aur details ke sath)</span>
+<span class="prompt">$</span> ls -la
+
+<span class="comment"># Folder change karna</span>
+<span class="prompt">$</span> cd /etc/nginx    <span class="comment"># Specific folder me jana</span>
+<span class="prompt">$</span> cd ~             <span class="comment"># Home directory me wapas aana</span>
+
+<span class="comment"># File copy, move (cut) aur rename karna</span>
+<span class="prompt">$</span> cp config.json config_bak.json   <span class="comment"># Copy file</span>
+<span class="prompt">$</span> cp -r my_app/ backup/            <span class="comment"># Folder copy (-r recursive)</span>
+<span class="prompt">$</span> mv old_name.txt new_name.txt     <span class="comment"># Rename ya Move karna</span>
+
+<span class="comment"># Delete karna (Danger: Recycle bin nahi hota!)</span>
+<span class="prompt">$</span> rm -rf folder_name/              <span class="comment"># Forcefully pura folder delete</span></code></pre>
+                        </div></div>
+                    </div>
+
+                    <!-- Permissions -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">2. Permissions & Ownership</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Security aur "Access Denied" errors fix karne ke liye.</p>
+                        <div class="code-wrapper mt-0"><div class="code-badge">chmod & chown</div><div class="code-block py-4">
+<pre><code><span class="comment"># chmod: Permissions badalna (Read=4, Write=2, Execute=1)</span>
+<span class="prompt">$</span> chmod 755 script.sh       <span class="comment"># Owner ko sab allowed, baakiyo ko sirf padhna aur run karna</span>
+<span class="prompt">$</span> chmod +x script.sh        <span class="comment"># Shortcut: Execute permission dena</span>
+<span class="prompt">$</span> chmod -R 755 /var/www     <span class="comment"># Pura folder aur uski files ki permission set karna (-R)</span>
+
+<span class="comment"># chown: Owner badalna (chown user:group filename)</span>
+<span class="prompt">[root@server]#</span> chown mariya:developers index.html
+<span class="prompt">[root@server]#</span> chown -R www-data:www-data /var/www/html  <span class="comment"># Web server ko access dena</span></code></pre>
+                        </div></div>
+                    </div>
+
+                    <!-- Process Management -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">3. Process & Resources (Task Manager)</h3>
+                        <div class="code-wrapper mt-0"><div class="code-badge">ps, top, kill</div><div class="code-block py-4">
+<pre><code><span class="comment"># RAM aur CPU kitna use ho raha hai?</span>
+<span class="prompt">$</span> top          <span class="comment"># Live monitor (press 'q' to exit)</span>
+<span class="prompt">$</span> htop         <span class="comment"># Colorful & better (install karna padta hai)</span>
+
+<span class="comment"># Running programs dekhna</span>
+<span class="prompt">$</span> ps aux | grep "node"    <span class="comment"># Sirf node.js ke processes filter karke dikhao</span>
+
+<span class="comment"># Program band (Kill) karna</span>
+<span class="prompt">$</span> kill 1234               <span class="comment"># Normal kill (using Process ID)</span>
+<span class="prompt">$</span> kill -9 1234            <span class="comment"># Force kill (Ziddi program ke liye)</span></code></pre>
+                        </div></div>
+                    </div>
+
+                    <!-- Logs and Grep -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">4. Reading Logs & Searching Text</h3>
+                        <div class="code-wrapper mt-0"><div class="code-badge">tail & grep</div><div class="code-block py-4">
+<pre><code><span class="comment"># Live logs padhna (Jaise hi error aayega screen pe dikhega)</span>
+<span class="prompt">$</span> tail -f /var/log/nginx/error.log
+
+<span class="comment"># File ke andar koi word dhundna (Grep)</span>
+<span class="prompt">$</span> grep "Exception" error.log        <span class="comment"># Sirf wo lines layega jisme 'Exception' hai</span>
+<span class="prompt">$</span> grep -i "failed" mylog.txt        <span class="comment"># -i for case-insensitive search</span></code></pre>
+                        </div></div>
+                    </div>
+
+                    <!-- Systemd Services -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">5. Systemd Services (systemctl)</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Background processes aur services manage karne ke liye.</p>
+                        <div class="code-wrapper mt-0"><div class="code-badge">systemctl</div><div class="code-block py-4">
+<pre><code><span class="prompt">$</span> systemctl status nginx    <span class="comment"># Check if service is running</span>
+<span class="prompt">$</span> systemctl start nginx     <span class="comment"># Start a service</span>
+<span class="prompt">$</span> systemctl stop nginx      <span class="comment"># Stop a service</span>
+<span class="prompt">$</span> systemctl restart nginx   <span class="comment"># Restart a service</span>
+<span class="prompt">$</span> systemctl enable nginx    <span class="comment"># Start automatically on boot</span></code></pre>
+                        </div></div>
+                    </div>
+
+                    <!-- Remote Access (SSH & SCP) -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">6. Remote Access (SSH & SCP)</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Remote servers connect karne aur files transfer karne ke liye.</p>
+                        <div class="code-wrapper mt-0"><div class="code-badge">ssh & scp</div><div class="code-block py-4">
+<pre><code><span class="comment"># SSH se connect karna</span>
+<span class="prompt">$</span> ssh root@192.168.1.10
+<span class="prompt">$</span> ssh -i "mykey.pem" ubuntu@amazon-ip
+
+<span class="comment"># SCP se files bhejna (Local to Remote)</span>
+<span class="prompt">$</span> scp app.zip user@ip:/var/www/
+<span class="prompt">$</span> scp -r build/ mariya@ip:/home/mariya/  <span class="comment"># Folder transfer</span></code></pre>
+                        </div></div>
+                    </div>
+
+                    <!-- Storage & Archiving -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">7. Storage & Archiving (df, tar)</h3>
+                        <div class="code-wrapper mt-0"><div class="code-badge">Disk & Tar</div><div class="code-block py-4">
+<pre><code><span class="comment"># Disk space check karna</span>
+<span class="prompt">$</span> df -h            <span class="comment"># Hard drive space (Human readable)</span>
+<span class="prompt">$</span> du -sh /var/log  <span class="comment"># Folder size check</span>
+
+<span class="comment"># Tar se zip/unzip karna</span>
+<span class="prompt">$</span> tar -czvf backup.tar.gz /var/www/   <span class="comment"># Create zip</span>
+<span class="prompt">$</span> tar -xzvf backup.tar.gz             <span class="comment"># Extract zip</span></code></pre>
+                        </div></div>
+                    </div>
+
+                    <!-- Dynamic Notes Section (Linux) -->
+                    <div class="mt-10 bg-amber-50 dark:bg-amber-900/10 rounded-2xl shadow-sm border border-amber-200 dark:border-amber-800/50 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-amber-700 dark:text-amber-400 flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            My Personal Notes (Linux)
+                        </h3>
+                        <p class="text-sm text-amber-600/80 dark:text-amber-400/80 mb-3">Apne Linux commands aur hints yahan add karein.</p>
+                        
+                        <!-- Input Area -->
+                        <div class="bg-white dark:bg-slate-900 p-2 rounded-xl border border-amber-200 dark:border-amber-700/50 focus-within:ring-2 focus-within:ring-amber-500 mb-6">
+                            <textarea id="note-input-linux" class="w-full h-20 p-2 bg-transparent border-none focus:ring-0 text-slate-700 dark:text-slate-300 resize-y" placeholder="Type a new note..."></textarea>
+                            <div class="flex justify-end p-2 border-t border-slate-100 dark:border-slate-800">
+                                <button onclick="addNote('linux')" class="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white text-sm font-bold rounded-lg transition-colors shadow-sm">Add Note ➕</button>
+                            </div>
+                        </div>
 
                         <!-- Saved Notes List -->
                         <div id="notes-list-linux" class="space-y-4">
@@ -558,7 +749,29 @@
                     </div>
 
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-6 text-blue-600 dark:text-blue-500">3. Advanced Concepts (Volumes & Compose)</h3>
+                        <h3 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-500">3. Dockerfile (Custom Image Banana)</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Apne khud ke code ki image banane ke liye hum project me ek `Dockerfile` rakhte hain.</p>
+                        <div class="code-wrapper mt-0"><div class="code-badge">Dockerfile</div><div class="code-block py-4">
+<pre><code><span class="comment"># Base image set karo</span>
+FROM node:18-alpine
+
+<span class="comment"># Container ke andar ek folder banao aur wahan jao</span>
+WORKDIR /app
+
+<span class="comment"># Dependencies ki file copy karke install karo</span>
+COPY package.json ./
+RUN npm install
+
+<span class="comment"># Apne saare code ko copy karo</span>
+COPY . .
+
+<span class="comment"># Container run hone par ye command chalegi</span>
+CMD ["node", "app.js"]</code></pre>
+                        </div></div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-6 text-blue-600 dark:text-blue-500">4. Advanced Concepts (Volumes)</h3>
                         
                         <div class="space-y-6">
                             <div class="p-5 border-l-4 border-amber-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl">
@@ -566,13 +779,6 @@
                                 <p class="text-slate-600 dark:text-slate-400 text-sm mb-3">Container band ya delete hone par uske andar ka data (jaise Database records) udd jata hai. Data ko safe rakhne ke liye hum container ke folder ko apne laptop/server ke folder se map kar dete hain, jise Volume kehte hain.</p>
                                 <div class="code-wrapper mt-0"><div class="code-block py-2"><pre><code><span class="comment"># -v lagakar Host ka folder container ke folder se map kiya</span>
 <span class="prompt">$</span> docker run -d -p 3306:3306 -v /my/local/db_data:/var/lib/mysql mysql:latest</code></pre></div></div>
-                            </div>
-
-                            <div class="p-5 border-l-4 border-emerald-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl">
-                                <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-2">Docker Compose (Multi-Container)</h4>
-                                <p class="text-slate-600 dark:text-slate-400 text-sm mb-3">Jab ek sath API, Frontend aur DB start karne hon, tab `docker-compose.yml` ka use hota hai. Ek command se pura project start.</p>
-                                <div class="code-wrapper mt-0"><div class="code-block py-2"><pre><code><span class="prompt">$</span> docker-compose up -d     <span class="comment"># Sab kuch start karna</span>
-<span class="prompt">$</span> docker-compose down      <span class="comment"># Sab kuch delete/stop karna</span></code></pre></div></div>
                             </div>
                         </div>
                     </div>
@@ -844,16 +1050,29 @@ jobs:
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                             My Personal Notes (Networking)
                         </h3>
-                        <p class="text-sm text-cyan-600/80 dark:text-cyan-400/80 mb-3">IPs, custom ports aur commands yahan save karein.</p>
-                        
                         <div class="bg-white dark:bg-slate-900 p-2 rounded-xl border border-cyan-200 dark:border-cyan-700/50 focus-within:ring-2 focus-within:ring-cyan-500 mb-6">
-                            <textarea id="note-input-networking" class="w-full h-20 p-2 bg-transparent border-none focus:ring-0 text-slate-700 dark:text-slate-300 resize-y" placeholder="Type a new networking note..."></textarea>
+                            <textarea id="note-input-networking" class="w-full h-20 p-2 bg-transparent border-none focus:ring-0 text-slate-700 dark:text-slate-300 resize-y" placeholder="Type a new note..."></textarea>
                             <div class="flex justify-end p-2 border-t border-slate-100 dark:border-slate-800">
                                 <button onclick="addNote('networking')" class="px-5 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-bold rounded-lg transition-colors shadow-sm">Add Note ➕</button>
                             </div>
                         </div>
-
                         <div id="notes-list-networking" class="space-y-4"></div>
+                    </div>
+                </div>
+
+                <!-- TAB: LOCKED STATE -->
+                <div id="tab-locked" class="tab-section fade-in hidden h-full flex flex-col items-center justify-center min-h-[60vh] py-10">
+                    <div class="text-center bg-white/50 dark:bg-slate-800/50 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl max-w-lg mx-auto w-full">
+                        <div class="w-20 h-20 md:w-24 md:h-24 bg-slate-100 dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner border border-slate-200 dark:border-slate-700">
+                            <svg class="w-10 h-10 md:w-12 md:h-12 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        </div>
+                        <h2 id="locked-title" class="text-2xl md:text-3xl font-extrabold text-slate-800 dark:text-white mb-4">Topic Locked 🔒</h2>
+                        <p class="text-base text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                            Aapne abhi tak roadmap mein yeh module start nahi kiya hai. Pehle basic tools master karein, aur phir jab ise seekhna shuru karein, toh ise unlock karke apne saare notes yahan daalein!
+                        </p>
+                        <button onclick="document.querySelector('[data-target=\'tab-dashboard\']').click()" class="px-6 py-3 bg-slate-800 hover:bg-slate-900 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold rounded-xl transition-all shadow-md w-full sm:w-auto">
+                            Go Back to Dashboard
+                        </button>
                     </div>
                 </div>
 
@@ -885,6 +1104,43 @@ jobs:
                                     <li><strong>Container:</strong> Jab aap ek Image ko Run karte ho, to wo ek active instance ban jata hai jisko Container kehte hain.</li>
                                 </ul>
                             </div>
+
+                            <div class="pb-6 border-b border-slate-100 dark:border-slate-700/50">
+                                <h3 class="text-slate-800 dark:text-white font-bold text-xl mb-3 text-orange-600 dark:text-orange-400">Q3: Hard Link aur Soft Link (Symlink) me kya difference hai (Linux)?</h3>
+                                <p class="mb-2 text-slate-600 dark:text-slate-300"><strong>Answer:</strong></p>
+                                <ul class="point-list text-slate-600 dark:text-slate-300">
+                                    <li><strong>Soft Link (Symlink):</strong> Windows ke "Shortcut" ki tarah hota hai. Ye sirf original file ka path (rasta) point karta hai. Agar original file delete ho jaye, to soft link broken ho jata hai.</li>
+                                    <li><strong>Hard Link:</strong> Ye original file ke hard-disk memory address ko directly point karta hai. Agar original file delete bhi ho jaye, to Hard link wali file zinda rehti hai.</li>
+                                </ul>
+                            </div>
+
+                            <div class="pb-6 border-b border-slate-100 dark:border-slate-700/50">
+                                <h3 class="text-slate-800 dark:text-white font-bold text-xl mb-3 text-orange-600 dark:text-orange-400">Q4: "Zombie Process" aur "Orphan Process" kya hota hai?</h3>
+                                <p class="mb-2 text-slate-600 dark:text-slate-300"><strong>Answer:</strong></p>
+                                <ul class="point-list text-slate-600 dark:text-slate-300">
+                                    <li><strong>Zombie Process:</strong> Process dead ho chuka hai, par parent process ne usko table se clear nahi kiya. Ye "Z" status me dikhta hai.</li>
+                                    <li><strong>Orphan Process:</strong> Parent process crash ho gaya par child abhi tak chal raha hai. OS ka root process (PID 1) isko adopt kar leta hai.</li>
+                                </ul>
+                            </div>
+
+                            <div class="pb-6 border-b border-slate-100 dark:border-slate-700/50">
+                                <h3 class="text-slate-800 dark:text-white font-bold text-xl mb-3 text-orange-600 dark:text-orange-400">Q5: Merge aur Rebase me kya difference hai (Git)?</h3>
+                                <p class="mb-2 text-slate-600 dark:text-slate-300"><strong>Answer:</strong> Dono branch ko jodne ke kaam aate hain.</p>
+                                <ul class="point-list text-slate-600 dark:text-slate-300">
+                                    <li><strong>Merge:</strong> Ye dono branches ki history combine karke ek naya "merge commit" banata hai. History non-linear ho sakti hai.</li>
+                                    <li><strong>Rebase:</strong> Ye aapke local commits ko temporary hata deta hai, main branch ke latest code ko lata hai, aur phir aapke commits ko uske aage set kar deta hai. Isse history bilkul straight (linear) dikhti hai.</li>
+                                </ul>
+                            </div>
+
+                            <div class="pb-6">
+                                <h3 class="text-slate-800 dark:text-white font-bold text-xl mb-3 text-orange-600 dark:text-orange-400">Q6: Dockerfile me COPY aur ADD command me kya difference hai?</h3>
+                                <p class="mb-2 text-slate-600 dark:text-slate-300"><strong>Answer:</strong></p>
+                                <ul class="point-list text-slate-600 dark:text-slate-300">
+                                    <li><code>COPY</code>: Sirf normal files/folders ko local machine se container me copy karta hai. (Best practice).</li>
+                                    <li><code>ADD</code>: Isme extra features hain. Ye URL se direct download kar sakta hai, aur .tar ya .zip file ko automatically extract (unzip) karke copy karta hai.</li>
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
 
@@ -1049,7 +1305,7 @@ jobs:
             applyTheme(savedTheme);
 
 
-            // --- TABS LOGIC (Switching Main Topics - "New Page Feel") ---
+            // --- TABS LOGIC (Switching Main Topics & Locked State) ---
             const tabBtns = document.querySelectorAll('.tab-btn, [data-target]');
             const tabSections = document.querySelectorAll('.tab-section');
 
@@ -1057,22 +1313,32 @@ jobs:
                 btn.addEventListener('click', (e) => {
                     const targetId = btn.getAttribute('data-target');
                     if(!targetId) return;
+                    
+                    // Specific logic for Locked Tabs
+                    if(targetId === 'tab-locked') {
+                        const topicTitle = btn.getAttribute('data-title');
+                        if(topicTitle) {
+                            document.getElementById('locked-title').innerText = topicTitle + ' 🔒';
+                        }
+                    }
 
                     // Update Sidebar Button styling
                     document.querySelectorAll('.tab-btn').forEach(b => {
                         b.classList.remove('active');
-                        // Remove specific active background classes depending on standard vs indigo/orange button
                         if(!b.classList.contains('text-indigo-700') && !b.classList.contains('text-orange-700')) {
                             b.classList.remove('bg-amber-100', 'dark:bg-amber-900/30');
                         }
                     });
 
-                    const sideBarBtn = document.querySelector(`.tab-btn[data-target="${targetId}"]`);
-                    if(sideBarBtn) {
-                        sideBarBtn.classList.add('active');
-                        if(!sideBarBtn.classList.contains('text-indigo-700') && !sideBarBtn.classList.contains('text-orange-700')) {
-                            sideBarBtn.classList.add('bg-amber-100', 'dark:bg-amber-900/30');
+                    // Target Button Active state
+                    // Keep original classes for locked buttons when active
+                    if (!btn.classList.contains('locked')) {
+                        btn.classList.add('active');
+                        if(!btn.classList.contains('text-indigo-700') && !btn.classList.contains('text-orange-700')) {
+                            btn.classList.add('bg-amber-100', 'dark:bg-amber-900/30');
                         }
+                    } else {
+                         btn.classList.add('active');
                     }
 
                     // Hide all, Show target
