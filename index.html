@@ -101,6 +101,21 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
+        /* Mind Map Styling */
+        .mindmap-line {
+            position: relative;
+        }
+        .mindmap-line::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -1rem;
+            width: 1rem;
+            height: 2px;
+            background-color: #0ea5e9;
+        }
+        .dark .mindmap-line::before { background-color: #0284c7; }
+        
         /* AI Output Markdown Styles */
         .ai-output p { margin-bottom: 0.75rem; line-height: 1.6; }
         .ai-output pre { background: #0f172a; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1rem; border: 1px solid #1e293b; }
@@ -114,11 +129,7 @@
         .point-list { list-style-type: disc; margin-left: 1.25rem; margin-top: 0.5rem; margin-bottom: 1rem; }
         .point-list li { margin-bottom: 0.5rem; }
 
-        /* =========================================
-           CUSTOM THEMES OVERRIDES (The Magic!)
-           ========================================= */
-           
-        /* 🌌 Midnight Theme */
+        /* CUSTOM THEMES OVERRIDES */
         html[data-theme="midnight"] body { background-color: #020617; }
         html[data-theme="midnight"] .dark\:bg-slate-900, 
         html[data-theme="midnight"] .dark\:bg-slate-950, 
@@ -129,7 +140,6 @@
         html[data-theme="midnight"] .tab-btn.active { background-color: #172554 !important; color: #60a5fa !important; border-right-color: #3b82f6 !important; }
         html[data-theme="midnight"] [class*="text-amber-"], html[data-theme="midnight"] [class*="text-orange-"] { color: #38bdf8 !important; }
         
-        /* 💻 Hacker Theme */
         html[data-theme="hacker"] body { background-color: #000000; color: #10b981; }
         html[data-theme="hacker"] .dark\:bg-slate-900, 
         html[data-theme="hacker"] .dark\:bg-slate-950, 
@@ -146,7 +156,6 @@
         html[data-theme="hacker"] .tab-btn.active { background-color: #064e3b !important; color: #34d399 !important; border-right-color: #10b981 !important; }
         html[data-theme="hacker"] [class*="text-amber-"], html[data-theme="hacker"] [class*="text-orange-"] { color: #10b981 !important; }
         
-        /* 🌆 Cyberpunk Theme */
         html[data-theme="cyberpunk"] body { background-color: #2a0a2a; }
         html[data-theme="cyberpunk"] .dark\:bg-slate-900, 
         html[data-theme="cyberpunk"] .dark\:bg-slate-950, 
@@ -249,16 +258,21 @@
                     <span class="font-medium">4. CI/CD Pipelines</span>
                 </button>
 
+                <button class="tab-btn w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left" data-target="tab-networking">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                    <span class="font-medium">5. Networking Deep Dive</span>
+                </button>
+
                 <button class="tab-btn w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left" data-target="tab-interview">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span class="font-medium">5. Interview Q&A</span>
+                    <span class="font-medium">6. Interview Q&A</span>
                 </button>
 
                 <div class="my-4 border-t border-slate-200 dark:border-slate-800"></div>
                 
                 <button class="tab-btn w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all text-left bg-indigo-50/50 dark:bg-indigo-900/10 text-indigo-700 dark:text-indigo-400" data-target="tab-ai">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                    <span class="font-bold">6. AI Assistant ✨</span>
+                    <span class="font-bold">7. AI Assistant ✨</span>
                 </button>
             </nav>
         </aside>
@@ -283,10 +297,10 @@
                             DevOps & Server Admin <br>
                             <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-500">Masterclass Guide</span>
                         </h1>
-                        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">Aapke sabhi DevOps, Linux, aur Containerization ke notes ek hi jagah. Niche diye gaye topics se start karein ya sidebar use karein.</p>
+                        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">Aapke sabhi DevOps, Linux, Networking aur Containerization ke notes ek hi jagah. Niche diye gaye topics se start karein ya sidebar use karein.</p>
                     </header>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         <div onclick="document.querySelector('[data-target=\'tab-linux\']').click()" class="cursor-pointer group p-6 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl hover:border-amber-400 transition-all">
                             <div class="w-12 h-12 bg-amber-100 dark:bg-amber-900/40 rounded-xl flex items-center justify-center text-amber-600 dark:text-amber-400 mb-4">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M4 17h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
@@ -315,6 +329,13 @@
                             <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2 group-hover:text-emerald-500 transition-colors">4. CI/CD Pipelines</h3>
                             <p class="text-slate-500 dark:text-slate-400 text-sm">GitHub actions aur automated deployment scripts banane ka tarika.</p>
                         </div>
+                        <div onclick="document.querySelector('[data-target=\'tab-networking\']').click()" class="cursor-pointer group p-6 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl hover:border-cyan-400 transition-all">
+                            <div class="w-12 h-12 bg-cyan-100 dark:bg-cyan-900/40 rounded-xl flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-4">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2 group-hover:text-cyan-500 transition-colors">5. Networking</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm">OSI Model, TCP/UDP, DNS, IP Addressing, and Load Balancing.</p>
+                        </div>
                     </div>
                 </div>
 
@@ -326,94 +347,6 @@
                         </div>
                         <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-white">Linux Master Guide</h2>
                     </div>
-
-                    <!-- Linux Basics -->
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">1. Files & Directories (Navigation)</h3>
-                        <p class="text-slate-600 dark:text-slate-300 mb-4">Terminal par apna raasta dhundna aur files manage karna.</p>
-                        <div class="code-wrapper mt-0"><div class="code-badge">Bash</div><div class="code-block py-4">
-<pre><code><span class="comment"># Main kahan hu? (Print Working Directory)</span>
-<span class="prompt">$</span> pwd
-/var/www/html
-
-<span class="comment"># Is folder me kya hai? (Hidden files aur details ke sath)</span>
-<span class="prompt">$</span> ls -la
-
-<span class="comment"># Folder change karna</span>
-<span class="prompt">$</span> cd /etc/nginx    <span class="comment"># Specific folder me jana</span>
-<span class="prompt">$</span> cd ~             <span class="comment"># Home directory me wapas aana</span>
-
-<span class="comment"># File copy, move (cut) aur rename karna</span>
-<span class="prompt">$</span> cp config.json config_bak.json   <span class="comment"># Copy file</span>
-<span class="prompt">$</span> cp -r my_app/ backup/            <span class="comment"># Folder copy (-r recursive)</span>
-<span class="prompt">$</span> mv old_name.txt new_name.txt     <span class="comment"># Rename ya Move karna</span>
-
-<span class="comment"># Delete karna (Danger: Recycle bin nahi hota!)</span>
-<span class="prompt">$</span> rm -rf folder_name/              <span class="comment"># Forcefully pura folder delete</span></code></pre>
-                        </div></div>
-                    </div>
-
-                    <!-- Permissions -->
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">2. Permissions & Ownership</h3>
-                        <p class="text-slate-600 dark:text-slate-300 mb-4">Security aur "Access Denied" errors fix karne ke liye.</p>
-                        <div class="code-wrapper mt-0"><div class="code-badge">chmod & chown</div><div class="code-block py-4">
-<pre><code><span class="comment"># chmod: Permissions badalna (Read=4, Write=2, Execute=1)</span>
-<span class="prompt">$</span> chmod 755 script.sh       <span class="comment"># Owner ko sab allowed, baakiyo ko sirf padhna aur run karna</span>
-<span class="prompt">$</span> chmod +x script.sh        <span class="comment"># Shortcut: Execute permission dena</span>
-<span class="prompt">$</span> chmod -R 755 /var/www     <span class="comment"># Pura folder aur uski files ki permission set karna (-R)</span>
-
-<span class="comment"># chown: Owner badalna (chown user:group filename)</span>
-<span class="prompt">[root@server]#</span> chown mariya:developers index.html
-<span class="prompt">[root@server]#</span> chown -R www-data:www-data /var/www/html  <span class="comment"># Web server ko access dena</span></code></pre>
-                        </div></div>
-                    </div>
-
-                    <!-- Process Management -->
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">3. Process & Resources (Task Manager)</h3>
-                        <div class="code-wrapper mt-0"><div class="code-badge">ps, top, kill</div><div class="code-block py-4">
-<pre><code><span class="comment"># RAM aur CPU kitna use ho raha hai?</span>
-<span class="prompt">$</span> top          <span class="comment"># Live monitor (press 'q' to exit)</span>
-<span class="prompt">$</span> htop         <span class="comment"># Colorful & better (install karna padta hai)</span>
-
-<span class="comment"># Running programs dekhna</span>
-<span class="prompt">$</span> ps aux | grep "node"    <span class="comment"># Sirf node.js ke processes filter karke dikhao</span>
-
-<span class="comment"># Program band (Kill) karna</span>
-<span class="prompt">$</span> kill 1234               <span class="comment"># Normal kill (using Process ID)</span>
-<span class="prompt">$</span> kill -9 1234            <span class="comment"># Force kill (Ziddi program ke liye)</span></code></pre>
-                        </div></div>
-                    </div>
-
-                    <!-- Logs and Grep -->
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-4 text-amber-600 dark:text-amber-500">4. Reading Logs & Searching Text</h3>
-                        <div class="code-wrapper mt-0"><div class="code-badge">tail & grep</div><div class="code-block py-4">
-<pre><code><span class="comment"># Live logs padhna (Jaise hi error aayega screen pe dikhega)</span>
-<span class="prompt">$</span> tail -f /var/log/nginx/error.log
-
-<span class="comment"># File ke andar koi word dhundna (Grep)</span>
-<span class="prompt">$</span> grep "Exception" error.log        <span class="comment"># Sirf wo lines layega jisme 'Exception' hai</span>
-<span class="prompt">$</span> grep -i "failed" mylog.txt        <span class="comment"># -i for case-insensitive search</span></code></pre>
-                        </div></div>
-                    </div>
-
-                    <!-- Dynamic Notes Section (Linux) -->
-                    <div class="mt-10 bg-amber-50 dark:bg-amber-900/10 rounded-2xl shadow-sm border border-amber-200 dark:border-amber-800/50 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-4 text-amber-700 dark:text-amber-400 flex items-center gap-2">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                            My Personal Notes (Linux)
-                        </h3>
-                        <p class="text-sm text-amber-600/80 dark:text-amber-400/80 mb-3">Apne Linux commands aur hints yahan add karein.</p>
-                        
-                        <!-- Input Area -->
-                        <div class="bg-white dark:bg-slate-900 p-2 rounded-xl border border-amber-200 dark:border-amber-700/50 focus-within:ring-2 focus-within:ring-amber-500 mb-6">
-                            <textarea id="note-input-linux" class="w-full h-20 p-2 bg-transparent border-none focus:ring-0 text-slate-700 dark:text-slate-300 resize-y" placeholder="Type a new note..."></textarea>
-                            <div class="flex justify-end p-2 border-t border-slate-100 dark:border-slate-800">
-                                <button onclick="addNote('linux')" class="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white text-sm font-bold rounded-lg transition-colors shadow-sm">Add Note ➕</button>
-                            </div>
-                        </div>
 
                         <!-- Saved Notes List -->
                         <div id="notes-list-linux" class="space-y-4">
@@ -431,35 +364,116 @@
                         <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-white">Git & GitHub Guide</h2>
                     </div>
 
+                    <!-- Why Git? -->
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-4 text-red-500">1. Basic Workflow (Daily Use)</h3>
-                        <p class="text-slate-600 dark:text-slate-300 mb-4">Code local PC se GitHub tak pohchane ki lifecycle.</p>
-                        <div class="code-wrapper mt-0"><div class="code-badge">Git Core</div><div class="code-block py-4">
+                        <h3 class="text-2xl font-bold mb-4 text-red-600 dark:text-red-500">1. Why we use Git? (Core Problem)</h3>
+                        <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
+                            Bina Git ke, developers file ka naam <code>project_final.zip</code>, <code>project_final_v2.zip</code> rakhte the. Ek hi code par multiple log ek sath kaam nahi kar paate the, code overwrite ho jata tha. Git ne isey solve kiya "Version Control" aur "Branching" ke zariye.
+                        </p>
+
+                        <!-- Git Architecture Map -->
+                        <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-4">Git Architecture (The 4 Stages)</h4>
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-2 mb-8 text-center text-sm font-bold">
+                            <!-- Step 1 -->
+                            <div class="p-4 bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl w-full md:w-1/4">
+                                <div class="text-slate-500 mb-1">💻 Laptop</div>
+                                <div class="text-red-600 dark:text-red-400">Working Directory</div>
+                                <div class="text-xs text-slate-500 font-normal mt-2">Jahan aap code likhte ho (Untracked)</div>
+                            </div>
+                            <!-- Arrow -->
+                            <div class="text-slate-400 flex flex-col items-center">
+                                <span class="text-xs font-mono bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 px-2 rounded">git add</span>
+                                <svg class="w-6 h-6 rotate-90 md:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </div>
+                            <!-- Step 2 -->
+                            <div class="p-4 bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl w-full md:w-1/4">
+                                <div class="text-slate-500 mb-1">📦 Index</div>
+                                <div class="text-orange-600 dark:text-orange-400">Staging Area</div>
+                                <div class="text-xs text-slate-500 font-normal mt-2">Kise save karna hai, uska draft banta hai</div>
+                            </div>
+                            <!-- Arrow -->
+                            <div class="text-slate-400 flex flex-col items-center">
+                                <span class="text-xs font-mono bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 px-2 rounded">git commit</span>
+                                <svg class="w-6 h-6 rotate-90 md:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </div>
+                            <!-- Step 3 -->
+                            <div class="p-4 bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl w-full md:w-1/4">
+                                <div class="text-slate-500 mb-1">💾 PC DB</div>
+                                <div class="text-emerald-600 dark:text-emerald-400">Local Repo</div>
+                                <div class="text-xs text-slate-500 font-normal mt-2">Code ka ek version save ho gaya (Local)</div>
+                            </div>
+                            <!-- Arrow -->
+                            <div class="text-slate-400 flex flex-col items-center">
+                                <span class="text-xs font-mono bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 px-2 rounded">git push</span>
+                                <svg class="w-6 h-6 rotate-90 md:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </div>
+                            <!-- Step 4 -->
+                            <div class="p-4 bg-slate-100 dark:bg-slate-900 border border-red-400 dark:border-red-600 rounded-xl shadow-lg shadow-red-500/20 w-full md:w-1/4">
+                                <div class="text-slate-500 mb-1">☁️ GitHub</div>
+                                <div class="text-blue-600 dark:text-blue-400">Remote Repo</div>
+                                <div class="text-xs text-slate-500 font-normal mt-2">Cloud par code upload ho gaya (Team ke liye)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Git Basics & Branching -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-red-600 dark:text-red-500">2. Basic Workflow & Branching</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="code-wrapper mt-0"><div class="code-badge">The Holy Trinity</div><div class="code-block py-4">
 <pre><code><span class="comment"># Naya project start karna</span>
 <span class="prompt">$</span> git init
 
-<span class="comment"># The Holy Trinity (Add, Commit, Push)</span>
-<span class="prompt">$</span> git status              <span class="comment"># Dekho kya change hua hai</span>
-<span class="prompt">$</span> git add .               <span class="comment"># Saare changes staging area me dalo</span>
-<span class="prompt">$</span> git commit -m "Fixed login bug"  <span class="comment"># Changes save karo message ke sath</span>
-<span class="prompt">$</span> git push origin main    <span class="comment"># Code cloud (GitHub) par upload karo</span>
+<span class="comment"># Code save karke GitHub bhejna</span>
+<span class="prompt">$</span> git add .
+<span class="prompt">$</span> git commit -m "feat: login page"
+<span class="prompt">$</span> git push origin main
 
-<span class="comment"># Team ka latest code apne laptop me lana</span>
+<span class="comment"># Team ka code lana</span>
 <span class="prompt">$</span> git pull origin main</code></pre>
-                        </div></div>
+                            </div></div>
+
+                            <div class="code-wrapper mt-0"><div class="code-badge">Branches</div><div class="code-block py-4">
+<pre><code><span class="comment"># Main branch ko safe rakhne ke liye naya branch banana</span>
+<span class="prompt">$</span> git checkout -b "feature-payment"
+
+<span class="comment"># Branch me kaam khatam hone ke baad merge karna</span>
+<span class="prompt">$</span> git checkout main
+<span class="prompt">$</span> git merge feature-payment
+
+<span class="comment"># Branch delete karna</span>
+<span class="prompt">$</span> git branch -d feature-payment</code></pre>
+                            </div></div>
+                        </div>
                     </div>
 
+                    <!-- Git Advanced -->
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-4 text-red-500">2. Branching (Isolation)</h3>
-                        <p class="text-slate-600 dark:text-slate-300 mb-4">Naya feature banate waqt main code ko safe rakhne ke liye branch use karte hain.</p>
-                        <div class="code-wrapper mt-0"><div class="code-badge">Branches</div><div class="code-block py-4">
-<pre><code><span class="prompt">$</span> git branch                      <span class="comment"># Saari branches dekho</span>
-<span class="prompt">$</span> git checkout -b "feature-payment" <span class="comment"># Nayi branch banao aur usme chale jao</span>
+                        <h3 class="text-2xl font-bold mb-6 text-red-600 dark:text-red-500">3. Advanced Git Concepts</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="p-5 border-l-4 border-orange-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl">
+                                <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-2">Stash (Temporary Save)</h4>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm mb-3">Aap ek branch pe kaam kar rahe the, achanak boss ne kaha doosri branch pe urgent bug fix karo. Aapna adha adhura code commit nahi karna chahte. Wahan Stash kaam aata hai.</p>
+                                <div class="code-wrapper mt-0"><div class="code-block py-2"><pre><code><span class="prompt">$</span> git stash          <span class="comment"># Adha code temporary hide/save ho jayega, screen clear!</span>
+<span class="prompt">$</span> git checkout main  <span class="comment"># Ab aaram se switch karo</span>
+<span class="prompt">$</span> git stash pop      <span class="comment"># Wapas aane ke baad apna hide kiya hua code nikal lo</span></code></pre></div></div>
+                            </div>
 
-<span class="comment"># Kaam complete hone ke baad merge karna</span>
-<span class="prompt">$</span> git checkout main               <span class="comment"># Pehle main me aao</span>
-<span class="prompt">$</span> git merge feature-payment       <span class="comment"># Naye feature ko main branch me mila lo</span></code></pre>
-                        </div></div>
+                            <div class="p-5 border-l-4 border-purple-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl">
+                                <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-2">Rebase vs Merge</h4>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm mb-3">Dono code ko combine karte hain, par <strong>Rebase</strong> history ko ekdum seedhi (linear) line me rakhta hai bina extra "merge commit" banaye. Ye log (history) ko clean rakhta hai.</p>
+                                <div class="code-wrapper mt-0"><div class="code-block py-2"><pre><code><span class="prompt">$</span> git pull --rebase origin main  <span class="comment"># Apne commits ko main ke top par laga dega</span></code></pre></div></div>
+                            </div>
+
+                            <div class="p-5 border-l-4 border-emerald-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl">
+                                <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-2">Cherry-Pick</h4>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm mb-3">Puri branch merge nahi karni, sirf uss branch ka ek specific "Commit" chahiye.</p>
+                                <div class="code-wrapper mt-0"><div class="code-block py-2"><pre><code><span class="prompt">$</span> git log --oneline              <span class="comment"># Commit ki ID (hash) dekho, e.g. 5a3b2c1</span>
+<span class="prompt">$</span> git cherry-pick 5a3b2c1        <span class="comment"># Uss ek commit ko apni current branch me apply kar lo</span></code></pre></div></div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Dynamic Notes Section (Git) -->
@@ -468,18 +482,13 @@
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                             My Personal Notes (Git)
                         </h3>
-                        <p class="text-sm text-red-600/80 dark:text-red-400/80 mb-3">Git ke commands ya cheat-sheet yahan add karein.</p>
-                        
                         <div class="bg-white dark:bg-slate-900 p-2 rounded-xl border border-red-200 dark:border-red-700/50 focus-within:ring-2 focus-within:ring-red-500 mb-6">
                             <textarea id="note-input-git" class="w-full h-20 p-2 bg-transparent border-none focus:ring-0 text-slate-700 dark:text-slate-300 resize-y" placeholder="Type a new note..."></textarea>
                             <div class="flex justify-end p-2 border-t border-slate-100 dark:border-slate-800">
                                 <button onclick="addNote('git')" class="px-5 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-bold rounded-lg transition-colors shadow-sm">Add Note ➕</button>
                             </div>
                         </div>
-
-                        <div id="notes-list-git" class="space-y-4">
-                            <!-- JS will inject note cards here -->
-                        </div>
+                        <div id="notes-list-git" class="space-y-4"></div>
                     </div>
                 </div>
 
@@ -492,48 +501,80 @@
                         <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-white">Docker & Containers</h2>
                     </div>
 
+                    <!-- Why Docker? -->
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-6 text-blue-600 dark:text-blue-500">1. Why Docker? (VM vs Container)</h3>
                         <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
-                            Docker aapki app aur uske environment (Node, C#, DB) ko ek dambe (Container) me pack kar deta hai. Uske baad wo app kisi bhi laptop ya server par seamlessly chalegi.
+                            Pehle "It works on my machine" ki problem bohot aati thi kyunki versions alag hote the. Uske baad log Virtual Machines (VM) use karne lage, par VM bohot RAM aur CPU khata tha (kyunki har VM me apna ek Pura OS hota tha). Docker ne isey solve kiya Containerization se, jo OS kernel ko share karta hai aur bohot lightweight hota hai.
                         </p>
-                        
-                        <h3 class="text-2xl font-bold mb-4 text-blue-500">1. Basic Docker Commands</h3>
+
+                        <!-- VM vs Docker Map -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-center text-sm font-bold">
+                            <!-- Virtual Machine -->
+                            <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl flex flex-col gap-2">
+                                <h4 class="text-rose-500 text-lg mb-2">Virtual Machine (Heavy)</h4>
+                                <div class="p-2 bg-indigo-500 text-white rounded">App 1 + Bin/Libs</div>
+                                <div class="p-2 bg-indigo-700 text-white rounded">Guest OS (Ubuntu - 2GB RAM)</div>
+                                <div class="my-1 border-t-2 border-dashed border-slate-300 dark:border-slate-600"></div>
+                                <div class="p-2 bg-slate-400 text-white rounded">Hypervisor (VMWare/VirtualBox)</div>
+                                <div class="p-2 bg-slate-600 text-white rounded">Host OS (Windows/Linux)</div>
+                                <div class="p-2 bg-slate-800 text-white rounded">Hardware (CPU/RAM)</div>
+                            </div>
+
+                            <!-- Docker -->
+                            <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-blue-400 dark:border-blue-600 rounded-xl shadow-lg shadow-blue-500/20 flex flex-col gap-2">
+                                <h4 class="text-blue-500 text-lg mb-2">Docker Container (Lightweight)</h4>
+                                <div class="flex gap-2">
+                                    <div class="flex-1 p-2 bg-blue-500 text-white rounded">App 1</div>
+                                    <div class="flex-1 p-2 bg-blue-500 text-white rounded">App 2</div>
+                                </div>
+                                <div class="p-2 bg-sky-500 text-white rounded shadow-inner">Docker Engine (OS Shared)</div>
+                                <div class="my-1 border-t-2 border-dashed border-slate-300 dark:border-slate-600"></div>
+                                <div class="p-2 bg-slate-600 text-white rounded">Host OS (Windows/Linux)</div>
+                                <div class="p-2 bg-slate-800 text-white rounded">Hardware (CPU/RAM)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-500">2. Basic Lifecycle & Commands</h3>
                         <div class="code-wrapper mt-0"><div class="code-badge">Docker CLI</div><div class="code-block py-4">
-<pre><code><span class="comment"># 1. Image Download karna (e.g. Nginx web server)</span>
+<pre><code><span class="comment"># 1. Blueprint download karo (Image)</span>
 <span class="prompt">$</span> docker pull nginx
 
-<span class="comment"># 2. Image ko Run karke Container banana (-d = background, -p = port mapping)</span>
+<span class="comment"># 2. Image ko zinda karo (Container banana)</span>
+<span class="comment"># -d = detach (background me chalana), -p = Port forwarding (HostPort:ContainerPort)</span>
 <span class="prompt">$</span> docker run -d -p 8080:80 --name my_website nginx
 
-<span class="comment"># 3. Chalte hue containers dekhna</span>
-<span class="prompt">$</span> docker ps
+<span class="comment"># 3. Check karo kya chal raha hai</span>
+<span class="prompt">$</span> docker ps                 <span class="comment"># Running containers</span>
+<span class="prompt">$</span> docker images             <span class="comment"># Downloaded images ki list</span>
 
-<span class="comment"># 4. Container ko band aur delete karna</span>
+<span class="comment"># 4. Safai (Cleanup)</span>
 <span class="prompt">$</span> docker stop my_website
-<span class="prompt">$</span> docker rm my_website</code></pre>
+<span class="prompt">$</span> docker rm my_website      <span class="comment"># Container delete</span>
+<span class="prompt">$</span> docker system prune -a    <span class="comment"># Faltu ki saari images aur stopped containers uda do</span></code></pre>
                         </div></div>
                     </div>
 
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-4 text-blue-500">2. Dockerfile (Custom Image Banana)</h3>
-                        <p class="text-slate-600 dark:text-slate-300 mb-4">Apne khud ke code ki image banane ke liye hum project me ek `Dockerfile` rakhte hain.</p>
-                        <div class="code-wrapper mt-0"><div class="code-badge">Dockerfile</div><div class="code-block py-4">
-<pre><code><span class="comment"># Base image set karo</span>
-FROM node:18-alpine
+                        <h3 class="text-2xl font-bold mb-6 text-blue-600 dark:text-blue-500">3. Advanced Concepts (Volumes & Compose)</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="p-5 border-l-4 border-amber-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl">
+                                <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-2">Docker Volumes (Data Persistence)</h4>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm mb-3">Container band ya delete hone par uske andar ka data (jaise Database records) udd jata hai. Data ko safe rakhne ke liye hum container ke folder ko apne laptop/server ke folder se map kar dete hain, jise Volume kehte hain.</p>
+                                <div class="code-wrapper mt-0"><div class="code-block py-2"><pre><code><span class="comment"># -v lagakar Host ka folder container ke folder se map kiya</span>
+<span class="prompt">$</span> docker run -d -p 3306:3306 -v /my/local/db_data:/var/lib/mysql mysql:latest</code></pre></div></div>
+                            </div>
 
-<span class="comment"># Container ke andar ek folder banao aur wahan jao</span>
-WORKDIR /app
-
-<span class="comment"># Dependencies ki file copy karke install karo</span>
-COPY package.json ./
-RUN npm install
-
-<span class="comment"># Apne saare code ko copy karo</span>
-COPY . .
-
-<span class="comment"># Container run hone par ye command chalegi</span>
-CMD ["node", "app.js"]</code></pre>
-                        </div></div>
+                            <div class="p-5 border-l-4 border-emerald-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl">
+                                <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-2">Docker Compose (Multi-Container)</h4>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm mb-3">Jab ek sath API, Frontend aur DB start karne hon, tab `docker-compose.yml` ka use hota hai. Ek command se pura project start.</p>
+                                <div class="code-wrapper mt-0"><div class="code-block py-2"><pre><code><span class="prompt">$</span> docker-compose up -d     <span class="comment"># Sab kuch start karna</span>
+<span class="prompt">$</span> docker-compose down      <span class="comment"># Sab kuch delete/stop karna</span></code></pre></div></div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Dynamic Notes Section (Docker) -->
@@ -542,15 +583,12 @@ CMD ["node", "app.js"]</code></pre>
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                             My Personal Notes (Docker)
                         </h3>
-                        <p class="text-sm text-blue-600/80 dark:text-blue-400/80 mb-3">Docker aur Containers se judi extra information yahan add karein.</p>
-                        
                         <div class="bg-white dark:bg-slate-900 p-2 rounded-xl border border-blue-200 dark:border-blue-700/50 focus-within:ring-2 focus-within:ring-blue-500 mb-6">
                             <textarea id="note-input-docker" class="w-full h-20 p-2 bg-transparent border-none focus:ring-0 text-slate-700 dark:text-slate-300 resize-y" placeholder="Type a new note..."></textarea>
                             <div class="flex justify-end p-2 border-t border-slate-100 dark:border-slate-800">
                                 <button onclick="addNote('docker')" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-lg transition-colors shadow-sm">Add Note ➕</button>
                             </div>
                         </div>
-
                         <div id="notes-list-docker" class="space-y-4"></div>
                     </div>
                 </div>
@@ -564,37 +602,82 @@ CMD ["node", "app.js"]</code></pre>
                         <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-white">CI/CD Pipelines</h2>
                     </div>
 
+                    <!-- Why CI/CD? -->
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-emerald-600 dark:text-emerald-500">1. Why CI/CD? (Automation Flow)</h3>
                         <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
-                            CI/CD ka matlab hai <strong>Continuous Integration & Continuous Deployment</strong>. Jab bhi developer GitHub par naya code push kare, to ek automated script chalegi jo code ko Test karegi, Build karegi, aur directly Production Server par Deploy kar degi.
+                            Pehle developer code likhta tha, usko .zip banata tha, FileZilla se server pe upload karta tha, aur manually command chalata tha. Ye bohot risky aur slow tha (Downtime aata tha).
+                            <br><br>
+                            CI/CD (Continuous Integration & Continuous Deployment) ek automated pipe hai. Developer GitHub pe push karta hai -> Server apne aap test run karta hai -> Code ko Build karta hai -> Aur automatically server par bina downtime ke deploy kar deta hai.
                         </p>
-                        
-                        <h3 class="text-2xl font-bold mb-4 text-emerald-500">GitHub Actions (Basic Workflow)</h3>
-                        <p class="text-slate-600 dark:text-slate-300 mb-4">Project me `.github/workflows/main.yml` file banti hai.</p>
-                        <div class="code-wrapper mt-0"><div class="code-badge">main.yml</div><div class="code-block py-4">
-<pre><code>name: Node.js CI/CD Pipeline
+
+                        <!-- CI/CD Infinity Loop Map -->
+                        <div class="flex flex-wrap justify-center gap-2 mb-8 text-center text-sm font-bold items-center">
+                            <div class="p-3 bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-400 rounded-xl border border-sky-300 dark:border-sky-700">1. Plan & Code</div>
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            <div class="p-3 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-xl border border-emerald-300 dark:border-emerald-700">2. Build (CI)</div>
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            <div class="p-3 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-xl border border-emerald-300 dark:border-emerald-700">3. Test (CI)</div>
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            <div class="p-3 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded-xl border border-purple-300 dark:border-purple-700">4. Release & Deploy (CD)</div>
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            <div class="p-3 bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400 rounded-xl border border-rose-300 dark:border-rose-700">5. Operate & Monitor</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-6 text-emerald-600 dark:text-emerald-500">2. GitHub Actions (Real-World Workflow)</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Ye file <code>.github/workflows/deploy.yml</code> mein rakhi jati hai. Jab bhi 'main' branch me code aaye, ye script chal jayegi.</p>
+                        <div class="code-wrapper mt-0"><div class="code-badge">deploy.yml</div><div class="code-block py-4">
+<pre><code>name: Production Deployment Pipeline
 
 on:
   push:
-    branches: [ "main" ] <span class="comment"># Jab main branch pe code aaye, tabhi run hoga</span>
+    branches: [ "main" ] <span class="comment"># Trigger point</span>
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Code
+    - name: 1. Checkout Code
       uses: actions/checkout@v3
 
-    - name: Setup Node.js
+    - name: 2. Setup Node.js (Environment)
       uses: actions/setup-node@v3
       with:
         node-version: 18
 
-    - name: Install Packages & Test
+    - name: 3. Install Packages & Run Tests (CI Phase)
       run: |
         npm install
-        npm test</code></pre>
+        npm test
+
+    - name: 4. Deploy to Server (CD Phase via SSH)
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_IP }}         <span class="comment"># Secure way: GitHub secrets use karna</span>
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd /var/www/myapp
+          git pull origin main
+          npm install
+          pm2 restart all</code></pre>
                         </div></div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-emerald-600 dark:text-emerald-500">3. Advanced Deployment Strategies</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                            <div class="p-5 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+                                <h4 class="font-bold text-lg text-slate-800 dark:text-white mb-2 text-blue-500">Blue-Green Deployment</h4>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm">Aapke paas do identical environments hote hain (Blue aur Green). Agar Blue live hai, to naya code Green me jayega. Test hone ke baad Load Balancer ka traffic instantly Blue se Green pe switch kar dete hain. Zero downtime, aur easily revert (rollback) kar sakte hain.</p>
+                            </div>
+                            <div class="p-5 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+                                <h4 class="font-bold text-lg text-slate-800 dark:text-white mb-2 text-yellow-500">Canary Deployment</h4>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm">Naya code sirf 5% real users ko dikhaya jata hai (Load balancer ke zariye). Agar koi bug nahi aata aur system stable rehta hai, to dheere-dheere 20%, 50% aur 100% users ko naya code de diya jata hai.</p>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Dynamic Notes Section (CI/CD) -->
@@ -603,20 +686,178 @@ jobs:
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                             My Personal Notes (CI/CD)
                         </h3>
-                        <p class="text-sm text-emerald-600/80 dark:text-emerald-400/80 mb-3">Pipelines aur automation scripts ki details yahan likhein.</p>
-                        
                         <div class="bg-white dark:bg-slate-900 p-2 rounded-xl border border-emerald-200 dark:border-emerald-700/50 focus-within:ring-2 focus-within:ring-emerald-500 mb-6">
                             <textarea id="note-input-cicd" class="w-full h-20 p-2 bg-transparent border-none focus:ring-0 text-slate-700 dark:text-slate-300 resize-y" placeholder="Type a new note..."></textarea>
                             <div class="flex justify-end p-2 border-t border-slate-100 dark:border-slate-800">
                                 <button onclick="addNote('cicd')" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold rounded-lg transition-colors shadow-sm">Add Note ➕</button>
                             </div>
                         </div>
-
                         <div id="notes-list-cicd" class="space-y-4"></div>
                     </div>
                 </div>
 
-                <!-- TAB 5: INTERVIEW Q&A -->
+                <!-- TAB 5: NETWORKING (NEW & EXPANDED) -->
+                <div id="tab-networking" class="tab-section fade-in hidden">
+                    <div class="flex items-center gap-3 mb-8 pb-6 border-b border-slate-200 dark:border-slate-800">
+                        <div class="p-3 bg-cyan-100 dark:bg-cyan-900/30 rounded-xl text-cyan-600 dark:text-cyan-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-white">Networking Deep Dive</h2>
+                    </div>
+
+                    <!-- Visual Mind Map -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-6 text-cyan-600 dark:text-cyan-500">1. Network Architecture (Mind Map)</h3>
+                        <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
+                            DevOps engineers ko network ke har layer ka pata hona chahiye. Niche diya gaya tree structure basic se cloud network tak ka flow dikhata hai.
+                        </p>
+                        
+                        <!-- CSS Tree / Mind Map -->
+                        <div class="flex flex-col md:flex-row gap-6 md:gap-0 font-sans text-sm">
+                            
+                            <!-- Root Node -->
+                            <div class="flex items-center z-10 w-full md:w-auto">
+                                <div class="px-6 py-3 bg-cyan-600 text-white font-bold rounded-xl shadow-lg border-2 border-cyan-800">Networking Core</div>
+                            </div>
+                            
+                            <!-- Connecting Line (Desktop) -->
+                            <div class="hidden md:block w-12 h-0.5 bg-cyan-400 dark:bg-cyan-700 self-center"></div>
+
+                            <!-- Branches -->
+                            <div class="flex flex-col gap-4 border-l-2 md:border-l-4 border-cyan-400 dark:border-cyan-700 pl-6 md:pl-0 ml-4 md:ml-0 py-4">
+                                
+                                <!-- Branch 1 -->
+                                <div class="flex items-center mindmap-line w-full">
+                                    <div class="hidden md:block w-8 h-0.5 bg-cyan-400 dark:bg-cyan-700"></div>
+                                    <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm w-full max-w-sm">
+                                        <h4 class="font-bold text-sky-600 dark:text-sky-400 mb-1">Fundamentals</h4>
+                                        <div class="text-slate-500 dark:text-slate-400 text-xs">IP Addresses (IPv4/IPv6), MAC Addresses, Subnetting, OSI Model</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Branch 2 -->
+                                <div class="flex items-center mindmap-line w-full">
+                                    <div class="hidden md:block w-8 h-0.5 bg-cyan-400 dark:bg-cyan-700"></div>
+                                    <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm w-full max-w-sm">
+                                        <h4 class="font-bold text-indigo-600 dark:text-indigo-400 mb-1">Protocols</h4>
+                                        <div class="text-slate-500 dark:text-slate-400 text-xs">TCP (Reliable), UDP (Fast), HTTP/HTTPS (Web), DNS (Resolution), SSH</div>
+                                    </div>
+                                </div>
+
+                                <!-- Branch 3 -->
+                                <div class="flex items-center mindmap-line w-full">
+                                    <div class="hidden md:block w-8 h-0.5 bg-cyan-400 dark:bg-cyan-700"></div>
+                                    <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm w-full max-w-sm">
+                                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 mb-1">Cloud / Advanced</h4>
+                                        <div class="text-slate-500 dark:text-slate-400 text-xs">VPC, Load Balancers, Reverse Proxy (Nginx), Firewalls (Security Groups)</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IP & CIDR -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-cyan-600 dark:text-cyan-500">2. IP Addressing & CIDR (Subnetting)</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-6">Cloud mein VPC (Virtual Private Cloud) banate waqt CIDR block samajhna bohot zaroori hai.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div class="p-5 border-l-4 border-blue-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl">
+                                <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-2">Public vs Private IP</h4>
+                                <ul class="point-list text-slate-600 dark:text-slate-400 text-sm">
+                                    <li><strong>Public IP:</strong> Internet par unique hoti hai. Aapke ghar ke router ya AWS EC2 ki ek public IP hoti hai.</li>
+                                    <li><strong>Private IP:</strong> Local network (LAN/VPC) ke andar hoti hai (Jaise <code>192.168.x.x</code> ya <code>10.0.x.x</code>). Ye internet par direct access nahi hoti, secure rehti hai.</li>
+                                </ul>
+                            </div>
+                            <div class="p-5 border-l-4 border-purple-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl">
+                                <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-2">CIDR Block (e.g. /24)</h4>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm mb-2">CIDR batata hai ki ek network mein kitne IPs available hain.</p>
+                                <ul class="point-list text-slate-600 dark:text-slate-400 text-sm">
+                                    <li><code>/32</code> : Sirf <strong>1</strong> IP (Exact 1 machine ke liye rule).</li>
+                                    <li><code>/24</code> : <strong>256</strong> IPs milti hain (Chota network).</li>
+                                    <li><code>/16</code> : <strong>65,536</strong> IPs milti hain (Bada AWS VPC).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Proxies & Load Balancing -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-cyan-600 dark:text-cyan-500">3. Proxies & Load Balancing</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="p-6 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800/50">
+                                <h4 class="font-bold text-xl text-indigo-600 dark:text-indigo-400 mb-3">Forward Proxy vs Reverse Proxy</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-600 dark:text-slate-300">
+                                    <div>
+                                        <strong class="text-slate-800 dark:text-slate-200">Forward Proxy (VPN jaisa):</strong> Client ke aage lagta hai. Client apni request proxy ko deta hai, aur proxy internet pe jata hai. Internet ko Client ki IP nahi dikhti (User identity hide karta hai).
+                                    </div>
+                                    <div>
+                                        <strong class="text-slate-800 dark:text-slate-200">Reverse Proxy (Nginx/HAProxy):</strong> Server ke aage lagta hai. Internet se aayi hui request pehle Reverse Proxy par aati hai, fir wo internally asal Backend (Node.js/C#) ko bhejta hai. (Server ki IP hide karta hai aur Security badhata hai).
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-6 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800/50">
+                                <h4 class="font-bold text-xl text-emerald-600 dark:text-emerald-400 mb-3">Load Balancer (LB)</h4>
+                                <p class="text-slate-600 dark:text-slate-300 text-sm mb-3">Jab bohot zyada traffic ho, toh ek server hang ho sakta hai. Isliye 4-5 servers banaye jate hain aur unke aage ek LB lagaya jata hai jo traffic ko sabme barabar (Round Robin) baant deta hai.</p>
+                                <ul class="point-list text-slate-600 dark:text-slate-400 text-sm">
+                                    <li><strong>Layer 4 (Transport):</strong> Ye sirf IP aur Port (TCP/UDP) dekh kar traffic redirect karta hai. (Bohot fast hota hai).</li>
+                                    <li><strong>Layer 7 (Application):</strong> Ye HTTP Headers, URL path (`/api` ya `/images`) padh kar smart routing karta hai. (Thoda slow par smart).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Network Commands -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-cyan-600 dark:text-cyan-500">4. Essential Networking Commands</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Troubleshooting ke waqt ye commands lifesaver hoti hain.</p>
+                        <div class="code-wrapper mt-0"><div class="code-badge">Network CLI</div><div class="code-block py-4">
+<pre><code><span class="comment"># 1. Connectivity Check Karna (Internet chal raha hai ya server zinda hai?)</span>
+<span class="prompt">$</span> ping google.com
+
+<span class="comment"># 2. Path tracing (Mera data server tak kin routers se hoke ja raha hai?)</span>
+<span class="prompt">$</span> traceroute google.com   <span class="comment"># Linux me check karne ke liye</span>
+
+<span class="comment"># 3. DNS Lookup (Domain ke peeche IP kya hai?)</span>
+<span class="prompt">$</span> nslookup mywebsite.com
+<span class="prompt">$</span> dig mywebsite.com       <span class="comment"># Detailed DNS records (A, MX, TXT) dekhne ke liye</span>
+
+<span class="comment"># 4. Ports Checking (Kaunsa app konsa port use kar raha hai?)</span>
+<span class="prompt">$</span> netstat -tulpn | grep LISTEN
+<span class="prompt">$</span> ss -tuln                <span class="comment"># Modern fast alternative to netstat</span>
+
+<span class="comment"># 5. Telnet/NC (Check karna ki kisi server ka port open hai ya firewall block kar rahi hai)</span>
+<span class="prompt">$</span> telnet 192.168.1.5 3306
+<span class="prompt">$</span> nc -zv 192.168.1.5 3306
+
+<span class="comment"># 6. HTTP Requests (Terminal se API test karna)</span>
+<span class="prompt">$</span> curl -I https://api.myapp.com/users   <span class="comment"># -I sirf headers aur Status code lata hai</span></code></pre>
+                        </div></div>
+                    </div>
+
+                    <!-- Dynamic Notes Section (Networking) -->
+                    <div class="mt-10 bg-cyan-50 dark:bg-cyan-900/10 rounded-2xl shadow-sm border border-cyan-200 dark:border-cyan-800/50 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-cyan-700 dark:text-cyan-400 flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            My Personal Notes (Networking)
+                        </h3>
+                        <p class="text-sm text-cyan-600/80 dark:text-cyan-400/80 mb-3">IPs, custom ports aur commands yahan save karein.</p>
+                        
+                        <div class="bg-white dark:bg-slate-900 p-2 rounded-xl border border-cyan-200 dark:border-cyan-700/50 focus-within:ring-2 focus-within:ring-cyan-500 mb-6">
+                            <textarea id="note-input-networking" class="w-full h-20 p-2 bg-transparent border-none focus:ring-0 text-slate-700 dark:text-slate-300 resize-y" placeholder="Type a new networking note..."></textarea>
+                            <div class="flex justify-end p-2 border-t border-slate-100 dark:border-slate-800">
+                                <button onclick="addNote('networking')" class="px-5 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-bold rounded-lg transition-colors shadow-sm">Add Note ➕</button>
+                            </div>
+                        </div>
+
+                        <div id="notes-list-networking" class="space-y-4"></div>
+                    </div>
+                </div>
+
+                <!-- TAB 6: INTERVIEW Q&A -->
                 <div id="tab-interview" class="tab-section fade-in hidden">
                     <div class="flex items-center gap-3 mb-8 pb-6 border-b border-slate-200 dark:border-slate-800">
                         <div class="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-xl text-orange-600 dark:text-orange-400">
@@ -653,7 +894,6 @@ jobs:
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                             My Extra Interview Questions
                         </h3>
-                        <p class="text-sm text-orange-600/80 dark:text-orange-400/80 mb-3">Jo naye questions aapne sune hain, wo yahan save kijiye.</p>
                         
                         <div class="bg-white dark:bg-slate-900 p-2 rounded-xl border border-orange-200 dark:border-orange-700/50 focus-within:ring-2 focus-within:ring-orange-500 mb-6">
                             <textarea id="note-input-interview" class="w-full h-20 p-2 bg-transparent border-none focus:ring-0 text-slate-700 dark:text-slate-300 resize-y" placeholder="Type a new question/answer..."></textarea>
@@ -666,7 +906,7 @@ jobs:
                     </div>
                 </div>
 
-                <!-- TAB 6: AI ASSISTANT -->
+                <!-- TAB 7: AI ASSISTANT -->
                 <div id="tab-ai" class="tab-section fade-in hidden">
                     <div class="flex items-center gap-3 mb-8 pb-6 border-b border-slate-200 dark:border-slate-800">
                         <div class="p-3 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl text-indigo-600 dark:text-indigo-400">
@@ -677,7 +917,7 @@ jobs:
 
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
                         
-                        <!-- NEW: API Key Input Box (For Local Usage) -->
+                        <!-- API Key Input Box (For Local Usage) -->
                         <div class="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-xl border border-amber-200 dark:border-amber-700/50 mb-8 flex flex-col md:flex-row items-center gap-4">
                             <div class="flex-1">
                                 <h4 class="font-bold text-amber-800 dark:text-amber-400">🔑 API Key (Local PC ke liye)</h4>
@@ -731,7 +971,7 @@ jobs:
         </main>
     </div>
 
-    <!-- Script for Tab Switching, Sidebar Menu, and Dynamic Notes -->
+    <!-- Script for Tab Switching, Sidebar Menu, Dynamic Notes and AI -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -821,6 +1061,7 @@ jobs:
                     // Update Sidebar Button styling
                     document.querySelectorAll('.tab-btn').forEach(b => {
                         b.classList.remove('active');
+                        // Remove specific active background classes depending on standard vs indigo/orange button
                         if(!b.classList.contains('text-indigo-700') && !b.classList.contains('text-orange-700')) {
                             b.classList.remove('bg-amber-100', 'dark:bg-amber-900/30');
                         }
@@ -855,7 +1096,7 @@ jobs:
             });
 
             // --- DYNAMIC PERSONAL NOTES LOGIC (Array based) ---
-            const tabsWithNotes = ['linux', 'git', 'docker', 'cicd', 'interview'];
+            const tabsWithNotes = ['linux', 'git', 'docker', 'cicd', 'networking', 'interview'];
             tabsWithNotes.forEach(tab => renderNotes(tab));
         });
 
