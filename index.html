@@ -281,10 +281,10 @@
                 <div class="my-4 border-t border-slate-200 dark:border-slate-800/60"></div>
                 <p class="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Advanced Roadmap 🚀</p>
 
-                <!-- Locked Tabs -->
-                <button class="tab-btn locked w-full flex items-center gap-3 px-4 py-2.5 text-slate-500 dark:text-slate-400 rounded-xl text-left" data-target="tab-locked" data-title="Docker Compose">
+                <!-- Locked Tabs (Updated) -->
+                <button class="tab-btn locked w-full flex items-center gap-3 px-4 py-2.5 text-slate-500 dark:text-slate-400 rounded-xl text-left" data-target="tab-locked" data-title="Scripting (Bash & Python)">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                    <span class="font-medium">6. Docker Compose</span>
+                    <span class="font-medium">6. Bash/Python Scripting</span>
                 </button>
 
                 <button class="tab-btn locked w-full flex items-center gap-3 px-4 py-2.5 text-slate-500 dark:text-slate-400 rounded-xl text-left" data-target="tab-locked" data-title="Kubernetes (K8s)">
@@ -302,9 +302,14 @@
                     <span class="font-medium">9. AWS Cloud</span>
                 </button>
 
-                <button class="tab-btn locked w-full flex items-center gap-3 px-4 py-2.5 text-slate-500 dark:text-slate-400 rounded-xl text-left" data-target="tab-locked" data-title="Prometheus & DevSecOps">
+                <button class="tab-btn locked w-full flex items-center gap-3 px-4 py-2.5 text-slate-500 dark:text-slate-400 rounded-xl text-left" data-target="tab-locked" data-title="Monitoring (Prometheus & Grafana)">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                    <span class="font-medium">10. DevSecOps & ArgoCD</span>
+                    <span class="font-medium">10. Monitoring & Logs</span>
+                </button>
+                
+                <button class="tab-btn locked w-full flex items-center gap-3 px-4 py-2.5 text-slate-500 dark:text-slate-400 rounded-xl text-left" data-target="tab-locked" data-title="Databases & DevSecOps">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    <span class="font-medium">11. DBs & DevSecOps</span>
                 </button>
 
                 <div class="my-4 border-t border-slate-200 dark:border-slate-800/60"></div>
@@ -364,8 +369,8 @@
                             <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 mb-4">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
                             </div>
-                            <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2 group-hover:text-blue-500 transition-colors">3. Docker & Containers</h3>
-                            <p class="text-slate-500 dark:text-slate-400 text-sm">Images, Containers, Dockerfile, aur Docker Compose guide.</p>
+                            <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2 group-hover:text-blue-500 transition-colors">3. Docker A-to-Z</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm">Architecture, Images, Containers, Dockerfile, Volumes aur Networking.</p>
                         </div>
                         <div onclick="document.querySelector('[data-target=\'tab-cicd\']').click()" class="cursor-pointer group p-6 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl hover:border-emerald-400 transition-all">
                             <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/40 rounded-xl flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-4">
@@ -381,22 +386,6 @@
                             <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2 group-hover:text-cyan-500 transition-colors">5. Networking</h3>
                             <p class="text-slate-500 dark:text-slate-400 text-sm">OSI Model, TCP/UDP, DNS, IP Addressing, and Load Balancing.</p>
                         </div>
-                    </div>
-                </div>
-
-                <!-- TAB: LOCKED STATE -->
-                <div id="tab-locked" class="tab-section fade-in hidden h-full flex flex-col items-center justify-center min-h-[60vh] py-10">
-                    <div class="text-center bg-white/50 dark:bg-slate-800/50 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl max-w-lg mx-auto w-full">
-                        <div class="w-20 h-20 md:w-24 md:h-24 bg-slate-100 dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner border border-slate-200 dark:border-slate-700">
-                            <svg class="w-10 h-10 md:w-12 md:h-12 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        </div>
-                        <h2 id="locked-title" class="text-2xl md:text-3xl font-extrabold text-slate-800 dark:text-white mb-4">Topic Locked 🔒</h2>
-                        <p class="text-base text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
-                            Aapne abhi tak roadmap mein yeh module start nahi kiya hai. Pehle basic tools master karein, aur phir jab ise seekhna shuru karein, toh ise unlock karke apne saare notes yahan daalein!
-                        </p>
-                        <button onclick="document.querySelector('[data-target=\'tab-dashboard\']').click()" class="px-6 py-3 bg-slate-800 hover:bg-slate-900 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold rounded-xl transition-all shadow-md w-full sm:w-auto">
-                            Go Back to Dashboard
-                        </button>
                     </div>
                 </div>
 
@@ -423,6 +412,7 @@
 
 <span class="comment"># Folder change karna</span>
 <span class="prompt">$</span> cd /etc/nginx    <span class="comment"># Specific folder me jana</span>
+<span class="prompt">$</span> cd ..            <span class="comment"># Ek step piche jana</span>
 <span class="prompt">$</span> cd ~             <span class="comment"># Home directory me wapas aana</span>
 
 <span class="comment"># File copy, move (cut) aur rename karna</span>
@@ -683,102 +673,158 @@
                     </div>
                 </div>
 
-                <!-- TAB 3: DOCKER -->
+                <!-- TAB 3: DOCKER (REVAMPED A to Z) -->
                 <div id="tab-docker" class="tab-section fade-in hidden">
                     <div class="flex items-center gap-3 mb-8 pb-6 border-b border-slate-200 dark:border-slate-800">
                         <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-blue-600 dark:text-blue-400">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
                         </div>
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-white">Docker & Containers</h2>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-white">Docker: A to Z Guide</h2>
                     </div>
 
-                    <!-- Why Docker? -->
+                    <!-- 1. Docker Architecture -->
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-6 text-blue-600 dark:text-blue-500">1. Why Docker? (VM vs Container)</h3>
+                        <h3 class="text-2xl font-bold mb-6 text-blue-600 dark:text-blue-500">1. Docker Architecture & Core Concepts</h3>
                         <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
-                            Pehle "It works on my machine" ki problem bohot aati thi kyunki versions alag hote the. Uske baad log Virtual Machines (VM) use karne lage, par VM bohot RAM aur CPU khata tha (kyunki har VM me apna ek Pura OS hota tha). Docker ne isey solve kiya Containerization se, jo OS kernel ko share karta hai aur bohot lightweight hota hai.
+                            Docker ek client-server architecture use karta hai. Isme 3 main components hote hain: Client, Host (Daemon), aur Registry.
                         </p>
 
-                        <!-- VM vs Docker Map -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-center text-sm font-bold">
-                            <!-- Virtual Machine -->
-                            <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl flex flex-col gap-2">
-                                <h4 class="text-rose-500 text-lg mb-2">Virtual Machine (Heavy)</h4>
-                                <div class="p-2 bg-indigo-500 text-white rounded">App 1 + Bin/Libs</div>
-                                <div class="p-2 bg-indigo-700 text-white rounded">Guest OS (Ubuntu - 2GB RAM)</div>
-                                <div class="my-1 border-t-2 border-dashed border-slate-300 dark:border-slate-600"></div>
-                                <div class="p-2 bg-slate-400 text-white rounded">Hypervisor (VMWare/VirtualBox)</div>
-                                <div class="p-2 bg-slate-600 text-white rounded">Host OS (Windows/Linux)</div>
-                                <div class="p-2 bg-slate-800 text-white rounded">Hardware (CPU/RAM)</div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-sm">
+                            <div class="p-5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl">
+                                <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">💻 Docker Client</h4>
+                                <p class="text-slate-600 dark:text-slate-400">CLI jahan hum commands chalate hain (e.g. <code>docker run</code>). Ye REST API ke through Docker Daemon se baat karta hai.</p>
                             </div>
-
-                            <!-- Docker -->
-                            <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-blue-400 dark:border-blue-600 rounded-xl shadow-lg shadow-blue-500/20 flex flex-col gap-2">
-                                <h4 class="text-blue-500 text-lg mb-2">Docker Container (Lightweight)</h4>
-                                <div class="flex gap-2">
-                                    <div class="flex-1 p-2 bg-blue-500 text-white rounded">App 1</div>
-                                    <div class="flex-1 p-2 bg-blue-500 text-white rounded">App 2</div>
-                                </div>
-                                <div class="p-2 bg-sky-500 text-white rounded shadow-inner">Docker Engine (OS Shared)</div>
-                                <div class="my-1 border-t-2 border-dashed border-slate-300 dark:border-slate-600"></div>
-                                <div class="p-2 bg-slate-600 text-white rounded">Host OS (Windows/Linux)</div>
-                                <div class="p-2 bg-slate-800 text-white rounded">Hardware (CPU/RAM)</div>
+                            <div class="p-5 bg-slate-50 dark:bg-slate-900 border border-blue-400 dark:border-blue-600 rounded-xl shadow-md">
+                                <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">⚙️ Docker Host (Daemon)</h4>
+                                <p class="text-slate-600 dark:text-slate-400">Asli engine jo background me chalta hai (<code>dockerd</code>). Ye images banata hai, containers chalata hai, aur networking manage karta hai.</p>
+                            </div>
+                            <div class="p-5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl">
+                                <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">☁️ Registry (Docker Hub)</h4>
+                                <p class="text-slate-600 dark:text-slate-400">Jahan Images store hoti hain. GitHub for Docker. Hum yahan se image <code>pull</code> ya <code>push</code> karte hain.</p>
                             </div>
                         </div>
                     </div>
 
+                    <!-- 2. Image vs Container -->
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-500">2. Basic Lifecycle & Commands</h3>
+                        <h3 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-500">2. Image vs Container (Difference)</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-4 border-l-4 border-purple-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl">
+                                <h4 class="font-bold text-lg text-slate-800 dark:text-white mb-2">📦 Docker Image</h4>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm">Read-only template. Blueprint jisme aapka OS, code, aur libraries pack hote hain. (Jaise Object Oriented Programming mein <strong>Class</strong>).</p>
+                            </div>
+                            <div class="p-4 border-l-4 border-emerald-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl">
+                                <h4 class="font-bold text-lg text-slate-800 dark:text-white mb-2">🏃‍♂️ Docker Container</h4>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm">Image ka running instance. Ye wo jagah hai jahan application actual mein execute hoti hai. (Jaise Class ka <strong>Object</strong>).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Essential Commands Cheat Sheet -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-500">3. Essential Commands (Cheat Sheet)</h3>
                         <div class="code-wrapper mt-0"><div class="code-badge">Docker CLI</div><div class="code-block py-4">
-<pre><code><span class="comment"># 1. Blueprint download karo (Image)</span>
-<span class="prompt">$</span> docker pull nginx
+<pre><code><span class="comment"># --- IMAGES ---</span>
+<span class="prompt">$</span> docker pull nginx               <span class="comment"># Image download karna</span>
+<span class="prompt">$</span> docker images                   <span class="comment"># Downloaded images ki list</span>
+<span class="prompt">$</span> docker rmi nginx                <span class="comment"># Image delete karna</span>
 
-<span class="comment"># 2. Image ko zinda karo (Container banana)</span>
-<span class="comment"># -d = detach (background me chalana), -p = Port forwarding (HostPort:ContainerPort)</span>
-<span class="prompt">$</span> docker run -d -p 8080:80 --name my_website nginx
+<span class="comment"># --- CONTAINERS ---</span>
+<span class="comment"># Run karna (-d: background me, -p: port mapping, --name: custom naam)</span>
+<span class="prompt">$</span> docker run -d -p 8080:80 --name my_app nginx
 
-<span class="comment"># 3. Check karo kya chal raha hai</span>
-<span class="prompt">$</span> docker ps                 <span class="comment"># Running containers</span>
-<span class="prompt">$</span> docker images             <span class="comment"># Downloaded images ki list</span>
+<span class="prompt">$</span> docker ps                       <span class="comment"># Sirf chalte hue containers dekhna</span>
+<span class="prompt">$</span> docker ps -a                    <span class="comment"># Saare containers (band wale bhi) dekhna</span>
 
-<span class="comment"># 4. Safai (Cleanup)</span>
-<span class="prompt">$</span> docker stop my_website
-<span class="prompt">$</span> docker rm my_website      <span class="comment"># Container delete</span>
-<span class="prompt">$</span> docker system prune -a    <span class="comment"># Faltu ki saari images aur stopped containers uda do</span></code></pre>
+<span class="prompt">$</span> docker stop my_app              <span class="comment"># Container band karna</span>
+<span class="prompt">$</span> docker start my_app             <span class="comment"># Wapas chalana</span>
+<span class="prompt">$</span> docker rm my_app                <span class="comment"># Container delete karna (Pehle stop hona chahiye)</span>
+
+<span class="comment"># --- TROUBLESHOOTING ---</span>
+<span class="prompt">$</span> docker logs my_app              <span class="comment"># App ke errors/logs dekhna</span>
+<span class="prompt">$</span> docker exec -it my_app bash     <span class="comment"># Chalte hue container ke andar ghusna (Terminal access)</span>
+
+<span class="comment"># --- CLEANUP (DANGER) ---</span>
+<span class="prompt">$</span> docker system prune -a          <span class="comment"># Saari unused images aur containers uday dega</span></code></pre>
                         </div></div>
                     </div>
 
+                    <!-- 4. Dockerfile In-Depth -->
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-500">3. Dockerfile (Custom Image Banana)</h3>
-                        <p class="text-slate-600 dark:text-slate-300 mb-4">Apne khud ke code ki image banane ke liye hum project me ek `Dockerfile` rakhte hain.</p>
-                        <div class="code-wrapper mt-0"><div class="code-badge">Dockerfile</div><div class="code-block py-4">
-<pre><code><span class="comment"># Base image set karo</span>
-FROM node:18-alpine
-
-<span class="comment"># Container ke andar ek folder banao aur wahan jao</span>
-WORKDIR /app
-
-<span class="comment"># Dependencies ki file copy karke install karo</span>
-COPY package.json ./
-RUN npm install
-
-<span class="comment"># Apne saare code ko copy karo</span>
-COPY . .
-
-<span class="comment"># Container run hone par ye command chalegi</span>
-CMD ["node", "app.js"]</code></pre>
-                        </div></div>
-                    </div>
-
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-6 text-blue-600 dark:text-blue-500">4. Advanced Concepts (Volumes)</h3>
+                        <h3 class="text-2xl font-bold mb-6 text-blue-600 dark:text-blue-500">4. Dockerfile Instructions (A-to-Z)</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Custom image banane ke liye <code>Dockerfile</code> likha jata hai. Har instruction image mein ek nayi "Layer" add karta hai.</p>
                         
-                        <div class="space-y-6">
-                            <div class="p-5 border-l-4 border-amber-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl">
-                                <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-2">Docker Volumes (Data Persistence)</h4>
-                                <p class="text-slate-600 dark:text-slate-400 text-sm mb-3">Container band ya delete hone par uske andar ka data (jaise Database records) udd jata hai. Data ko safe rakhne ke liye hum container ke folder ko apne laptop/server ke folder se map kar dete hain, jise Volume kehte hain.</p>
-                                <div class="code-wrapper mt-0"><div class="code-block py-2"><pre><code><span class="comment"># -v lagakar Host ka folder container ke folder se map kiya</span>
-<span class="prompt">$</span> docker run -d -p 3306:3306 -v /my/local/db_data:/var/lib/mysql mysql:latest</code></pre></div></div>
+                        <div class="overflow-x-auto mb-6">
+                            <table class="data-table text-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Instruction</th>
+                                        <th>Description (Kaam kya hai?)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-bold font-mono">FROM ubuntu</td>
+                                        <td>Base OS ya base image set karta hai. (Hamesha first line hoti hai).</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold font-mono">WORKDIR /app</td>
+                                        <td>Container ke andar folder banata hai aur baki commands wahi execute hoti hain.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold font-mono">COPY . .</td>
+                                        <td>Aapke PC se files ko container me copy karta hai.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold font-mono">RUN apt update</td>
+                                        <td><strong>Build time</strong> par commands chalata hai (jaise software install karna).</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold font-mono">ENV PORT=8080</td>
+                                        <td>Environment variables set karta hai.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold font-mono">EXPOSE 8080</td>
+                                        <td>Sirf documentation ke liye hai, batata hai ki app kis port pe chalegi.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="p-5 border-l-4 border-rose-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl">
+                            <h4 class="font-bold text-lg text-slate-800 dark:text-white mb-2">Interview Q: CMD vs ENTRYPOINT</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Dono container start hone par execute hote hain (<strong>Run time</strong> par). Par farq ye hai ki <code>CMD</code> ki command ko user `docker run` karte waqt override (change) kar sakta hai, jabki <code>ENTRYPOINT</code> fix rehta hai aur override nahi hota.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 5. Docker Storage & Networking -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-6 text-blue-600 dark:text-blue-500">5. Storage & Networking</h3>
+                        
+                        <div class="space-y-8">
+                            <div>
+                                <h4 class="font-bold text-xl text-amber-600 dark:text-amber-500 mb-2">Storage (Data Persistence)</h4>
+                                <p class="text-slate-600 dark:text-slate-300 text-sm mb-3">Container delete hone par uska data udd jata hai. Data bachane ke do tareeqe hain:</p>
+                                <ul class="point-list text-slate-600 dark:text-slate-400 text-sm mb-3">
+                                    <li><strong>Bind Mounts:</strong> Aap apne PC ka ek specific folder (jaise <code>/home/user/data</code>) container ke folder se attach kar dete hain. (Local dev ke liye best).</li>
+                                    <li><strong>Volumes:</strong> Docker khud ek folder banata hai aur usko manage karta hai. (Production / DBs ke liye best).</li>
+                                </ul>
+                                <div class="code-wrapper mt-0"><div class="code-block py-2"><pre><code><span class="prompt">$</span> docker run -v my_volume:/var/lib/mysql mysql    <span class="comment"># Named Volume</span>
+<span class="prompt">$</span> docker run -v /home/user/data:/app/data nginx   <span class="comment"># Bind Mount</span></code></pre></div></div>
+                            </div>
+
+                            <div class="border-t border-slate-200 dark:border-slate-700 pt-6">
+                                <h4 class="font-bold text-xl text-cyan-600 dark:text-cyan-500 mb-2">Networking</h4>
+                                <p class="text-slate-600 dark:text-slate-300 text-sm mb-3">Ek container dusre container se kaise baat karta hai?</p>
+                                <ul class="point-list text-slate-600 dark:text-slate-400 text-sm mb-3">
+                                    <li><strong>Bridge (Default):</strong> Containers ek private network me hote hain, par ek dusre se IP ke through baat kar sakte hain.</li>
+                                    <li><strong>Host:</strong> Container ka network hata diya jata hai, wo seedha server ka IP aur Port use karta hai.</li>
+                                    <li><strong>None:</strong> Container ko internet access nahi hota (Strict security).</li>
+                                </ul>
+                                <div class="code-wrapper mt-0"><div class="code-block py-2"><pre><code><span class="prompt">$</span> docker network create my_network
+<span class="prompt">$</span> docker run --network my_network my_app</code></pre></div></div>
                             </div>
                         </div>
                     </div>
@@ -902,7 +948,7 @@ jobs:
                     </div>
                 </div>
 
-                <!-- TAB 5: NETWORKING (NEW & EXPANDED) -->
+                <!-- TAB 5: NETWORKING (EXPANDED A to Z) -->
                 <div id="tab-networking" class="tab-section fade-in hidden">
                     <div class="flex items-center gap-3 mb-8 pb-6 border-b border-slate-200 dark:border-slate-800">
                         <div class="p-3 bg-cyan-100 dark:bg-cyan-900/30 rounded-xl text-cyan-600 dark:text-cyan-400">
@@ -946,7 +992,7 @@ jobs:
                                     <div class="hidden md:block w-8 h-0.5 bg-cyan-400 dark:bg-cyan-700"></div>
                                     <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm w-full max-w-sm">
                                         <h4 class="font-bold text-indigo-600 dark:text-indigo-400 mb-1">Protocols</h4>
-                                        <div class="text-slate-500 dark:text-slate-400 text-xs">TCP (Reliable), UDP (Fast), HTTP/HTTPS (Web), DNS (Resolution), SSH</div>
+                                        <div class="text-slate-500 dark:text-slate-400 text-xs">TCP (3-Way Handshake), UDP, HTTP/HTTPS, DNS, SSH</div>
                                     </div>
                                 </div>
 
@@ -963,22 +1009,89 @@ jobs:
                         </div>
                     </div>
 
-                    <!-- IP & CIDR -->
+                    <!-- OSI Model Detailed -->
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-4 text-cyan-600 dark:text-cyan-500">2. IP Addressing & CIDR (Subnetting)</h3>
+                        <h3 class="text-2xl font-bold mb-6 text-cyan-600 dark:text-cyan-500">2. OSI Model & TCP Handshake</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-6">Data ek system se dusre system tak physical cable se hote hue software tak kaise pohchta hai, ye OSI model define karta hai.</p>
+                        
+                        <div class="overflow-x-auto mb-8">
+                            <table class="data-table text-sm w-full">
+                                <thead>
+                                    <tr>
+                                        <th class="w-1/4">Layer</th>
+                                        <th class="w-1/2">Kaam (Function)</th>
+                                        <th class="w-1/4">Protocols & Devices</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-indigo-50/50 dark:bg-indigo-900/10">
+                                        <td class="font-bold text-indigo-700 dark:text-indigo-400">7. Application</td>
+                                        <td>Network services provide karta hai user apps ke liye.</td>
+                                        <td class="font-mono text-xs">HTTP, HTTPS, FTP, SMTP</td>
+                                    </tr>
+                                    <tr class="bg-blue-50/50 dark:bg-blue-900/10">
+                                        <td class="font-bold text-blue-700 dark:text-blue-400">6. Presentation</td>
+                                        <td>Data formatting, Encryption (SSL/TLS) aur Compression.</td>
+                                        <td class="font-mono text-xs">SSL, TLS, JPEG</td>
+                                    </tr>
+                                    <tr class="bg-sky-50/50 dark:bg-sky-900/10">
+                                        <td class="font-bold text-sky-700 dark:text-sky-400">5. Session</td>
+                                        <td>Connections (sessions) ko establish, maintain, aur terminate karna.</td>
+                                        <td class="font-mono text-xs">NetBIOS, PPTP</td>
+                                    </tr>
+                                    <tr class="bg-cyan-50/50 dark:bg-cyan-900/10 border-t-2 border-cyan-200 dark:border-cyan-800">
+                                        <td class="font-bold text-cyan-700 dark:text-cyan-400">4. Transport</td>
+                                        <td>End-to-End communication aur error recovery. Data ko "Segments" me todta hai.</td>
+                                        <td class="font-mono text-xs font-bold text-red-500">TCP, UDP</td>
+                                    </tr>
+                                    <tr class="bg-teal-50/50 dark:bg-teal-900/10">
+                                        <td class="font-bold text-teal-700 dark:text-teal-400">3. Network</td>
+                                        <td>Best path (Routing) decide karna aur Logical Addressing (IP). Data yahan "Packets" banta hai.</td>
+                                        <td class="font-mono text-xs">IP, ICMP, Routers</td>
+                                    </tr>
+                                    <tr class="bg-emerald-50/50 dark:bg-emerald-900/10">
+                                        <td class="font-bold text-emerald-700 dark:text-emerald-400">2. Data Link</td>
+                                        <td>Physical addressing (MAC Address). Data yahan "Frames" banta hai.</td>
+                                        <td class="font-mono text-xs">MAC, Switches</td>
+                                    </tr>
+                                    <tr class="bg-green-50/50 dark:bg-green-900/10">
+                                        <td class="font-bold text-green-700 dark:text-green-400">1. Physical</td>
+                                        <td>Raw data (0s aur 1s) ko hardware cables/wireless ke through bhejna.</td>
+                                        <td class="font-mono text-xs">Cables, Hubs, Fiber</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="p-5 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800/50">
+                            <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-2 text-cyan-600 dark:text-cyan-400">TCP 3-Way Handshake (Interview V.Imp)</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm mb-3">TCP reliable connection banata hai, uske liye pehle ye 3 steps hote hain:</p>
+                            <ul class="point-list text-slate-600 dark:text-slate-400 text-sm font-mono">
+                                <li><strong>1. SYN:</strong> Client -> Server ("Bhai, sun raha hai?")</li>
+                                <li><strong>2. SYN-ACK:</strong> Server -> Client ("Haan bhai, bol raha hu aur sun bhi raha hu.")</li>
+                                <li><strong>3. ACK:</strong> Client -> Server ("Theek hai, main ab data bhej raha hu.")</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- IP, Subnetting & CIDR -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-cyan-600 dark:text-cyan-500">3. IP Addressing & CIDR (Subnetting)</h3>
                         <p class="text-slate-600 dark:text-slate-300 mb-6">Cloud mein VPC (Virtual Private Cloud) banate waqt CIDR block samajhna bohot zaroori hai.</p>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <div class="p-5 border-l-4 border-blue-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl">
-                                <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-2">Public vs Private IP</h4>
-                                <ul class="point-list text-slate-600 dark:text-slate-400 text-sm">
-                                    <li><strong>Public IP:</strong> Internet par unique hoti hai. Aapke ghar ke router ya AWS EC2 ki ek public IP hoti hai.</li>
-                                    <li><strong>Private IP:</strong> Local network (LAN/VPC) ke andar hoti hai (Jaise <code>192.168.x.x</code> ya <code>10.0.x.x</code>). Ye internet par direct access nahi hoti, secure rehti hai.</li>
+                                <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-2">RFC 1918 (Private IP Ranges)</h4>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm mb-2">Ye IP address aapas mein (local network me) baat karne ke liye hote hain, internet pe nahi dikhte.</p>
+                                <ul class="point-list text-slate-600 dark:text-slate-400 text-sm font-mono">
+                                    <li>Class A: 10.0.0.0 - 10.255.255.255</li>
+                                    <li>Class B: 172.16.0.0 - 172.31.255.255</li>
+                                    <li>Class C: 192.168.0.0 - 192.168.255.255</li>
                                 </ul>
                             </div>
                             <div class="p-5 border-l-4 border-purple-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl">
                                 <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-2">CIDR Block (e.g. /24)</h4>
-                                <p class="text-slate-600 dark:text-slate-400 text-sm mb-2">CIDR batata hai ki ek network mein kitne IPs available hain.</p>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm mb-2">CIDR batata hai ki ek network mein kitne IPs available hain. IP 32 bits ki hoti hai. `/24` ka matlab pehle 24 bits network ke hain, aur baaki (32-24=8) hosts ke liye.</p>
                                 <ul class="point-list text-slate-600 dark:text-slate-400 text-sm">
                                     <li><code>/32</code> : Sirf <strong>1</strong> IP (Exact 1 machine ke liye rule).</li>
                                     <li><code>/24</code> : <strong>256</strong> IPs milti hain (Chota network).</li>
@@ -988,9 +1101,72 @@ jobs:
                         </div>
                     </div>
 
+                    <!-- DNS Lifecycle -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-4 text-cyan-600 dark:text-cyan-500">4. DNS (Domain Name System) Deep Dive</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Internet ka "Phonebook". Ye human-readable domain names ko IP addresses me convert karta hai. <strong>Port 53</strong> use karta hai.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                            <div>
+                                <h4 class="font-bold text-slate-800 dark:text-white mb-2">DNS Lifecycle (URL type karne par kya hota hai?)</h4>
+                                <ol class="list-decimal ml-6 space-y-2 text-slate-600 dark:text-slate-300 text-sm">
+                                    <li><strong>Browser Cache:</strong> Browser check karta hai ki kya pichle visit se IP yaad hai?</li>
+                                    <li><strong>OS Cache:</strong> Agar browser ko nahi pata, toh wo Operating System (<code>/etc/hosts</code>) se poochta hai.</li>
+                                    <li><strong>Resolver (ISP):</strong> OS request bhejta hai aapke internet provider ke DNS resolver ko.</li>
+                                    <li><strong>Root Server:</strong> Agar resolver ko nahi pata, toh wo global Root Server (<code>.</code>) ke paas jata hai.</li>
+                                    <li><strong>TLD Server:</strong> Root server usko Top Level Domain (jaise <code>.com</code>) server ke paas bhejta hai.</li>
+                                    <li><strong>Authoritative Server:</strong> TLD server final us server ka address deta hai jiske paas <code>google.com</code> ki exact IP (A Record) hai.</li>
+                                </ol>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-900/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+                                <h4 class="font-bold text-slate-800 dark:text-white mb-3">Important DNS Records</h4>
+                                <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-400">
+                                    <li><strong class="text-indigo-500 font-mono">A Record:</strong> Domain name ko IPv4 address se map karta hai. (e.g. example.com -> 192.168.1.1)</li>
+                                    <li><strong class="text-indigo-500 font-mono">AAAA Record:</strong> Domain name ko IPv6 address se map karta hai.</li>
+                                    <li><strong class="text-indigo-500 font-mono">CNAME:</strong> Ek domain ko dusre domain (Alias) se map karta hai. (e.g. www.example.com -> example.com)</li>
+                                    <li><strong class="text-indigo-500 font-mono">MX Record:</strong> Mail server batata hai. Emails kahan deliver hone hain.</li>
+                                    <li><strong class="text-indigo-500 font-mono">TXT Record:</strong> Domain verification (Google Search Console) aur email security (SPF/DKIM) ke liye use hota hai.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cloud Networking -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
+                        <h3 class="text-2xl font-bold mb-6 text-cyan-600 dark:text-cyan-500">5. Cloud Networking (VPC & Firewalls)</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-6">AWS ya Azure mein networking ka core setup samajhna.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                            <div class="p-4 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+                                <h4 class="font-bold text-slate-800 dark:text-white mb-2">☁️ VPC</h4>
+                                <p class="text-xs text-slate-600 dark:text-slate-400">Virtual Private Cloud. Aapka apna private network, ek digital building jisme bahar se koi bina permission nahi aa sakta.</p>
+                            </div>
+                            <div class="p-4 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+                                <h4 class="font-bold text-slate-800 dark:text-white mb-2">🚪 IGW</h4>
+                                <p class="text-xs text-slate-600 dark:text-slate-400">Internet Gateway. Ye VPC ka main darwaza hai jisse bahar ka traffic andar aur andar ka bahar ja sakta hai.</p>
+                            </div>
+                            <div class="p-4 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+                                <h4 class="font-bold text-slate-800 dark:text-white mb-2">🗺️ Route Table</h4>
+                                <p class="text-xs text-slate-600 dark:text-slate-400">Traffic ko raasta dikhata hai. Example: Agar 0.0.0.0/0 (Internet) pe jana hai toh IGW ki taraf jao.</p>
+                            </div>
+                            <div class="p-4 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+                                <h4 class="font-bold text-slate-800 dark:text-white mb-2">🛡️ Sec. Groups</h4>
+                                <p class="text-xs text-slate-600 dark:text-slate-400">Instance-level Stateful Firewall. Ye decide karta hai ki EC2 server par konsa port (22, 80) allow hoga.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-5 border-l-4 border-rose-500 bg-slate-50 dark:bg-slate-900/50 rounded-r-xl mt-6">
+                            <h4 class="font-bold text-lg text-slate-800 dark:text-white mb-2">Public vs Private Subnet & NAT Gateway</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                <strong>Public Subnet</strong> mein wo servers (jaise Web Server / Load Balancer) rakhte hain jinko IGW se direct internet access chahiye. <br><br>
+                                <strong>Private Subnet</strong> mein secure chizein (jaise Database) rakhte hain jinhe koi internet se direct access na kar sake. Agar inko internet se updates download karne ho, to inhe ek <strong>NAT Gateway</strong> (jo Public subnet me hota hai) ke zariye bheja jata hai. NAT server ki private IP chupa kar public IP me badal deta hai.
+                            </p>
+                        </div>
+                    </div>
+
                     <!-- Proxies & Load Balancing -->
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-4 text-cyan-600 dark:text-cyan-500">3. Proxies & Load Balancing</h3>
+                        <h3 class="text-2xl font-bold mb-4 text-cyan-600 dark:text-cyan-500">6. Proxies & Load Balancing</h3>
                         
                         <div class="space-y-6">
                             <div class="p-6 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800/50">
@@ -1000,47 +1176,49 @@ jobs:
                                         <strong class="text-slate-800 dark:text-slate-200">Forward Proxy (VPN jaisa):</strong> Client ke aage lagta hai. Client apni request proxy ko deta hai, aur proxy internet pe jata hai. Internet ko Client ki IP nahi dikhti (User identity hide karta hai).
                                     </div>
                                     <div>
-                                        <strong class="text-slate-800 dark:text-slate-200">Reverse Proxy (Nginx/HAProxy):</strong> Server ke aage lagta hai. Internet se aayi hui request pehle Reverse Proxy par aati hai, fir wo internally asal Backend (Node.js/C#) ko bhejta hai. (Server ki IP hide karta hai aur Security badhata hai).
+                                        <strong class="text-slate-800 dark:text-slate-200">Reverse Proxy (Nginx/HAProxy):</strong> Server ke aage lagta hai. Internet se aayi hui request pehle Reverse Proxy par aati hai, fir wo internally asal Backend (Node.js/C#) ko bhejta hai. (Server ki IP hide karta hai, SSL termination aur Security badhata hai).
                                     </div>
                                 </div>
                             </div>
 
                             <div class="p-6 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800/50">
                                 <h4 class="font-bold text-xl text-emerald-600 dark:text-emerald-400 mb-3">Load Balancer (LB)</h4>
-                                <p class="text-slate-600 dark:text-slate-300 text-sm mb-3">Jab bohot zyada traffic ho, toh ek server hang ho sakta hai. Isliye 4-5 servers banaye jate hain aur unke aage ek LB lagaya jata hai jo traffic ko sabme barabar (Round Robin) baant deta hai.</p>
+                                <p class="text-slate-600 dark:text-slate-300 text-sm mb-3">Jab bohot zyada traffic ho, toh ek server hang ho sakta hai. Isliye 4-5 servers banaye jate hain aur unke aage ek LB lagaya jata hai jo traffic ko sabme barabar (Round Robin, Least Connections) baant deta hai.</p>
                                 <ul class="point-list text-slate-600 dark:text-slate-400 text-sm">
-                                    <li><strong>Layer 4 (Transport):</strong> Ye sirf IP aur Port (TCP/UDP) dekh kar traffic redirect karta hai. (Bohot fast hota hai).</li>
-                                    <li><strong>Layer 7 (Application):</strong> Ye HTTP Headers, URL path (`/api` ya `/images`) padh kar smart routing karta hai. (Thoda slow par smart).</li>
+                                    <li><strong>Layer 4 (Network/Transport):</strong> Ye sirf IP aur Port (TCP/UDP) dekh kar traffic redirect karta hai. Pata nahi hota data ke andar kya hai. (Bohot fast hota hai).</li>
+                                    <li><strong>Layer 7 (Application):</strong> Ye HTTP Headers, Cookies, URL path (`/api` ya `/images`) padh kar smart routing karta hai. (Thoda slow par smart).</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Network Commands -->
+                    <!-- Network Commands Toolkit -->
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8 mb-10">
-                        <h3 class="text-2xl font-bold mb-4 text-cyan-600 dark:text-cyan-500">4. Essential Networking Commands</h3>
-                        <p class="text-slate-600 dark:text-slate-300 mb-4">Troubleshooting ke waqt ye commands lifesaver hoti hain.</p>
+                        <h3 class="text-2xl font-bold mb-4 text-cyan-600 dark:text-cyan-500">7. Advanced Troubleshooting Toolkit</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4">Firewall block kar rahi hai ya application down hai? Ye tools jawab denge.</p>
                         <div class="code-wrapper mt-0"><div class="code-badge">Network CLI</div><div class="code-block py-4">
-<pre><code><span class="comment"># 1. Connectivity Check Karna (Internet chal raha hai ya server zinda hai?)</span>
-<span class="prompt">$</span> ping google.com
+<pre><code><span class="comment"># 1. ping - Check if server is alive (Uses ICMP protocol)</span>
+<span class="prompt">$</span> ping 8.8.8.8
 
-<span class="comment"># 2. Path tracing (Mera data server tak kin routers se hoke ja raha hai?)</span>
-<span class="prompt">$</span> traceroute google.com   <span class="comment"># Linux me check karne ke liye</span>
+<span class="comment"># 2. traceroute - See all routers between you and target</span>
+<span class="prompt">$</span> traceroute google.com
 
-<span class="comment"># 3. DNS Lookup (Domain ke peeche IP kya hai?)</span>
-<span class="prompt">$</span> nslookup mywebsite.com
-<span class="prompt">$</span> dig mywebsite.com       <span class="comment"># Detailed DNS records (A, MX, TXT) dekhne ke liye</span>
+<span class="comment"># 3. dig & nslookup - DNS query tool (Pata lagana A record ya CNAME kya hai)</span>
+<span class="prompt">$</span> dig google.com
+<span class="prompt">$</span> nslookup example.com
 
-<span class="comment"># 4. Ports Checking (Kaunsa app konsa port use kar raha hai?)</span>
-<span class="prompt">$</span> netstat -tulpn | grep LISTEN
-<span class="prompt">$</span> ss -tuln                <span class="comment"># Modern fast alternative to netstat</span>
+<span class="comment"># 4. ss / netstat - Check which ports are open/listening on your server</span>
+<span class="prompt">$</span> ss -tuln                <span class="comment"># Shows TCP/UDP listening ports</span>
+<span class="prompt">$</span> netstat -tulpn | grep 80 <span class="comment"># Kon port 80 use kar raha hai?</span>
 
-<span class="comment"># 5. Telnet/NC (Check karna ki kisi server ka port open hai ya firewall block kar rahi hai)</span>
-<span class="prompt">$</span> telnet 192.168.1.5 3306
-<span class="prompt">$</span> nc -zv 192.168.1.5 3306
+<span class="comment"># 5. nc (Netcat) / telnet - Check if a specific port is reachable through firewall</span>
+<span class="prompt">$</span> nc -zv 192.168.1.10 3306  <span class="comment"># Checks if Database port is open</span>
 
-<span class="comment"># 6. HTTP Requests (Terminal se API test karna)</span>
-<span class="prompt">$</span> curl -I https://api.myapp.com/users   <span class="comment"># -I sirf headers aur Status code lata hai</span></code></pre>
+<span class="comment"># 6. curl - Make HTTP requests to test APIs</span>
+<span class="prompt">$</span> curl -v https://api.com   <span class="comment"># Verbose mode (shows full request/response headers)</span>
+
+<span class="comment"># 7. tcpdump - Packet Sniffer (Advanced: Capture raw network traffic)</span>
+<span class="prompt">$</span> tcpdump -i eth0 port 80   <span class="comment"># See all HTTP traffic on interface eth0</span></code></pre>
                         </div></div>
                     </div>
 
@@ -1051,7 +1229,7 @@ jobs:
                             My Personal Notes (Networking)
                         </h3>
                         <div class="bg-white dark:bg-slate-900 p-2 rounded-xl border border-cyan-200 dark:border-cyan-700/50 focus-within:ring-2 focus-within:ring-cyan-500 mb-6">
-                            <textarea id="note-input-networking" class="w-full h-20 p-2 bg-transparent border-none focus:ring-0 text-slate-700 dark:text-slate-300 resize-y" placeholder="Type a new note..."></textarea>
+                            <textarea id="note-input-networking" class="w-full h-20 p-2 bg-transparent border-none focus:ring-0 text-slate-700 dark:text-slate-300 resize-y" placeholder="Type a new networking note (CIDR maths, custom ports)..."></textarea>
                             <div class="flex justify-end p-2 border-t border-slate-100 dark:border-slate-800">
                                 <button onclick="addNote('networking')" class="px-5 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-bold rounded-lg transition-colors shadow-sm">Add Note ➕</button>
                             </div>
